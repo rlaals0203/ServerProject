@@ -36,6 +36,12 @@ public class SpecialAbilityData
     public float Duration;
 }
 
+[Serializable]
+public class ApplyAbilityData
+{
+    public ESpecialAbilityType AbilityType;
+}
+
 public class MakeUnitData
 {
     UnitData UnitData;
