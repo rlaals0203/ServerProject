@@ -36,6 +36,11 @@ public class StatBase
     {
         return Modifiers.GetValueOrDefault(modifier);
     }
+
+    public void ModifyStatWithoutModifier(double value)
+    {
+        CurrentStat -= value;
+    }
 }
 
 public delegate void OnStatChanged(EStatType statType, double after);
@@ -116,5 +121,10 @@ public class StatData
         }
 
         targetStat.RemoveStatModifier(modifier);
+    }
+
+    public void ModifyStatWithoutModifier(EStatType statType, double value)
+    {
+        GetStat(statType).ModifyStatWithoutModifier(value);
     }
 }
