@@ -8,3 +8,10 @@ public enum EStatType
     Health,
     MoveSpeed,
 }
+public enum EUnitType
+{
+    Normal,
+    Fly,
+    Red,
+    Black
+}
