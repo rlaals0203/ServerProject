@@ -58,6 +58,16 @@ public class StatData
         return _statDatas.GetValueOrDefault(statType);
     }
 
+    public double GetStatValue(EStatType statType)
+    {
+        return GetStat(statType).CurrentStat;
+    }
+
+    public double GetStatValueWithScaled(EStatType statType, float scale)
+    {
+        return GetStatValue(statType) * scale;
+    }
+
     public void AddStatModifier(EStatType statType, Type modifier, double value)
     {
         if(modifier == null || value == 0)
@@ -108,5 +118,3 @@ public class StatData
         targetStat.RemoveStatModifier(modifier);
     }
 }
-
-
