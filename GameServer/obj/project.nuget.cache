@@ -1,13 +1,26 @@
 {
   "version": 2,
-  "dgSpecHash": "OAaEmQL12I8=",
+  "dgSpecHash": "7BK+OBpKZRU=",
   "success": true,
   "projectFilePath": "C:\\Users\\test\\Documents\\GitHub\\ServerProject\\GameServer\\GameServer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\test\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.10\\microsoft.aspnetcore.openapi.10.0.10.nupkg.sha512",
+    "C:\\Users\\test\\.nuget\\packages\\microsoft.aspnetcore.signalr\\1.2.13\\microsoft.aspnetcore.signalr.1.2.13.nupkg.sha512",
     "C:\\Users\\test\\.nuget\\packages\\microsoft.openapi\\2.0.0\\microsoft.openapi.2.0.0.nupkg.sha512"
   ],
   "logs": [
+    {
+      "code": "NU1510",
+      "level": "Warning",
+      "message": "PackageReference Microsoft.AspNetCore.SignalR은(는) 잘리지 않습니다. 이 패키지는 불필요할 수 있으므로 종속성에서 제거하는 것이 좋습니다.",
+      "projectPath": "C:\\Users\\test\\Documents\\GitHub\\ServerProject\\GameServer\\GameServer.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\test\\Documents\\GitHub\\ServerProject\\GameServer\\GameServer.csproj",
+      "libraryId": "Microsoft.AspNetCore.SignalR",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
     {
       "code": "NU1903",
       "level": "Warning",

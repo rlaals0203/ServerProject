@@ -9,7 +9,7 @@ namespace ObjectPooling
     {
         [SerializeField] private Transform root;
 
-        private Dictionary<string, Pool> _poolDict;
+        private Dictionary<string, Pool> _poolList;
 
         public void RegisterPool(string key, GameObject go, int count)
         {
@@ -18,13 +18,22 @@ namespace ObjectPooling
                 return;
             }
 
+            if(_poolList.ContainsKey(key))
+            {
+                return;
+            }
+
             Pool newPool = new Pool();
-            _poolDict[key] = newPool;
+            GameObject poolRoot = new GameObject($"{key}_Pool");
+            poolRoot.transform.SetParent(root);
+
+            _poolList[key] = newPool;
 
             for (int i = 0; i < count; i++)
-            {
+            { 
                 var spawned = Instantiate(go, root);
                 spawned.SetActive(false);
+                spawned.transform.SetParent(poolRoot.transform);
 
                 PoolObject newPoolObject = new PoolObject
                 {
@@ -42,12 +51,7 @@ namespace ObjectPooling
                 return null;
             }
 
-            if (_poolDict.TryGetValue(key, out Pool pool) == false)
-            {
-                return null;
-            }
-
-            if(pool.CurrentPoolSize >= pool.MaxPoolSize)
+            if (_poolList.TryGetValue(key, out Pool pool) == false)
             {
                 return null;
             }
@@ -62,17 +66,18 @@ namespace ObjectPooling
             return spawned.Prefab;
         }
 
-        public void SpawnAndInitPool(string key, Vector3 position, Transform parent, Action spawnCallback = null)
+        public GameObject SpawnAndInitPool(string key, Vector3 position, Transform parent, Action spawnCallback = null)
         {
             GameObject spawned = SpawnPool(key);
             if(spawned == null)
             {
-                return;
+                return null;
             }
 
             spawned.transform.SetParent(parent);
             spawned.transform.position = position;
             spawnCallback?.Invoke();
+            return spawned;
         }
 
         public void DespawnPool(string key, Action<int> onDespawn = null)
@@ -82,7 +87,7 @@ namespace ObjectPooling
                 return;
             }
 
-            if (_poolDict.TryGetValue(key, out Pool pool) == false)
+            if (_poolList.TryGetValue(key, out Pool pool) == false)
             {
                 return;
             }

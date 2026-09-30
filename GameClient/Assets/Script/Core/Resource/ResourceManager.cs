@@ -4,6 +4,7 @@ using Core;
 using Cysharp.Threading.Tasks;
 using ObjectPooling;
 using Resource;
+using UnityEditor.AddressableAssets;
 using UnityEngine;
 
 namespace MINLib.Script.Core.Resource
@@ -17,12 +18,31 @@ namespace MINLib.Script.Core.Resource
 
         private Dictionary<string, UnityEngine.Object> _resourcePool = new();
 
+        private void Start()
+        {
+            Initialize();
+        }
+
         public void Initialize()
         {
             _defaultResourceContainer = new DefaultResourceContainer();
             _prefabResourceContainer = new PrefabResourceContainer();
             _materialResourceContainer = new MaterialResourceContainer();
             _spriteResourceContainer = new SpriteResourceContainer();
+
+            RegisterPoolFromAddressable();
+        }
+
+        private void RegisterPoolFromAddressable()
+        {
+            var setting = AddressableAssetSettingsDefaultObject.Settings;
+            foreach (var group in setting.groups)
+            {
+                foreach(var resource in group.entries)
+                {
+
+                }
+            }
         }
 
         public async UniTask<T> LoadAddressableResourceAsync<T>(string key) where T : UnityEngine.Object
@@ -78,9 +98,9 @@ namespace MINLib.Script.Core.Resource
             return true;
         }
 
-        public GameObject SpawnCachedObject(string key)
+        public GameObject SpawnAndInitPool(string key, Vector3 position, Transform parent, Action spawnCallback = null)
         {
-            if(string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key))
             {
                 return null;
             }
@@ -90,7 +110,7 @@ namespace MINLib.Script.Core.Resource
                 return null;
             }
 
-            var spawned = PoolManager.I.SpawnPool(key);
+            var spawned = PoolManager.I.SpawnAndInitPool(key, position, parent, spawnCallback);
 
             if(spawned == null)
             {
@@ -98,19 +118,6 @@ namespace MINLib.Script.Core.Resource
             }
 
             return spawned;
-        }
-
-        public ResourceContainer<T> GetResourceContainer<T>() where T : UnityEngine.Object
-        {
-            Type type = typeof(T);
-            if (type == typeof(GameObject))
-                return _prefabResourceContainer as ResourceContainer<T>;
-            if (type == typeof(Material))
-                return _materialResourceContainer as ResourceContainer<T>;
-            if (type == typeof(Sprite))
-                return _spriteResourceContainer as ResourceContainer<T>;
-
-            return _defaultResourceContainer as ResourceContainer<T>;
         }
 
         public bool CheckCacheResource(string key)
@@ -134,7 +141,7 @@ namespace MINLib.Script.Core.Resource
             return false;
         }
 
-        protected bool TryGetCachedResource<T>(string key, out T resource) where T : UnityEngine.Object
+        private bool TryGetCachedResource<T>(string key, out T resource) where T : UnityEngine.Object
         {
             resource = null;
             if (string.IsNullOrEmpty(key))
@@ -160,6 +167,18 @@ namespace MINLib.Script.Core.Resource
             }
 
             return false;
+        }
+        public ResourceContainer<T> GetResourceContainer<T>() where T : UnityEngine.Object
+        {
+            Type type = typeof(T);
+            if (type == typeof(GameObject))
+                return _prefabResourceContainer as ResourceContainer<T>;
+            if (type == typeof(Material))
+                return _materialResourceContainer as ResourceContainer<T>;
+            if (type == typeof(Sprite))
+                return _spriteResourceContainer as ResourceContainer<T>;
+
+            return _defaultResourceContainer as ResourceContainer<T>;
         }
     }
 }
