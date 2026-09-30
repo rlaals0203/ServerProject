@@ -1,8 +1,6 @@
-using Amazon.Runtime.Internal.Transform;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static UnityEngine.GraphicsBuffer;
 
 public struct CheckApplyAbility
 {
@@ -10,10 +8,15 @@ public struct CheckApplyAbility
 
     public CheckApplyAbility(UnitData[] targetList, UnitData attacker)
     {
-        SucessAbilities = new();
-
         EUnitType[] targetTypes = attacker.UnitSpecialAbilityData.TargetTypes;
         SpecialAbilityData[] abilityDatas = attacker.UnitSpecialAbilityData.SpecialAbilityDatas;
+        SucessAbilities = new();
+
+        if (targetTypes.Length == 0 || new CheckHasAvailableAbility(abilityDatas).HasAbility == false)
+        {
+            return;
+        }
+
         UnitData[] targets = targetList.Where(entity => targetTypes.Contains(entity.UnitType)).ToArray();
 
         foreach(var abilityData in abilityDatas)
@@ -35,36 +38,9 @@ public struct CheckApplyAbility
     }
 }
 
-public struct GetOppositeAbility
-{
-    public ESpecialAbilityType OppositeAbility;
-
-    public GetOppositeAbility(ESpecialAbilityType abilityType)
-    {
-        switch(abilityType)
-        {
-            case ESpecialAbilityType.Weaken:
-                OppositeAbility = ESpecialAbilityType.AntiWeaken;
-                break;
-            case ESpecialAbilityType.Freeze:
-                OppositeAbility = ESpecialAbilityType.AntiFreeze;
-                break;
-            case ESpecialAbilityType.Slow:
-                OppositeAbility = ESpecialAbilityType.AntiSlow;
-                break;
-            case ESpecialAbilityType.Knockback:
-                OppositeAbility = ESpecialAbilityType.AntiKnockback;
-                break;
-            default:
-                OppositeAbility = ESpecialAbilityType.None;
-                break;
-        }
-    }
-}
-
 public struct GetModifiedStatByAbility
 {
-    public Dictionary<UnitData, List<SpecialAbilityData>> SucessAbilities;     //(유닛 데이터, 최종 배율)
+    public Dictionary<UnitData, List<ESpecialAbilityType>> SucessAbilities;     //(유닛 데이터, 최종 배율)
 
     public GetModifiedStatByAbility(UnitData[] targetList, UnitData attacker)
     {
@@ -83,28 +59,88 @@ public struct GetModifiedStatByAbility
 
                 if (abilityData.AbilityType == ESpecialAbilityType.Weaken)
                 {
-                    AddSucessAbility(ESpecialAbilityType.Weaken, target, SucessAbilities);
+                    AddSucessAbility(ESpecialAbilityType.Weaken, target);
+                }
+                if (abilityData.AbilityType == ESpecialAbilityType.Resistant)
+                {
+                    AddSucessAbility(ESpecialAbilityType.Resistant, target);
+                }
+                if (abilityData.AbilityType == ESpecialAbilityType.StrongAgainst)
+                {
+                    AddSucessAbility(ESpecialAbilityType.StrongAgainst, target);
+                }
+                if (abilityData.AbilityType == ESpecialAbilityType.MassiveDamage)
+                {
+                    AddSucessAbility(ESpecialAbilityType.MassiveDamage, target);
                 }
             }
         }
     }
-    public void AddSucessAbility(ESpecialAbilityType abilityType, UnitData target, Dictionary<UnitData, List<SpecialAbilityData>> SucessAbilities)
+
+    public void AddSucessAbility(ESpecialAbilityType abilityType, UnitData target)
     {
         if (SucessAbilities.TryGetValue(target, out var abilityList))
         {
-            abilityList.Add(new SpecialAbilityData
-            {
-                AbilityType = abilityType
-            });
-
+            abilityList.Add(abilityType);
             return;
         }
 
-        SucessAbilities[target] = new List<SpecialAbilityData>();
-        SucessAbilities[target].Add(new SpecialAbilityData
+        abilityList = new List<ESpecialAbilityType> { abilityType };
+        SucessAbilities[target].Add(abilityType);
+    }
+}
+
+public struct CheckHasAvailableAbility
+{
+    public bool HasAbility;
+
+    public CheckHasAvailableAbility(SpecialAbilityData[] abilityData)
+    {
+        if (abilityData.Length == 0)
         {
-            AbilityType = abilityType
-        });
+            HasAbility = false;
+            return;
+        }
+
+        foreach (var ability in abilityData)
+        {
+            if (ability.AbilityType == ESpecialAbilityType.SingleAttack ||
+                ability.AbilityType == ESpecialAbilityType.AreaAttack ||
+                ability.AbilityType == ESpecialAbilityType.LongDistance)
+            {
+                HasAbility = false;
+                return;
+            }
+        }
+
+        HasAbility = true;
+    }
+}
+
+public struct GetOppositeAbility
+{
+    public ESpecialAbilityType OppositeAbility;
+
+    public GetOppositeAbility(ESpecialAbilityType abilityType)
+    {
+        switch (abilityType)
+        {
+            case ESpecialAbilityType.Weaken:
+                OppositeAbility = ESpecialAbilityType.AntiWeaken;
+                break;
+            case ESpecialAbilityType.Freeze:
+                OppositeAbility = ESpecialAbilityType.AntiFreeze;
+                break;
+            case ESpecialAbilityType.Slow:
+                OppositeAbility = ESpecialAbilityType.AntiSlow;
+                break;
+            case ESpecialAbilityType.Knockback:
+                OppositeAbility = ESpecialAbilityType.AntiKnockback;
+                break;
+            default:
+                OppositeAbility = ESpecialAbilityType.None;
+                break;
+        }
     }
 }
 
