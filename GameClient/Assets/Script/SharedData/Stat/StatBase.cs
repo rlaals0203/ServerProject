@@ -3,47 +3,48 @@ using System.Collections.Generic;
 
 public class StatBase
 {
-    public double CurrentStat { get; private set; }
-    public Dictionary<Type, double> Modifiers { get; set; } = new();
+    public float CurrentStat { get; private set; }
+    public Dictionary<string, float> Modifiers { get; set; } = new();
 
-    public void AddStatModifier(Type modifier, double value)
+    public void AddStatModifier(string modifyKey, float value)
     {
-        if(Modifiers.ContainsKey(modifier))
+        if(Modifiers.ContainsKey(modifyKey))
         {
             return;
         }
 
-        Modifiers.Add(modifier, value);
+        Modifiers.Add(modifyKey, value);
         CurrentStat += value;
     }
 
-    public void ReplaceStatModifier(Type modifier, double value)
+    public void ReplaceStatModifier(string modifyKey, float value)
     {
-        RemoveStatModifier(modifier);
-        AddStatModifier(modifier, value);
+        if (Modifiers.TryGetValue(modifyKey, out float statValue))
+        {
+            Modifiers.Remove(modifyKey);
+            CurrentStat -= statValue;
+        }
+
+        Modifiers.Add(modifyKey, value);
+        CurrentStat += value;
     }
 
-    public void RemoveStatModifier(Type modifier)
+    public void RemoveStatModifier(string modifyKey)
     {
-        if (Modifiers.TryGetValue(modifier, out double statValue))
+        if (Modifiers.TryGetValue(modifyKey, out float statValue))
         {
-            Modifiers.Remove(modifier);
+            Modifiers.Remove(modifyKey);
             CurrentStat -= statValue;
         }
     }
 
-    public double GetStatFromModifier(Type modifier)
+    public float GetStatFromModifier(string modifyKey)
     {
-        return Modifiers.GetValueOrDefault(modifier);
-    }
-
-    public void ModifyStatWithoutModifier(double value)
-    {
-        CurrentStat -= value;
+        return Modifiers.GetValueOrDefault(modifyKey);
     }
 }
 
-public delegate void OnStatChanged(EStatType statType, double after);
+public delegate void OnStatChanged(EStatType statType, float after);
 
 public class StatData
 {
@@ -63,19 +64,19 @@ public class StatData
         return _statDatas.GetValueOrDefault(statType);
     }
 
-    public double GetStatValue(EStatType statType)
+    public float GetStatValue(EStatType statType)
     {
         return GetStat(statType).CurrentStat;
     }
 
-    public double GetStatValueWithScaled(EStatType statType, float scale)
+    public float GetStatValueWithScaled(EStatType statType, float scale)
     {
         return GetStatValue(statType) * scale;
     }
 
-    public void AddStatModifier(EStatType statType, Type modifier, double value)
+    public void AddStatModifier(EStatType statType, string modifyKey, float value)
     {
-        if(modifier == null || value == 0)
+        if(string.IsNullOrEmpty(modifyKey))
         {
             return;
         }
@@ -86,13 +87,13 @@ public class StatData
             return;
         }
 
-        targetStat.AddStatModifier(modifier, value);
-        OnStatChanged?.Invoke(statType, value);
+        targetStat.AddStatModifier(modifyKey, value);
+        OnStatChanged?.Invoke(statType, GetStatValue(statType));
     }
 
-    public void ReplaceStatModifier(EStatType statType, Type modifier, double value)
+    public void ReplaceStatModifier(EStatType statType, string modifyKey, float value)
     {
-        if (modifier == null || value == 0)
+        if (string.IsNullOrEmpty(modifyKey))
         {
             return;
         }
@@ -103,13 +104,13 @@ public class StatData
             return;
         }
 
-        targetStat.ReplaceStatModifier(modifier, value);
-        OnStatChanged?.Invoke(statType, value);
+        targetStat.ReplaceStatModifier(modifyKey, value);
+        OnStatChanged?.Invoke(statType, GetStatValue(statType));
     }
 
-    public void RemoveStatModifier(EStatType statType, Type modifier)
+    public void RemoveStatModifier(EStatType statType, string modifyKey)
     {
-        if (modifier == null)
+        if (string.IsNullOrEmpty(modifyKey))
         {
             return;
         }
@@ -120,11 +121,7 @@ public class StatData
             return;
         }
 
-        targetStat.RemoveStatModifier(modifier);
-    }
-
-    public void ModifyStatWithoutModifier(EStatType statType, double value)
-    {
-        GetStat(statType).ModifyStatWithoutModifier(value);
+        targetStat.RemoveStatModifier(modifyKey);
+        OnStatChanged?.Invoke(statType, GetStatValue(statType));
     }
 }
