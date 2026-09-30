@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dee0e94aa0f2bec44a4544b3e16afd0a, type: 3}
-  m_Name: TestUnit
+  m_Name: Unit
   m_EditorClassIdentifier: 
+  UnitId: 
   UnitName: 
   UnitDesc: 
   UnitIcon: {fileID: 0}
@@ -23,3 +24,6 @@ MonoBehaviour:
   UnitMoveSpeed: 0
   UnitHitbackCount: 0
   UnitDropMoneyAmount: 0
+  UnitSpecialAbilityData:
+    TargetTypes: 
+    SpecialAbilityDatas: 

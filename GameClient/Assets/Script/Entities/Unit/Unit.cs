@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class Unit : Entity
 {
-
+    public UnitSO UnitSO;
 }

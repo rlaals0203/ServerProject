@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "UnitSO", menuName = "SO/Unit")]
@@ -17,4 +19,6 @@ public class UnitSO : ScriptableObject
     public double UnitMoveSpeed;
     public int UnitHitbackCount;
     public int UnitDropMoneyAmount;
+
+    public UnitSpecialAbilityData UnitSpecialAbilityData;
 }
