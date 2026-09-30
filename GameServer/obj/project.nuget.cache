@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "dgSpecHash": "OAaEmQL12I8=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\test\\Documents\\GitHub\\ServerProject\\GameServer\\GameServer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\test\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.10\\microsoft.aspnetcore.openapi.10.0.10.nupkg.sha512",
+    "C:\\Users\\test\\.nuget\\packages\\microsoft.openapi\\2.0.0\\microsoft.openapi.2.0.0.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "'Microsoft.OpenApi' 2.0.0 패키지에 알려진 높음 심각도 취약성인 https://github.com/advisories/GHSA-v5pm-xwqc-g5wc이(가) 있습니다.",
+      "projectPath": "C:\\Users\\test\\Documents\\GitHub\\ServerProject\\GameServer\\GameServer.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\test\\Documents\\GitHub\\ServerProject\\GameServer\\GameServer.csproj",
+      "libraryId": "Microsoft.OpenApi",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    }
+  ]
+}
