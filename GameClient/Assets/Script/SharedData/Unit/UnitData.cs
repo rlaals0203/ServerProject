@@ -1,26 +1,39 @@
-using MongoDB.Bson.Serialization.Attributes;
 using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 [Serializable]
 public class UnitData
 {
     public string UnitId { get; set; }
     public EUnitType UnitType { get; set; }
-    public double UnitHealth { get; set; }
-    public double UnitAttackPower { get; set; }
-    public double UnitAttackTime { get; set; }
-    public double UnitAttackRange { get; set; }
-    public double UnitMoveSpeed { get; set; }
+    public int UnitHealth { get; set; }
+    public int UnitAttackPower { get; set; }
+    public float UnitAttackTime { get; set; }
+    public float UnitAttackRange { get; set; }
+    public float UnitMoveSpeed { get; set; }
     public int UnitHitbackCount { get; set; }
     public int UnitDropMoneyAmount { get; set; }
     public UnitSpecialAbilityData UnitSpecialAbilityData { get; set; }
+    public List<ESpecialAbilityType> CachedSpecialAbility { get; set; }
+    public List<EUnitType> CachedTargetType { get; set; }
 }
 
 [Serializable]
 public class UnitSpecialAbilityData
 {
     public EUnitType[] TargetTypes;
-    public ESpecialAbilityType[] SpecialAbilityDatas;
+    public SpecialAbilityData[] SpecialAbilityDatas;
+}
+
+[Serializable]
+public class SpecialAbilityData
+{
+    public ESpecialAbilityType AbilityType;
+    [Range(0f, 1f)]
+    [Tooltip("확률형 능력이 아니라면 항상 1로 적용됩니다.")]
+    public float Chance;
+    public float Duration;
 }
 
 public class MakeUnitData
@@ -39,7 +52,8 @@ public class MakeUnitData
             UnitAttackRange = UnitData.UnitAttackRange,
             UnitMoveSpeed = UnitData.UnitMoveSpeed,
             UnitHitbackCount = UnitData.UnitHitbackCount,
-            UnitDropMoneyAmount = UnitData.UnitDropMoneyAmount
+            UnitDropMoneyAmount = UnitData.UnitDropMoneyAmount,
+            UnitSpecialAbilityData = UnitData.UnitSpecialAbilityData
         };
     }
 }

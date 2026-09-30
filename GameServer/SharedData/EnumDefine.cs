@@ -17,7 +17,8 @@ public enum EUnitType
     Fly,
     Red,
     Black,
-    All
+    All,
+    None
 }
 
 public enum ESpecialAbilityType
@@ -39,4 +40,5 @@ public enum ESpecialAbilityType
     AntiResistant,              //맷집이 좋다 무효
     AntiMassiveDamage,          //초데미지 무효
     AntiKnockback,              //넉백 무효
+    None
 }
