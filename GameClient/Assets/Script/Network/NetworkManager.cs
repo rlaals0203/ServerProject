@@ -1,20 +1,39 @@
 using Core;
 using System;
-using System.Collections;
 using System.Net;
-using UnityEngine.Networking;
+using System.Net.Http;
+using System.Text;
+using UnityEngine;
 
 public class NetworkManager : MonoSingleton<NetworkManager>
 {
-    public IEnumerator SendWebRequest<TRequest, TResult>(string url, string route, Action<TResult> callback)
+    public const string URL = "http://localhost:5200";
+    private HttpClient _httpClient;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        var cookieContainer = new CookieContainer();
+        var handler = new HttpClientHandler { CookieContainer = cookieContainer };
+        _httpClient = new HttpClient(handler);
+    }
+
+    public async void SendWebRequest<TRequest, TResult>(string route, TRequest request, Action<TResult> callback)
         where TRequest : PacketBase
         where TResult : PacketResultBase
     {
-        UnityWebRequest webRequest = UnityWebRequest.PostWwwForm(url, route);
-        yield return webRequest.SendWebRequest();
+        string json = JsonUtility.ToJson(request);
+        HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+        HttpResponseMessage response = await _httpClient.PostAsync($"{URL}/{route}", content);
+        string result = await response.Content.ReadAsStringAsync();
 
-        if(webRequest.result == UnityWebRequest.Result.Success)
+        if (response.IsSuccessStatusCode)
         {
+            TResult resultPacket = JsonUtility.FromJson<TResult>(result);
+            callback?.Invoke(resultPacket);
         }
+
+        Debug.LogError($"POST {route} failed");
     }
 }
