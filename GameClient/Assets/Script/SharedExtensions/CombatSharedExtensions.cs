@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static UnityEngine.GraphicsBuffer;
 
 public struct CheckApplyAbility
 {
@@ -29,7 +28,7 @@ public struct CheckApplyAbility
                     continue;
                 }
 
-                bool isSucess = new GetRandomNumber(0f, 1f).Result < abilityData.Chance;
+                bool isSucess = (RandomUtility.GetRandomNumber(0, 101) / 100f) < abilityData.Chance;
                 if(isSucess)
                 {
                     SucessAbilities.Add(abilityData, target);
@@ -61,7 +60,7 @@ public struct CheckTargetWithAbility
             {
                 if(abilityType == ESpecialAbilityType.StrongAgainst)
                 {
-                    finalDaamge *= GameDefine.StrongAgainstModifyStat;
+                    finalDaamge *= GameDefine.StrongAgainstAttackModifyStat;
                 }
                 if(abilityType == ESpecialAbilityType.MassiveDamage)
                 {
@@ -74,7 +73,7 @@ public struct CheckTargetWithAbility
                     {
                         if(ability == ESpecialAbilityType.StrongAgainst)
                         {
-                            finalDaamge /= GameDefine.StrongAgainstModifyStat;
+                            finalDaamge /= GameDefine.StrongAgainstHealthModifyStat;
                         }
                         if(ability == ESpecialAbilityType.Resistant)
                         {
@@ -125,7 +124,7 @@ public struct CheckTargetWithAbility
         }
 
         abilityList = new List<ESpecialAbilityType> { abilityType };
-        SucessAbilities[target].Add(abilityType);
+        SucessAbilities.Add(target, abilityList);
     }
 }
 
@@ -135,24 +134,23 @@ public struct CheckHasAvailableAbility
 
     public CheckHasAvailableAbility(SpecialAbilityData[] abilityData)
     {
+        HasAbility = false;
+
         if (abilityData.Length == 0)
         {
-            HasAbility = false;
             return;
         }
 
         foreach (var ability in abilityData)
         {
-            if (ability.AbilityType == ESpecialAbilityType.SingleAttack ||
-                ability.AbilityType == ESpecialAbilityType.AreaAttack ||
-                ability.AbilityType == ESpecialAbilityType.LongDistance)
+            if (ability.AbilityType != ESpecialAbilityType.SingleAttack &&
+                ability.AbilityType != ESpecialAbilityType.AreaAttack &&
+                ability.AbilityType != ESpecialAbilityType.LongDistance)
             {
-                HasAbility = false;
+                HasAbility = true;
                 return;
             }
         }
-
-        HasAbility = true;
     }
 }
 
@@ -183,14 +181,12 @@ public struct GetOppositeAbility
     }
 }
 
-public struct GetRandomNumber
+public static class RandomUtility
 {
-    public float Result;
+    private static readonly Random _random = new Random();
 
-    public GetRandomNumber(float min, float max)
+    public static float GetRandomNumber(int min, int max)
     {
-        Random random = new Random();
-        float randomNumber = random.Next(1, 101) / 100f;
-        Result = randomNumber;
+        return _random.Next(min, max);
     }
 }
