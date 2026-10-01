@@ -1,6 +1,6 @@
 [Serializable]
-public class UserData
+public class UserBaseData
 {
-    public string UserId;
-    public UserUnitData UserUnitData;
+    public string UserId { get; set;}
+    public UserUnitData UserUnitData {get; set;}
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static UnityEngine.GraphicsBuffer;
 
 public struct CheckApplyAbility
 {
@@ -38,29 +39,67 @@ public struct CheckApplyAbility
     }
 }
 
-public struct GetModifiedStatByAbility
+public struct CheckTargetWithAbility
 {
-    public Dictionary<UnitData, List<ESpecialAbilityType>> SucessAbilities;     //(유닛 데이터, 최종 배율)
+    public Dictionary<UnitData, List<ESpecialAbilityType>> SucessAbilities;
+    public Dictionary<UnitData, int> ApplyDamage;
 
-    public GetModifiedStatByAbility(UnitData[] targetList, UnitData attacker)
+    public CheckTargetWithAbility(UnitData[] targetList, UnitData attacker)
     {
         SucessAbilities = new();
+        ApplyDamage = new();
 
         SpecialAbilityData[] abilityDatas = attacker.UnitSpecialAbilityData.SpecialAbilityDatas;
+        UnitData[] targets = targetList.Where(entity => attacker.CachedTargetType.Contains(entity.UnitType)).ToArray();
+        CheckSucessAbility(abilityDatas, targets);
 
+        foreach(var kvp in SucessAbilities)
+        {
+            float finalDaamge = attacker.UnitAttackPower; //우선 기본 공격력으로 세팅
+
+            foreach(ESpecialAbilityType abilityType in kvp.Value)
+            {
+                if(abilityType == ESpecialAbilityType.StrongAgainst)
+                {
+                    finalDaamge *= GameDefine.StrongAgainstModifyStat;
+                }
+                if(abilityType == ESpecialAbilityType.MassiveDamage)
+                {
+                    finalDaamge *= GameDefine.MassiveDamageStat;
+                }
+
+                if(kvp.Key.CachedTargetType.Contains(attacker.UnitType)) //상대가 내 속성에 대한 엄강, 맷집이 있는지 확인
+                {
+                    foreach(ESpecialAbilityType ability in kvp.Key.CachedSpecialAbility)
+                    {
+                        if(ability == ESpecialAbilityType.StrongAgainst)
+                        {
+                            finalDaamge /= GameDefine.StrongAgainstModifyStat;
+                        }
+                        if(ability == ESpecialAbilityType.Resistant)
+                        {
+                            finalDaamge /= GameDefine.ResistantModifyStat;
+                        }
+                    }
+                }
+            }
+
+            ApplyDamage.Add(kvp.Key, (int)finalDaamge);
+        }
+    }
+
+
+    private void CheckSucessAbility(SpecialAbilityData[] abilityDatas, UnitData[] targets)
+    {
         foreach (var abilityData in abilityDatas)
         {
-            foreach (var target in targetList)
+            foreach (var target in targets)
             {
                 if (target.CachedSpecialAbility.Contains(new GetOppositeAbility(abilityData.AbilityType).OppositeAbility))
                 {
                     continue;
                 }
 
-                if (abilityData.AbilityType == ESpecialAbilityType.Weaken)
-                {
-                    AddSucessAbility(ESpecialAbilityType.Weaken, target);
-                }
                 if (abilityData.AbilityType == ESpecialAbilityType.Resistant)
                 {
                     AddSucessAbility(ESpecialAbilityType.Resistant, target);
@@ -77,7 +116,7 @@ public struct GetModifiedStatByAbility
         }
     }
 
-    public void AddSucessAbility(ESpecialAbilityType abilityType, UnitData target)
+    private void AddSucessAbility(ESpecialAbilityType abilityType, UnitData target)
     {
         if (SucessAbilities.TryGetValue(target, out var abilityList))
         {

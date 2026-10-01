@@ -1,10 +1,9 @@
 public static class GameDefine
 {
+    public static int UnitMaxLevel = 30;
+    public static int PassiveMaxLevel = 20;
+    public static int MaxSlotCount = 5;
 
-}
-
-public static class CombatDefine
-{
     public static float WeakenModifyStat = 0.5f;
     public static float SlowModifyStat = 0.1f;
     public static float StrongAgainstModifyStat = 2f;

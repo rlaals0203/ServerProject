@@ -22,8 +22,8 @@ public class NetworkManager : MonoSingleton<NetworkManager>
     }
 
     public async Task SendWebRequest<TRequest, TResult>(string route, TRequest request, Action<TResult> callback)
-        where TRequest : PacketBase
-        where TResult : PacketResultBase
+        where TRequest : StandardPacketData
+        where TResult : StandardPacketResultData
     {
         string json = JsonUtility.ToJson(request);
         HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -40,4 +40,7 @@ public class NetworkManager : MonoSingleton<NetworkManager>
 
         Debug.LogError($"POST {route} failed");
     }
+
+    public async Task SendLoginRequest(string userId, string password, Action<UserLoginPacketResultData> callback)
+        => await SendWebRequest(UserLoginPacketData.ROUTE, new MakeRequestLoginPacket(userId, password).UserLoginPacketData, callback);
 }

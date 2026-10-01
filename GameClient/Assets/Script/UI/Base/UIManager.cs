@@ -24,4 +24,15 @@ public class UIManager : MonoSingleton<UIManager>
         var popup = _uiStack.Peek();
         popup.OnTouchClose();
     }
+
+    public void CloseAllPopup()
+    {
+        foreach(var popup in _uiStack)
+        {
+            if (popup == null)
+                continue;
+
+            popup.OnTouchClose();
+        }
+    }
 }

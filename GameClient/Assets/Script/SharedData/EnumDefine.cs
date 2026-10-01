@@ -24,7 +24,7 @@ public enum EUnitClassType
 {
     First = 1,
     Second = 2,
-    Thired = 3
+    Third = 3
 }
 
 public enum ESpecialAbilityType

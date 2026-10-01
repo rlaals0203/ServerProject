@@ -1,3 +1,5 @@
+using System.Security.Cryptography.X509Certificates;
+
 namespace GameServer
 {
     public class RequestUnitUpgradeProcess : BasePacketProcess
@@ -5,21 +7,14 @@ namespace GameServer
         public UnitData UnitData;
         public int TargetLevel;
 
-        public async Task<EPacketResult> ProcessAsync(string userId, string password)
+        public async Task<EPacketResult> ProcessAsync(UnitData unitData, int targetLevel)
         {
-            if(string.IsNullOrEmpty(userId))
+            if(unitData == null)
             {
-                Result = EPacketResult.Fail;
+                Result = EPacketResult.NotFoundUnit;
                 return Result;
             }
 
-            if(string.IsNullOrEmpty(password))
-            {
-                Result = EPacketResult.Fail;
-                return Result;
-            }
-
-            
             return Result;
         }
     }

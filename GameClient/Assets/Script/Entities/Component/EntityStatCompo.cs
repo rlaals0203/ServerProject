@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class StatCompo : MonoBehaviour, IComponentCache
+public class EntityStatCompo : MonoBehaviour, IComponentCache
 {
     private Entity _owner;
     private StatData _statData;

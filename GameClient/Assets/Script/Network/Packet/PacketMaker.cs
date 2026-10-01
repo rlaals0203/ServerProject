@@ -14,9 +14,4 @@ public class MakeRequestLoginPacket
 
         UserLoginPacketData = userLoginPacket;
     }
-
-    private void HandleLoginResult(UserLoginPacketResultData data)
-    {
-
-    }
 }

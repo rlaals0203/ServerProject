@@ -1,7 +1,7 @@
 using System;
 
 [Serializable]
-public class RequestDamagePacketData : PacketBase
+public class RequestDamagePacketData : StandardPacketData
 {
     public string ROUTE = "RequestDamage";
     public UnitData[] UnitList { get; set; }
@@ -10,7 +10,7 @@ public class RequestDamagePacketData : PacketBase
 }
 
 [Serializable]
-public class RequestDamagePacketDataResult : PacketResultBase
+public class RequestDamagePacketDataResult : StandardPacketResultData
 {
     public UnitData[] UnitList { get; set; }
     public UnitData Attacker { get; set; }

@@ -1,15 +1,15 @@
 using System;
 
 [Serializable]
-public class UserLoginPacketData : PacketBase
+public class UserLoginPacketData : StandardPacketData
 {
-    public string ROUTE = "RequestUserLogin";
+    public const string ROUTE = "RequestUserLogin";
     public string UserId;
     public string Password;
 }
 
 [Serializable]
-public class UserLoginPacketResultData : PacketResultBase
+public class UserLoginPacketResultData : StandardPacketResultData
 {
     public string UserId;
     public string Password;

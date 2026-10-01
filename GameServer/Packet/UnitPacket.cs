@@ -1,5 +1,5 @@
 [Serializable]
-public class UnitUpgradePacketData : PacketBase
+public class UnitUpgradePacketData : PacketDataBase
 {
     public const string ROUTE = "RequestUpgradeUnit";
     public UnitData UnitData;
@@ -7,7 +7,7 @@ public class UnitUpgradePacketData : PacketBase
 }
 
 [Serializable]
-public class UnitUpgradePacketResultData : PacketResultBase
+public class UnitUpgradePacketResultData : PacketResultDataBase
 {
     public UnitData UnitData;
     public int TargetLevel;

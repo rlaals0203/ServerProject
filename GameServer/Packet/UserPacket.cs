@@ -1,5 +1,5 @@
 [Serializable]
-public class UserLoginPacketData : PacketBase
+public class UserLoginPacketData : PacketDataBase
 {
     public const string ROUTE = "RequestUserLogin";
     public string UserId;
@@ -7,7 +7,7 @@ public class UserLoginPacketData : PacketBase
 }
 
 [Serializable]
-public class UserLoginPacketResultData : PacketResultBase
+public class UserLoginPacketResultData : PacketResultDataBase
 {
     public string UserId;
     public string Password;

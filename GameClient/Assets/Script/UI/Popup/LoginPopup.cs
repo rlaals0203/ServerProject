@@ -16,8 +16,7 @@ public class LoginPopup : PopupUIBase
 
     public async void OnTouchLogin()
     {
-        var testPacket = new MakeRequestLoginPacket(userNameInput.text, passwordInput.text).UserLoginPacketData;
-        await NetworkManager.I.SendWebRequest<UserLoginPacketData, UserLoginPacketResultData>(testPacket.ROUTE, testPacket, HandleLoginResult);
+        await NetworkManager.I.SendLoginRequest(userNameInput.text, passwordInput.text, HandleLoginResult);
     }
 
     private void HandleLoginResult(UserLoginPacketResultData data)
