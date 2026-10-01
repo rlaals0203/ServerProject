@@ -3,9 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
+public class UserUnitData
+{
+    public Dictionary<int, UnitData> DeployUnitList;
+    public Dictionary<string, UnitData> OwnUnitList;
+}
+
+[Serializable]
 public class UnitData
 {
     public string UnitId { get; set; }
+    public int UnitLevel { get; set; }
+    public EUnitClassType UnitClassType { get; set; }
     public EUnitType UnitType { get; set; }
     public int UnitHealth { get; set; }
     public int UnitAttackPower { get; set; }
@@ -34,12 +43,6 @@ public class SpecialAbilityData
     [Tooltip("확률형 능력이 아니라면 항상 1로 적용됩니다.")]
     public float Chance;
     public float Duration;
-}
-
-[Serializable]
-public class ApplyAbilityData
-{
-    public ESpecialAbilityType AbilityType;
 }
 
 public class MakeUnitData

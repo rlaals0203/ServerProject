@@ -4,15 +4,15 @@ using System;
 public class UserLoginPacketData : PacketBase
 {
     public string ROUTE = "RequestUserLogin";
-    public string UserId { get; set; }
-    public string Password { get; set; }
+    public string UserId;
+    public string Password;
 }
 
 [Serializable]
-public class UserLoginPacketDataResult : PacketResultBase
+public class UserLoginPacketResultData : PacketResultBase
 {
-    public string UserId { get; set; }
-    public string Password { get; set; }
+    public string UserId;
+    public string Password;
 
-    public UserLoginPacketDataResult(EPacketResult result) : base(result) { }
+    public UserLoginPacketResultData(EPacketResult result) : base(result) { }
 }

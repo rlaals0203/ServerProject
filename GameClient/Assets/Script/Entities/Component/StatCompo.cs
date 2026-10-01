@@ -23,19 +23,19 @@ public class StatCompo : MonoBehaviour, IComponentCache
         return _statData.GetStat(statType);
     }
 
-    public double GetStatValue(EStatType statType)
+    public float GetStatValue(EStatType statType)
     {
-        return _statData.GetStatValue(statType);
+        return GetStat(statType).CurrentStat;
     }
 
-    public double GetStatValueWithScaled(EStatType statType, float scale)
+    public float GetStatValueWithScaled(EStatType statType, float scale)
     {
-        return _statData.GetStatValueWithScaled(statType, scale);
+        return GetStatValue(statType) * scale;
     }
 
-    public void AddStatModifier(EStatType statType, Type modifier, double value)
+    public void AddStatModifier(EStatType statType, string modifyKey, float value)
     {
-        if (modifier == null || value == 0)
+        if (string.IsNullOrEmpty(modifyKey))
         {
             return;
         }
@@ -46,12 +46,12 @@ public class StatCompo : MonoBehaviour, IComponentCache
             return;
         }
 
-        targetStat.AddStatModifier(modifier, value);
+        targetStat.AddStatModifier(modifyKey, value);
     }
 
-    public void ReplaceStatModifier(EStatType statType, Type modifier, double value)
+    public void ReplaceStatModifier(EStatType statType, string modifyKey, float value)
     {
-        if (modifier == null || value == 0)
+        if (string.IsNullOrEmpty(modifyKey))
         {
             return;
         }
@@ -62,12 +62,12 @@ public class StatCompo : MonoBehaviour, IComponentCache
             return;
         }
 
-        targetStat.ReplaceStatModifier(modifier, value);
+        targetStat.ReplaceStatModifier(modifyKey, value);
     }
 
-    public void RemoveStatModifier(EStatType statType, Type modifier)
+    public void RemoveStatModifier(EStatType statType, string modifyKey)
     {
-        if (modifier == null)
+        if (string.IsNullOrEmpty(modifyKey))
         {
             return;
         }
@@ -78,6 +78,6 @@ public class StatCompo : MonoBehaviour, IComponentCache
             return;
         }
 
-        targetStat.RemoveStatModifier(modifier);
+        targetStat.RemoveStatModifier(modifyKey);
     }
 }

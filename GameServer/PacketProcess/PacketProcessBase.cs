@@ -1,4 +1,7 @@
-public class PacketProcessBase
+namespace GameServer
 {
-    
+    public class PacketProcessBase
+    {
+        
+    }
 }

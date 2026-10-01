@@ -1,18 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TestSpawn : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public async void OnTouch()
     {
-        
+        var testPacket = new MakeRequestLoginPacket(string.Empty, "1234").UserLoginPacketData;
+        await NetworkManager.I.SendWebRequest<UserLoginPacketData, UserLoginPacketResultData>(testPacket.ROUTE, testPacket, HandleLoginResult);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void HandleLoginResult(UserLoginPacketResultData data)
     {
-        
     }
 }

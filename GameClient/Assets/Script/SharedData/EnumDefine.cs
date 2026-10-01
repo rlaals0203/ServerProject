@@ -20,6 +20,13 @@ public enum EUnitType
     None
 }
 
+public enum EUnitClassType
+{
+    First = 1,
+    Second = 2,
+    Thired = 3
+}
+
 public enum ESpecialAbilityType
 {
     SingleAttack,               //개체 공격

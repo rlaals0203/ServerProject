@@ -59,6 +59,11 @@ public class StatData
         }
     }
 
+    public void InitializeStat(UnitData unitData, int level, int scale)
+    {
+        new StatInitializer(unitData, level, scale, this);
+    }
+
     public StatBase GetStat(EStatType statType)
     {
         return _statDatas.GetValueOrDefault(statType);
@@ -113,7 +118,7 @@ public class StatData
         if (string.IsNullOrEmpty(modifyKey))
         {
             return;
-        }
+        } 
 
         StatBase targetStat = GetStat(statType);
         if (targetStat == null)
@@ -123,5 +128,15 @@ public class StatData
 
         targetStat.RemoveStatModifier(modifyKey);
         OnStatChanged?.Invoke(statType, GetStatValue(statType));
+    }
+}
+
+public struct StatInitializer
+{
+    public StatData Result;
+
+    public StatInitializer(UnitData unitData, int level, int scale, StatData statData)
+    {
+        Result = statData;
     }
 }

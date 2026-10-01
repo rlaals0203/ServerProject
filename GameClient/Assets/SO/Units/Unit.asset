@@ -25,5 +25,8 @@ MonoBehaviour:
   UnitHitbackCount: 0
   UnitDropMoneyAmount: 0
   UnitSpecialAbilityData:
-    TargetTypes: 
-    SpecialAbilityDatas: 
+    TargetTypes: 0300000002000000
+    SpecialAbilityDatas:
+    - AbilityType: 0
+      Chance: 0
+      Duration: 0
