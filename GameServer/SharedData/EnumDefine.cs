@@ -1,6 +1,9 @@
 public enum EPacketResult
 {
     Ok,
+    LoginFailed,
+    NotFoundUser,
+    NotFoundUnit,
     Fail
 }
 
@@ -19,6 +22,13 @@ public enum EUnitType
     Black,
     All,
     None
+}
+
+public enum EUnitClassType
+{
+    First = 1,
+    Second = 2,
+    Thired = 3
 }
 
 public enum ESpecialAbilityType

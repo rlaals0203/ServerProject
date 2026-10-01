@@ -20,3 +20,23 @@ public class RequestUserLoginController : ControllerBase
         return resultData;
     }
 }
+
+[ApiController]
+[Route(UnitUpgradePacketData.ROUTE)]
+public class RequestUnitUpgradeController : ControllerBase
+{
+    [HttpPost]
+    public async Task<ActionResult<UnitUpgradePacketResultData>> PostUserLoginRequest([FromBody]UnitUpgradePacketData userLoginPacketData)
+    {
+        RequestLoginProcess loginProcess = new RequestLoginProcess();
+        await loginProcess.ProcessAsync(userLoginPacketData.UserId, userLoginPacketData.Password);
+        
+        UnitUpgradePacketResultData resultData = new UnitUpgradePacketResultData(loginProcess.Result)
+        {
+            UserId = loginProcess.UserId,
+            Password = loginProcess.Password
+        };
+        
+        return resultData;
+    }
+}

@@ -13,5 +13,6 @@ public class TestSpawn : MonoBehaviour
 
     private void HandleLoginResult(UserLoginPacketResultData data)
     {
+        Debug.Log(data.Result);
     }
 }
