@@ -12,20 +12,20 @@ public class UserUnitData
 [Serializable]
 public class UnitData
 {
-    public string UnitId { get; set; }
-    public int UnitLevel { get; set; }
-    public EUnitClassType UnitClassType { get; set; }
-    public EUnitType UnitType { get; set; }
-    public int UnitHealth { get; set; }
-    public int UnitAttackPower { get; set; }
-    public float UnitAttackTime { get; set; }
-    public float UnitAttackRange { get; set; }
-    public float UnitMoveSpeed { get; set; }
-    public int UnitHitbackCount { get; set; }
-    public int UnitDropMoneyAmount { get; set; }
-    public UnitSpecialAbilityData UnitSpecialAbilityData { get; set; }
-    public List<ESpecialAbilityType> CachedSpecialAbility { get; set; }
-    public List<EUnitType> CachedTargetType { get; set; }
+    public string UnitId;
+    public int UnitLevel;
+    public EUnitClassType unitClassType;
+    public EUnitType UnitType;
+    public int UnitHealth;
+    public int UnitAttackPower;
+    public float UnitAttackTime;
+    public float UnitAttackRange;
+    public float UnitMoveSpeed;
+    public int UnitHitbackCount;
+    public int UnitDropMoneyAmount;
+    public UnitSpecialAbilityData UnitSpecialAbilityData;
+    public List<ESpecialAbilityType> CachedSpecialAbility;
+    public List<EUnitType> CachedTargetType;
 }
 
 [Serializable]

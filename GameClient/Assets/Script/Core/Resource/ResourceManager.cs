@@ -120,6 +120,18 @@ namespace MINLib.Script.Core.Resource
             return spawned;
         }
 
+        public T SpawnAndInitPool<T>(string key, Vector3 position, Transform parent, Action spawnCallback = null)
+        {
+            GameObject spawned = SpawnAndInitPool(key, position, parent, spawnCallback);
+
+            if(spawned is T typedResource)
+            {
+                return typedResource;
+            }
+
+            return default(T);
+        }
+
         public bool CheckCacheResource(string key)
         {
             if (string.IsNullOrEmpty(key))
