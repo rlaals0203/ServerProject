@@ -2,9 +2,9 @@ namespace GameServer
 {
     public class RequestUnitDeployPacketProcess : BasePacketProcess
     {
-        public UnitData[] ChangedDeck;
+        public Dictionary<int, UnitData> DeployUnits;
 
-        public async Task<EPacketResult> ProcessAsync(UserBaseData userData, UnitData[] changedDeck)
+        public async Task<EPacketResult> ProcessAsync(UserBaseData userData, Dictionary<int, UnitData> deployUnits)
         {
             return Result;
         }

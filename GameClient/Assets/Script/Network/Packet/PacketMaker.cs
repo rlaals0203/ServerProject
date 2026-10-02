@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 public class MakeRequestLoginPacket
 {
@@ -36,11 +37,11 @@ public class MakeRequestUnitDeployPacket
 {
     public UnitDeployPacketData UnitDeployPacketData;
 
-    public MakeRequestUnitDeployPacket(UnitData[] changedDeck)
+    public MakeRequestUnitDeployPacket(Dictionary<int, UnitData> deployUnits)
     {
         UnitDeployPacketData unitDeployPacketData = new UnitDeployPacketData
         {
-            ChangedDeck = changedDeck
+            DeployUnits = deployUnits
         };
 
         UnitDeployPacketData = unitDeployPacketData;

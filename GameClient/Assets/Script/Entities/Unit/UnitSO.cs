@@ -11,12 +11,13 @@ public class UnitSO : ScriptableObject
     public Sprite UnitIcon;
 
     [Header("Unit Stats")]
+    public int UnitCost;
     public EUnitType UnitType;
-    public double UnitHealth;
-    public double UnitAttackPower;
-    public double UnitAttackTime;
-    public double UnitAttackRange;
-    public double UnitMoveSpeed;
+    public int UnitHealth;
+    public int UnitAttackPower;
+    public float UnitAttackTime;
+    public float UnitAttackRange;
+    public float UnitMoveSpeed;
     public int UnitHitbackCount;
     public int UnitDropMoneyAmount;
 

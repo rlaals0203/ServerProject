@@ -18,13 +18,13 @@ public class UnitUpgradePacketResultData : StandardPacketResultData
 public class UnitDeployPacketData : StandardPacketData
 {
     public const string ROUTE = "RequestUnitDeploy";
-    public UnitData[] ChangedDeck { get; set; }
+    public Dictionary<int, UnitData> DeployUnits { get; set; }
 }
 
 [Serializable]
 public class UnitDeployPacketResultData : StandardPacketResultData
 {
-    public UnitData[] ChangedDeck { get; set; }
+    public Dictionary<int, UnitData> DeployUnits { get; set; }
     public UnitDeployPacketResultData(EPacketResult result) : base(result) { }
 }
 

@@ -7,7 +7,7 @@ public class UnitSOList : ScriptableObject
     public List<UnitSO> UnitList;
     public Dictionary<string, UnitSO> UnitCache;
 
-    public void CreateUnitCache()
+    public Dictionary<string, UnitSO> CreateUnitCache()
     {
         UnitCache = new();
         foreach (var unit in UnitList)
@@ -20,11 +20,15 @@ public class UnitSOList : ScriptableObject
 
             UnitCache.Add(unit.UnitId, unit);
         }
+
+        return UnitCache;
     }
 
     public UnitSO GetUnitById(string unitId)
     {
-        if(UnitCache.TryGetValue(unitId, out UnitSO unitData))
+        UnitCache ??= CreateUnitCache();
+
+        if (UnitCache.TryGetValue(unitId, out UnitSO unitData))
         {
             return unitData;
         }

@@ -39,11 +39,11 @@ public partial class BasePacketController : ControllerBase
     {
         UserBaseData userBaseData = await gameDataManager.RequestGetLoginUserAsync(request.UserId);
         RequestUnitDeployPacketProcess unitDeployProcess = new RequestUnitDeployPacketProcess();
-        await unitDeployProcess.ProcessAsync(userBaseData, request.ChangedDeck);
+        await unitDeployProcess.ProcessAsync(userBaseData, request.DeployUnits);
         
         UnitDeployPacketResultData resultData = new UnitDeployPacketResultData(unitDeployProcess.Result)
         {
-            ChangedDeck = unitDeployProcess.ChangedDeck
+            DeployUnits = unitDeployProcess.DeployUnits
         };
         
         return resultData;

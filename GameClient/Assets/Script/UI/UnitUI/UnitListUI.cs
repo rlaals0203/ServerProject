@@ -1,8 +1,6 @@
-using Sirenix.Utilities;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class UnitListUI : UIBase
 {
@@ -11,9 +9,9 @@ public class UnitListUI : UIBase
 
 	private List<RectTransform> _unitUpgradeSlots;
 
-    private void Awake()
+    protected override void Awake()
     {
-        var upgradeSlots = GetComponentsInChildren<UnitUpgradeSlotUI>();
+        var upgradeSlots = GetComponentsInChildren<UnitSlotUI>();
         foreach(var slot in upgradeSlots)
         {
             _unitUpgradeSlots.Add(slot.Rect);

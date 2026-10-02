@@ -17,8 +17,8 @@ public class UIBase : MonoBehaviour
 
     protected virtual void Awake()
     {
-        _outlineYellow = transform.Find("Outline_Yellow").gameObject;
-        _outlinePink = transform.Find("Outline_Pink").gameObject;
+        _outlineYellow = transform.Find("Outline_Yellow")?.gameObject;
+        _outlinePink = transform.Find("Outline_Pink")?.gameObject;
     }
 
     public void ShowUI()

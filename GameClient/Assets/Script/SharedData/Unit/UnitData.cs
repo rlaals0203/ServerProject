@@ -49,22 +49,24 @@ public class SpecialAbilityData
 
 public class MakeUnitData
 {
-    UnitData UnitData;
+    public UnitData UnitData;
 
     public MakeUnitData(UnitSO unitData)
     {
         UnitData = new UnitData
         {
-            UnitId = UnitData.UnitId,
-            UnitType = UnitData.UnitType,
-            UnitHealth = UnitData.UnitHealth,
-            UnitAttackPower = UnitData.UnitAttackPower,
-            UnitAttackTime = UnitData.UnitAttackTime,
-            UnitAttackRange = UnitData.UnitAttackRange,
-            UnitMoveSpeed = UnitData.UnitMoveSpeed,
-            UnitHitbackCount = UnitData.UnitHitbackCount,
-            UnitDropMoneyAmount = UnitData.UnitDropMoneyAmount,
-            UnitSpecialAbilityData = UnitData.UnitSpecialAbilityData
+            UnitId = unitData.UnitId,
+            UnitName = unitData.UnitName,
+            UnitCost = unitData.UnitCost,
+            UnitType = unitData.UnitType,
+            UnitHealth = unitData.UnitHealth,
+            UnitAttackPower = unitData.UnitAttackPower,
+            UnitAttackTime = unitData.UnitAttackTime,
+            UnitAttackRange = unitData.UnitAttackRange,
+            UnitMoveSpeed = unitData.UnitMoveSpeed,
+            UnitHitbackCount = unitData.UnitHitbackCount,
+            UnitDropMoneyAmount = unitData.UnitDropMoneyAmount,
+            UnitSpecialAbilityData = unitData.UnitSpecialAbilityData
         };
     }
 }

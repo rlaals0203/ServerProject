@@ -1,5 +1,6 @@
 using Core;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -53,6 +54,6 @@ public class NetworkManager : MonoSingleton<NetworkManager>
     public async Task SendUnitUpgradeRequest(UnitData unit, int targetLevel, Action<UnitUpgradePacketResultData> callback)
         => await SendWebRequest(UnitUpgradePacketData.ROUTE, new MakeRequestUnitUpgradePacket(unit, targetLevel).UnitUpgradePacketData, callback);
 
-    public async Task SendUnitDeployRequest(UnitData[] changedUnit, Action<UnitDeployPacketResultData> callback)
-     => await SendWebRequest(UnitDeployPacketData.ROUTE, new MakeRequestUnitDeployPacket(changedUnit).UnitDeployPacketData, callback);
+    public async Task SendUnitDeployRequest(Dictionary<int, UnitData> deplotUnits, Action<UnitDeployPacketResultData> callback)
+     => await SendWebRequest(UnitDeployPacketData.ROUTE, new MakeRequestUnitDeployPacket(deplotUnits).UnitDeployPacketData, callback);
 }

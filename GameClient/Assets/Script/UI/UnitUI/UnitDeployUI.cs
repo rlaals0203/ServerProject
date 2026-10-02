@@ -17,13 +17,15 @@ public class UnitDeployUI : UIBase
     protected override void Awake()
     {
         base.Awake();
+
         _unitSlots = GetComponentsInChildren<UnitSlotUI>(true);
         _deploySlots = GetComponentsInChildren<UnitDeploySlotUI>(true);
 
         foreach(var unitSlot in _unitSlots)
         {
+            unitSlot.InitializeUI(new MakeUnitData(unitSOList.UnitList[0]).UnitData);
             unitSlot.OnUnitDragStart += HandleSlotDragStart;
-            unitSlot.OnUnitDrop += HandleSlotDrop;
+            unitSlot.OnUnitDragEnd += HandleSlotDrop;
         }
 
         draggingUI.gameObject.SetActive(false);
@@ -49,6 +51,7 @@ public class UnitDeployUI : UIBase
     {
         _draggingSlot = ui;
         _isDragging = true;
+        draggingUI.sprite = unitSOList.GetUnitById(ui.GetUnitId()).UnitIcon;
         draggingUI.gameObject.SetActive(true);
     }
 
@@ -57,7 +60,6 @@ public class UnitDeployUI : UIBase
         _draggingSlot = null;
         _isDragging = false;
 
-        draggingUI.sprite = unitSOList.GetUnitById(ui.GetUnitId()).UnitIcon;
         draggingUI.gameObject.SetActive(false);
     }
 }
