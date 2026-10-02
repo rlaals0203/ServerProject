@@ -102,11 +102,13 @@ namespace MINLib.Script.Core.Resource
         {
             if (string.IsNullOrEmpty(key))
             {
+                Debug.LogError($"pool key is empty: {key}");
                 return null;
             }
 
             if (_prefabResourceContainer.CheckResourceLoaded(key) == false)
             {
+                Debug.LogError($"can't loaded cache: {key}");
                 return null;
             }
 
@@ -114,6 +116,7 @@ namespace MINLib.Script.Core.Resource
 
             if(spawned == null)
             {
+                Debug.LogError($"spawned pool is null: {key}");
                 return null;
             }
 

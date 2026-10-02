@@ -17,7 +17,7 @@ public class PacketResultDataBase
 
 public partial class StandardPacketData : PacketDataBase
 {
-    public string LoginUserId { get; set; }
+    public string UserId { get; set; }
     public StandardPacketData() { }
 }
 

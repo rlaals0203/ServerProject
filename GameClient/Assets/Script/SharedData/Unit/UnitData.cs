@@ -13,7 +13,9 @@ public class UserUnitData
 public class UnitData
 {
     public string UnitId;
+    public string UnitName;
     public int UnitLevel;
+    public int UnitCost;
     public EUnitClassType unitClassType;
     public EUnitType UnitType;
     public int UnitHealth;

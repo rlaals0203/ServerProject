@@ -1,4 +1,3 @@
-using System.Collections.Concurrent;
 using MongoDB.Driver;
 
 public class GameDataManager
@@ -6,17 +5,18 @@ public class GameDataManager
     protected readonly IMongoClient MongoClient;
     private readonly ILogger<GameDataManager> logger = null;
     protected readonly ILoggerFactory LoggerFactory;
-    protected readonly ConcurrentDictionary<string, UserBaseData> LoginUserList;
+    protected readonly UserRepository UserRepository;
 
 
-    public GameDataManager(IMongoClient mongoClient, ILogger<GameDataManager> logger, ILoggerFactory loggerFactory)
+    public GameDataManager(IMongoClient mongoClient, ILogger<GameDataManager> logger, ILoggerFactory loggerFactory, UserRepository userRepository)
     {
         MongoClient = mongoClient;
         LoggerFactory = loggerFactory;
+        UserRepository = userRepository;
         this.logger = logger;
     }
 
-    public async Task<UserBaseData> RequestLoginUser(string userId, string password)
+    public async Task<UserBaseData> RequestGetLoginUserAsync(string userId)
     {
         if(string.IsNullOrEmpty(userId))
         {
@@ -24,11 +24,18 @@ public class GameDataManager
             return null;
         }
 
-        IMongoDatabase mongoDatabase = MongoClient.GetDatabase("User");
-        IMongoCollection<UserBaseData> userDataCollection = mongoDatabase.GetCollection<UserBaseData>("Users");
+        var foundUser = await UserRepository.GetUserAsync(userId);
+        if(foundUser == null)
+        {
+            logger.LogWarning($"GameDataManager.GetLoginUserBaseInfo. user is null.");
+            return null;
+        }
 
-        var filter = Builders<UserBaseData>.Filter.Eq("UserId", userId) & Builders<UserBaseData>.Filter.Eq("Password", password);
-        UserBaseData result = userDataCollection.Find(filter).FirstOrDefault();
-        return result;
+        return foundUser;
+    }
+
+    public async Task<UserBaseData> RequestCreateUserAsync(string userId)
+    {
+        return await UserRepository.CreateUserAsync(userId);
     }
 }

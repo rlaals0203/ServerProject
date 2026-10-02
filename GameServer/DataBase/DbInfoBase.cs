@@ -6,9 +6,4 @@ public class DbInfoBase<DbType>(IMongoClient mongoClient, ILoggerFactory loggerF
     protected IMongoClient mongoClient = mongoClient;
     protected ILoggerFactory loggerFactory = loggerFactory;
     protected string dbKey = "";
-
-    public async Task<EPacketResult> InitDb(string hashKey)
-    {
-        this.dbKey = dbKey;
-    }
 }

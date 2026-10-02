@@ -1,7 +1,7 @@
 using System;
 
 [Serializable]
-public class RequestDamagePacketData : StandardPacketData
+public class RequestPacketData : StandardPacketData
 {
     public string ROUTE = "RequestDamage";
     public UnitData[] UnitList { get; set; }

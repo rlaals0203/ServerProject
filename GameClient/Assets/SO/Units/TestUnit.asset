@@ -10,23 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dee0e94aa0f2bec44a4544b3e16afd0a, type: 3}
-  m_Name: Unit
+  m_Name: TestUnit
   m_EditorClassIdentifier: 
-  UnitId: 
-  UnitName: 
-  UnitDesc: 
-  UnitIcon: {fileID: 0}
+  UnitId: 1
+  UnitName: "\uD14C\uC2A4\uD2B8"
+  UnitDesc: "\uD14C\uC2A4\uD2B8"
+  UnitIcon: {fileID: 21300000, guid: d13e30b1826f5bb41afb7eb8a14717df, type: 3}
   UnitType: 0
-  UnitHealth: 0
-  UnitAttackPower: 0
-  UnitAttackTime: 0
-  UnitAttackRange: 0
-  UnitMoveSpeed: 0
-  UnitHitbackCount: 0
-  UnitDropMoneyAmount: 0
+  UnitHealth: 100
+  UnitAttackPower: 10
+  UnitAttackTime: 1
+  UnitAttackRange: 10
+  UnitMoveSpeed: 10
+  UnitHitbackCount: 1
+  UnitDropMoneyAmount: 100
   UnitSpecialAbilityData:
     TargetTypes: 0300000002000000
     SpecialAbilityDatas:
     - AbilityType: 0
       Chance: 0
       Duration: 0
+    - AbilityType: 3
+      Chance: 0.3
+      Duration: 1

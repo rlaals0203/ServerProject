@@ -6,12 +6,20 @@ using UnityEngine;
 
 public class UIManager : MonoSingleton<UIManager>
 {
+    [SerializeField] private Transform popupTrm;
     private Stack<PopupUIBase> _uiStack = new();
     
     public T OpenPopup<T>(string key, Vector3 position, Transform parent, 
         Action spawnCallback = null, Action closeCallback = null) where T : PopupUIBase
     {
+        parent ??= popupTrm;
         T popup = ResourceManager.I.SpawnAndInitPool<T>(key, position, parent, spawnCallback);
+
+        if(popup == null)
+        {
+            Debug.LogError($"{key} popup is null");
+            return null;
+        }
 
         _uiStack.Push(popup);
         popup.CloseCallback += closeCallback;

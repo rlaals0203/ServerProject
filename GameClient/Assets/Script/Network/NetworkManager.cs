@@ -25,15 +25,15 @@ public class NetworkManager : MonoSingleton<NetworkManager>
         where TRequest : StandardPacketData
         where TResult : StandardPacketResultData
     {
-        if(GameManager.I.IsLoggin == false)
+        if(GameManager.I.IsLoggin)
         {
-            return;
+            request.LoginUserId = GameManager.I.User.UserId;
         }
 
-        request.LoginUserId = GameManager.I.User.UserId;
         string json = JsonUtility.ToJson(request);
         HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
         HttpResponseMessage response = await _httpClient.PostAsync($"{URL}/{route}", content);
+        Debug.Log(response);
 
         string result = await response.Content.ReadAsStringAsync();
 
