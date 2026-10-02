@@ -25,6 +25,12 @@ public class NetworkManager : MonoSingleton<NetworkManager>
         where TRequest : StandardPacketData
         where TResult : StandardPacketResultData
     {
+        if(GameManager.I.IsLoggin == false)
+        {
+            return;
+        }
+
+        request.LoginUserId = GameManager.I.User.UserId;
         string json = JsonUtility.ToJson(request);
         HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
         HttpResponseMessage response = await _httpClient.PostAsync($"{URL}/{route}", content);
@@ -43,4 +49,10 @@ public class NetworkManager : MonoSingleton<NetworkManager>
 
     public async Task SendLoginRequest(string userId, string password, Action<UserLoginPacketResultData> callback)
         => await SendWebRequest(UserLoginPacketData.ROUTE, new MakeRequestLoginPacket(userId, password).UserLoginPacketData, callback);
+
+    public async Task SendUnitUpgradeRequest(UnitData unit, int targetLevel, Action<UnitUpgradePacketResultData> callback)
+        => await SendWebRequest(UnitUpgradePacketData.ROUTE, new MakeRequestUnitUpgradePacket(unit, targetLevel).UnitUpgradePacketData, callback);
+
+    public async Task SendUnitDeployRequest(UnitData[] changedUnit, Action<UnitDeployPacketResultData> callback)
+     => await SendWebRequest(UnitDeployPacketData.ROUTE, new MakeRequestUnitDeployPacket(changedUnit).UnitDeployPacketData, callback);
 }

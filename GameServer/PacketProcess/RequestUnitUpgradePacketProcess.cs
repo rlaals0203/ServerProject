@@ -1,13 +1,11 @@
-using System.Security.Cryptography.X509Certificates;
-
 namespace GameServer
 {
-    public class RequestUnitUpgradeProcess : BasePacketProcess
+    public class RequestUnitUpgradePacketProcess : BasePacketProcess
     {
         public UnitData UnitData;
         public int TargetLevel;
 
-        public async Task<EPacketResult> ProcessAsync(UnitData unitData, int targetLevel)
+        public async Task<EPacketResult> ProcessAsync(UserBaseData userData, UnitData unitData, int targetLevel)
         {
             if(unitData == null)
             {

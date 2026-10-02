@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LoginPopup : PopupUIBase
 {
@@ -24,14 +25,18 @@ public class LoginPopup : PopupUIBase
         if(data.Result != EPacketResult.Ok)
         {
             OnLoginFailed(data.Result);
+            Debug.LogError($"Login Failed : {data.Result}");
+            return;
         }
 
+        Debug.Log($"Login Sucess: {data.UserData.UserId}");
+        GameManager.I.User = data.UserData;
         SucessLogin();
     }
 
     private void SucessLogin()
     {
-
+        SceneManager.LoadSceneAsync("MainMenu");
     }
 
     private void OnLoginFailed(EPacketResult result)

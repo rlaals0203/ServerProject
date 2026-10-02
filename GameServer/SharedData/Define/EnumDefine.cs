@@ -2,6 +2,7 @@ public enum EPacketResult
 {
     Ok,
     LoginFailed,
+    InvalidPassword,
     NotFoundUser,
     NotFoundUnit,
     Fail
