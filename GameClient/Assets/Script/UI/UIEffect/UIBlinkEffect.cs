@@ -1,9 +1,7 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
-public class HoveringAnimationComponent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class UIBlinkEffect : MonoBehaviour
 {
     [SerializeField] private GameObject yellowOutline;
     [SerializeField] private GameObject pinkOutline;
@@ -17,9 +15,9 @@ public class HoveringAnimationComponent : MonoBehaviour, IPointerEnterHandler, I
         _waitForSeconds = new WaitForSeconds(blinkDuration);
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public void PlayBlinkEffect()
     {
-        if(_hoverCoroutine != null)
+        if (_hoverCoroutine != null)
         {
             return;
         }
@@ -27,7 +25,7 @@ public class HoveringAnimationComponent : MonoBehaviour, IPointerEnterHandler, I
         _hoverCoroutine = StartCoroutine(HoverAnimation());
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    public void StopBlinkEffect()
     {
         if (_hoverCoroutine != null)
         {
