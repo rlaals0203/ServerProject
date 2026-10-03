@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7820231170793666256}
   - component: {fileID: 5693788996743120374}
   - component: {fileID: 2658118535904615299}
+  - component: {fileID: 4239242873988884473}
   m_Layer: 5
   m_Name: CommonButton
   m_TagString: Untagged
@@ -123,6 +124,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4239242873988884473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 940771226898684296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdf7c508647ecce43888f13fcc9c2432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  yellowOutline: {fileID: 7188364228012942491}
+  pinkOutline: {fileID: 2477700994370852967}
+  blinkDuration: 0.08
 --- !u!1 &2477700994370852967
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,7 +213,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 0.7
 --- !u!1 &7188364228012942491
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,7 +288,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 0.7
 --- !u!1 &8297598116336066401
 GameObject:
   m_ObjectHideFlags: 0

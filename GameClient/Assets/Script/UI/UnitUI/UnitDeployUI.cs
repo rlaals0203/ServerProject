@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UnitDeployUI : UIBase
+public class UnitDeployUI : ContentUI
 {
     [SerializeField] private UnitSOList unitSOList;
     [SerializeField] private Image draggingUI;

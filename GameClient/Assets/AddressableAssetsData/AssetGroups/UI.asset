@@ -17,11 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 7b00c339c55bb6a43825c9167abf9b93
   m_SerializeEntries:
-  - m_GUID: 22f8e7b33cf571e4bac4289c8e14bcd1
-    m_Address: Test
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 61c948cdaa093d046a29a91c17fb0c79
     m_Address: UnitSlotUI
     m_ReadOnly: 0
