@@ -25,7 +25,8 @@ MonoBehaviour:
   - m_GUID: 61c948cdaa093d046a29a91c17fb0c79
     m_Address: UnitSlotUI
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - prepooling
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: dcbe1beaa3c60504c8bca4ca182e4988, type: 2}

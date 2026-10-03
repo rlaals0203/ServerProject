@@ -9,7 +9,7 @@ namespace ObjectPooling
     {
         [SerializeField] private Transform root;
 
-        private Dictionary<string, Pool> _poolList;
+        private Dictionary<string, Pool> _poolList = new();
 
         public void RegisterPool(string key, GameObject go, int count)
         {
@@ -37,7 +37,7 @@ namespace ObjectPooling
 
                 PoolObject newPoolObject = new PoolObject
                 {
-                    Prefab = go
+                    Prefab = spawned
                 };
 
                 newPool.Push(newPoolObject);

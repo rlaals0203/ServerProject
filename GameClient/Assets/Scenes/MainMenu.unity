@@ -3456,6 +3456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rightDoor: {fileID: 1270422931}
   leftDoor: {fileID: 1554456331}
+  options: []
   pveMap: {fileID: 0}
   upgradeUI: {fileID: 0}
   deployUI: {fileID: 2137043916}

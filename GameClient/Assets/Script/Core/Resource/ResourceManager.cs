@@ -1,11 +1,12 @@
-using System;
-using System.Collections.Generic;
 using Core;
 using Cysharp.Threading.Tasks;
 using ObjectPooling;
 using Resource;
-using UnityEditor.AddressableAssets;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace MINLib.Script.Core.Resource
 {
@@ -29,21 +30,34 @@ namespace MINLib.Script.Core.Resource
             _prefabResourceContainer = new PrefabResourceContainer();
             _materialResourceContainer = new MaterialResourceContainer();
             _spriteResourceContainer = new SpriteResourceContainer();
-
-            RegisterPoolFromAddressable();
+            PreSpawnPool();
         }
 
-        private void RegisterPoolFromAddressable()
+        private async UniTask PreSpawnPool()
         {
-            var setting = AddressableAssetSettingsDefaultObject.Settings;
-            foreach (var group in setting.groups)
-            {
-                foreach(var resource in group.entries)
-                {
+            var locationsHandle = Addressables.LoadResourceLocationsAsync("prepooling", typeof(GameObject));
+            await locationsHandle.Task;
 
+            if (locationsHandle.Status != AsyncOperationStatus.Succeeded)
+                return;
+
+            foreach (var location in locationsHandle.Result)
+            {
+                string key = location.PrimaryKey;
+                var prefab = await _prefabResourceContainer.LoadAddressableResourcesAsync(key);
+
+                if (prefab == null)
+                {
+                    Debug.LogError($"prefab of {key} is null");
+                    continue;
                 }
+                
+                _resourcePool[key] = prefab;
+                PoolManager.I.RegisterPool(key, prefab, 1);
             }
-        }
+
+            Addressables.Release(locationsHandle);
+        }    
 
         public async UniTask<T> LoadAddressableResourceAsync<T>(string key) where T : UnityEngine.Object
         {
@@ -125,14 +139,17 @@ namespace MINLib.Script.Core.Resource
 
         public T SpawnAndInitPool<T>(string key, Vector3 position, Transform parent, Action spawnCallback = null)
         {
-            GameObject spawned = SpawnAndInitPool(key, position, parent, spawnCallback);
-
-            if(spawned is T typedResource)
+            if(CheckCacheResource(key) == false)
             {
-                return typedResource;
+                return default;
             }
 
-            return default(T);
+            GameObject spawned = SpawnAndInitPool(key, position, parent, spawnCallback);
+
+            if(spawned == null)
+                return default;
+
+            return spawned.GetComponent<T>();
         }
 
         public bool CheckCacheResource(string key)

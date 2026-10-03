@@ -11,7 +11,7 @@ namespace ObjectPooling
     
     public class Pool
     {
-        [HideInInspector] public int MaxPoolSize;
+        [HideInInspector] public int MaxPoolSize = 10;
         
         private Queue<PoolObject> _pool;
         public int CurrentPoolSize => _pool.Count;

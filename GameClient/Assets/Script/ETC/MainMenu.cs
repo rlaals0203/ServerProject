@@ -1,10 +1,13 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] private RectTransform rightDoor;
     [SerializeField] private RectTransform leftDoor;
+
+    [SerializeField] private Button[] options;
 
     [SerializeField] private GameObject pveMap; 
     [SerializeField] private GameObject upgradeUI;
