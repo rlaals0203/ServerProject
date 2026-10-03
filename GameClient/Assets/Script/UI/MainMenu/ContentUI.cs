@@ -13,6 +13,12 @@ public class ContentUI : UIBase
 {
     private EContentType _contentType;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        gameObject.SetActive(false);
+    }
+
     public virtual void Initialize(EContentType contentType)
     {
         _contentType = contentType;

@@ -19,6 +19,11 @@ public class HoveringAnimationComponent : MonoBehaviour, IPointerEnterHandler, I
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if(_hoverCoroutine != null)
+        {
+            return;
+        }
+
         _hoverCoroutine = StartCoroutine(HoverAnimation());
     }
 
@@ -38,12 +43,12 @@ public class HoveringAnimationComponent : MonoBehaviour, IPointerEnterHandler, I
     {
         while (true)
         {
-            yellowOutline.gameObject.SetActive(true);
-            pinkOutline.gameObject.SetActive(false);
+            yellowOutline.SetActive(true);
+            pinkOutline.SetActive(false);
             yield return _waitForSeconds;
 
-            yellowOutline.gameObject.SetActive(false);
-            pinkOutline.gameObject.SetActive(true);
+            yellowOutline.SetActive(false);
+            pinkOutline.SetActive(true);
             yield return _waitForSeconds;
         }
     }
