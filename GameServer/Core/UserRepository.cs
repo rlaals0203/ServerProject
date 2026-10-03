@@ -22,11 +22,12 @@ public class UserRepository
         return await _users.Find(user => user.UserId == userId).FirstOrDefaultAsync();
     }
 
-    public async Task<UserBaseData> CreateUserAsync(string userId)
+    public async Task<UserBaseData> CreateUserAsync(string userId, string password)
     {
         UserBaseData userBaseData = new UserBaseData
         {
             UserId = userId,
+            Password = password,
             UserUnitData = new UserUnitData()
         };
 

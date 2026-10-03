@@ -31,6 +31,7 @@ public class LoginPopup : PopupUIBase
 
         Debug.Log($"Login Sucess: {data.UserData.UserId}");
         GameManager.I.User = data.UserData;
+        GameManager.I.IsLoggin = true;
         SucessLogin();
     }
 

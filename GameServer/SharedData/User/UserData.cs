@@ -1,3 +1,4 @@
+[MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
 [Serializable]
 public class UserBaseData
 {

@@ -1,6 +1,6 @@
 public class PacketDataBase
 {
-    public string SessionToken { get; set; }
+    public string? SessionToken { get; set; }
 }
 
 public class PacketResultDataBase
@@ -17,7 +17,7 @@ public class PacketResultDataBase
 
 public partial class StandardPacketData : PacketDataBase
 {
-    public string UserId { get; set; }
+    public string? LoginUserId  { get; set; }
     public StandardPacketData() { }
 }
 

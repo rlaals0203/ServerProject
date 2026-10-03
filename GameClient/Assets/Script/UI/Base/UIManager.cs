@@ -23,6 +23,7 @@ public class UIManager : MonoSingleton<UIManager>
 
         _uiStack.Push(popup);
         popup.CloseCallback += closeCallback;
+        popup.transform.position = position;
         popup.OpenPopup();
         return popup;
     }

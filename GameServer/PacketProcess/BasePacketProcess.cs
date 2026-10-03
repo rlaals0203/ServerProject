@@ -8,7 +8,7 @@ public class BasePacketProcess
 
     public BasePacketProcess()
     {
-        Result = EPacketResult.Fail;
+        Result = EPacketResult.Ok;
         client = new MongoClient();
         loggerFactory = new LoggerFactory();
     }

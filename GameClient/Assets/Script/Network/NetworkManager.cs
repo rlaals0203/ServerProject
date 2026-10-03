@@ -4,12 +4,17 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using UnityEngine;
 
 public class NetworkManager : MonoSingleton<NetworkManager>
 {
     public const string URL = "http://localhost:5200";
+    private static readonly JsonSerializerOptions JsonOptions = new()
+    {
+        PropertyNameCaseInsensitive = true
+    };
     private HttpClient _httpClient;
 
     protected override void Awake()
@@ -31,21 +36,21 @@ public class NetworkManager : MonoSingleton<NetworkManager>
             request.LoginUserId = GameManager.I.User.UserId;
         }
 
-        string json = JsonUtility.ToJson(request);
+        string json = JsonSerializer.Serialize(request);
         HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
         HttpResponseMessage response = await _httpClient.PostAsync($"{URL}/{route}", content);
-        Debug.Log(response);
 
         string result = await response.Content.ReadAsStringAsync();
 
         if (response.IsSuccessStatusCode)
         {
-            TResult resultPacket = JsonUtility.FromJson<TResult>(result);
+            TResult resultPacket = JsonSerializer.Deserialize<TResult>(result, JsonOptions);
             callback?.Invoke(resultPacket);
             return;
         }
 
-        Debug.LogError($"POST {route} failed");
+        Debug.Log($"POST {URL}/{route}\nRequest: {json}");
+        Debug.LogError($"Response: {(int)response.StatusCode}\n{result}");
     }
 
     public async Task SendLoginRequest(string userId, string password, Action<UserLoginPacketResultData> callback)

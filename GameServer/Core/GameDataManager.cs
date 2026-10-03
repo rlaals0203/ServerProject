@@ -34,8 +34,8 @@ public class GameDataManager
         return foundUser;
     }
 
-    public async Task<UserBaseData> RequestCreateUserAsync(string userId)
+    public async Task<UserBaseData> RequestCreateUserAsync(string userId, string password)
     {
-        return await UserRepository.CreateUserAsync(userId);
+        return await UserRepository.CreateUserAsync(userId, password);
     }
 }

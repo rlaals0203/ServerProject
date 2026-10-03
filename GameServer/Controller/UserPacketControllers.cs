@@ -21,7 +21,7 @@ public partial class BasePacketController : ControllerBase
     [HttpPost(UnitUpgradePacketData.ROUTE)]
     public async Task<ActionResult<UnitUpgradePacketResultData>> PostUserLoginRequest([FromBody]UnitUpgradePacketData request)
     {
-        UserBaseData userBaseData = await gameDataManager.RequestGetLoginUserAsync(request.UserId);
+        UserBaseData userBaseData = await gameDataManager.RequestGetLoginUserAsync(request.LoginUserId);
         RequestUnitUpgradePacketProcess unitUpgradeProcess = new RequestUnitUpgradePacketProcess();
         await unitUpgradeProcess.ProcessAsync(userBaseData, request.UnitData, request.TargetLevel);
         
@@ -37,7 +37,7 @@ public partial class BasePacketController : ControllerBase
     [HttpPost(UnitDeployPacketData.ROUTE)]
     public async Task<ActionResult<UnitDeployPacketResultData>> PostUserLoginRequest([FromBody]UnitDeployPacketData request)
     {
-        UserBaseData userBaseData = await gameDataManager.RequestGetLoginUserAsync(request.UserId);
+        UserBaseData userBaseData = await gameDataManager.RequestGetLoginUserAsync(request.LoginUserId);
         RequestUnitDeployPacketProcess unitDeployProcess = new RequestUnitDeployPacketProcess();
         await unitDeployProcess.ProcessAsync(userBaseData, request.DeployUnits);
         

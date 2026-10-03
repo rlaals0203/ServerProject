@@ -31,11 +31,13 @@ namespace GameServer
                 
                 UserData = foundUser;
                 IsNewUser = false;
+                Result = EPacketResult.Ok;
                 return Result;
             }
 
-            UserData = await gameDataManager.RequestCreateUserAsync(userId);
+            UserData = await gameDataManager.RequestCreateUserAsync(userId, password);
             IsNewUser = true;
+            Result = EPacketResult.Ok;
             return Result;
         }
     }
