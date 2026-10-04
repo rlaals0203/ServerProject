@@ -21,11 +21,11 @@ public class MakeRequestUnitUpgradePacket
 {
     public UnitUpgradePacketData UnitUpgradePacketData;
 
-    public MakeRequestUnitUpgradePacket(UnitData unitData, int targetLevel)
+    public MakeRequestUnitUpgradePacket(string unitId, int targetLevel)
     {
         UnitUpgradePacketData unitUpgradePacket = new UnitUpgradePacketData
         {
-            UnitData = unitData,
+            UnitId = unitId,
             TargetLevel = targetLevel
         };
 
@@ -37,7 +37,7 @@ public class MakeRequestUnitDeployPacket
 {
     public UnitDeployPacketData UnitDeployPacketData;
 
-    public MakeRequestUnitDeployPacket(Dictionary<int, UnitData> deployUnits)
+    public MakeRequestUnitDeployPacket(Dictionary<int, string> deployUnits)
     {
         UnitDeployPacketData unitDeployPacketData = new UnitDeployPacketData
         {

@@ -3,8 +3,10 @@ public enum EPacketResult
     Ok,
     LoginFailed,
     InvalidPassword,
+    InvalidRequest,
     NotFoundUser,
     NotFoundUnit,
+    MaxUnitLevel,
     Fail
 }
 

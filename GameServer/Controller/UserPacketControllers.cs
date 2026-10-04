@@ -22,13 +22,13 @@ public partial class BasePacketController : ControllerBase
     public async Task<ActionResult<UnitUpgradePacketResultData>> PostUserLoginRequest([FromBody]UnitUpgradePacketData request)
     {
         UserBaseData userBaseData = await gameDataManager.RequestGetLoginUserAsync(request.LoginUserId);
-        RequestUnitUpgradePacketProcess unitUpgradeProcess = new RequestUnitUpgradePacketProcess();
-        await unitUpgradeProcess.ProcessAsync(userBaseData, request.UnitData, request.TargetLevel);
+        RequestUnitUpgradePacketProcess process = new RequestUnitUpgradePacketProcess();
+        await process.ProcessAsync(userBaseData, request.UnitId, request.TargetLevel);
         
-        UnitUpgradePacketResultData resultData = new UnitUpgradePacketResultData(unitUpgradeProcess.Result)
+        UnitUpgradePacketResultData resultData = new UnitUpgradePacketResultData(process.Result)
         {
-            UnitData = unitUpgradeProcess.UnitData,
-            TargetLevel = unitUpgradeProcess.TargetLevel
+            UnitId = process.UnitId,
+            UnitLevel = process.UnitLevel
         };
         
         return resultData;

@@ -1,20 +1,22 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class UnitListUI : SnapScrollViewBase<UnitSlotUI>
 {
-    protected override void Awake()
+    public event Action<string> OnUnitChanged;
+
+    public void InitializeUnitList(Dictionary<string, UnitData> unitDatas)
     {
-        var upgradeSlots = GetComponentsInChildren<UnitSlotUI>();
-        foreach(var slot in upgradeSlots)
+        foreach(var unitData in unitDatas)
         {
-            _elements.Add(slot);
+            var spawned = new SpawnUI<UnitSlotUI>("UnitSlotUI", Vector3.zero, content).spawned;
+            spawned.InitializeUI(unitData.Value);
         }
     }
 
     protected override void ElementChanged()
     {
-
+        OnUnitChanged?.Invoke(_currentElement.GetUnitId());
     }
 }

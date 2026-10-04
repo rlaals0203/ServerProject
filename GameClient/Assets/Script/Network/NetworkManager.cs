@@ -56,9 +56,9 @@ public class NetworkManager : MonoSingleton<NetworkManager>
     public async Task SendLoginRequest(string userId, string password, Action<UserLoginPacketResultData> callback)
         => await SendWebRequest(UserLoginPacketData.ROUTE, new MakeRequestLoginPacket(userId, password).UserLoginPacketData, callback);
 
-    public async Task SendUnitUpgradeRequest(UnitData unit, int targetLevel, Action<UnitUpgradePacketResultData> callback)
-        => await SendWebRequest(UnitUpgradePacketData.ROUTE, new MakeRequestUnitUpgradePacket(unit, targetLevel).UnitUpgradePacketData, callback);
+    public async Task SendUnitUpgradeRequest(string unitId, int targetLevel, Action<UnitUpgradePacketResultData> callback)
+        => await SendWebRequest(UnitUpgradePacketData.ROUTE, new MakeRequestUnitUpgradePacket(unitId, targetLevel).UnitUpgradePacketData, callback);
 
-    public async Task SendUnitDeployRequest(Dictionary<int, UnitData> deplotUnits, Action<UnitDeployPacketResultData> callback)
+    public async Task SendUnitDeployRequest(Dictionary<int, string> deplotUnits, Action<UnitDeployPacketResultData> callback)
      => await SendWebRequest(UnitDeployPacketData.ROUTE, new MakeRequestUnitDeployPacket(deplotUnits).UnitDeployPacketData, callback);
 }

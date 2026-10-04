@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UnitSlotUI : UIBase, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
+public class UnitSlotUI : UIBase, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [SerializeField] private TMP_Text unitNameText;
     [SerializeField] private TMP_Text unitLevelText;
@@ -13,7 +13,6 @@ public class UnitSlotUI : UIBase, IBeginDragHandler, IDragHandler, IEndDragHandl
 
     public event Action<UnitSlotUI> OnUnitDragStart;
     public event Action<UnitSlotUI> OnUnitDragEnd;
-    public event Action<PointerEventData> OnUnitDrop;
 
     private UnitData _currentUnitData;
 
@@ -42,9 +41,4 @@ public class UnitSlotUI : UIBase, IBeginDragHandler, IDragHandler, IEndDragHandl
     }
 
     public void OnDrag(PointerEventData eventData) { }
-
-    void IDropHandler.OnDrop(PointerEventData eventData)
-    {
-        OnUnitDrop?.Invoke(eventData);
-    }
 }

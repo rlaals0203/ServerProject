@@ -9,11 +9,13 @@ public class UserUnitData
 public class UnitData
 {
     public string UnitId { get; set; }
+    public string UnitName { get; set; }
     public int UnitLevel { get; set; }
     public EUnitClassType unitClassType { get; set; }
     public EUnitType UnitType { get; set; }
     public int UnitHealth { get; set; }
     public int UnitAttackPower { get; set; }
+    public int UnitCost { get; set; }
     public float UnitAttackTime { get; set; }
     public float UnitAttackRange { get; set; }
     public float UnitMoveSpeed { get; set; }

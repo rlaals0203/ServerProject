@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class UnitDeckUI : UIBase
 {
     private UnitDeploySlotUI[] _deploySlots;
-    private Dictionary<int, UnitData> _deployUnits;
+    private Dictionary<int, string> _deployUnits;
 
     protected override void Awake()
     {
@@ -24,6 +24,6 @@ public class UnitDeckUI : UIBase
 
     private void HandleSaveDeployUnits(UnitDeployPacketResultData data)
     {
-        GameManager.I.User.UserUnitData.DeployUnitList = data.DeployUnits;
+        //GameManager.I.User.UserUnitData.DeployUnitList = data.DeployUnits;
     }
 }

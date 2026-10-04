@@ -8,11 +8,11 @@ using UnityEngine.UI;
 public abstract class SnapScrollViewBase<T> : UIBase, IBeginDragHandler, IEndDragHandler 
     where T : UIBase
 {
-    [SerializeField] private ScrollRect scrollRect;
-    [SerializeField] private RectTransform content;
+    [SerializeField] protected ScrollRect scrollRect;
+    [SerializeField] protected RectTransform content;
 
     protected List<T> _elements = new();
-    private T _currentElement;
+    protected T _currentElement;
     private bool _isDragging;
     private bool _isSnapping;
     private float _snapVelocity;
@@ -28,16 +28,7 @@ public abstract class SnapScrollViewBase<T> : UIBase, IBeginDragHandler, IEndDra
 
         if(_isDragging == false && _isSnapping)
         {
-            _snapVelocity = scrollRect.velocity.x;
-            _snapVelocity = Mathf.MoveTowards(_snapVelocity, 0f, _snapDeceleration * Time.deltaTime);
-            content.anchoredPosition += Vector2.right * (_snapVelocity * Time.deltaTime);
-
-            if (Mathf.Abs(_snapVelocity) <= _minSnapVelocity)
-            {
-                _snapVelocity = 0f;
-                _isSnapping = false;
-                SnapToElement(_currentElement);
-            }
+            Snapping();
         }
     }
 
@@ -53,6 +44,20 @@ public abstract class SnapScrollViewBase<T> : UIBase, IBeginDragHandler, IEndDra
         _currentElement = centerElement;
         OnElementChanged?.Invoke(centerElement);
         ElementChanged();
+    }
+
+    private void Snapping()
+    {
+        _snapVelocity = scrollRect.velocity.x;
+        _snapVelocity = Mathf.MoveTowards(_snapVelocity, 0f, _snapDeceleration * Time.deltaTime);
+        content.anchoredPosition += Vector2.right * (_snapVelocity * Time.deltaTime);
+
+        if (Mathf.Abs(_snapVelocity) <= _minSnapVelocity)
+        {
+            _snapVelocity = 0f;
+            _isSnapping = false;
+            SnapToElement(_currentElement);
+        }
     }
 
     private T GetCenterElement()
@@ -81,11 +86,17 @@ public abstract class SnapScrollViewBase<T> : UIBase, IBeginDragHandler, IEndDra
 
     public void SnapToElement(T element)
     {
+        content.DOKill();
         scrollRect.StopMovement();
         Vector3 viewportCenter = scrollRect.viewport.TransformPoint(scrollRect.viewport.rect.center);
         Vector3 elementCenter = element.Rect.TransformPoint(element.Rect.rect.center);
         float targetX = content.anchoredPosition.x + viewportCenter.x - elementCenter.x;
-        content.DOAnchorPosX(targetX, 0.4f).SetEase(Ease.OutCubic);
+        content.DOAnchorPosX(targetX, 0.3f).SetEase(Ease.OutCubic);
+    }
+
+    public List<T> GetAllElement()
+    {
+        return _elements;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
