@@ -28,28 +28,29 @@ public class UserRepository
         {
             UserId = userId,
             Password = password,
-            UserUnitData = new UserUnitData()
+            UserUnitData = new UserUnitData(),
+            UserMonetaData = new UserMonetaData()
         };
 
         await _users.InsertOneAsync(userBaseData);
         return userBaseData;
     }
-    
-    public async Task CreateUserAsync(UserBaseData userBaseData)
-    {
-        await _users.InsertOneAsync(userBaseData);
-    }
 
-    public async Task UpdateUserAsync(UserBaseData userBaseData)
+    public async Task UpdateUserAsync(string userId)
     {
-        var foundUser = await GetUserAsync(userBaseData.UserId);
+        UserBaseData foundUser = await GetUserAsync(userId);
 
         if(foundUser == null)
         {
-            await CreateUserAsync(userBaseData);
             return;
         }
 
-        await _users.ReplaceOneAsync(user => user.UserId == userBaseData.UserId, userBaseData);
+        await _users.ReplaceOneAsync(user => user.UserId == userId, foundUser);
+    }
+
+    public async Task UserDataCheck(UserBaseData userData)
+    {
+        new UserDataCheck(userData);
+        await _users.ReplaceOneAsync(user => user.UserId == userData.UserId, userData);
     }
 }
