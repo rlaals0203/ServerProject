@@ -2,10 +2,10 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 
-public class MongoHelper<T>(IMongoClient mongoClient, string databaseName, ILogger logger) where T : class
+public class MongoHelper<T>(IMongoClient mongoClient, string databaseName, ILoggerFactory loggerFactory) where T : class
 {
     private readonly IMongoClient MongoClient = mongoClient;
-    private readonly ILogger Logger = logger;
+    private readonly ILoggerFactory LoggerFactory = loggerFactory;
     private readonly string DatabaseName = databaseName;
     private IMongoCollection<T> TypedCollection;
     private IMongoCollection<BsonDocument> BsonCollection;
@@ -39,7 +39,7 @@ public class MongoHelper<T>(IMongoClient mongoClient, string databaseName, ILogg
         return Builders<TDoc>.Filter.Eq("_id", id);
     }
 
-    private async Task<T> LoadAsync(string id)
+    public async Task<T> LoadAsync(string id)
     {
         try
         {
