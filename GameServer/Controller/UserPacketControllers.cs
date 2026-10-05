@@ -7,7 +7,7 @@ public partial class BasePacketController : ControllerBase
     public async Task<ActionResult<UserLoginPacketResultData>> PostUserLoginRequest([FromBody]UserLoginPacketData request)
     {
         RequestLoginPacketProcess loginProcess = new RequestLoginPacketProcess();
-        await loginProcess.ProcessAsync(gameDataManager, request.UserId, request.Password);
+        await loginProcess.ProcessAsync(dbManager, request.UserId, request.Password);
         
         UserLoginPacketResultData resultData = new UserLoginPacketResultData(loginProcess.Result)
         {
@@ -21,7 +21,7 @@ public partial class BasePacketController : ControllerBase
     [HttpPost(UnitUpgradePacketData.ROUTE)]
     public async Task<ActionResult<UnitUpgradePacketResultData>> PostUserLoginRequest([FromBody]UnitUpgradePacketData request)
     {
-        UserBaseData userBaseData = await gameDataManager.RequestGetLoginUserAsync(request.LoginUserId);
+        UserBaseData userBaseData = await dbManager.LoadUserAsync(request.LoginUserId);
         RequestUnitUpgradePacketProcess process = new RequestUnitUpgradePacketProcess();
         await process.ProcessAsync(userBaseData, request.UnitId, request.TargetLevel);
         
@@ -37,7 +37,7 @@ public partial class BasePacketController : ControllerBase
     [HttpPost(UnitDeployPacketData.ROUTE)]
     public async Task<ActionResult<UnitDeployPacketResultData>> PostUserLoginRequest([FromBody]UnitDeployPacketData request)
     {
-        UserBaseData userBaseData = await gameDataManager.RequestGetLoginUserAsync(request.LoginUserId);
+        UserBaseData userBaseData = await dbManager.LoadUserAsync(request.LoginUserId);
         RequestUnitDeployPacketProcess unitDeployProcess = new RequestUnitDeployPacketProcess();
         await unitDeployProcess.ProcessAsync(userBaseData, request.DeployUnits);
         

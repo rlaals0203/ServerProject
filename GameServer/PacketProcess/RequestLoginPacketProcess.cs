@@ -5,7 +5,7 @@ namespace GameServer
         public UserBaseData UserData;
         public bool IsNewUser;
 
-        public async Task<EPacketResult> ProcessAsync(GameDataManager gameDataManager, string userId, string password)
+        public async Task<EPacketResult> ProcessAsync(DbManager dbManager, string userId, string password)
         {
             if(string.IsNullOrEmpty(userId))
             {
@@ -19,24 +19,31 @@ namespace GameServer
                 return Result;
             }
 
-            UserBaseData foundUser = await gameDataManager.RequestGetLoginUserAsync(userId);
+            UserData = await dbManager.LoadDataAsync<UserBaseData>(EDbType.BaseUserData, userId);
 
-            if(foundUser != null)
+            if(UserData == null)
             {
-                if(foundUser.Password != password)
+                UserData = new UserBaseData
                 {
-                    Result = EPacketResult.InvalidPassword;
-                    return Result;
-                }
-                
-                gameDataManager.RequestUsrDataCheck(foundUser);
-                UserData = foundUser;
-                IsNewUser = false;
+                    UserId = userId,
+                    Password = password
+                };
+
+                IsNewUser = true;
+                new UserDataCheck(UserData);
+                await dbManager.SaveDataAsync(UserData, EDbType.BaseUserData, userId);
                 return Result;
             }
 
-            UserData = await gameDataManager.RequestCreateUserAsync(userId, password);
-            IsNewUser = true;
+            if(UserData.Password != password)
+            {
+                Result = EPacketResult.InvalidPassword;
+                return Result;
+            }
+                
+            IsNewUser = false;
+            new UserDataCheck(UserData);
+            await dbManager.SaveDataAsync(UserData, EDbType.BaseUserData, userId);
             return Result;
         }
     }

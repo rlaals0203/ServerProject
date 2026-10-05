@@ -4,15 +4,15 @@ public abstract class DbDataBase<DbType> : DbBase where DbType : class
 {
     protected MongoHelper<DbType> mongoHelper = null;
 
-    public DbDataBase(string collectionName, MongoClient mongoClient, ILoggerFactory loggerFactory) : base(mongoClient, loggerFactory)
+    public DbDataBase(string collectionName, IMongoClient mongoClient, ILoggerFactory loggerFactory) : base(mongoClient, loggerFactory)
     {
         mongoHelper = new MongoHelper<DbType>(mongoClient, GameDefine.DatabaseName, loggerFactory);
         mongoHelper.InitCollection(collectionName);
     }
 
-    public async Task SaveAsync(DbType data, string dbKey)
+    public async Task<EDbResult> SaveAsync(DbType data, string dbKey)
     {
-        await mongoHelper.SaveAsync(data, dbKey);
+        return await mongoHelper.SaveAsync(data, dbKey);
     }
 
     public async Task<DbType> LoadAsync(string dbKey)

@@ -11,7 +11,7 @@ public class PacketResultDataBase
     public PacketResultDataBase(EPacketResult result)
     {
         Result = result;
-        Date = DateTime.UtcNow.AddHours(9); //UTF+9
+        Date = DateTime.UtcNow.AddHours(9);
     }
 }
 

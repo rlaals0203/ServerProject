@@ -17,6 +17,12 @@ public enum EDbType
     UserMonetaData
 }
 
+public enum EDbResult
+{
+    Sucess,
+    Fail
+}
+
 public enum EStatType
 {
     AttackPower,

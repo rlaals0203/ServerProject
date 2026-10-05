@@ -5,8 +5,7 @@ using MongoDB.Driver;
 public class MongoHelper<T>(IMongoClient mongoClient, string databaseName, ILoggerFactory loggerFactory) where T : class
 {
     private readonly IMongoClient MongoClient = mongoClient;
-    private readonly ILoggerFactory LoggerFactory = loggerFactory;
-    private readonly ILogger Logger;
+    private readonly ILogger<MongoHelper<T>> Logger = loggerFactory.CreateLogger<MongoHelper<T>>();
     private readonly string DatabaseName = databaseName;
     private IMongoCollection<T> TypedCollection;
     private IMongoCollection<BsonDocument> BsonCollection;
@@ -55,7 +54,7 @@ public class MongoHelper<T>(IMongoClient mongoClient, string databaseName, ILogg
         }
     }
 
-    public async Task SaveAsync(T data, string id)
+    public async Task<EDbResult> SaveAsync(T data, string id)
     {
         try
         {
@@ -65,10 +64,12 @@ public class MongoHelper<T>(IMongoClient mongoClient, string databaseName, ILogg
             UpdateOptions options = new() { IsUpsert = true };
 
             await TypedCollection.UpdateOneAsync(filter, update, options);
+            return EDbResult.Sucess;
         }
         catch  
         {
             Logger.LogError($"MongoDbHelper Save Error");
+            return EDbResult.Fail;
         }
     }
 }
