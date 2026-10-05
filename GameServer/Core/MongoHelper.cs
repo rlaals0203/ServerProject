@@ -6,6 +6,7 @@ public class MongoHelper<T>(IMongoClient mongoClient, string databaseName, ILogg
 {
     private readonly IMongoClient MongoClient = mongoClient;
     private readonly ILoggerFactory LoggerFactory = loggerFactory;
+    private readonly ILogger Logger;
     private readonly string DatabaseName = databaseName;
     private IMongoCollection<T> TypedCollection;
     private IMongoCollection<BsonDocument> BsonCollection;

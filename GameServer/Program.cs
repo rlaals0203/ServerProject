@@ -8,6 +8,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDB"));
 builder.Services.AddSingleton<IMongoClient>(new MongoClient("mongodb+srv://scientistmin_db_user:<db_password>@defensecluster.5ibyqfa.mongodb.net/?appName=DefenseCluster"));
 builder.Services.AddSingleton<UserRepository>();
+builder.Services.AddSingleton<DbManager>();
 builder.Services.AddSingleton<GameDataManager>();
 
 var app = builder.Build();

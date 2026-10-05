@@ -1,32 +1,21 @@
 using MongoDB.Driver;
 
-public class DbDataInfoBase<DbType>(MongoClient mongoClient, ILoggerFactory loggerFactory)
-    :  DbDataBase(mongoClient, loggerFactory) where DbType : class
+public abstract class DbDataBase<DbType> : DbBase where DbType : class
 {
-    public EPacketResult Result = EPacketResult.Ok;
-    protected IMongoClient mongoClient = null;
-    protected ILoggerFactory loggerFactory = null;
     protected MongoHelper<DbType> mongoHelper = null;
-    protected string dbKey;
-    protected string collectionName;
-    protected string databaseName;
 
-    public void Initialize(string dbKey, string collectionName, string databaseName)
+    public DbDataBase(string collectionName, MongoClient mongoClient, ILoggerFactory loggerFactory) : base(mongoClient, loggerFactory)
     {
-        this.dbKey = dbKey;
-        this.collectionName = collectionName;
-        this.databaseName = databaseName;
-
-        mongoHelper = new MongoHelper<DbType>(mongoClient, databaseName, loggerFactory);
-        mongoHelper.InitCollection(databaseName);
+        mongoHelper = new MongoHelper<DbType>(mongoClient, GameDefine.DatabaseName, loggerFactory);
+        mongoHelper.InitCollection(collectionName);
     }
 
-    public async Task SaveAsync(DbType data)
+    public async Task SaveAsync(DbType data, string dbKey)
     {
         await mongoHelper.SaveAsync(data, dbKey);
     }
 
-    public async Task<DbType> LoadAsync()
+    public async Task<DbType> LoadAsync(string dbKey)
     {
         return await mongoHelper.LoadAsync(dbKey);
     }

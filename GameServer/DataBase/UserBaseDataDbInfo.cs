@@ -1,9 +1,10 @@
 using MongoDB.Driver;
 
-public class UserBaseDataDbInfo : DbDataInfoBase<UserBaseData>
+public class UserBaseDataDbInfo : DbDataBase<UserBaseData>
 {
-    public UserBaseDataDbInfo(string dbKey, string collectionName, string databaseName, MongoClient mongoClient, ILoggerFactory loggerFactory)
-        : base(dbKey, collectionName, databaseName, mongoClient, loggerFactory)
+    private const string CollectionName = "Users";
+
+    public UserBaseDataDbInfo(MongoClient mongoClient, ILoggerFactory loggerFactory) : base(CollectionName, mongoClient, loggerFactory)
     {
     }
 }

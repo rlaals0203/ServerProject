@@ -10,6 +10,13 @@ public enum EPacketResult
     Fail
 }
 
+public enum EDbType
+{
+    BaseUserData,
+    UserUnitData,
+    UserMonetaData
+}
+
 public enum EStatType
 {
     AttackPower,
