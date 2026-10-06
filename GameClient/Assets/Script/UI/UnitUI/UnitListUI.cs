@@ -6,7 +6,7 @@ public class UnitListUI : SnapScrollViewBase<UnitSlotUI>
 {
     public event Action<string> OnUnitChanged;
 
-    public void InitializeUnitList(Dictionary<string, UnitData> unitDatas)
+    public void InitializeUnitList(Dictionary<string, UnitSO> unitDatas)
     {
         foreach(var unitData in unitDatas)
         {

@@ -16,7 +16,7 @@ MonoBehaviour:
   UnitName: "\uD14C\uC2A4\uD2B82"
   UnitDesc: "\uD14C\uC2A4\uD2B82"
   UnitIcon: {fileID: 21300000, guid: 49badbf85b828c14ebb241d8eb44a424, type: 3}
-  UpgradePrice: 0
+  UpgradePrice: 1000
   UnitCost: 150
   UnitType: 0
   UnitHealth: 100

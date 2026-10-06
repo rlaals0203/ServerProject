@@ -4,7 +4,8 @@ public class Title : MonoBehaviour
 {
     public void OnTouchLogin()
     {
-       new OpenPopup<LoginPopup>("LoginPopup", Vector3.zero, transform);
+       var popup = new OpenPopup<LoginPopup>("LoginPopup", Vector3.zero, transform).spawnedPopup;
+       popup.Rect.anchoredPosition = Vector3.zero;
     }
 
 

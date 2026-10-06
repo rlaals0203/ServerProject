@@ -22,7 +22,7 @@ public class ContentOpenButton : UIBase
     public async void OnTouchButton()
     {
         OnContentOpened?.Invoke(contentUI);
-        await SignalRClient.I.SendMessageToServer("JoinMatch", GameManager.I.User.UserId);
+        await SignalRClient.I.SendMessageToServer("JoinMatch", GameManager.I.MainUser.UserId);
     }
     private void OnReceiveSucess(MatchResultData data)
     {

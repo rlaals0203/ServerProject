@@ -9,6 +9,7 @@ public class UnitSO : ScriptableObject
     public string UnitName;
     public string UnitDesc;
     public Sprite UnitIcon;
+    public int UnlockPrice;
     public int UpgradePrice;
 
     [Header("Unit Stats")]
@@ -23,4 +24,5 @@ public class UnitSO : ScriptableObject
     public int UnitDropMoneyAmount;
     
     public UnitSpecialAbilityData UnitSpecialAbilityData;
+    public bool isDefaultUnit;
 }

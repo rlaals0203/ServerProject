@@ -18,15 +18,7 @@ public class UnitUpgradeUI : ContentUI
     {
         base.Initialize();
 
-        foreach(var unitData in unitSOList.UnitList)
-        {
-            if(GameManager.I.User.UserUnitData.OwnUnitList.TryGetValue(unitData.UnitId, out var data))
-            {
-
-            }
-        }
-
-        unitListUI.InitializeUnitList(unitSOList.CreateUnitDataCache());
+        unitListUI.InitializeUnitList(unitSOList.GetUnitData());
         unitListUI.OnElementChanged += HandleElementChanged;
     }
 
@@ -36,22 +28,25 @@ public class UnitUpgradeUI : ContentUI
 
         UnitSO unitSO = unitSOList.GetUnitById(_currentUnitId);
         description.text = unitSO.UnitDesc;
-        specialAbilityUI.InitSpecialAbilityUI(unitSOList.GetUnitDataByid(_currentUnitId).UnitSpecialAbilityData);
+        specialAbilityUI.InitSpecialAbilityUI(unitSOList.GetUnitById(_currentUnitId).UnitSpecialAbilityData);
         RefreshButtonState();
     }
 
     private void RefreshButtonState()
     {
-        int upgradePrice = unitSOList.GetUnitById(_currentUnitId).UpgradePrice;
-        int currentLevel = new GetUnitLevel(_currentUnitId).Level;
-        int finalPrice = new GetUnitUpgradePrice(upgradePrice, currentLevel).Price;
-
-        upgradeButton.interactable = finalPrice <= GameManager.I.User.UserMonetaData.Exp;
+        upgradeButton.interactable = GetUnitPrice(_currentUnitId) <= GameManager.I.MainUser.UserMonetaData.Exp;
     }
 
     public async void OnTouchUpgradeUnit()
     {
         await NetworkManager.I.SendUnitUpgradeRequest(_currentUnitId, 1, HandleUpgradeUnit);
+    }
+
+    private int GetUnitPrice(string userId)
+    {
+        int upgradePrice = unitSOList.GetUnitById(_currentUnitId).UpgradePrice;
+        int currentLevel = new GetUnitLevel(_currentUnitId).Level;
+        return new GetUnitUpgradePrice(upgradePrice, currentLevel).Price;
     }
 
     private void HandleUpgradeUnit(UnitUpgradePacketResultData data)

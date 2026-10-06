@@ -53,7 +53,7 @@ namespace MINLib.Script.Core.Resource
                 }
                 
                 _resourcePool[key] = prefab;
-                PoolManager.I.RegisterPool(key, prefab, 10);
+                PoolManager.I.RegisterPool(key, prefab, 20);
             }
 
             Addressables.Release(locationsHandle);

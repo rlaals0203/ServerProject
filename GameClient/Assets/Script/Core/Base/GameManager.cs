@@ -3,5 +3,5 @@ using Core;
 public class GameManager : MonoSingleton<GameManager>
 {
     public bool IsLoggin = false;
-    public UserBaseData User = null;
+    public UserBaseData MainUser = null;
 }

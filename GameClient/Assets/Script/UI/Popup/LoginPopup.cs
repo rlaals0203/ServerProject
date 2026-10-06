@@ -30,7 +30,7 @@ public class LoginPopup : PopupUIBase
         }
 
         Debug.Log(data.UserData);
-        GameManager.I.User = data.UserData;
+        GameManager.I.MainUser = data.UserData;
         SucessLogin();
     }
 

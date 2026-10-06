@@ -33,7 +33,7 @@ public class NetworkManager : MonoSingleton<NetworkManager>
     {
         if(GameManager.I.IsLoggin)
         {
-            request.LoginUserId = GameManager.I.User.UserId;
+            request.LoginUserId = GameManager.I.MainUser.UserId;
         }
 
         string json = JsonSerializer.Serialize(request);

@@ -52,7 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   yellowOutline: {fileID: 9133539263675373597}
   pinkOutline: {fileID: 4566761428550771937}
-  blinkDuration: 0.1
+  blinkDuration: 0.08
 --- !u!1 &4566761428550771937
 GameObject:
   m_ObjectHideFlags: 0

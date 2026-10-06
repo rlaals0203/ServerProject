@@ -15,6 +15,8 @@ public class UnitData
     public string UnitId { get; set; }
     public string UnitName { get; set; }
     public int UnitLevel { get; set; }
+    public int UnlockPrice { get; set; }
+    public int UpgradePrice { get; set; }
     public EUnitClassType unitClassType { get; set; }
     public EUnitType UnitType { get; set; }
     public int UnitHealth { get; set; }
@@ -58,6 +60,9 @@ public class MakeUnitData
         {
             UnitId = unitData.UnitId,
             UnitName = unitData.UnitName,
+            UnitLevel = 1,
+            UnlockPrice = unitData.UnlockPrice,
+            UpgradePrice = unitData.UpgradePrice,
             UnitCost = unitData.UnitCost,
             UnitType = unitData.UnitType,
             UnitHealth = unitData.UnitHealth,

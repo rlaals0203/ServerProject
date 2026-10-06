@@ -5,62 +5,37 @@ using UnityEngine;
 public class UnitSOList : ScriptableObject
 {
     public List<UnitSO> UnitList;
-    public Dictionary<string, UnitSO> UnitCache;
-    public Dictionary<string, UnitData> UnitDataCache;
+    private Dictionary<string, UnitSO> _unitCache;
 
     [ContextMenu("CreateUnitCache")]
     public Dictionary<string, UnitSO> CreateUnitCache()
     {
-        UnitCache = new();
+        _unitCache = new();
         foreach (var unit in UnitList)
         {
-            if(UnitCache.ContainsKey(unit.UnitId))
+            if(_unitCache.ContainsKey(unit.UnitId))
             {
                 Debug.LogWarning($"duplication unit, UnitId: {unit.UnitId}, FileName: {name}");
                 continue;
             }
 
-            UnitCache.Add(unit.UnitId, unit);
+            _unitCache.Add(unit.UnitId, unit);
         }
 
-        return UnitCache;
+        return _unitCache;
     }
 
-    [ContextMenu("CreateUnitDataCache")]
-    public Dictionary<string, UnitData> CreateUnitDataCache()
+    public Dictionary<string, UnitSO> GetUnitData()
     {
-        UnitDataCache = new();
-        foreach(var unit in UnitList)
-        {
-            if (UnitDataCache.ContainsKey(unit.UnitId))
-            {
-                Debug.LogWarning($"duplication unit, UnitId: {unit.UnitId}, FileName: {name}");
-                continue;
-            }
-
-            UnitDataCache.Add(unit.UnitId, new MakeUnitData(unit).UnitData);
-        }
-
-        return UnitDataCache;
+        _unitCache ??= CreateUnitCache();
+        return _unitCache;
     }
 
     public UnitSO GetUnitById(string unitId)
     {
-        UnitCache ??= CreateUnitCache();
+        _unitCache ??= CreateUnitCache();
 
-        if (UnitCache.TryGetValue(unitId, out UnitSO unitData))
-        {
-            return unitData;
-        }
-
-        Debug.LogWarning($"{unitId} of Unit nout found");
-        return null;
-    }
-
-    public UnitData GetUnitDataByid(string unitId)
-    {
-        UnitDataCache ??= CreateUnitDataCache();
-        if (UnitDataCache.TryGetValue(unitId, out UnitData unitData))
+        if (_unitCache.TryGetValue(unitId, out UnitSO unitData))
         {
             return unitData;
         }

@@ -23,7 +23,7 @@ public class UnitDeployUI : ContentUI
         _deploySlots = GetComponentsInChildren<UnitDeploySlotUI>(true);
         unitListUI.OnElementChanged += HandleElementChanged;
 
-        unitListUI.InitializeUnitList(GameManager.I.User.UserUnitData.OwnUnitList);
+        unitListUI.InitializeUnitList(unitSOList.GetUnitData());
         foreach (var unitSlot in unitListUI.GetAllElement())
         {
             unitSlot.OnUnitDragStart += HandleSlotDragStart;

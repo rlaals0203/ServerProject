@@ -10,6 +10,7 @@ public class UnitSlotUI : UIBase, IBeginDragHandler, IDragHandler, IEndDragHandl
     [SerializeField] private TMP_Text unitLevelText;
     [SerializeField] private TMP_Text unitCostText;
     [SerializeField] private Image unitIcon;
+    [SerializeField] private GameObject lockObject;
 
     [SerializeField] private TMP_Text unitUpgradeCostText;
     [SerializeField] private GameObject unitUpgradeUI;
@@ -17,20 +18,33 @@ public class UnitSlotUI : UIBase, IBeginDragHandler, IDragHandler, IEndDragHandl
     public event Action<UnitSlotUI> OnUnitDragStart;
     public event Action<UnitSlotUI> OnUnitDragEnd;
 
-    private UnitData _currentUnitData;
+    private const string _unknownName = "??????";
+    private const string _unknownCost = "???";
 
-    public void InitializeUI(UnitData unitData)
+    private string _currentUnitId;
+
+    public void InitializeUI(UnitSO unitSO)
     {
-        unitNameText.text = unitData.UnitName;
-        unitLevelText.text = unitData.UnitLevel.ToString();
-        unitCostText.text = unitData.UnitCost.ToString();
+        if(GameManager.I.MainUser.UserUnitData.OwnUnitList.TryGetValue(unitSO.UnitId, out var unitData))
+        {
+            unitNameText.text = unitData.UnitName;
+            unitLevelText.text = unitData.UnitLevel.ToString();
+            unitCostText.text = unitData.UnitCost.ToString();
+            lockObject.SetActive(false);
+        }
+        else
+        {
+            unitNameText.text = _unknownName;
+            unitCostText.text = _unknownCost;
+            lockObject.SetActive(true);
+        }
 
-        _currentUnitData = unitData;
+        _currentUnitId = unitSO.UnitId;
     }
 
     public string GetUnitId()
     {
-        return _currentUnitData == null ? string.Empty : _currentUnitData.UnitId;
+        return _currentUnitId;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
