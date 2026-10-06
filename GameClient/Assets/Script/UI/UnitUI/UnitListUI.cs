@@ -12,6 +12,7 @@ public class UnitListUI : SnapScrollViewBase<UnitSlotUI>
         {
             var spawned = new SpawnUI<UnitSlotUI>("UnitSlotUI", Vector3.zero, content).spawned;
             spawned.InitializeUI(unitData.Value);
+            _elements.Add(spawned);
         }
     }
 

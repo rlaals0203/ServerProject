@@ -9,6 +9,7 @@ public class UnitSO : ScriptableObject
     public string UnitName;
     public string UnitDesc;
     public Sprite UnitIcon;
+    public int UpgradePrice;
 
     [Header("Unit Stats")]
     public int UnitCost;

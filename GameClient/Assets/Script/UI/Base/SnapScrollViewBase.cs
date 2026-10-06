@@ -62,7 +62,7 @@ public abstract class SnapScrollViewBase<T> : UIBase, IBeginDragHandler, IEndDra
 
     private T GetCenterElement()
     {
-        RectTransform viewport = scrollRect.viewport ?? scrollRect.GetComponent<RectTransform>();
+        RectTransform viewport = scrollRect.viewport;
         Vector3 viewportCenter = viewport.TransformPoint(viewport.rect.center);
 
         T closest = null;
@@ -86,6 +86,9 @@ public abstract class SnapScrollViewBase<T> : UIBase, IBeginDragHandler, IEndDra
 
     public void SnapToElement(T element)
     {
+        if (element == null)
+            return;
+
         content.DOKill();
         scrollRect.StopMovement();
         Vector3 viewportCenter = scrollRect.viewport.TransformPoint(scrollRect.viewport.rect.center);
@@ -102,6 +105,8 @@ public abstract class SnapScrollViewBase<T> : UIBase, IBeginDragHandler, IEndDra
     public void OnBeginDrag(PointerEventData eventData)
     {
         _isDragging = true;
+        _isSnapping = false;
+        content.DOKill();
     }
 
     public void OnEndDrag(PointerEventData eventData)

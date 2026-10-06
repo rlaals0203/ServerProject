@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 public static class GameDefine
 {
     public static int UnitMaxLevel = 30;
@@ -10,4 +12,11 @@ public static class GameDefine
     public static float StrongAgainstHealthModifyStat = 0.5f;
     public static float ResistantModifyStat = 4f;
     public static float MassiveDamageStat = 4f;
+
+    public static Dictionary<int, float> UpgradeExpScale = new Dictionary<int, float>()
+    {
+        { 0, 1f },
+        { 1, 1.2f },
+        { 2, 1.4f },
+    };
 }

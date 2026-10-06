@@ -74,6 +74,7 @@ namespace ObjectPooling
                 return null;
             }
 
+            spawned.gameObject.SetActive(true);
             spawned.transform.SetParent(parent);
             spawned.transform.position = position;
             spawnCallback?.Invoke();

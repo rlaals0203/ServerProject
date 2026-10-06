@@ -22,6 +22,7 @@ public class MainMenuUI : MonoBehaviour
         foreach(var content in contentButtons)
         {
             content.OnContentOpened += HandleContentOpen;
+            content.Initialize();
         }
     }
 
@@ -46,6 +47,7 @@ public class MainMenuUI : MonoBehaviour
         ToggleDoor(true);
         _openedContents.Push(ui);
         ui.gameObject.SetActive(true);
+
         RefreshContentSiblingIndex();
     }
 

@@ -11,7 +11,6 @@ public enum EContentType
 
 public class ContentUI : UIBase
 {
-    private EContentType _contentType;
 
     protected override void Awake()
     {
@@ -19,8 +18,7 @@ public class ContentUI : UIBase
         gameObject.SetActive(false);
     }
 
-    public virtual void Initialize(EContentType contentType)
+    public virtual void Initialize()
     {
-        _contentType = contentType;
     }
 }

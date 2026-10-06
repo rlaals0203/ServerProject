@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class PveUI : ContentUI
 {
-    public override void Initialize(EContentType contentType)
+    public override void Initialize()
     {
-        base.Initialize(contentType);
+        base.Initialize();
 
     }
 }

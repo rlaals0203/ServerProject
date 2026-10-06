@@ -11,6 +11,9 @@ public class UnitSlotUI : UIBase, IBeginDragHandler, IDragHandler, IEndDragHandl
     [SerializeField] private TMP_Text unitCostText;
     [SerializeField] private Image unitIcon;
 
+    [SerializeField] private TMP_Text unitUpgradeCostText;
+    [SerializeField] private GameObject unitUpgradeUI;
+
     public event Action<UnitSlotUI> OnUnitDragStart;
     public event Action<UnitSlotUI> OnUnitDragEnd;
 

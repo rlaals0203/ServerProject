@@ -7,11 +7,16 @@ public class ContentOpenButton : UIBase
 
     public event Action<ContentUI> OnContentOpened;
 
-    private void Awake()
+    protected override void Awake()
     {
         SignalRClient.I.ConnectToHub<MatchResultData>("MatchFail", OnReceiveFail);
         SignalRClient.I.ConnectToHub<MatchResultData>("MatchWaiting", OnReceiveWaiting);
         SignalRClient.I.ConnectToHub<MatchResultData>("MatchSucess", OnReceiveSucess);
+    }
+
+    public void Initialize()
+    {
+        contentUI.Initialize();
     }
 
     public async void OnTouchButton()
