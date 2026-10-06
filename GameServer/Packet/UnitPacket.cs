@@ -2,13 +2,13 @@
 public class UnitUnlockPacketData : StandardPacketData
 {
     public const string ROUTE = "RequestUnitUnlock";
-    string UnitId { get; set; }
+    public string UnitId { get; set; }
 }
 
 [Serializable]
 public class UnitUnlockPacketResultData : StandardPacketResultData
 {
-    string UnitId { get; set; }
+    public string UnitId { get; set; }
     public UnitUnlockPacketResultData(EPacketResult result) : base(result) { }
 }
 

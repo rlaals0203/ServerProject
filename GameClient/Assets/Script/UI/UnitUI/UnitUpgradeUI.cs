@@ -28,7 +28,7 @@ public class UnitUpgradeUI : ContentUI
 
         UnitSO unitSO = unitSOList.GetUnitById(_currentUnitId);
         description.text = unitSO.UnitDesc;
-        specialAbilityUI.InitSpecialAbilityUI(unitSOList.GetUnitById(_currentUnitId).UnitSpecialAbilityData);
+        specialAbilityUI.InitSpecialAbilityUI(unitSO.UnitSpecialAbilityData);
         RefreshButtonState();
     }
 
@@ -39,7 +39,14 @@ public class UnitUpgradeUI : ContentUI
 
     public async void OnTouchUpgradeUnit()
     {
-        await NetworkManager.I.SendUnitUpgradeRequest(_currentUnitId, 1, HandleUpgradeUnit);
+        if(GameManager.I.MainUser.UserUnitData.OwnUnitList.ContainsKey(_currentUnitId))
+        {
+            await NetworkManager.I.SendUnitUpgradeRequest(_currentUnitId, 1, HandleUpgradeUnit);
+        }
+        else
+        {
+            await NetworkManager.I.SendUnitUnlockRequest(_currentUnitId, HandleUnlockUnit);
+        }
     }
 
     private int GetUnitPrice(string userId)
@@ -49,9 +56,20 @@ public class UnitUpgradeUI : ContentUI
         return new GetUnitUpgradePrice(upgradePrice, currentLevel).Price;
     }
 
+    private void HandleUnlockUnit(UnitUnlockPacketResultData data)
+    {
+        if(data.Result != EPacketResult.Ok)
+        {
+            return;
+        }
+    }
+
     private void HandleUpgradeUnit(UnitUpgradePacketResultData data)
     {
-
+        if (data.Result != EPacketResult.Ok)
+        {
+            return;
+        }
     }
 
     private void OnDestroy()

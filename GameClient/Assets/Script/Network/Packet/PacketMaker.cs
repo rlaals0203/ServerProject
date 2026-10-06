@@ -1,6 +1,21 @@
 using System;
 using System.Collections.Generic;
 
+public class MakeRequestUnitUnlockPacket
+{
+    public UnitUnlockPacketData UnitUnlockPacket;
+
+    public MakeRequestUnitUnlockPacket(string unitId)
+    {
+        UnitUnlockPacketData unitUnlockPacket = new UnitUnlockPacketData()
+        {
+            UnitId = unitId
+        };
+
+        UnitUnlockPacket = unitUnlockPacket;
+    }
+}
+
 public class MakeRequestLoginPacket
 {
     public UserLoginPacketData UserLoginPacketData;

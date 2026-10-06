@@ -73,7 +73,7 @@ public class GameRoomService
     {
         foreach(var room in _rooms)
         {
-            room.Value?.UpdateRoom();
+            //room.Value?.UpdateRoom();
         }
     }
 }

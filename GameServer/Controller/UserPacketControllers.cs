@@ -18,8 +18,23 @@ public partial class BasePacketController : ControllerBase
         return resultData;
     }
 
+    [HttpPost(UnitUnlockPacketData.ROUTE)]
+    public async Task<ActionResult<UnitUnlockPacketResultData>> PostUnitDeployRequest([FromBody]UnitUnlockPacketData request)
+    {
+        UserBaseData userBaseData = await dbManager.LoadUserAsync(request.LoginUserId);
+        RequestUnitUnlockPacketProcess process = new RequestUnitUnlockPacketProcess();
+        await process.ProcessAsync(userBaseData, request.UnitId);
+        
+        UnitUnlockPacketResultData resultData = new UnitUnlockPacketResultData(process.Result)
+        {
+            UnitId = process.UnitId
+        };
+        
+        return resultData;
+    }
+
     [HttpPost(UnitUpgradePacketData.ROUTE)]
-    public async Task<ActionResult<UnitUpgradePacketResultData>> PostUserLoginRequest([FromBody]UnitUpgradePacketData request)
+    public async Task<ActionResult<UnitUpgradePacketResultData>> PostUnitUpgradeRequest([FromBody]UnitUpgradePacketData request)
     {
         UserBaseData userBaseData = await dbManager.LoadUserAsync(request.LoginUserId);
         RequestUnitUpgradePacketProcess process = new RequestUnitUpgradePacketProcess();
@@ -35,7 +50,7 @@ public partial class BasePacketController : ControllerBase
     }
 
     [HttpPost(UnitDeployPacketData.ROUTE)]
-    public async Task<ActionResult<UnitDeployPacketResultData>> PostUserLoginRequest([FromBody]UnitDeployPacketData request)
+    public async Task<ActionResult<UnitDeployPacketResultData>> PostUnitDeployRequest([FromBody]UnitDeployPacketData request)
     {
         UserBaseData userBaseData = await dbManager.LoadUserAsync(request.LoginUserId);
         RequestUnitDeployPacketProcess unitDeployProcess = new RequestUnitDeployPacketProcess();
