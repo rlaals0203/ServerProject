@@ -65,11 +65,11 @@ public enum ESpecialAbilityType
     Freeze,                     //멈춤
     [ProbabilityAbility]
     Slow,                       //느리게
+    Knockback,                  //넉백
     StrongAgainst,              //엄청 강하다
     Resistant,                  //맷집이 좋다
     MassiveDamage,              //초데미지
     [ProbabilityAbility]
-    Knockback,                  //넉백
     AntiWeaken,                 //공격력 다운 무효
     AntiFreeze,                 //멈춤 무효
     AntiSlow,                   //느리게 무효
