@@ -1,4 +1,4 @@
-public class MatchResultData
+public class JoinMatchResultData
 {
     public EMatchResult MatchResult { get; set; }
     public string UserId { get; set; }
