@@ -10,6 +10,13 @@ public enum EPacketResult
     Fail
 }
 
+public enum EMatchResult
+{
+    Matched,
+    Waiting,
+    Fail,
+}
+
 public enum EDbType
 {
     BaseUserData,

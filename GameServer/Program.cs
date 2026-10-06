@@ -11,6 +11,7 @@ builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("Mo
 builder.Services.AddSingleton<IMongoClient>(new MongoClient(mongoDbSettings.ConnectionString));
 builder.Services.AddSingleton<DbManager>();
 builder.Services.AddSingleton<GameDataManager>();
+builder.Services.AddSingleton<GameRoomService>();
 
 var app = builder.Build();
 app.MapControllerRoute(
