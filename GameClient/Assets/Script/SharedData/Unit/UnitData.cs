@@ -33,15 +33,15 @@ public class UnitData
 [Serializable]
 public class UnitSpecialAbilityData
 {
-    public EUnitType[] TargetTypes { get; set; }
-    public SpecialAbilityData[] SpecialAbilityDatas { get; set; }
+    public EUnitType[] TargetTypes;
+    public SpecialAbilityData[] SpecialAbilityDatas;
 }
 
 
 [Serializable]
 public class SpecialAbilityData
 {
-    public ESpecialAbilityType AbilityType { get; set; }
+    public ESpecialAbilityType AbilityType;
     [Range(0f, 1f)]
     [Tooltip("확률형 능력이 아니라면 항상 1로 적용됩니다.")]
     public float Chance;
@@ -68,6 +68,12 @@ public class MakeUnitData
             UnitHitbackCount = unitData.UnitHitbackCount,
             UnitDropMoneyAmount = unitData.UnitDropMoneyAmount,
             UnitSpecialAbilityData = unitData.UnitSpecialAbilityData
+        };
+
+        UnitData.UnitSpecialAbilityData = new UnitSpecialAbilityData()
+        {
+            SpecialAbilityDatas = unitData.UnitSpecialAbilityData.SpecialAbilityDatas,
+            TargetTypes = unitData.UnitSpecialAbilityData.TargetTypes
         };
     }
 }

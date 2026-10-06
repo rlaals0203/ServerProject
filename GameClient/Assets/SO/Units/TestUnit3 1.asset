@@ -16,7 +16,8 @@ MonoBehaviour:
   UnitName: "\u314E\u314E\u314E\u314E"
   UnitDesc: "\uD14C\uC2A4\uD2B8\uD14C\uC2A4\uD2B8\uD14C\uC2A4\uD2B8\uD14C\uC2A4\uD2B8\uD14C\uC2A4\uD2B8\uD14C\uC2A4\uD2B8\uD14C\uC2A4\uD2B8\uD14C\uC2A4\uD2B8\uD14C\uC2A4\uD2B8\uD14C\uC2A4\uD2B8"
   UnitIcon: {fileID: 21300000, guid: 49badbf85b828c14ebb241d8eb44a424, type: 3}
-  UnitCost: 0
+  UpgradePrice: 0
+  UnitCost: 400
   UnitType: 0
   UnitHealth: 100
   UnitAttackPower: 10
@@ -25,3 +26,15 @@ MonoBehaviour:
   UnitMoveSpeed: 10
   UnitHitbackCount: 1
   UnitDropMoneyAmount: 100
+  UnitSpecialAbilityData:
+    TargetTypes: 01000000
+    SpecialAbilityDatas:
+    - AbilityType: 1
+      Chance: 0
+      Duration: 0
+    - AbilityType: 3
+      Chance: 0
+      Duration: 0
+    - AbilityType: 5
+      Chance: 0
+      Duration: 0

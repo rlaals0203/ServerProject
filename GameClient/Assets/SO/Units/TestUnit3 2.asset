@@ -16,7 +16,8 @@ MonoBehaviour:
   UnitName: "\uC694\uB124\uC988\uCF04\uC2DC"
   UnitDesc: "\uCF04\uC2DC\uCF04\uC2DC"
   UnitIcon: {fileID: 21300000, guid: 49badbf85b828c14ebb241d8eb44a424, type: 3}
-  UnitCost: 0
+  UpgradePrice: 0
+  UnitCost: 500
   UnitType: 0
   UnitHealth: 100
   UnitAttackPower: 10
@@ -25,3 +26,6 @@ MonoBehaviour:
   UnitMoveSpeed: 10
   UnitHitbackCount: 1
   UnitDropMoneyAmount: 100
+  UnitSpecialAbilityData:
+    TargetTypes: 
+    SpecialAbilityDatas: []

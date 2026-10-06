@@ -3,8 +3,9 @@ using UnityEngine.UI;
 
 public class UnitSpecialAbilityUI : UIBase
 {
-    [SerializeField] private GameObject[] targetTypes;
+    [SerializeField] private Image[] targetTypes;
     [SerializeField] private GameObject[] specialAbilities;
+    [SerializeField] private RectTransform rect;
 
     public void InitSpecialAbilityUI(UnitSpecialAbilityData specialAbilityData)
     {
@@ -17,15 +18,17 @@ public class UnitSpecialAbilityUI : UIBase
 
         foreach (EUnitType targetType in specialAbilityData.TargetTypes)
         {
-            specialAbilities[(int)targetType].SetActive(true);
+            targetTypes[(int)targetType].color = Color.white;
         }
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(rect);
     }
 
     private void DisableImages()
     {
         foreach(var targetType in targetTypes)
         {
-            targetType.gameObject.SetActive(false);
+            targetType.color = Color.gray;
         }
 
         foreach(var specialAbility in specialAbilities)

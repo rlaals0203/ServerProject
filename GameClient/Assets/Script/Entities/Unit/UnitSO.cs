@@ -21,6 +21,6 @@ public class UnitSO : ScriptableObject
     public float UnitMoveSpeed;
     public int UnitHitbackCount;
     public int UnitDropMoneyAmount;
-
+    
     public UnitSpecialAbilityData UnitSpecialAbilityData;
 }
