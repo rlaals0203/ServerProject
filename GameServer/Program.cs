@@ -22,4 +22,5 @@ app.MapControllers();
 app.UseAuthorization();
 app.UseHttpsRedirection();
 app.UseRouting();
+app.MapHub<GameHub>("/gamehub");
 app.Run();

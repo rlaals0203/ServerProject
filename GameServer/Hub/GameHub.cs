@@ -9,22 +9,30 @@ public class GameHub : Hub
         RoomService = roomService;
     }
 
-    public async Task JoinMatchAsync(string userId)
+    public async Task JoinMatch(string userId)
     {
         string connectionId = Context.ConnectionId;
         EMatchResult result = await RoomService.JoinMatch(userId, connectionId);
+        MatchResultData matchResultData = new MatchResultData()
+        {
+            MatchResult = result,
+            UserId = userId,
+        };
 
         if(result == EMatchResult.Fail)
         {
-            
+            await Clients.Caller.SendAsync("MatchFail", matchResultData);
+            return;
         }
         if(result == EMatchResult.Waiting)
         {
-            
+            await Clients.Caller.SendAsync("MatchWaiting", matchResultData);
+            return;
         }
         if(result == EMatchResult.Matched)
         {
-            
+            await Clients.Caller.SendAsync("MatchSucess", matchResultData);
+            return;
         }
     }
 }

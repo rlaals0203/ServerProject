@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.SignalR.Client;
 using System;
 using UnityEngine;
 
-public class SingalRClient : MonoSingleton<SingalRClient>
+public class SignalRClient : MonoSingleton<SignalRClient>
 {
-    private const string HUB_URL = "http://localhost:5000/gamehub";
+    private const string HUB_URL = "http://localhost:5200/gamehub";
     private HubConnection _connection;
 
     protected override void Awake()
@@ -38,13 +38,15 @@ public class SingalRClient : MonoSingleton<SingalRClient>
         _connection.On(methodName, handler);
     }
 
-    public async UniTask SendMessageToServer(string user, string message)
+    public async UniTask SendMessageToServer(string method, string userId)
     {
+        Debug.Log(_connection.State);
         if (_connection != null && _connection.State == HubConnectionState.Connected)
         {
             try
             {
-                await _connection.SendAsync("SendMessage", user, message);
+                Debug.Log($"서버로 전송 {method}, {userId}");
+                await _connection.SendAsync(method, userId);
             }
             catch (Exception ex)
             {

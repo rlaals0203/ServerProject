@@ -1,6 +1,32 @@
 public enum EPacketResult
 {
     Ok,
+    LoginFailed,
+    InvalidPassword,
+    InvalidRequest,
+    NotFoundUser,
+    NotFoundUnit,
+    MaxUnitLevel,
+    Fail
+}
+
+public enum EMatchResult
+{
+    Matched,
+    Waiting,
+    Fail,
+}
+
+public enum EDbType
+{
+    BaseUserData,
+    UserUnitData,
+    UserMonetaData
+}
+
+public enum EDbResult
+{
+    Sucess,
     Fail
 }
 
@@ -10,6 +36,7 @@ public enum EStatType
     Health,
     MoveSpeed,
 }
+
 public enum EUnitType
 {
     Normal,
@@ -24,7 +51,7 @@ public enum EUnitClassType
 {
     First = 1,
     Second = 2,
-    Third = 3
+    Thired = 3
 }
 
 public enum ESpecialAbilityType
