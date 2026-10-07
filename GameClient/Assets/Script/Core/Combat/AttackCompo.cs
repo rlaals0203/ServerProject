@@ -31,7 +31,7 @@ public class AttackCompo : MonoBehaviour, IComponentCache
 
     public void Attack()
     {
-
+        damageCaster.CastDamage();
     }
 
     public bool IsTargetDeadOrEmpty()

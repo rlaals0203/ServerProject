@@ -6,7 +6,9 @@ public class DamageCaster : MonoBehaviour
 
     private bool _isSingleAttack;
     private Unit _owner;
+
     private StatCompo _statCompo;
+    private StatBase _attackPowerStat;
     private StatBase _attackRangeStat;
     private StatBase _attackDistanceStat;
     private StatBase _detectRangeStat;
@@ -14,25 +16,46 @@ public class DamageCaster : MonoBehaviour
     private Vector3 _direction;
 
     private Collider2D[] _detectTargets = new Collider2D[16];
+    private Collider2D[] _attackTargets = new Collider2D[32];
 
     public virtual void InitCaster(Unit owner)
     {
         _owner = owner;
         _statCompo = owner.Get<StatCompo>();
 
+        _attackPowerStat = _statCompo.GetStat(EStatType.AttackPower);
         _attackRangeStat = _statCompo.GetStat(EStatType.AttackRange);
         _attackDistanceStat = _statCompo.GetStat(EStatType.AttackDistance);
         _detectRangeStat = _statCompo.GetStat(EStatType.DetectRange);
+
         _direction = (_owner.TeamType == ETeamType.Friendly ? -1 : 1) * Vector3.right;
         _isSingleAttack = owner.UnitData.UnitSpecialAbilityData.SpecialAbilityDatas
             .Where(ability => ability.AbilityType == ESpecialAbilityType.SingleAttack).Count() > 0;
-
         contactFier.layerMask = owner.IsEnemyUnit ? LayerMask.GetMask("Unit") : LayerMask.GetMask("Enemy");
     }
 
-    public bool CastDamage(Vector2 pos, UnitAttackData unitAttackData)
+    public bool CastDamage()
     {
-        return true;
+        Vector3 attackDistance = _direction * _attackDistanceStat.CurrentStat;
+        Vector3 attackRange = _direction * _attackRangeStat.CurrentStat;
+        Vector3 attackPosition = transform.position + attackDistance + attackRange * 0.5f;
+
+        int count = Physics2D.OverlapBox(attackPosition, new Vector3(_attackRangeStat.CurrentStat, 2f), 0f, contactFier, _attackTargets);
+
+        if(count > 0)
+        {
+            foreach(var target in _attackTargets)
+            {
+                if(target.TryGetComponent<IDamageable>(out var damageable))
+                {
+                    damageable.OnHit(_attackPowerStat.CurrentStat);
+                }
+            }
+
+            return true;
+        }
+
+        return false;
     }
 
     public bool DetectTarget()
@@ -40,7 +63,6 @@ public class DamageCaster : MonoBehaviour
         Vector3 detectDistance = _direction * _detectRangeStat.CurrentStat;
         Vector3 detectPosition = transform.position + detectDistance * 0.5f;
         int count = Physics2D.OverlapBox(detectPosition, new Vector3(_detectRangeStat.CurrentStat, 2f), 0f, contactFier, _detectTargets);
-        Debug.Log(count);
         return count > 0;
     }
 

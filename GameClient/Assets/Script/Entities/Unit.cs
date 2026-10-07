@@ -8,6 +8,11 @@ public interface IComponentCache
     public void InitializeComponent(Unit owner);
 }
 
+public interface IAfterInit
+{
+    public void AfterInitialize();
+}
+
 public enum ETeamType
 {
     Friendly,
@@ -30,6 +35,7 @@ public class Unit : MonoBehaviour
         UnitData = unitData;
         TeamType = teamType;
         InitializeComponentCaches();
+        AfterInitializeComponentCaches();
 
         _stateMachine ??= new UnitStateMachine(this, states);
         ChangeState(EStateType.Move);
@@ -59,6 +65,15 @@ public class Unit : MonoBehaviour
         {
             cache.InitializeComponent(this);
             _cachedComponent.Add(cache.GetType(), cache);
+        }
+    }
+
+    private void AfterInitializeComponentCaches()
+    {
+        var afterInitComponents = GetComponentsInChildren<IAfterInit>();
+        foreach (var cache in afterInitComponents)
+        {
+            cache.AfterInitialize();
         }
     }
 

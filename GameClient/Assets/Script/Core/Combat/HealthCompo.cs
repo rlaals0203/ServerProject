@@ -1,7 +1,8 @@
 using System;
 using UnityEngine;
+using static UnityEngine.UI.GridLayoutGroup;
 
-public class HealthCompo : MonoBehaviour, IComponentCache, IDamageable
+public class HealthCompo : MonoBehaviour, IComponentCache, IAfterInit, IDamageable
 {
     private Unit _owner;
     private StatCompo _statCompo;
@@ -10,14 +11,19 @@ public class HealthCompo : MonoBehaviour, IComponentCache, IDamageable
     public Action OnDead;
     public Action OnDamaged;
 
+
     public void InitializeComponent(Unit owner)
     {
         _owner = owner;
-        _statCompo = owner.Get<StatCompo>();
+    }
+
+    public void AfterInitialize()
+    {
+        _statCompo = _owner.Get<StatCompo>();
         _healthStat = _statCompo.GetStat(EStatType.Health);
     }
 
-    public void Hit(float damage)
+    public void OnHit(float damage)
     {
         _healthStat.SubstractStatValue(damage);
         OnDamaged?.Invoke();
