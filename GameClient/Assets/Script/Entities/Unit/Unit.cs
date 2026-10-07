@@ -4,5 +4,13 @@ using UnityEngine;
 
 public class Unit : Entity
 {
-    public UnitSO UnitSO;
+    public UnitData UnitData { get; private set; }
+
+    protected override void Awake() { }
+
+    public void InitializeUnit(UnitData unitData)
+    {
+        UnitData = unitData;
+        base.Initialize();
+    }
 }
