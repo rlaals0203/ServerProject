@@ -4,20 +4,40 @@ using UnityEngine;
 
 public interface IComponentCache
 {
-    public void InitializeComponent(Entity owner);
+    public void InitializeComponent(Unit owner);
 }
 
-public class Entity : MonoBehaviour
+public enum ETeamType
 {
-    protected Dictionary<Type, IComponentCache> _cachedComponent = new();
+    Friendly,
+    Enemy
+}
 
-    private void Awake()
+public class Unit : MonoBehaviour
+{
+    public UnitData UnitData { get; private set; }
+    public ETeamType TeamType;
+
+    private Dictionary<Type, IComponentCache> _cachedComponent = new();
+    private UnitStateMachine _stateMachine;
+
+    protected virtual void Initialize(UnitData unitData, ETeamType teamType)
     {
-        Initialize();
+        UnitData = unitData;
+        TeamType = teamType;
+
         InitializeComponentCaches();
     }
 
-    protected virtual void Initialize() { }
+    private void Update()
+    {
+        _stateMachine.UpdateStateMachine();
+    }
+
+    public void ChangeState(string stateName, bool forced = false)
+    {
+        _stateMachine.ChangeState(stateName, forced);
+    }
 
     protected void InitializeComponentCaches()
     {

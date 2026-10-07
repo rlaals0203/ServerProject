@@ -1,12 +1,12 @@
 using System;
 using UnityEngine;
 
-public class EntityStatCompo : MonoBehaviour, IComponentCache
+public class StatCompo : MonoBehaviour, IComponentCache
 {
-    private Entity _owner;
+    private Unit _owner;
     private StatData _statData;
 
-    public void InitializeComponent(Entity owner)
+    public void InitializeComponent(Unit owner)
     {
         _owner = owner;
         _statData = new StatData();

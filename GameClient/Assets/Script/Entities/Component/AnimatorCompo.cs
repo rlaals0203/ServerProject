@@ -1,11 +1,11 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
-public class EntityAnimatorCompo : MonoBehaviour, IComponentCache
+public class AnimatorCompo : MonoBehaviour, IComponentCache
 {
     [field: SerializeField] public Animator Animator { get; private set; }
-    private Entity _entity;
-    public virtual void InitializeComponent(Entity entity)
+    private Unit _entity;
+    public virtual void InitializeComponent(Unit entity)
     {
         _entity = entity;
     }

@@ -1,29 +1,29 @@
-public abstract class EntityState
+public abstract class UnitState
 {
-    protected Entity _entity;
+    protected Unit _entity;
+    protected AnimatorCompo _entityAnimator;
+    protected AnimatorTriggerCompo _animatorTrigger;
     protected int _animationHash;
-    protected EntityAnimatorCompo _entityAnimator;
-    protected EntityAnimatorTrigger _animatorTrigger;
     protected bool _isTriggerCall;
 
-    protected EntityState(Entity entity, int animationHash)
+    protected UnitState(Unit entity, int animationHash)
     {
         _entity = entity;
         _animationHash = animationHash;
-        _entityAnimator = entity.Get<EntityAnimatorCompo>();
-        _animatorTrigger = entity.Get<EntityAnimatorTrigger>();
+        _entityAnimator = entity.Get<AnimatorCompo>();
+        _animatorTrigger = entity.Get<AnimatorTriggerCompo>();
     }
 
-    public virtual void Enter()
+    public virtual void EnterState()
     {
         _entityAnimator.SetParam(_animationHash, true);
         _isTriggerCall = false;
         _animatorTrigger.OnAnimationEndTrigger += AnimationEndTrigger;
     }
 
-    public virtual void Update() { }
+    public virtual void UpdateState() { }
 
-    public virtual void Exit()
+    public virtual void ExitState()
     {
         _animatorTrigger.OnAnimationEndTrigger -= AnimationEndTrigger;
         _entityAnimator.SetParam(_animationHash, false);

@@ -1,15 +1,15 @@
 using UnityEngine;
-public abstract class EntityAttackCompo : MonoBehaviour, IComponentCache
+public abstract class AttackCompo : MonoBehaviour, IComponentCache
 {
     [SerializeField] protected float _detectRange;
     protected IDamageable _target;
-    protected Entity _entity;
-    private EntityAnimatorTrigger _animatorTrigger;
+    protected Unit _entity;
+    private AnimatorTriggerCompo _animatorTrigger;
 
-    public virtual void InitializeComponent(Entity entity)
+    public virtual void InitializeComponent(Unit entity)
     {
         _entity = entity;
-        _animatorTrigger = entity.Get<EntityAnimatorTrigger>();
+        _animatorTrigger = entity.Get<AnimatorTriggerCompo>();
         _animatorTrigger.OnDamageCastTrigger += Attack;
     }
     private void OnDestroy()

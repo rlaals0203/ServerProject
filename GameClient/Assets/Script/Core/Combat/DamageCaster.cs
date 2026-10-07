@@ -7,9 +7,9 @@ namespace Scripts.Combat
         [SerializeField] protected int maxHitCount = 1;
         [SerializeField] protected ContactFilter2D contactFier;
 
-        protected Entity _owner;
+        protected Unit _owner;
 
-        public virtual void InitCaster(Entity owner)
+        public virtual void InitCaster(Unit owner)
         {
             _owner = owner;
         }

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class EntityAnimatorTrigger : MonoBehaviour, IComponentCache
+public class AnimatorTriggerCompo : MonoBehaviour, IComponentCache
 {
     public Action OnAnimationEndTrigger;
     public Action OnAttackVFXTrigger;
@@ -9,8 +9,8 @@ public class EntityAnimatorTrigger : MonoBehaviour, IComponentCache
     public Action OnDamageCastTrigger;
     public Action<bool> OnDamageToggleTrigger;
     public Action OnCastSkillTrigger;
-    private Entity _entity;
-    public void InitializeComponent(Entity owner)
+    private Unit _entity;
+    public void InitializeComponent(Unit owner)
     {
         _entity = owner;
     }
