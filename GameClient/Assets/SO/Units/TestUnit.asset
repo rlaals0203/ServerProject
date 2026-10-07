@@ -19,6 +19,7 @@ MonoBehaviour:
   UnlockPrice: 0
   UpgradePrice: 1000
   UnitCost: 0
+  UnitCooldown: 2
   UnitType: 00000000
   UnitMoveSpeed: 1
   UnitHitbackCount: 3

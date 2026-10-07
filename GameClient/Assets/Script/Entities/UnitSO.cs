@@ -13,6 +13,7 @@ public class UnitSO : ScriptableObject
 
     [Header("Unit Stats")]
     public int UnitCost;
+    public int UnitCooldown;
     public EUnitType[] UnitType;
     public float UnitMoveSpeed;
     public int UnitHitbackCount;

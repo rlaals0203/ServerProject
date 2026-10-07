@@ -22,6 +22,7 @@ public class UnitData
     public int UnitHealth { get; set; }
     public int UnitAttackPower { get; set; }
     public int UnitCost { get; set; }
+    public int UnitCooldown { get; set; }
     public float UnitAttackSpeed { get; set; }
     public float UnitAttackRange { get; set; }
     public float UnitMoveSpeed { get; set; }
@@ -74,6 +75,7 @@ public class MakeUnitData
             UnlockPrice = unitData.UnlockPrice,
             UpgradePrice = unitData.UpgradePrice,
             UnitCost = unitData.UnitCost,
+            UnitCooldown = unitData.UnitCooldown,
             UnitType = unitData.UnitType,
             UnitHealth = unitData.UnitHealth,
             UnitAttackPower = unitData.UnitAttackPower,
