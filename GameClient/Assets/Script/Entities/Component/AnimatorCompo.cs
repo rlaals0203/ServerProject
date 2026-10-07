@@ -4,10 +4,11 @@ using UnityEngine;
 public class AnimatorCompo : MonoBehaviour, IComponentCache
 {
     [field: SerializeField] public Animator Animator { get; private set; }
-    private Unit _entity;
-    public virtual void InitializeComponent(Unit entity)
+    private Unit _owner;
+
+    public virtual void InitializeComponent(Unit owner)
     {
-        _entity = entity;
+        _owner = owner;
     }
 
     public void SetParam(string name, bool value) => Animator.SetBool(name, value);

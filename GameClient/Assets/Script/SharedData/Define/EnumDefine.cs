@@ -35,6 +35,9 @@ public enum EStatType
     AttackPower,
     Health,
     MoveSpeed,
+    AttackRange,
+    AttackDistance,
+    DetectRange,
 }
 
 public enum EUnitType

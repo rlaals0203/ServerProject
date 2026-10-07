@@ -12,31 +12,41 @@ public enum ETeamType
     Friendly,
     Enemy
 }
-
+ 
 public class Unit : MonoBehaviour
 {
+    public StateDataSO[] states;
     public UnitData UnitData { get; private set; }
-    public ETeamType TeamType;
+    public ETeamType TeamType { get; private set; }
+    public EStateType CurrentState { get; private set; }
 
     private Dictionary<Type, IComponentCache> _cachedComponent = new();
     private UnitStateMachine _stateMachine;
 
-    protected virtual void Initialize(UnitData unitData, ETeamType teamType)
-    {
+    public virtual void Initialize(UnitData unitData, ETeamType teamType)
+    { 
         UnitData = unitData;
         TeamType = teamType;
-
         InitializeComponentCaches();
+
+        _stateMachine ??= new UnitStateMachine(this, states);
+        ChangeState(EStateType.Move);
     }
 
     private void Update()
     {
-        _stateMachine.UpdateStateMachine();
+        _stateMachine?.UpdateStateMachine();
     }
 
-    public void ChangeState(string stateName, bool forced = false)
+    private void FixedUpdate()
     {
-        _stateMachine.ChangeState(stateName, forced);
+        _stateMachine?.FixedUpdateStateMachine();
+    }
+
+    public void ChangeState(EStateType stateType, bool forced = false)
+    {
+        CurrentState = stateType;
+        _stateMachine.ChangeState(stateType, forced);
     }
 
     protected void InitializeComponentCaches()

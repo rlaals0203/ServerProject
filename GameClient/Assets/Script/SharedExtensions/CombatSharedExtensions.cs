@@ -17,7 +17,7 @@ public struct CheckApplyAbility
             return;
         }
 
-        UnitData[] targets = targetList.Where(entity => targetTypes.Contains(entity.UnitType)).ToArray();
+        UnitData[] targets = targetList.Where(entity => entity.UnitType.Intersect(entity.UnitType).Any()).ToArray();
 
         foreach(var abilityData in abilityDatas)
         {
@@ -49,7 +49,7 @@ public struct CheckTargetWithAbility
         ApplyDamage = new();
 
         SpecialAbilityData[] abilityDatas = attacker.UnitSpecialAbilityData.SpecialAbilityDatas;
-        UnitData[] targets = targetList.Where(entity => attacker.CachedTargetType.Contains(entity.UnitType)).ToArray();
+        UnitData[] targets = targetList.Where(entity => entity.UnitType.Intersect(entity.UnitType).Any()).ToArray();
         CheckSucessAbility(abilityDatas, targets);
 
         foreach(var kvp in SucessAbilities)
@@ -67,7 +67,7 @@ public struct CheckTargetWithAbility
                     finalDaamge *= GameDefine.MassiveDamageStat;
                 }
 
-                if(kvp.Key.CachedTargetType.Contains(attacker.UnitType)) //상대가 내 속성에 대한 엄강, 맷집이 있는지 확인
+                if(attacker.UnitType.Intersect(attacker.UnitType).Any()) //상대가 내 속성에 대한 엄강, 맷집이 있는지 확인
                 {
                     foreach(ESpecialAbilityType ability in kvp.Key.CachedSpecialAbility)
                     {

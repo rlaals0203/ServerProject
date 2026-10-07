@@ -1,17 +1,23 @@
+
 public abstract class UnitState
 {
-    protected Unit _entity;
+    protected Unit _owner;
     protected AnimatorCompo _entityAnimator;
     protected AnimatorTriggerCompo _animatorTrigger;
+    protected AttackCompo _attackCompo;
+    protected MovementCompo _movementCompo;
+
     protected int _animationHash;
     protected bool _isTriggerCall;
 
-    protected UnitState(Unit entity, int animationHash)
+    protected UnitState(Unit owner, int animationHash)
     {
-        _entity = entity;
+        _owner = owner;
         _animationHash = animationHash;
-        _entityAnimator = entity.Get<AnimatorCompo>();
-        _animatorTrigger = entity.Get<AnimatorTriggerCompo>();
+        _entityAnimator = owner.Get<AnimatorCompo>();
+        _animatorTrigger = owner.Get<AnimatorTriggerCompo>();
+        _attackCompo = owner.Get<AttackCompo>();
+        _movementCompo = owner.Get<MovementCompo>();
     }
 
     public virtual void EnterState()
@@ -21,6 +27,7 @@ public abstract class UnitState
         _animatorTrigger.OnAnimationEndTrigger += AnimationEndTrigger;
     }
 
+    public virtual void FixedUpdateState() { }
     public virtual void UpdateState() { }
 
     public virtual void ExitState()

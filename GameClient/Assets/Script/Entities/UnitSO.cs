@@ -1,10 +1,9 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "UnitSO", menuName = "SO/Unit")]
 public class UnitSO : ScriptableObject
 {
+    [Header("Unit Info")]
     public string UnitId;
     public string UnitName;
     public string UnitDesc;
@@ -14,14 +13,19 @@ public class UnitSO : ScriptableObject
 
     [Header("Unit Stats")]
     public int UnitCost;
-    public EUnitType UnitType;
-    public int UnitHealth;
-    public int UnitAttackPower;
-    public float UnitAttackTime;
-    public float UnitAttackRange;
+    public EUnitType[] UnitType;
     public float UnitMoveSpeed;
     public int UnitHitbackCount;
     public int UnitDropMoneyAmount;
+
+    [Header("Combat Stats")]
+    public int UnitAttackPower;
+    public int UnitHealth;
+    public float UnitAttackTime;
+    public float UnitAttackRange;
+    public float UnitAttackDistance;
+    public float DetectRange;
+    public float AttackSpeed;
     
     public UnitSpecialAbilityData UnitSpecialAbilityData;
     public bool isDefaultUnit;

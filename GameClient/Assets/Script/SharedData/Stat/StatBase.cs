@@ -42,6 +42,21 @@ public class StatBase
     {
         return Modifiers.GetValueOrDefault(modifyKey);
     }
+
+    public void SetValue(float value)
+    {
+        CurrentStat = value;
+    }
+
+    public void AddStatValue(float value)
+    {
+        CurrentStat += value;
+    }
+
+    public void SubstractStatValue(float value)
+    {
+        CurrentStat -= value;
+    }
 }
 
 public delegate void OnStatChanged(EStatType statType, float after);
@@ -59,9 +74,14 @@ public class StatData
         }
     }
 
-    public void InitializeStat(UnitData unitData, int level, int scale)
+    public void InitializeStat(UnitData unitData)
     {
-        new StatInitializer(unitData, level, scale, this);
+        _statDatas[EStatType.Health].SetValue(unitData.UnitHealth);
+        _statDatas[EStatType.AttackPower].SetValue(unitData.UnitAttackPower);
+        _statDatas[EStatType.MoveSpeed].SetValue(unitData.UnitMoveSpeed);
+        _statDatas[EStatType.AttackRange].SetValue(unitData.UnitAttackData.AttackRange);
+        _statDatas[EStatType.AttackDistance].SetValue(unitData.UnitAttackData.AttackDistance);
+        _statDatas[EStatType.DetectRange].SetValue(unitData.UnitAttackData.DetectRange);
     }
 
     public StatBase GetStat(EStatType statType)
@@ -135,7 +155,7 @@ public struct StatInitializer
 {
     public StatData Result;
 
-    public StatInitializer(UnitData unitData, int level, int scale, StatData statData)
+    public StatInitializer(UnitData unitData, StatData statData)
     {
         Result = statData;
     }

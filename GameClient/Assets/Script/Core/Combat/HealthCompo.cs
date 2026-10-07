@@ -1,14 +1,11 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthCompo : MonoBehaviour, IComponentCache
+public class HealthCompo : MonoBehaviour, IComponentCache, IDamageable
 {
     private Unit _owner;
     private StatCompo _statCompo;
-
-    public double CurrentHealth;
+    private StatBase _healthStat;
 
     public Action OnDead;
     public Action OnDamaged;
@@ -17,10 +14,17 @@ public class HealthCompo : MonoBehaviour, IComponentCache
     {
         _owner = owner;
         _statCompo = owner.Get<StatCompo>();
+        _healthStat = _statCompo.GetStat(EStatType.Health);
     }
 
-    public void GetDamage(Unit dealer)
+    public void Hit(float damage)
     {
+        _healthStat.SubstractStatValue(damage);
+        OnDamaged?.Invoke();
 
+        if (_healthStat.CurrentStat <= 0)
+        {
+            OnDead?.Invoke();
+        }
     }
 }

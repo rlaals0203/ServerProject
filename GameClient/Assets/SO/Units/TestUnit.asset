@@ -9,26 +9,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dee0e94aa0f2bec44a4544b3e16afd0a, type: 3}
+  m_Script: {fileID: 11500000, guid: 3414ad79fb821784d9437dfed62a318e, type: 3}
   m_Name: TestUnit
   m_EditorClassIdentifier: 
   UnitId: 1
-  UnitName: "\uD14C\uC2A4\uD2B8\uD14C\uC2A4\uD2B8"
-  UnitDesc: "\uD14C\uC2A4\uD2B8"
-  UnitIcon: {fileID: 21300000, guid: d13e30b1826f5bb41afb7eb8a14717df, type: 3}
-  UpgradePrice: 100000
-  UnitCost: 100
-  UnitType: 0
-  UnitHealth: 100
-  UnitAttackPower: 10
-  UnitAttackTime: 1
-  UnitAttackRange: 10
-  UnitMoveSpeed: 10
-  UnitHitbackCount: 1
+  UnitName: "\uD14C\uC2A4\uD2B8"
+  UnitDesc: "\uD14C\uC2A4\uD2B8 \uC720\uB2DB"
+  UnitIcon: {fileID: -353341965, guid: 9d9b9add09683a241a2b486c23d63ce8, type: 3}
+  UnlockPrice: 0
+  UpgradePrice: 1000
+  UnitCost: 0
+  UnitType: 
+  UnitMoveSpeed: 0.5
+  UnitHitbackCount: 10
   UnitDropMoneyAmount: 100
+  UnitAttackPower: 50
+  UnitHealth: 100
+  UnitAttackTime: 10
+  UnitAttackRange: 1
+  UnitAttackDistance: 1
+  DetectRange: 0.5
+  AttackSpeed: 5
   UnitSpecialAbilityData:
-    TargetTypes: 00000000
-    SpecialAbilityDatas:
-    - AbilityType: 0
-      Chance: 0
-      Duration: 0
+    TargetTypes: 
+    SpecialAbilityDatas: []
+  isDefaultUnit: 0

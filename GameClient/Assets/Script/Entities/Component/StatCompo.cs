@@ -10,12 +10,15 @@ public class StatCompo : MonoBehaviour, IComponentCache
     {
         _owner = owner;
         _statData = new StatData();
-        InitializeStat();
+        InitializeStat(owner.UnitData);
     }
 
-    private void InitializeStat()
+    private void InitializeStat(UnitData unitData)
     {
+        if (unitData == null)
+            return;
 
+        _statData.InitializeStat(unitData);
     }
 
     public StatBase GetStat(EStatType statType)
