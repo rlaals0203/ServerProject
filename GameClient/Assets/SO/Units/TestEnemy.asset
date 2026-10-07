@@ -21,11 +21,10 @@ MonoBehaviour:
   UnitCost: 0
   UnitType: 
   UnitMoveSpeed: 0
-  UnitHitbackCount: 10
+  UnitHitbackCount: 5
   UnitDropMoneyAmount: 100
   UnitAttackPower: 100
-  UnitHealth: 1000
-  UnitAttackTime: 10
+  UnitHealth: 500
   UnitAttackRange: 0.5
   UnitAttackDistance: 0.1
   DetectRange: 0.6

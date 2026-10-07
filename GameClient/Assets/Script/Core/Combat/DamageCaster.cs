@@ -1,5 +1,6 @@
 using System.Linq;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 public class DamageCaster : MonoBehaviour
 {
     [SerializeField] private ContactFilter2D contactFier;
@@ -44,9 +45,14 @@ public class DamageCaster : MonoBehaviour
 
         if(count > 0)
         {
-            foreach(var target in _attackTargets)
+            for(int i = 0; i < count; i++)
             {
-                if(target.TryGetComponent<IDamageable>(out var damageable))
+                var target = _attackTargets[i];
+
+                if (target == null)
+                    continue;
+
+                if (target.TryGetComponent<IDamageable>(out var damageable))
                 {
                     damageable.OnHit(_attackPowerStat.CurrentStat);
                 }

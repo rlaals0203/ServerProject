@@ -1,6 +1,6 @@
+using MINLib.Script.Core.Resource;
 using System;
 using UnityEngine;
-using static UnityEngine.UI.GridLayoutGroup;
 
 public class HealthCompo : MonoBehaviour, IComponentCache, IAfterInit, IDamageable
 {
@@ -10,6 +10,10 @@ public class HealthCompo : MonoBehaviour, IComponentCache, IAfterInit, IDamageab
 
     public Action OnDead;
     public Action OnDamaged;
+    public Action OnHitback;
+
+    private int _damageStacked;
+    private int _minHitbackHealth;
 
 
     public void InitializeComponent(Unit owner)
@@ -21,16 +25,26 @@ public class HealthCompo : MonoBehaviour, IComponentCache, IAfterInit, IDamageab
     {
         _statCompo = _owner.Get<StatCompo>();
         _healthStat = _statCompo.GetStat(EStatType.Health);
+
+        _minHitbackHealth = (int)_healthStat.CurrentStat / _owner.UnitData.UnitHitbackCount;
     }
 
     public void OnHit(float damage)
     {
         _healthStat.SubstractStatValue(damage);
         OnDamaged?.Invoke();
+        _damageStacked += (int)damage;
+
+        if(_damageStacked >= _minHitbackHealth)
+        {
+            _damageStacked = 0;
+            OnHitback?.Invoke();
+        }
 
         if (_healthStat.CurrentStat <= 0)
         {
             OnDead?.Invoke();
+            Destroy(gameObject);
         }
     }
 }

@@ -1,8 +1,10 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class MovementCompo : MonoBehaviour, IComponentCache
 {
     private StatCompo _ownerStat;
+    private HealthCompo _healthCompo;
     private Unit _owner;
     private Vector3 _direction;
     private bool _canMove = true;
@@ -11,7 +13,10 @@ public class MovementCompo : MonoBehaviour, IComponentCache
     {
         _owner = owner;
         _ownerStat = owner.Get<StatCompo>();
+        _healthCompo = owner.Get<HealthCompo>();
+
         _direction = _owner.TeamType == ETeamType.Friendly ? Vector3.left : Vector3.right;
+        _healthCompo.OnHitback += PlayHitback;
     }
 
     public void MovingUnit()
@@ -25,5 +30,17 @@ public class MovementCompo : MonoBehaviour, IComponentCache
     public void SetMove(bool canMove)
     {
         _canMove = canMove;
+    }
+
+    public void PlayHitback()
+    {
+        Vector3 destination = transform.position + _direction * -1f;
+        _owner.transform.DOMove(destination, 0.7f).SetEase(Ease.OutQuart);
+    }
+
+    private void OnDestroy()
+    {
+        if (_healthCompo != null)
+            _healthCompo.OnHitback -= PlayHitback;
     }
 }
