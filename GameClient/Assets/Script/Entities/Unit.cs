@@ -40,6 +40,7 @@ public class Unit : MonoBehaviour
         _stateMachine ??= new UnitStateMachine(this, states);
         ChangeState(EStateType.Move);
         gameObject.SetLayer(IsEnemyUnit ? GameDefine.EnemyLayer : GameDefine.UnitLayer);
+        transform.localScale = new Vector3(IsEnemyUnit ? -1 : 1, 1, 1);
     }
 
     private void Update()

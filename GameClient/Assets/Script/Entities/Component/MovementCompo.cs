@@ -6,8 +6,10 @@ public class MovementCompo : MonoBehaviour, IComponentCache
     private StatCompo _ownerStat;
     private HealthCompo _healthCompo;
     private Unit _owner;
+
     private Vector3 _direction;
     private bool _canMove = true;
+    private const float KnockbackPower = -0.8f;
 
     public void InitializeComponent(Unit owner)
     {
@@ -34,8 +36,8 @@ public class MovementCompo : MonoBehaviour, IComponentCache
 
     public void PlayHitback()
     {
-        Vector3 destination = transform.position + _direction * -1f;
-        _owner.transform.DOMove(destination, 0.7f).SetEase(Ease.OutQuart);
+        Vector3 destination = transform.position + _direction * KnockbackPower;
+        _owner.transform.DOMove(destination, 0.8f).SetEase(Ease.OutQuart);
     }
 
     private void OnDestroy()

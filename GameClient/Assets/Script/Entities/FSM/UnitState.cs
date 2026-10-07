@@ -1,4 +1,6 @@
 
+using System;
+
 public abstract class UnitState
 {
     protected Unit _owner;
@@ -6,6 +8,7 @@ public abstract class UnitState
     protected AnimatorTriggerCompo _animatorTrigger;
     protected AttackCompo _attackCompo;
     protected MovementCompo _movementCompo;
+    protected HealthCompo _healthCompo;
 
     protected int _animationHash;
     protected bool _isTriggerCall;
@@ -18,6 +21,7 @@ public abstract class UnitState
         _animatorTrigger = owner.Get<AnimatorTriggerCompo>();
         _attackCompo = owner.Get<AttackCompo>();
         _movementCompo = owner.Get<MovementCompo>();
+        _healthCompo = owner.Get<HealthCompo>();
     }
 
     public virtual void EnterState()
@@ -25,6 +29,7 @@ public abstract class UnitState
         _entityAnimator.SetParam(_animationHash, true);
         _isTriggerCall = false;
         _animatorTrigger.OnAnimationEndTrigger += AnimationEndTrigger;
+        _healthCompo.OnHitback += OnUnitHitback;
     }
 
     public virtual void FixedUpdateState() { }
@@ -33,7 +38,14 @@ public abstract class UnitState
     public virtual void ExitState()
     {
         _animatorTrigger.OnAnimationEndTrigger -= AnimationEndTrigger;
+        _healthCompo.OnHitback -= OnUnitHitback;
+
         _entityAnimator.SetParam(_animationHash, false);
+    }
+
+    private void OnUnitHitback()
+    {
+        _owner.ChangeState(EStateType.Knockback);
     }
 
     public virtual void AnimationEndTrigger() => _isTriggerCall = true;
