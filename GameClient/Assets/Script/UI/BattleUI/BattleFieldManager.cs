@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class BattleManager : MonoBehaviour
+public class BattleFieldManager : MonoBehaviour
 {
     [SerializeField] private UnitSO[] units;
     [SerializeField] private UnitSO testEnemy;

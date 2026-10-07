@@ -16,7 +16,7 @@ public class DamageCaster : MonoBehaviour
 
     private Vector3 _direction;
 
-    private Collider2D[] _detectTargets = new Collider2D[16];
+    private Collider2D[] _detectTargets = new Collider2D[32];
     private Collider2D[] _attackTargets = new Collider2D[32];
 
     public virtual void InitCaster(Unit owner)
@@ -66,7 +66,7 @@ public class DamageCaster : MonoBehaviour
 
     private void CheckAndApplySpecialAbilities()
     {
-
+        
     }
 
     public bool DetectTarget()

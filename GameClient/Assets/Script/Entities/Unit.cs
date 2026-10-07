@@ -43,15 +43,16 @@ public class Unit : MonoBehaviour
         transform.localScale = new Vector3(IsEnemyUnit ? -1 : 1, 1, 1);
     }
 
+    public void UpdateUnit()
+    {
+
+    }
+
     private void Update()
     {
         _stateMachine?.UpdateStateMachine();
     }
 
-    private void FixedUpdate()
-    {
-        _stateMachine?.FixedUpdateStateMachine();
-    }
 
     public void ChangeState(EStateType stateType, bool forced = false)
     {

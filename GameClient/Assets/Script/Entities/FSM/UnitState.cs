@@ -32,7 +32,6 @@ public abstract class UnitState
         _healthCompo.OnHitback += OnUnitHitback;
     }
 
-    public virtual void FixedUpdateState() { }
     public virtual void UpdateState() { }
 
     public virtual void ExitState()

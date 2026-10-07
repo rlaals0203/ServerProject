@@ -38,9 +38,4 @@ public class UnitStateMachine
     {
         CurrentState?.UpdateState();
     }
-
-    public void FixedUpdateStateMachine()
-    {
-        CurrentState?.FixedUpdateState();
-    }
 }
