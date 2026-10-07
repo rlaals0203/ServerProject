@@ -64,6 +64,11 @@ public class DamageCaster : MonoBehaviour
         return false;
     }
 
+    private void CheckAndApplySpecialAbilities()
+    {
+
+    }
+
     public bool DetectTarget()
     {
         Vector3 detectDistance = _direction * _detectRangeStat.CurrentStat;

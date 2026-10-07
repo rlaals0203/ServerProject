@@ -14,8 +14,10 @@ public class TestSpawn : MonoBehaviour
         {
             var spawned = new SpawnCacheObject<Unit>("Unit", spawnPosition.position).Spawned;
             spawned.Initialize(new MakeUnitData(spawnUnit).UnitData, ETeamType.Friendly);
+        }
 
-
+        if(Keyboard.current.rKey.wasPressedThisFrame)
+        {
             var enemy = new SpawnCacheObject<Unit>("Unit", enemyPosition.position).Spawned;
             enemy.Initialize(new MakeUnitData(testEnemy).UnitData, ETeamType.Enemy);
         }

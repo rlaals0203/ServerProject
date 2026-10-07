@@ -19,16 +19,16 @@ MonoBehaviour:
   UnlockPrice: 0
   UpgradePrice: 1000
   UnitCost: 0
-  UnitType: 
-  UnitMoveSpeed: 0
-  UnitHitbackCount: 5
+  UnitType: 00000000
+  UnitMoveSpeed: 1.5
+  UnitHitbackCount: 3
   UnitDropMoneyAmount: 100
   UnitAttackPower: 100
-  UnitHealth: 500
-  UnitAttackRange: 0.5
-  UnitAttackDistance: 0.1
-  DetectRange: 0.6
-  AttackSpeed: 10000
+  UnitHealth: 1000
+  UnitAttackRange: 1
+  UnitAttackDistance: 0.2
+  DetectRange: 1
+  AttackSpeed: 3
   UnitSpecialAbilityData:
     TargetTypes: 
     SpecialAbilityDatas: []
