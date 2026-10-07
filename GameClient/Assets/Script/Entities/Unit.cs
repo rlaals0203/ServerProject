@@ -1,3 +1,4 @@
+using Core;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +18,7 @@ public class Unit : MonoBehaviour
 {
     public StateDataSO[] states;
     public UnitData UnitData { get; private set; }
+    public bool IsEnemyUnit => TeamType == ETeamType.Enemy;
     public ETeamType TeamType { get; private set; }
     public EStateType CurrentState { get; private set; }
 
@@ -31,6 +33,7 @@ public class Unit : MonoBehaviour
 
         _stateMachine ??= new UnitStateMachine(this, states);
         ChangeState(EStateType.Move);
+        gameObject.SetLayer(IsEnemyUnit ? GameDefine.EnemyLayer : GameDefine.UnitLayer);
     }
 
     private void Update()

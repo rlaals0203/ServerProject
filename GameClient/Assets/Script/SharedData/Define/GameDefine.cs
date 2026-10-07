@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 public static class GameDefine
 {
+    public static int UnitLayer = 6;
+    public static int EnemyLayer = 7;
+
     public static int UnitMaxLevel = 30;
     public static int PassiveMaxLevel = 20;
     public static int MaxSlotCount = 5;

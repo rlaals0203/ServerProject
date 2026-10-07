@@ -26,7 +26,7 @@ public class AttackCompo : MonoBehaviour, IComponentCache
 
     public bool CheckTarget()
     {
-        return false;
+        return damageCaster.DetectTarget();
     }
 
     public void Attack()

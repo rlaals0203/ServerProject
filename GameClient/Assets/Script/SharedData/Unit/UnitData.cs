@@ -22,7 +22,7 @@ public class UnitData
     public int UnitHealth { get; set; }
     public int UnitAttackPower { get; set; }
     public int UnitCost { get; set; }
-    public float UnitAttackTime { get; set; }
+    public float UnitAttackSpeed { get; set; }
     public float UnitAttackRange { get; set; }
     public float UnitMoveSpeed { get; set; }
     public int UnitHitbackCount { get; set; }
@@ -77,7 +77,7 @@ public class MakeUnitData
             UnitType = unitData.UnitType,
             UnitHealth = unitData.UnitHealth,
             UnitAttackPower = unitData.UnitAttackPower,
-            UnitAttackTime = unitData.UnitAttackTime,
+            UnitAttackSpeed = unitData.AttackSpeed,
             UnitAttackRange = unitData.UnitAttackRange,
             UnitMoveSpeed = unitData.UnitMoveSpeed,
             UnitHitbackCount = unitData.UnitHitbackCount,

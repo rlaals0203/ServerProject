@@ -26,10 +26,10 @@ MonoBehaviour:
   UnitAttackPower: 100
   UnitHealth: 1000
   UnitAttackTime: 10
-  UnitAttackRange: 1
-  UnitAttackDistance: 0
-  DetectRange: 0
-  AttackSpeed: 0
+  UnitAttackRange: 0.5
+  UnitAttackDistance: 0.1
+  DetectRange: 0.6
+  AttackSpeed: 10000
   UnitSpecialAbilityData:
     TargetTypes: 
     SpecialAbilityDatas: []

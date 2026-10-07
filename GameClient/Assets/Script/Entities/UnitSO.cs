@@ -21,7 +21,6 @@ public class UnitSO : ScriptableObject
     [Header("Combat Stats")]
     public int UnitAttackPower;
     public int UnitHealth;
-    public float UnitAttackTime;
     public float UnitAttackRange;
     public float UnitAttackDistance;
     public float DetectRange;

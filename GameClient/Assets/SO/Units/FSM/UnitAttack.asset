@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateType: 2
   className: UnitAttackState
-  animParamName: Attack
-  animationHash: 1080829965
+  animParamName: ATTACK
+  animationHash: -1221006659

@@ -7,6 +7,10 @@ public class UnitIdleState : UnitAttackableState
     public override void UpdateState()
     {
         base.UpdateState();
-        _movementCompo.MovingUnit();
+
+        if(_attackCompo.CheckTarget() == false)
+        {
+            _owner.ChangeState(EStateType.Move);
+        }
     }
 }
