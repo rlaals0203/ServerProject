@@ -12,24 +12,27 @@ public struct CheckApplyAbility
         SpecialAbilityData[] abilityDatas = attacker.UnitStatData.UnitSpecialAbilityData.SpecialAbilityDatas;
         SucessAbilities = new();
 
-        if (targetTypes.Length == 0 || new CheckHasAvailableAbility(abilityDatas).HasAbility == false)
+        if (targetTypes.Length == 0 || abilityDatas.Length == 0 || 
+            new CheckHasAvailableAbility(abilityDatas).HasAbility == false)
         {
             return;
         }
 
-        UnitData[] targets = targetList.Where(entity => entity.UnitStatData.UnitType.Intersect(entity.UnitStatData.UnitType).Any()).ToArray();
-
         foreach(var abilityData in abilityDatas)
         {
-            foreach(var target in targets)
+            foreach(var target in targetList)
             {
-                if(target.UnitStatData.CachedSpecialAbility.Contains(new GetOppositeAbility(abilityData.AbilityType).OppositeAbility))
+                if(targetTypes.Intersect(target.UnitStatData.UnitType).Count() <= 0)
                 {
-                    continue;
+                    continue; //대상 타겟이 아니면 스킵
                 }
 
-                bool isSucess = (RandomUtility.GetRandomNumber(0, 101) / 100f) < abilityData.Chance;
-                if(isSucess)
+                if(target.UnitStatData.CachedSpecialAbility.Contains(new GetOppositeAbility(abilityData.AbilityType).OppositeAbility))
+                {
+                    continue; //타겟이 무효 능력 있으면 스킵
+                }
+
+                if((RandomUtility.GetRandomNumber(0, 101) / 100f) < abilityData.Chance)
                 {
                     SucessAbilities.Add(abilityData, target);
                 }
@@ -50,7 +53,7 @@ public struct CheckTargetWithAbility
 
         SpecialAbilityData[] abilityDatas = attacker.UnitStatData.UnitSpecialAbilityData.SpecialAbilityDatas;
         UnitData[] targets = targetList.Where(entity => entity.UnitStatData.UnitType.Intersect(entity.UnitStatData.UnitType).Any()).ToArray();
-        CheckSucessAbility(abilityDatas, targets);
+        CheckSucessAbility(abilityDatas, targets, attacker);
 
         foreach(var kvp in SucessAbilities)
         {
@@ -88,7 +91,7 @@ public struct CheckTargetWithAbility
     }
 
 
-    private void CheckSucessAbility(SpecialAbilityData[] abilityDatas, UnitData[] targets)
+    private void CheckSucessAbility(SpecialAbilityData[] abilityDatas, UnitData[] targets, UnitData attacker)
     {
         foreach (var abilityData in abilityDatas)
         {
@@ -99,17 +102,36 @@ public struct CheckTargetWithAbility
                     continue;
                 }
 
-                if (abilityData.AbilityType == ESpecialAbilityType.Resistant)
-                {
-                    AddSucessAbility(ESpecialAbilityType.Resistant, target);
-                }
-                if (abilityData.AbilityType == ESpecialAbilityType.StrongAgainst)
+                ESpecialAbilityType attackerAbility = abilityData.AbilityType;
+                ESpecialAbilityType targetAbility = abilityData.AbilityType;
+
+                if ((attackerAbility & ESpecialAbilityType.StrongAgainst) != 0)
                 {
                     AddSucessAbility(ESpecialAbilityType.StrongAgainst, target);
                 }
-                if (abilityData.AbilityType == ESpecialAbilityType.MassiveDamage)
+
+                if ((attackerAbility & ESpecialAbilityType.MassiveDamage) != 0)
                 {
                     AddSucessAbility(ESpecialAbilityType.MassiveDamage, target);
+                }
+
+                float finalDamage = attacker.UnitAttackData.UnitAttackPower;
+
+                if ((attackerAbility & ESpecialAbilityType.StrongAgainst) != 0)
+                {
+                    finalDamage *= GameDefine.StrongAgainstAttackModifyStat;
+                }
+                if ((attackerAbility & ESpecialAbilityType.MassiveDamage) != 0)
+                {
+                    finalDamage *= GameDefine.MassiveDamageStat;
+                }
+                if ((targetAbility & ESpecialAbilityType.StrongAgainst) != 0)
+                {
+                    finalDamage /= GameDefine.StrongAgainstHealthModifyStat;
+                }
+                if ((targetAbility & ESpecialAbilityType.Resistant) != 0)
+                {
+                    finalDamage /= GameDefine.ResistantModifyStat;
                 }
             }
         }
@@ -160,24 +182,14 @@ public struct GetOppositeAbility
 
     public GetOppositeAbility(ESpecialAbilityType abilityType)
     {
-        switch (abilityType)
+        OppositeAbility = abilityType switch
         {
-            case ESpecialAbilityType.Weaken:
-                OppositeAbility = ESpecialAbilityType.AntiWeaken;
-                break;
-            case ESpecialAbilityType.Freeze:
-                OppositeAbility = ESpecialAbilityType.AntiFreeze;
-                break;
-            case ESpecialAbilityType.Slow:
-                OppositeAbility = ESpecialAbilityType.AntiSlow;
-                break;
-            case ESpecialAbilityType.Knockback:
-                OppositeAbility = ESpecialAbilityType.AntiKnockback;
-                break;
-            default:
-                OppositeAbility = ESpecialAbilityType.None;
-                break;
-        }
+            ESpecialAbilityType.Weaken => ESpecialAbilityType.AntiWeaken,
+            ESpecialAbilityType.Freeze => ESpecialAbilityType.AntiFreeze,
+            ESpecialAbilityType.Slow => ESpecialAbilityType.AntiSlow,
+            ESpecialAbilityType.Knockback => ESpecialAbilityType.AntiKnockback,
+            _ => ESpecialAbilityType.None
+        };
     }
 }
 

@@ -1,6 +1,6 @@
 using System.Linq;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
+
 public class DamageCaster : MonoBehaviour
 {
     [SerializeField] private ContactFilter2D contactFier;
@@ -8,6 +8,7 @@ public class DamageCaster : MonoBehaviour
     private bool _isSingleAttack;
     private Unit _owner;
 
+    private AbilityComponent _abilityCompo;
     private StatCompo _statCompo;
     private StatBase _attackPowerStat;
     private StatBase _attackRangeStat;
@@ -22,6 +23,7 @@ public class DamageCaster : MonoBehaviour
     public virtual void InitCaster(Unit owner)
     {
         _owner = owner;
+        _abilityCompo = owner.Get<AbilityComponent>();
         _statCompo = owner.Get<StatCompo>();
 
         _attackPowerStat = _statCompo.GetStat(EStatType.AttackPower);
@@ -52,9 +54,16 @@ public class DamageCaster : MonoBehaviour
                 if (target == null)
                     continue;
 
+                float finalDamage = _attackPowerStat.CurrentStat;
+
+                if(target.TryGetComponent<Unit>(out var targetUnit))
+                {
+                    finalDamage = _abilityCompo.CheckAndApplySpecialAbilities(targetUnit, (int)_attackPowerStat.CurrentStat);
+                }
+
                 if (target.TryGetComponent<IDamageable>(out var damageable))
                 {
-                    damageable.OnHit(_attackPowerStat.CurrentStat);
+                    damageable.OnHit(finalDamage);
                 }
             }
 
@@ -62,11 +71,6 @@ public class DamageCaster : MonoBehaviour
         }
 
         return false;
-    }
-
-    private void CheckAndApplySpecialAbilities()
-    {
-        
     }
 
     public bool DetectTarget()

@@ -1,3 +1,5 @@
+using System;
+
 public enum EPacketResult
 {
     Ok,
@@ -40,42 +42,42 @@ public enum EStatType
     DetectRange,
 }
 
-public enum EUnitType
-{
-    Normal,
-    Fly,
-    Red,
-    Black,
-    All,
-    None
-}
-
-public enum EUnitClassType
+public enum EUnitClassType : ushort
 {
     First = 1,
     Second = 2,
     Thired = 3
 }
 
-public enum ESpecialAbilityType
+[Flags]
+public enum EUnitType : short
 {
-    SingleAttack,               //개체 공격
-    AreaAttack,                 //범위 공격
-    LongDistance,               //원거리 공격
-    [ProbabilityAbility]
-    Weaken,                     //공격력 다운
-    [ProbabilityAbility]
-    Freeze,                     //멈춤
-    [ProbabilityAbility]
-    Slow,                       //느리게
-    Knockback,                  //넉백
-    StrongAgainst,              //엄청 강하다
-    Resistant,                  //맷집이 좋다
-    MassiveDamage,              //초데미지
-    [ProbabilityAbility]
-    AntiWeaken,                 //공격력 다운 무효
-    AntiFreeze,                 //멈춤 무효
-    AntiSlow,                   //느리게 무효
-    AntiKnockback,              //넉백 무효
-    None
+    Normal  = 1 << 1,
+    Fly     = 1 << 2,
+    Red     = 1 << 3,
+    Black   = 1 << 4,
+    All     = 1 << 5,
+}
+
+[Flags]
+public enum ESpecialAbilityType : uint
+{
+    None = 0,
+    SingleAttack = 1 << 1,                  //개체 공격
+    AreaAttack = 1 << 2,                    //범위 공격
+    LongDistance = 1 << 3,                  //원거리 공격
+    Weaken = 1 << 4,                        //공격력 다운
+    Freeze = 1 << 5,                        //멈춤
+    Slow = 1 << 6,                          //느리게
+    StrongAgainst = 1 << 7,                 //엄청 강하다
+    Resistant = 1 << 8,                     //맷집이 좋다
+    MassiveDamage = 1 << 9,                 //초데미지
+    Knockback = 1 << 10,                    //넉백
+    AntiWeaken = 1 << 11,                   //공격력 다운 무효
+    AntiFreeze = 1 << 12,                   //멈춤 무효
+    AntiSlow = 1 << 13,                     //느리게 무효
+    AntiStrongAgainst = 1 << 14,            //엄청 강하다 무효
+    AntiResistant = 1 << 15,                //맷집이 좋다 무효
+    AntiMassiveDamage = 1 << 16,            //초데미지 무효
+    AntiKnockback = 1 << 17,                //넉백 무효
 }
