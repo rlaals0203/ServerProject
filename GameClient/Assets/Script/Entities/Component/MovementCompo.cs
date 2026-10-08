@@ -36,6 +36,7 @@ public class MovementCompo : MonoBehaviour, IComponentCache
 
     public void PlayKnockback()
     {
+        _owner.ChangeState(EStateType.Knockback);
         Vector3 destination = transform.position + _direction * KnockbackPower;
         _owner.transform.DOMove(destination, 0.8f).SetEase(Ease.OutQuart);
     }

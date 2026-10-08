@@ -14,7 +14,7 @@ public class UnitKnockbackState : UnitState
     {
         base.EnterState();
         _currentTime = Time.time;
-        _unitCollider.enabled = false;
+        _unitCollider.enabled = _owner.IsFreeze;
     }
 
     public override void UpdateState()

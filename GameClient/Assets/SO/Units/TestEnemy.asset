@@ -32,8 +32,5 @@ MonoBehaviour:
   AttackSpeed: 3
   UnitSpecialAbilityData:
     TargetTypes: 0200
-    SpecialAbilityDatas:
-    - AbilityType: 256
-      Chance: 0
-      Duration: 0
+    SpecialAbilityDatas: []
   isDefaultUnit: 0

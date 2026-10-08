@@ -25,28 +25,30 @@ public class Unit : MonoBehaviour
     public UnitData UnitData { get; private set; }
     public ETeamType TeamType { get; private set; }
     public EStateType CurrentState { get; private set; }
+    public bool IsFreeze { get; private set; }
     public bool IsEnemyUnit => TeamType == ETeamType.Enemy;
 
     private Dictionary<Type, IComponentCache> _cachedComponent = new();
     private UnitStateMachine _stateMachine;
-    private bool _isFreeze;
 
     public virtual void Initialize(UnitData unitData, ETeamType teamType)
     { 
         UnitData = unitData;
         TeamType = teamType;
+
         InitializeComponentCaches();
         AfterInitializeComponentCaches();
 
+        transform.localScale = new Vector3(IsEnemyUnit ? -1 : 1, 1, 1);
+        gameObject.SetLayer(IsEnemyUnit ? GameDefine.EnemyLayer : GameDefine.UnitLayer);
+
         _stateMachine ??= new UnitStateMachine(this, states);
         ChangeState(EStateType.Move);
-        gameObject.SetLayer(IsEnemyUnit ? GameDefine.EnemyLayer : GameDefine.UnitLayer);
-        transform.localScale = new Vector3(IsEnemyUnit ? -1 : 1, 1, 1);
     }
 
     private void Update()
     {
-        if (_isFreeze)
+        if (IsFreeze)
             return;
 
         _stateMachine?.UpdateStateMachine();
@@ -54,7 +56,7 @@ public class Unit : MonoBehaviour
 
     public void SetFreeze(bool isFreeze)
     {
-        _isFreeze = isFreeze;
+        IsFreeze = isFreeze;
     }
 
     public void ChangeState(EStateType stateType, bool forced = false)

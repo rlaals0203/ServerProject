@@ -26,17 +26,20 @@ MonoBehaviour:
   UnitDropMoneyAmount: 100
   UnitAttackPower: 50
   UnitHealth: 150
-  UnitAttackRange: 10
+  UnitAttackRange: 1
   UnitAttackDistance: 0.2
-  DetectRange: 10
+  DetectRange: 1
   AttackSpeed: 2
   UnitSpecialAbilityData:
     TargetTypes: 0200
     SpecialAbilityDatas:
     - AbilityType: 64
-      Chance: 1
+      Chance: 0
       Duration: 1
     - AbilityType: 32
       Chance: 1
-      Duration: 0.5
+      Duration: 2
+    - AbilityType: 1024
+      Chance: 0.1
+      Duration: 0
   isDefaultUnit: 0
