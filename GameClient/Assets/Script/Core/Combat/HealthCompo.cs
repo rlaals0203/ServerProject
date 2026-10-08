@@ -1,9 +1,11 @@
-using MINLib.Script.Core.Resource;
 using System;
+using TMPro;
 using UnityEngine;
 
 public class HealthCompo : MonoBehaviour, IComponentCache, IAfterInit, IDamageable
 {
+    [SerializeField] private TMP_Text healthText;
+
     private Unit _owner;
     private StatCompo _statCompo;
     private StatBase _healthStat;
@@ -27,6 +29,7 @@ public class HealthCompo : MonoBehaviour, IComponentCache, IAfterInit, IDamageab
         _healthStat = _statCompo.GetStat(EStatType.Health);
 
         _minHitbackHealth = (int)_healthStat.CurrentStat / _owner.UnitData.UnitHitbackCount;
+        RefreshHealthText();
     }
 
     public void OnHit(float damage)
@@ -46,5 +49,15 @@ public class HealthCompo : MonoBehaviour, IComponentCache, IAfterInit, IDamageab
             OnDead?.Invoke();
             Destroy(gameObject);
         }
+
+        RefreshHealthText();
+    }
+
+    private void RefreshHealthText()
+    {
+        if (healthText == null)
+            return;
+
+        healthText.text = $"{_healthStat.CurrentStat}/{_healthStat.MaxStat}";
     }
 }

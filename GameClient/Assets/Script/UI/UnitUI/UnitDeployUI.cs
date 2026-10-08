@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,10 +10,11 @@ public class UnitDeployUI : ContentUI
     [SerializeField] private UnitListUI unitListUI;
     [SerializeField] private Image draggingUI;
 
+    private Dictionary<int, string> _deployList = new();
     private UnitDeploySlotUI[] _deploySlots;
-    private UnitDeploySlotUI _currentDeploySlot;
     private UnitSlotUI _currentUnitSlot;
-
+    private int _currentSlotIndex;
+    private string _currentUnitId;
     private bool _isDragging;
 
 
@@ -23,6 +25,7 @@ public class UnitDeployUI : ContentUI
         _deploySlots = GetComponentsInChildren<UnitDeploySlotUI>(true);
         unitListUI.OnElementChanged += HandleElementChanged;
         //unitListUI.InitializeUnitList(GameManager.I.MainUser.UserUnitData.OwnUnitList);
+
         foreach (var unitSlot in unitListUI.GetAllElement())
         {
             unitSlot.OnUnitDragStart += HandleSlotDragStart;
@@ -42,9 +45,9 @@ public class UnitDeployUI : ContentUI
         _currentUnitSlot = slotUI;
     }
 
-    private void HandleHoverDeploySlot(UnitDeploySlotUI slot, bool isHovering)
+    private void HandleHoverDeploySlot(int slotIndex, bool isHovering)
     {
-        _currentDeploySlot = isHovering ? slot : null;
+        _currentSlotIndex = isHovering ? slotIndex : -1;
     }
 
     private void Update()
@@ -66,24 +69,34 @@ public class UnitDeployUI : ContentUI
     private void HandleSlotDragStart(UnitSlotUI ui)
     {
         _isDragging = true;
-        draggingUI.sprite = unitSOList.GetUnitById(ui.GetUnitId()).UnitIcon;
+        _currentUnitId = ui.GetUnitId();
+        draggingUI.sprite = unitSOList.GetUnitById(_currentUnitId).UnitIcon;
         draggingUI.gameObject.SetActive(true);
     }
 
     private void HandleSlotDrop(UnitSlotUI ui)
     {
-        if(_isDragging && _currentDeploySlot  != null)
+        if(_isDragging && string.IsNullOrEmpty(_currentUnitId) == false && _currentSlotIndex != -1)
         {
             ProcessDeploySlot();
         }
 
+        _currentUnitId = string.Empty;
         _isDragging = false;
         draggingUI.gameObject.SetActive(false);
     }
 
     private void ProcessDeploySlot()
     {
-        _currentDeploySlot.Initialize(unitSOList.GetUnitById(_currentUnitSlot.GetUnitId()));
+        if(_deployList.TryGetValue(_currentSlotIndex, out var unitId))
+        {
+            if(_currentUnitId == unitId)
+            {
+                return;
+            }
+        }
+
+        _deploySlots[_currentSlotIndex].Initialize(unitSOList.GetUnitById(_currentUnitSlot.GetUnitId()));
     }
 
     private void OnDestroy()

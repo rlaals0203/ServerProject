@@ -23,6 +23,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - prepooling
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c52334f25dfe82c47a2fb7746fbe6a3a
+    m_Address: Castle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: dcbe1beaa3c60504c8bca4ca182e4988, type: 2}
   m_SchemaSet:

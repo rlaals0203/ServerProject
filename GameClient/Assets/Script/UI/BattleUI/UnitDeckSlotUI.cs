@@ -6,7 +6,6 @@ public class UnitDeckSlotUI : UIBase
 {
     [SerializeField] private UIBarComponent cooldownBar;
     [SerializeField] private GameObject lockObject;
-
     [SerializeField] private Image unitIcon;
 
     public Action<UnitData> OnSpawnUnit;

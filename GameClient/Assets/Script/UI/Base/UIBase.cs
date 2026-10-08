@@ -5,9 +5,7 @@ public delegate void OnUIStatusChanged(UIBase changed, bool status);
 
 public class UIBase : MonoBehaviour
 {
-   [HideInInspector] public bool IsActive;
-   [SerializeField] protected GameObject _outlineYellow;
-   [SerializeField] protected GameObject _outlinePink;
+    [HideInInspector] public bool IsActive;
 
     public RectTransform Rect => transform as RectTransform;
     public event OnUIStatusChanged OnStatusChanged;
@@ -16,16 +14,7 @@ public class UIBase : MonoBehaviour
 
     protected virtual void Awake()
     {
-
     }
-
-#if UNITY_EDITOR
-    private void OnValidate()
-    {
-        _outlineYellow = transform.Find("Outline_Yellow")? gameObject : null;
-        _outlinePink = transform.Find("Outline_Pink")? gameObject : null;
-    }
-#endif
 
     public void ShowUI()
     {

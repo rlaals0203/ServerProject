@@ -45,7 +45,10 @@ public class DamageCaster : MonoBehaviour
 
         int count = Physics2D.OverlapBox(attackPosition, new Vector3(_attackRangeStat.CurrentStat, 2f), 0f, contactFier, _attackTargets);
 
-        if(count > 0)
+        if (_isSingleAttack)
+            count = 1;
+
+        if (count > 0)
         {
             for(int i = 0; i < count; i++)
             {
