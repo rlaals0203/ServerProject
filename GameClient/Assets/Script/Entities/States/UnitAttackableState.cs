@@ -7,7 +7,7 @@ public class UnitAttackableState : UnitState
 
     public UnitAttackableState(Unit owner, int animationHash) : base(owner, animationHash)
     {
-        _attackInterval = owner.UnitData.UnitAttackSpeed;
+        _attackInterval = owner.UnitData.UnitAttackData.UnitAttackSpeed;
     }
 
     public override void UpdateState()

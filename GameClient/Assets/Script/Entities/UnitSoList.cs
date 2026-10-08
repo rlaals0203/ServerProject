@@ -1,4 +1,6 @@
+using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "UnitSOList", menuName = "SO/UnitList")]
@@ -24,6 +26,25 @@ public class UnitSOList : ScriptableObject
 
         return _unitCache;
     }
+
+    [ContextMenu("ExportUnitDataToJson")]
+    public void ExportUnitDataToJson()
+    {
+        string fileName = "UnitData.json";
+        string path = Application.persistentDataPath + "/" + fileName;
+        Dictionary<string, UnitStatData> unitData = new();
+
+        _unitCache ??= CreateUnitCache();
+        foreach(var data in _unitCache)
+        {
+            unitData.Add(data.Key, new MakeUnitStatData(data.Value).UnitStatData);
+        }
+
+        var jsonData = JsonConvert.SerializeObject(unitData);
+        File.WriteAllText(path, jsonData);
+        Debug.Log($"Json file has saved : {path}");
+    }
+
 
     public Dictionary<string, UnitSO> GetUnitData()
     {

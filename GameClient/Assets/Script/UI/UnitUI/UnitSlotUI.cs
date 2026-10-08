@@ -27,7 +27,7 @@ public class UnitSlotUI : UIBase, IBeginDragHandler, IDragHandler, IEndDragHandl
     {
         if(GameManager.I.MainUser.UserUnitData.OwnUnitList.TryGetValue(unitSO.UnitId, out var unitData))
         {
-            unitNameText.text = unitData.UnitName;
+            unitNameText.text = unitData.UnitStatData.UnitName;
             unitLevelText.text = unitData.UnitLevel.ToString();
             unitCostText.text = unitData.UnitCost.ToString();
             lockObject.SetActive(false);

@@ -23,13 +23,14 @@ public partial class BasePacketController : ControllerBase
     {
         UserBaseData userBaseData = await dbManager.LoadUserAsync(request.LoginUserId);
         RequestUnitUnlockPacketProcess process = new RequestUnitUnlockPacketProcess();
-        await process.ProcessAsync(userBaseData, request.UnitId);
+        await process.ProcessAsync(userBaseData, unitDataDefine, request.UnitId);
         
         UnitUnlockPacketResultData resultData = new UnitUnlockPacketResultData(process.Result)
         {
             UnitId = process.UnitId
         };
-        
+
+        await dbManager.SaveDataAsync(userBaseData, EDbType.BaseUserData, request.LoginUserId);
         return resultData;
     }
 

@@ -8,22 +8,32 @@ public class UserUnitData
 [Serializable]
 public class UnitData
 {
-    public string UnitId { get; set; }
-    public string UnitName { get; set; }
+    public UnitStatData UnitStatData { get; set; }
     public int UnitLevel { get; set; }
-    public int UnlockPrice { get; set; }
-    public int UpgradePrice { get; set; }
-    public EUnitClassType unitClassType { get; set; }
-    public EUnitType[] UnitType { get; set; }
     public int UnitHealth { get; set; }
-    public int UnitAttackPower { get; set; }
     public int UnitCost { get; set; }
     public int UnitCooldown { get; set; }
-    public float UnitAttackSpeed { get; set; }
-    public float UnitAttackRange { get; set; }
     public float UnitMoveSpeed { get; set; }
     public int UnitHitbackCount { get; set; }
     public int UnitDropMoneyAmount { get; set; }
+    public UnitAttackData UnitAttackData { get; set; }
+}
+
+[Serializable]
+public class UnitStatData
+{
+    public string UnitId { get; set; }
+    public string UnitName { get; set; }
+    public int UnlockPrice { get; set; }
+    public int UpgradePrice { get; set; }
+    public int UnitHealth { get; set; }
+    public int UnitCost { get; set; }
+    public int UnitCooldown { get; set; }
+    public float UnitMoveSpeed { get; set; }
+    public int UnitHitbackCount { get; set; }
+    public int UnitDropMoneyAmount { get; set; }
+    public EUnitClassType UnitClassType { get; set; }
+    public EUnitType[] UnitType { get; set; }
     public UnitAttackData UnitAttackData { get; set; }
     public UnitSpecialAbilityData UnitSpecialAbilityData { get; set; }
     public List<ESpecialAbilityType> CachedSpecialAbility { get; set; }
@@ -33,22 +43,26 @@ public class UnitData
 [Serializable]
 public class UnitAttackData
 {
+    public int UnitAttackPower { get; set; }
+    public float UnitAttackSpeed { get; set; }
     public float AttackRange { get; set; }
-    public float AttackDistance { get; set; }
-    public float DetectRange { get; set; }
+    public float UnitAttackDistance { get; set; }
+    public float UnitDetectRange { get; set; }
 }
+
 
 [Serializable]
 public class UnitSpecialAbilityData
 {
-    public EUnitType[] TargetTypes { get; set; }
-    public SpecialAbilityData[] SpecialAbilityDatas { get; set; }
+    public EUnitType[] TargetTypes;
+    public SpecialAbilityData[] SpecialAbilityDatas;
 }
+
 
 [Serializable]
 public class SpecialAbilityData
 {
-    public ESpecialAbilityType AbilityType { get; set; }
-    public float Chance { get; set; }
-    public float Duration { get; set; }
+    public ESpecialAbilityType AbilityType;
+    public float Chance;
+    public float Duration;
 }

@@ -12,6 +12,7 @@ builder.Services.AddSingleton<IMongoClient>(new MongoClient(mongoDbSettings.Conn
 builder.Services.AddSingleton<DbManager>();
 builder.Services.AddSingleton<GameDataManager>();
 builder.Services.AddSingleton<GameRoomService>();
+builder.Services.AddSingleton<UnitDataDefine>();
 
 var app = builder.Build();
 app.MapControllerRoute(

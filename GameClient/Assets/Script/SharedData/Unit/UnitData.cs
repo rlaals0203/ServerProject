@@ -12,22 +12,32 @@ public class UserUnitData
 [Serializable]
 public class UnitData
 {
-    public string UnitId { get; set; }
-    public string UnitName { get; set; }
+    public UnitStatData UnitStatData { get; }
     public int UnitLevel { get; set; }
-    public int UnlockPrice { get; set; }
-    public int UpgradePrice { get; set; }
-    public EUnitClassType unitClassType { get; set; }
-    public EUnitType[] UnitType { get; set; }
     public int UnitHealth { get; set; }
-    public int UnitAttackPower { get; set; }
     public int UnitCost { get; set; }
     public int UnitCooldown { get; set; }
-    public float UnitAttackSpeed { get; set; }
-    public float UnitAttackRange { get; set; }
     public float UnitMoveSpeed { get; set; }
     public int UnitHitbackCount { get; set; }
     public int UnitDropMoneyAmount { get; set; }
+    public UnitAttackData UnitAttackData { get; set; }
+}
+
+[Serializable]
+public class UnitStatData
+{
+    public string UnitId { get; set; }
+    public string UnitName { get; set; }
+    public int UnlockPrice { get; set; }
+    public int UpgradePrice { get; set; }
+    public int UnitHealth { get; set; }
+    public int UnitCost { get; set; }
+    public int UnitCooldown { get; set; }
+    public float UnitMoveSpeed { get; set; }
+    public int UnitHitbackCount { get; set; }
+    public int UnitDropMoneyAmount { get; set; }
+    public EUnitClassType UnitClassType { get; set; }
+    public EUnitType[] UnitType { get; set; }
     public UnitAttackData UnitAttackData { get; set; }
     public UnitSpecialAbilityData UnitSpecialAbilityData { get; set; }
     public List<ESpecialAbilityType> CachedSpecialAbility { get; set; }
@@ -37,6 +47,8 @@ public class UnitData
 [Serializable]
 public class UnitAttackData
 {
+    public int UnitAttackPower { get; set; }
+    public float UnitAttackSpeed { get; set; }
     public float AttackRange { get; set; }
     public float AttackDistance { get; set; }
     public float DetectRange { get; set; }
@@ -61,40 +73,38 @@ public class SpecialAbilityData
     public float Duration;
 }
 
-public class MakeUnitData
+public class MakeUnitStatData
 {
-    public UnitData UnitData;
+    public UnitStatData UnitStatData;
 
-    public MakeUnitData(UnitSO unitData)
+    public MakeUnitStatData(UnitSO unitData)
     {
-        UnitData = new UnitData
+        UnitStatData = new UnitStatData
         {
             UnitId = unitData.UnitId,
             UnitName = unitData.UnitName,
-            UnitLevel = 1,
             UnlockPrice = unitData.UnlockPrice,
             UpgradePrice = unitData.UpgradePrice,
             UnitCost = unitData.UnitCost,
             UnitCooldown = unitData.UnitCooldown,
             UnitType = unitData.UnitType,
             UnitHealth = unitData.UnitHealth,
-            UnitAttackPower = unitData.UnitAttackPower,
-            UnitAttackSpeed = unitData.AttackSpeed,
-            UnitAttackRange = unitData.UnitAttackRange,
             UnitMoveSpeed = unitData.UnitMoveSpeed,
             UnitHitbackCount = unitData.UnitHitbackCount,
             UnitDropMoneyAmount = unitData.UnitDropMoneyAmount,
             UnitSpecialAbilityData = unitData.UnitSpecialAbilityData
         };
 
-        UnitData.UnitAttackData = new UnitAttackData()
+        UnitStatData.UnitAttackData = new UnitAttackData()
         {
+            UnitAttackPower = unitData.UnitAttackPower,
+            UnitAttackSpeed = unitData.AttackSpeed,
             AttackRange = unitData.UnitAttackRange,
             AttackDistance = unitData.UnitAttackDistance,
             DetectRange = unitData.DetectRange
         };
 
-        UnitData.UnitSpecialAbilityData = new UnitSpecialAbilityData()
+        UnitStatData.UnitSpecialAbilityData = new UnitSpecialAbilityData()
         {
             SpecialAbilityDatas = unitData.UnitSpecialAbilityData.SpecialAbilityDatas,
             TargetTypes = unitData.UnitSpecialAbilityData.TargetTypes

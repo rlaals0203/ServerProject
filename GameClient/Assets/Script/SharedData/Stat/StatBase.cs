@@ -77,11 +77,11 @@ public class StatData
     public void InitializeStat(UnitData unitData)
     {
         _statDatas[EStatType.Health].SetValue(unitData.UnitHealth);
-        _statDatas[EStatType.AttackPower].SetValue(unitData.UnitAttackPower);
-        _statDatas[EStatType.MoveSpeed].SetValue(unitData.UnitMoveSpeed);
+        _statDatas[EStatType.AttackPower].SetValue(unitData.UnitAttackData.UnitAttackPower);
         _statDatas[EStatType.AttackRange].SetValue(unitData.UnitAttackData.AttackRange);
         _statDatas[EStatType.AttackDistance].SetValue(unitData.UnitAttackData.AttackDistance);
         _statDatas[EStatType.DetectRange].SetValue(unitData.UnitAttackData.DetectRange);
+        _statDatas[EStatType.MoveSpeed].SetValue(unitData.UnitMoveSpeed);
     }
 
     public StatBase GetStat(EStatType statType)

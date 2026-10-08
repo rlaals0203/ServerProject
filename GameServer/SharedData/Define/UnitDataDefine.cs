@@ -1,31 +1,43 @@
+using System.Text.Json;
+
 public class UnitDataDefine
 {
-    public Dictionary<string, UnitData> UnitCache;
+    public Dictionary<string, UnitStatData> UnitData = new();
 
-    public Dictionary<string, UnitData> CreateUnitCache(List<UnitData> unitList)
+    public Dictionary<string, UnitStatData> GetUnitData()
     {
-        UnitCache = new();
-        foreach (var unit in unitList)
+        return UnitData;
+    }
+
+    public UnitDataDefine()
+    {
+        LoadUnitData();
+    }
+
+    private void LoadUnitData()
+    {
+        string path = Path.Combine(Directory.GetCurrentDirectory(), "UnitData.json");
+
+        if (File.Exists(path))
         {
-            if(UnitCache.ContainsKey(unit.UnitId))
+            string jsonString = File.ReadAllText(path);
+            
+            var deserializedData = JsonSerializer.Deserialize<Dictionary<string, UnitStatData>>(jsonString);
+            
+            if (deserializedData != null)
             {
-                continue;
+                UnitData = deserializedData;
             }
-
-            UnitCache.Add(unit.UnitId, unit);
         }
-
-        return UnitCache;
+        else
+        {
+            Console.WriteLine($"Warning: UnitData.json not found at {path}");
+        }
     }
 
-    public Dictionary<string, UnitData> GetUnitData()
+    public UnitStatData GetUnitById(string unitId)
     {
-        return UnitCache;
-    }
-
-    public UnitData GetUnitById(string unitId)
-    {
-        if (UnitCache.TryGetValue(unitId, out UnitData unitData))
+        if (UnitData.TryGetValue(unitId, out UnitStatData unitData))
         {
             return unitData;
         }

@@ -8,8 +8,8 @@ public struct CheckApplyAbility
 
     public CheckApplyAbility(UnitData[] targetList, UnitData attacker)
     {
-        EUnitType[] targetTypes = attacker.UnitSpecialAbilityData.TargetTypes;
-        SpecialAbilityData[] abilityDatas = attacker.UnitSpecialAbilityData.SpecialAbilityDatas;
+        EUnitType[] targetTypes = attacker.UnitStatData.UnitSpecialAbilityData.TargetTypes;
+        SpecialAbilityData[] abilityDatas = attacker.UnitStatData.UnitSpecialAbilityData.SpecialAbilityDatas;
         SucessAbilities = new();
 
         if (targetTypes.Length == 0 || new CheckHasAvailableAbility(abilityDatas).HasAbility == false)
@@ -17,13 +17,13 @@ public struct CheckApplyAbility
             return;
         }
 
-        UnitData[] targets = targetList.Where(entity => entity.UnitType.Intersect(entity.UnitType).Any()).ToArray();
+        UnitData[] targets = targetList.Where(entity => entity.UnitStatData.UnitType.Intersect(entity.UnitStatData.UnitType).Any()).ToArray();
 
         foreach(var abilityData in abilityDatas)
         {
             foreach(var target in targets)
             {
-                if(target.CachedSpecialAbility.Contains(new GetOppositeAbility(abilityData.AbilityType).OppositeAbility))
+                if(target.UnitStatData.CachedSpecialAbility.Contains(new GetOppositeAbility(abilityData.AbilityType).OppositeAbility))
                 {
                     continue;
                 }
@@ -48,13 +48,13 @@ public struct CheckTargetWithAbility
         SucessAbilities = new();
         ApplyDamage = new();
 
-        SpecialAbilityData[] abilityDatas = attacker.UnitSpecialAbilityData.SpecialAbilityDatas;
-        UnitData[] targets = targetList.Where(entity => entity.UnitType.Intersect(entity.UnitType).Any()).ToArray();
+        SpecialAbilityData[] abilityDatas = attacker.UnitStatData.UnitSpecialAbilityData.SpecialAbilityDatas;
+        UnitData[] targets = targetList.Where(entity => entity.UnitStatData.UnitType.Intersect(entity.UnitStatData.UnitType).Any()).ToArray();
         CheckSucessAbility(abilityDatas, targets);
 
         foreach(var kvp in SucessAbilities)
         {
-            float finalDaamge = attacker.UnitAttackPower; //우선 기본 공격력으로 세팅
+            float finalDaamge = attacker.UnitAttackData.UnitAttackPower; //우선 기본 공격력으로 세팅
 
             foreach(ESpecialAbilityType abilityType in kvp.Value)
             {
@@ -67,9 +67,9 @@ public struct CheckTargetWithAbility
                     finalDaamge *= GameDefine.MassiveDamageStat;
                 }
 
-                if(attacker.UnitType.Intersect(attacker.UnitType).Any()) //상대가 내 속성에 대한 엄강, 맷집이 있는지 확인
+                if(attacker.UnitStatData.UnitType.Intersect(attacker.UnitStatData.UnitType).Any()) //상대가 내 속성에 대한 엄강, 맷집이 있는지 확인
                 {
-                    foreach(ESpecialAbilityType ability in kvp.Key.CachedSpecialAbility)
+                    foreach(ESpecialAbilityType ability in kvp.Key.UnitStatData.CachedSpecialAbility)
                     {
                         if(ability == ESpecialAbilityType.StrongAgainst)
                         {
@@ -94,7 +94,7 @@ public struct CheckTargetWithAbility
         {
             foreach (var target in targets)
             {
-                if (target.CachedSpecialAbility.Contains(new GetOppositeAbility(abilityData.AbilityType).OppositeAbility))
+                if (target.UnitStatData.CachedSpecialAbility.Contains(new GetOppositeAbility(abilityData.AbilityType).OppositeAbility))
                 {
                     continue;
                 }
