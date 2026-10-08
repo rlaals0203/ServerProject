@@ -6,9 +6,6 @@ public class BattleManager
 
     public void UpdateUnits()
     {
-        foreach(var unit in allUnits)
-        {
-            unit.UpdateUnit();
-        }
+
     }
 }

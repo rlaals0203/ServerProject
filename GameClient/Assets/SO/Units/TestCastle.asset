@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3414ad79fb821784d9437dfed62a318e, type: 3}
+  m_Name: TestCastle
+  m_EditorClassIdentifier: 
+  UnitId: 2
+  UnitName: "\uD14C\uC2A4\uD2B8"
+  UnitDesc: "\uD14C\uC2A4\uD2B8 \uC720\uB2DB"
+  UnitIcon: {fileID: -353341965, guid: 9d9b9add09683a241a2b486c23d63ce8, type: 3}
+  UnlockPrice: 0
+  UpgradePrice: 1000
+  UnitCost: 0
+  UnitCooldown: 2
+  UnitType: 0200
+  UnitMoveSpeed: 1
+  UnitHitbackCount: 3
+  UnitDropMoneyAmount: 100
+  UnitAttackPower: 50
+  UnitHealth: 150
+  UnitAttackRange: 1
+  UnitAttackDistance: 0.2
+  DetectRange: 1
+  AttackSpeed: 2
+  UnitSpecialAbilityData:
+    TargetTypes: 0200
+    SpecialAbilityDatas:
+    - AbilityType: 32
+      Chance: 1
+      Duration: 1
+    - AbilityType: 0
+      Chance: 0
+      Duration: 0
+  isDefaultUnit: 0

@@ -18,11 +18,12 @@ public class UnitUpgradeUI : ContentUI
     {
         base.Initialize();
 
-        unitListUI.InitializeUnitList(unitSOList.GetUnitData());
-        unitListUI.OnElementChanged += HandleElementChanged;
+        //unitListUI.InitializeUnitList(GameManager.I.MainUser.UserUnitData, unitSOList.UnitList);
+        unitListUI.OnElementChanged -= RefreshUI;
+        unitListUI.OnElementChanged += RefreshUI;
     }
 
-    private void HandleElementChanged(UnitSlotUI ui)
+    private void RefreshUI(UnitSlotUI ui)
     {
         _currentUnitId = ui.GetUnitId();
 
@@ -70,10 +71,12 @@ public class UnitUpgradeUI : ContentUI
         {
             return;
         }
+
+
     }
 
     private void OnDestroy()
     {
-        unitListUI.OnElementChanged -= HandleElementChanged;
+        unitListUI.OnElementChanged -= RefreshUI;
     }
 }

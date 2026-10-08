@@ -18,8 +18,8 @@ public class AnimatorCompo : MonoBehaviour, IComponentCache
     public void SetParam(int hash, bool value) => Animator.SetBool(hash, value);
     public void SetParam(int hash) => Animator.SetTrigger(hash);
     public void SetLayerWeight(int layerIndex, float weight) => Animator.SetLayerWeight(layerIndex, weight);
-    public void OffAnimator()
+    public void SetAnimator(bool isOn)
     {
-        Animator.enabled = false;
+        Animator.speed = isOn ? 1 : 0;
     }
 }

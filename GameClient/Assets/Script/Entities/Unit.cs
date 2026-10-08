@@ -23,12 +23,13 @@ public class Unit : MonoBehaviour
 {
     public StateDataSO[] states;
     public UnitData UnitData { get; private set; }
-    public bool IsEnemyUnit => TeamType == ETeamType.Enemy;
     public ETeamType TeamType { get; private set; }
     public EStateType CurrentState { get; private set; }
+    public bool IsEnemyUnit => TeamType == ETeamType.Enemy;
 
     private Dictionary<Type, IComponentCache> _cachedComponent = new();
     private UnitStateMachine _stateMachine;
+    private bool _isFreeze;
 
     public virtual void Initialize(UnitData unitData, ETeamType teamType)
     { 
@@ -43,16 +44,18 @@ public class Unit : MonoBehaviour
         transform.localScale = new Vector3(IsEnemyUnit ? -1 : 1, 1, 1);
     }
 
-    public void UpdateUnit()
-    {
-
-    }
-
     private void Update()
     {
+        if (_isFreeze)
+            return;
+
         _stateMachine?.UpdateStateMachine();
     }
 
+    public void SetFreeze(bool isFreeze)
+    {
+        _isFreeze = isFreeze;
+    }
 
     public void ChangeState(EStateType stateType, bool forced = false)
     {

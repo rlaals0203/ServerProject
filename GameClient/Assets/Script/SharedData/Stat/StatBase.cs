@@ -78,9 +78,9 @@ public class StatData
     {
         _statDatas[EStatType.Health].SetValue(unitData.UnitHealth);
         _statDatas[EStatType.AttackPower].SetValue(unitData.UnitAttackData.UnitAttackPower);
-        _statDatas[EStatType.AttackRange].SetValue(unitData.UnitAttackData.AttackRange);
-        _statDatas[EStatType.AttackDistance].SetValue(unitData.UnitAttackData.AttackDistance);
-        _statDatas[EStatType.DetectRange].SetValue(unitData.UnitAttackData.DetectRange);
+        _statDatas[EStatType.AttackRange].SetValue(unitData.UnitAttackData.UnitAttackRange);
+        _statDatas[EStatType.AttackDistance].SetValue(unitData.UnitAttackData.UnitAttackDistance);
+        _statDatas[EStatType.DetectRange].SetValue(unitData.UnitAttackData.UnitDetectRange);
         _statDatas[EStatType.MoveSpeed].SetValue(unitData.UnitMoveSpeed);
     }
 

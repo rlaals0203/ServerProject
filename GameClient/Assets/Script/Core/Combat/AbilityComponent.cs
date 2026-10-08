@@ -1,18 +1,84 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
 public class AbilityComponent : MonoBehaviour, IComponentCache
 {
+    [SerializeField] private UnitAbilityStatusUI abilityUI;
+
     private MovementCompo _movementCompo;
+    private AnimatorCompo _animatorCompo;
     private StatCompo _statCompo;
     private Unit _owner;
+
+    private Dictionary<ESpecialAbilityType, AbilitySchedule> _abilitySchedule = new();
 
 
     public void InitializeComponent(Unit owner)
     {
         _owner = owner;
-        _statCompo = owner.Get<StatCompo>();
         _movementCompo = owner.Get<MovementCompo>();
+        _animatorCompo = owner.Get<AnimatorCompo>();
+        _statCompo = owner.Get<StatCompo>();
+
+        _abilitySchedule.Add(ESpecialAbilityType.Weaken, new AbilitySchedule(ESpecialAbilityType.Weaken));
+        _abilitySchedule.Add(ESpecialAbilityType.Freeze, new AbilitySchedule(ESpecialAbilityType.Freeze));
+        _abilitySchedule.Add(ESpecialAbilityType.Slow, new AbilitySchedule(ESpecialAbilityType.Slow));
+
+        foreach(var schedule in _abilitySchedule.Values)
+        {
+            schedule.OnStatusChange += HandleAbilityStatusChange;
+        }
+    }
+
+    private void HandleAbilityStatusChange(ESpecialAbilityType abilityType, bool status)
+    {
+        if((abilityType & ESpecialAbilityType.Weaken) != 0)
+        {
+            ChangeWeakenStatus(status);
+        }
+        if ((abilityType & ESpecialAbilityType.Freeze) != 0)
+        {
+            ChangeFreezeStatus(status);
+        }
+        if ((abilityType & ESpecialAbilityType.Slow) != 0)
+        {
+            ChangeSlowStatus(status);
+        }
+
+        abilityUI.SetAbilityStatusUI(abilityType, status);
+    }
+
+    private void ChangeWeakenStatus(bool status)
+    {
+
+    }
+
+    private void ChangeFreezeStatus(bool status)
+    {
+        _animatorCompo.SetAnimator(!status);
+        _movementCompo.SetMove(!status);
+        _owner.SetFreeze(status);
+    }
+
+    private void ChangeSlowStatus(bool status)
+    {
+        if(status == true)
+        {
+            float modifyValue = GameDefine.SlowModifyStat * _statCompo.GetStatValue(EStatType.MoveSpeed);
+            _statCompo.AddStatModifier(EStatType.MoveSpeed, "slowAbility", -modifyValue);
+        }
+        else
+        {
+            _statCompo.RemoveStatModifier(EStatType.MoveSpeed, "slowAbility");
+        }
+    }
+
+    private void Update()
+    {
+        foreach(var schedule in _abilitySchedule.Values)
+        {
+            schedule.UpdateSchedule(Time.deltaTime);
+        }
     }
 
     public float CheckAndApplySpecialAbilities(Unit target, float finalDamage)
@@ -74,15 +140,29 @@ public class AbilityComponent : MonoBehaviour, IComponentCache
 
     public void ApplySpecialAbility(SpecialAbilityData abilityData, Unit attacker)
     {
-        if((abilityData.AbilityType & ESpecialAbilityType.Freeze) != 0)
+        if((abilityData.AbilityType & ESpecialAbilityType.Weaken) != 0)
         {
-            FreezeUnit();
+            _abilitySchedule[ESpecialAbilityType.Weaken].ModifyTime(abilityData.Duration);
+        }
+        if ((abilityData.AbilityType & ESpecialAbilityType.Freeze) != 0)
+        {
+            _abilitySchedule[ESpecialAbilityType.Freeze].ModifyTime(abilityData.Duration);
+        }
+        if ((abilityData.AbilityType & ESpecialAbilityType.Slow) != 0)
+        {
+            _abilitySchedule[ESpecialAbilityType.Slow].ModifyTime(abilityData.Duration);
+        }
+        if ((abilityData.AbilityType & ESpecialAbilityType.Knockback) != 0)
+        {
+            _movementCompo.PlayKnockback();
         }
     }
 
-    private void FreezeUnit()
+    private void OnDestroy()
     {
-        Debug.Log("freeze");
-        _movementCompo.SetMove(false);
+        foreach (var timer in _abilitySchedule.Values)
+        {
+            timer.OnStatusChange -= HandleAbilityStatusChange;
+        }
     }
 }

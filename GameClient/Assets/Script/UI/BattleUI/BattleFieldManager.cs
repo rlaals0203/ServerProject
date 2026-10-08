@@ -14,14 +14,14 @@ public class BattleFieldManager : MonoBehaviour
 
     private void Awake()
     {
-        List<UnitStatData> unitList = new();
+        List<UnitData> unitList = new();
 
         foreach(var unit in units)
         {
-            unitList.Add(new MakeUnitStatData(unit).UnitStatData);
+            unitList.Add(new UpdateUnitData(new MakeUnitStatData(unit).UnitStatData, 1).UnitData);
         }
 
-        //unitBattleDeckUI.InitializeDeckUI(unitList.ToArray());
+        unitBattleDeckUI.InitializeDeckUI(unitList.ToArray());
         unitBattleDeckUI.OnSpawnUnit += HandleSpawnUnit;
     }
 
@@ -30,7 +30,7 @@ public class BattleFieldManager : MonoBehaviour
         if (Keyboard.current.rKey.wasPressedThisFrame)
         {
             var enemy = new SpawnCacheObject<Unit>("Unit", enemyPosition.position).Spawned;
-            //enemy.Initialize(new MakeUnitStatData(testEnemy).UnitStatData, ETeamType.Enemy);
+            enemy.Initialize(new UpdateUnitData(new MakeUnitStatData(testEnemy).UnitStatData, 1).UnitData, ETeamType.Enemy);
         }
     }
 

@@ -10,7 +10,7 @@ public static class GameDefine
     public static int MaxSlotCount = 5;
 
     public static float WeakenModifyStat = 0.5f;
-    public static float SlowModifyStat = 0.1f;
+    public static float SlowModifyStat = 0.9f;
     public static float StrongAgainstAttackModifyStat = 2f;
     public static float StrongAgainstHealthModifyStat = 0.5f;
     public static float ResistantModifyStat = 4f;

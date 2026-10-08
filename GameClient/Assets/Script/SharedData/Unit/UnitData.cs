@@ -12,7 +12,7 @@ public class UserUnitData
 [Serializable]
 public class UnitData
 {
-    public UnitStatData UnitStatData { get; }
+    public UnitStatData UnitStatData { get; set; }
     public int UnitLevel { get; set; }
     public int UnitHealth { get; set; }
     public int UnitCost { get; set; }
@@ -41,7 +41,6 @@ public class UnitStatData
     public UnitAttackData UnitAttackData { get; set; }
     public UnitSpecialAbilityData UnitSpecialAbilityData { get; set; }
     public List<ESpecialAbilityType> CachedSpecialAbility { get; set; }
-    public List<EUnitType> CachedTargetType { get; set; }
 }
 
 [Serializable]
@@ -49,9 +48,9 @@ public class UnitAttackData
 {
     public int UnitAttackPower { get; set; }
     public float UnitAttackSpeed { get; set; }
-    public float AttackRange { get; set; }
-    public float AttackDistance { get; set; }
-    public float DetectRange { get; set; }
+    public float UnitAttackRange { get; set; }
+    public float UnitAttackDistance { get; set; }
+    public float UnitDetectRange { get; set; }
 }
 
 
@@ -92,16 +91,16 @@ public class MakeUnitStatData
             UnitMoveSpeed = unitData.UnitMoveSpeed,
             UnitHitbackCount = unitData.UnitHitbackCount,
             UnitDropMoneyAmount = unitData.UnitDropMoneyAmount,
-            UnitSpecialAbilityData = unitData.UnitSpecialAbilityData
+            UnitSpecialAbilityData = unitData.UnitSpecialAbilityData,
         };
 
         UnitStatData.UnitAttackData = new UnitAttackData()
         {
             UnitAttackPower = unitData.UnitAttackPower,
             UnitAttackSpeed = unitData.AttackSpeed,
-            AttackRange = unitData.UnitAttackRange,
-            AttackDistance = unitData.UnitAttackDistance,
-            DetectRange = unitData.DetectRange
+            UnitAttackRange = unitData.UnitAttackRange,
+            UnitAttackDistance = unitData.UnitAttackDistance,
+            UnitDetectRange = unitData.DetectRange
         };
 
         UnitStatData.UnitSpecialAbilityData = new UnitSpecialAbilityData()
@@ -109,5 +108,13 @@ public class MakeUnitStatData
             SpecialAbilityDatas = unitData.UnitSpecialAbilityData.SpecialAbilityDatas,
             TargetTypes = unitData.UnitSpecialAbilityData.TargetTypes
         };
+
+        List<ESpecialAbilityType> abilityList = new();
+        foreach(var ability in UnitStatData.UnitSpecialAbilityData.SpecialAbilityDatas)
+        {
+            abilityList.Add(ability.AbilityType);
+        }
+
+        UnitStatData.CachedSpecialAbility = abilityList;
     }
 }

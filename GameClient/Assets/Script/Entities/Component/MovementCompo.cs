@@ -18,7 +18,7 @@ public class MovementCompo : MonoBehaviour, IComponentCache
         _healthCompo = owner.Get<HealthCompo>();
 
         _direction = _owner.TeamType == ETeamType.Friendly ? Vector3.left : Vector3.right;
-        _healthCompo.OnHitback += PlayHitback;
+        _healthCompo.OnHitback += PlayKnockback;
     }
 
     public void MovingUnit()
@@ -34,7 +34,7 @@ public class MovementCompo : MonoBehaviour, IComponentCache
         _canMove = canMove;
     }
 
-    public void PlayHitback()
+    public void PlayKnockback()
     {
         Vector3 destination = transform.position + _direction * KnockbackPower;
         _owner.transform.DOMove(destination, 0.8f).SetEase(Ease.OutQuart);
@@ -43,6 +43,6 @@ public class MovementCompo : MonoBehaviour, IComponentCache
     private void OnDestroy()
     {
         if (_healthCompo != null)
-            _healthCompo.OnHitback -= PlayHitback;
+            _healthCompo.OnHitback -= PlayKnockback;
     }
 }

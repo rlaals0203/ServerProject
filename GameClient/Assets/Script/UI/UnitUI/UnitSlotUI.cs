@@ -23,23 +23,23 @@ public class UnitSlotUI : UIBase, IBeginDragHandler, IDragHandler, IEndDragHandl
 
     private string _currentUnitId;
 
-    public void InitializeUI(UnitSO unitSO)
+    public void InitializeUI(UnitData unitData)
     {
-        if(GameManager.I.MainUser.UserUnitData.OwnUnitList.TryGetValue(unitSO.UnitId, out var unitData))
-        {
-            unitNameText.text = unitData.UnitStatData.UnitName;
-            unitLevelText.text = unitData.UnitLevel.ToString();
-            unitCostText.text = unitData.UnitCost.ToString();
-            lockObject.SetActive(false);
-        }
-        else
-        {
-            unitNameText.text = _unknownName;
-            unitCostText.text = _unknownCost;
-            lockObject.SetActive(true);
-        }
+        unitNameText.text = unitData.UnitStatData.UnitName;
+        unitLevelText.text = unitData.UnitLevel.ToString();
+        unitCostText.text = unitData.UnitCost.ToString();
+        lockObject.SetActive(false);
 
-        _currentUnitId = unitSO.UnitId;
+        _currentUnitId = unitData.UnitStatData.UnitId;
+    }
+
+    public void InitializeUI(UnitStatData unitStatData)
+    {
+        unitNameText.text = _unknownName;
+        unitCostText.text = _unknownCost;
+        lockObject.SetActive(true);
+
+        _currentUnitId = unitStatData.UnitId;
     }
 
     public string GetUnitId()
