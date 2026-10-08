@@ -33,6 +33,9 @@ MonoBehaviour:
   UnitSpecialAbilityData:
     TargetTypes: 0200
     SpecialAbilityDatas:
+    - AbilityType: 2
+      Chance: 0
+      Duration: 0
     - AbilityType: 64
       Chance: 0
       Duration: 1
@@ -40,7 +43,7 @@ MonoBehaviour:
       Chance: 1
       Duration: 2
     - AbilityType: 1024
-      Chance: 0.1
+      Chance: 0
       Duration: 0
   isDefaultUnit: 0
   animator: {fileID: 22100000, guid: 4835a1250ba6da04fa4f5ba78b5a8fc0, type: 2}

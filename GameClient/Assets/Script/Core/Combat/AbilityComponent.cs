@@ -50,7 +50,15 @@ public class AbilityComponent : MonoBehaviour, IComponentCache
 
     private void ChangeWeakenStatus(bool status)
     {
-
+        if (status == true)
+        {
+            float modifyValue = GameDefine.WeakenModifyStat * _statCompo.GetStatValue(EStatType.AttackPower);
+            _statCompo.AddStatModifier(EStatType.AttackPower, "weakenAbility", -modifyValue);
+        }
+        else
+        {
+            _statCompo.RemoveStatModifier(EStatType.AttackPower, "weakenAbility");
+        }
     }
 
     private void ChangeFreezeStatus(bool status)
@@ -156,6 +164,8 @@ public class AbilityComponent : MonoBehaviour, IComponentCache
         {
             _movementCompo.PlayKnockback();
         }
+
+        abilityUI.UpdateAbilityStatusUI(abilityData.AbilityType);
     }
 
     private void OnDestroy()

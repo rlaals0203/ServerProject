@@ -173,7 +173,7 @@ TextureImporter:
         width: 60
         height: 56
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -181,6 +181,48 @@ TextureImporter:
       bones: []
       spriteID: d212289e0a252bf499a8f8ed5eed5301
       internalID: -2064825543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill000_3
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 242
+        width: 6
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ffae2572fd6e5c74d9c964c1296ad54a
+      internalID: 820073151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill000_4
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 244
+        width: 6
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f265d8ecf00ee3e45a6ba2837d274d39
+      internalID: -1141472814
       vertices: []
       indices: 
       edges: []
@@ -199,6 +241,8 @@ TextureImporter:
       Skill000_0: 38644031
       Skill000_1: -237201558
       Skill000_2: -2064825543
+      Skill000_3: 820073151
+      Skill000_4: -1141472814
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
