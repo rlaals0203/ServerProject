@@ -6,4 +6,7 @@ public class ComponentBase
     {
         Owner = owner;
     }
+
+    public virtual void InitializeComponent() { }
+    public virtual void UpdateComponent() { }
 }

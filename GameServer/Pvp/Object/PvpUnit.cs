@@ -9,14 +9,19 @@ public class PvpUnit : ObjectBase
     public PvpUnit(UnitData unitData, bool isOpponent)
     {
         IsOpponent = isOpponent;
-        HealthComponent = new HealthComponent(unitData);
-
         _unitData = unitData;
+
+        AddComponent(new HealthComponent(this));
     }
 
     public override void Init()
     {
         base.Init();
+
+        foreach(var component in _components.Values)
+        {
+            component.InitializeComponent();
+        }
     }
 
     public override void Update(float dt)
