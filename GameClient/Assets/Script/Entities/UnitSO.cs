@@ -29,4 +29,7 @@ public class UnitSO : ScriptableObject
     
     public UnitSpecialAbilityData UnitSpecialAbilityData;
     public bool isDefaultUnit;
+
+    [Header("AnimationSetting")]
+    public AnimatorOverrideController animator;
 }

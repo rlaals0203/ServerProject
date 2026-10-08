@@ -102,7 +102,7 @@ public struct CheckTargetWithAbility
                 if (abilityData.AbilityType == ESpecialAbilityType.Resistant)
                 {
                     AddSucessAbility(ESpecialAbilityType.Resistant, target);
-                }
+                }  
                 if (abilityData.AbilityType == ESpecialAbilityType.StrongAgainst)
                 {
                     AddSucessAbility(ESpecialAbilityType.StrongAgainst, target);

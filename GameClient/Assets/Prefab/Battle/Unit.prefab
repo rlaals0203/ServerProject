@@ -295,6 +295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0cbd4b5e4357624fa7dc386ddd0a0a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitSOList: {fileID: 11400000, guid: 45fdbfb2cc0fc1b4eaf1f119bd6d3b35, type: 2}
   <Animator>k__BackingField: {fileID: 7769586616453454293}
 --- !u!114 &1891017185632015487
 MonoBehaviour:

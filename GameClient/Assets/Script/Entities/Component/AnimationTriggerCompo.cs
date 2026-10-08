@@ -4,27 +4,9 @@ using UnityEngine;
 public class AnimatorTriggerCompo : MonoBehaviour, IComponentCache
 {
     public Action OnAnimationEndTrigger;
-    public Action OnAttackVFXTrigger;
-    public Action<bool> OnManualRotationTrigger;
     public Action OnDamageCastTrigger;
-    public Action<bool> OnDamageToggleTrigger;
-    public Action OnCastSkillTrigger;
-    private Unit _entity;
-    public void InitializeComponent(Unit owner)
-    {
-        _entity = owner;
-    }
+    public void InitializeComponent(Unit owner) { }
 
-    private void AnimationEnd()
-    {
-        OnAnimationEndTrigger?.Invoke();
-    }
-
-    private void CastSkill() => OnCastSkillTrigger?.Invoke();
-    private void PlayAttackVFX() => OnAttackVFXTrigger?.Invoke();
-    private void StartManualRotation() => OnManualRotationTrigger?.Invoke(true);
-    private void StopManualRotation() => OnManualRotationTrigger?.Invoke(false);
+    private void AnimationEnd() => OnAnimationEndTrigger?.Invoke();
     private void DamageCast() => OnDamageCastTrigger?.Invoke();
-    private void StartDamageCast() => OnDamageToggleTrigger?.Invoke(true);
-    private void StopDamageCast() => OnDamageToggleTrigger?.Invoke(false);
 }
