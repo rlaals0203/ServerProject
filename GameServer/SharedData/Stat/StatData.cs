@@ -4,7 +4,14 @@ using System.Collections.Generic;
 public class StatBase
 {
     public float CurrentStat { get; private set; }
+    public float MaxStat { get; private set; }
     public Dictionary<string, float> Modifiers { get; set; } = new();
+
+    public void InitStat(float value)
+    {
+        MaxStat = value;
+        CurrentStat = value;
+    }
 
     public void AddStatModifier(string modifyKey, float value)
     {
@@ -42,6 +49,21 @@ public class StatBase
     {
         return Modifiers.GetValueOrDefault(modifyKey);
     }
+
+    public void SetValue(float value)
+    {
+        CurrentStat = value;
+    }
+
+    public void AddStatValue(float value)
+    {
+        CurrentStat += value;
+    }
+
+    public void SubstractStatValue(float value)
+    {
+        CurrentStat -= value;
+    }
 }
 
 public delegate void OnStatChanged(EStatType statType, float after);
@@ -57,6 +79,16 @@ public class StatData
         {
             _statDatas.Add(statType, new StatBase());
         }
+    }
+
+    public void InitializeStat(UnitData unitData)
+    {
+        _statDatas[EStatType.Health].InitStat(unitData.UnitHealth);
+        _statDatas[EStatType.AttackPower].InitStat(unitData.UnitAttackData.UnitAttackPower);
+        _statDatas[EStatType.AttackRange].InitStat(unitData.UnitAttackData.UnitAttackRange);
+        _statDatas[EStatType.AttackDistance].InitStat(unitData.UnitAttackData.UnitAttackDistance);
+        _statDatas[EStatType.DetectRange].InitStat(unitData.UnitAttackData.UnitDetectRange);
+        _statDatas[EStatType.MoveSpeed].InitStat(unitData.UnitMoveSpeed);
     }
 
     public StatBase GetStat(EStatType statType)
@@ -113,7 +145,7 @@ public class StatData
         if (string.IsNullOrEmpty(modifyKey))
         {
             return;
-        }
+        } 
 
         StatBase targetStat = GetStat(statType);
         if (targetStat == null)
@@ -123,5 +155,15 @@ public class StatData
 
         targetStat.RemoveStatModifier(modifyKey);
         OnStatChanged?.Invoke(statType, GetStatValue(statType));
+    }
+}
+
+public struct StatInitializer
+{
+    public StatData Result;
+
+    public StatInitializer(UnitData unitData, StatData statData)
+    {
+        Result = statData;
     }
 }

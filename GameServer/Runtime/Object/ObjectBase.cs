@@ -13,7 +13,7 @@ public class ObjectBase
     {
         foreach(var component in _components.Values)
         {
-            component.UpdateComponent();
+            component.UpdateComponent(dt);
         }
     }
 

@@ -1,22 +1,18 @@
 public class HealthComponent : ComponentBase, IDamageable
 {
     private int _currentHealth;
-    private StatComopnent _statCompo;
+    private StatComponent _statCompo;
     public int CurrentHealth => _currentHealth;
-
 
     public event Action<int> OnDamaged;
     public event Action<IDamageable> OnDead;
 
-    public HealthComponent(PvpUnit owner) : base(owner)
-    {
-        
-    }
+    public HealthComponent(RuntimeUnit owner) : base(owner) { }
 
     public override void InitializeComponent()
     {
         base.InitializeComponent();
-        _statCompo = Owner.Get<StatComopnent>();
+        _statCompo = _owner.Get<StatComponent>();
     }
 
     public void ApplyDamage(int damage)

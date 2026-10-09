@@ -1,3 +1,5 @@
+using System;
+
 public enum EPacketResult
 {
     Ok,
@@ -35,6 +37,9 @@ public enum EStatType
     AttackPower,
     Health,
     MoveSpeed,
+    AttackRange,
+    AttackDistance,
+    DetectRange,
 }
 
 public enum EUnitClassType : ushort
@@ -47,12 +52,11 @@ public enum EUnitClassType : ushort
 [Flags]
 public enum EUnitType : short
 {
-    None = 0,
-    Normal = 1 << 1,
-    Fly = 1 << 2,
-    Red = 1 << 3,
-    Black = 1 << 4,
-    All = 1 << 5,
+    Normal  = 1 << 1,
+    Fly     = 1 << 2,
+    Red     = 1 << 3,
+    Black   = 1 << 4,
+    All     = 1 << 5,
 }
 
 public enum EUnitGradeType
