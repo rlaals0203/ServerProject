@@ -17,7 +17,7 @@ public class UnitUpgradeUI : ContentUI
     {
         base.Initialize();
 
-        //unitListUI.InitializeUnitList(GameManager.I.MainUser.UserUnitData, unitSOList.UnitList);
+        unitListUI.InitializeUnitList(GameManager.I.MainUser.UserUnitData.OwnUnitList);
         unitListUI.OnElementChanged -= RefreshUI;
         unitListUI.OnElementChanged += RefreshUI;
     }

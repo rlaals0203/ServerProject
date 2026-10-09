@@ -18,28 +18,18 @@ public class UnitSlotUI : UIBase, IBeginDragHandler, IDragHandler, IEndDragHandl
     public event Action<UnitSlotUI> OnUnitDragStart;
     public event Action<UnitSlotUI> OnUnitDragEnd;
 
-    private const string _unknownName = "??????";
-    private const string _unknownCost = "???";
-
     private string _currentUnitId;
 
-    public void InitializeUI(UnitData unitData)
+    public void InitializeUI(UnitData unitData, UnitSO unitSO)
     {
-        unitNameText.text = unitData.UnitStatData.UnitName;
+        bool isLockd = unitData.UnitLevel == 0;
+        lockObject.SetActive(isLockd);
+        _currentUnitId = unitData.UnitStatData.UnitId;
+
         unitLevelText.text = unitData.UnitLevel.ToString();
         unitCostText.text = unitData.UnitCost.ToString();
-        lockObject.SetActive(false);
-
-        _currentUnitId = unitData.UnitStatData.UnitId;
-    }
-
-    public void InitializeUI(UnitStatData unitStatData)
-    {
-        unitNameText.text = _unknownName;
-        unitCostText.text = _unknownCost;
-        lockObject.SetActive(true);
-
-        _currentUnitId = unitStatData.UnitId;
+        unitNameText.text = unitSO.UnitName;
+        unitIcon.sprite = unitSO.UnitIcon;
     }
 
     public string GetUnitId()

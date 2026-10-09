@@ -59,6 +59,14 @@ public enum EUnitType : short
     All     = 1 << 5,
 }
 
+public enum EUnitGradeType
+{
+    Normal,
+    Rare,
+    SuperRare,
+    UltraSuperRare
+}
+
 [Flags]
 public enum ESpecialAbilityType : uint
 {

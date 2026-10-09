@@ -7,6 +7,7 @@ public class UnitSO : ScriptableObject
     public string UnitId;
     public string UnitName;
     public string UnitDesc;
+    public EUnitGradeType UnitGrade;
     public Sprite UnitIcon;
     public int UnlockPrice;
     public int UpgradePrice;

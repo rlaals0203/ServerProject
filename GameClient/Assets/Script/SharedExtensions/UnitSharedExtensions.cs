@@ -10,22 +10,6 @@ public struct GetUnitUpgradePrice
     }
 }
 
-public struct GetUnitLevel
-{
-    public int Level;
-
-    public GetUnitLevel(string unitId)
-    {
-        if (GameManager.I.MainUser.UserUnitData.OwnUnitList.TryGetValue(unitId, out var unit) == false)
-        {
-            Level = -1;
-            return;
-        }
-
-        Level = unit.UnitLevel;
-    }
-}
-
 public class UpdateUnitData
 {
     public UnitData UnitData;
@@ -55,5 +39,26 @@ public class UpdateUnitData
         };
 
         UnitData = unitData;
+    }
+}
+
+public struct GetUnitStat
+{
+
+}
+
+public struct GetUnitLevel
+{
+    public int Level;
+
+    public GetUnitLevel(string unitId)
+    {
+        if (GameManager.I.MainUser.UserUnitData.OwnUnitList.TryGetValue(unitId, out var unit) == false)
+        {
+            Level = -1;
+            return;
+        }
+
+        Level = unit.UnitLevel;
     }
 }

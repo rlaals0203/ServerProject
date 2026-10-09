@@ -4,23 +4,24 @@ using UnityEngine;
 
 public class UnitListUI : SnapScrollViewBase<UnitSlotUI>
 {
+    [SerializeField] private UnitSOList unitSOList;
     public event Action<string> OnUnitChanged;
 
-    public void InitializeUnitList(Dictionary<string, UnitData> unitDatas, Dictionary<string, UnitStatData> unitStatData)
+    public void InitializeUnitList(Dictionary<string, UnitData> unitDatas)
     {
-        foreach(var unitData in unitStatData)
+        foreach(var unitData in unitDatas)
         {
             var spawned = new SpawnUI<UnitSlotUI>("UnitSlotUI", Vector3.zero, content).spawned;
-
-
-            spawned.InitializeUI(unitData.Value);
+            UnitSO unitSO = unitSOList.GetUnitById(unitData.Value.UnitStatData.UnitId);
+            spawned.InitializeUI(unitData.Value, unitSO);
             _elements.Add(spawned);
         }
     }
 
     public void UpdateCurrentSlot(UnitData unitData)
     {
-        _currentElement.InitializeUI(unitData);
+        UnitSO unitSO = unitSOList.GetUnitById(unitData.UnitStatData.UnitId);
+        _currentElement.InitializeUI(unitData, unitSO);
     }
 
     protected override void ElementChanged()
