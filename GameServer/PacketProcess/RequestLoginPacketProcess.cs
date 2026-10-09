@@ -5,7 +5,7 @@ namespace GameServer
         public UserBaseData UserData;
         public bool IsNewUser;
 
-        public async Task<EPacketResult> ProcessAsync(DbManager dbManager, string userId, string password)
+        public async Task<EPacketResult> ProcessAsync(DbManager dbManager, UnitDataDefine unitData, string userId, string password)
         {
             if(string.IsNullOrEmpty(userId))
             {
@@ -30,7 +30,7 @@ namespace GameServer
                 };
 
                 IsNewUser = true;
-                new UserDataCheck(UserData);
+                new UserDataCheck(UserData, unitData);
                 await dbManager.SaveDataAsync(UserData, EDbType.BaseUserData, userId);
                 return Result;
             }
@@ -42,7 +42,7 @@ namespace GameServer
             }
                 
             IsNewUser = false;
-            new UserDataCheck(UserData);
+            new UserDataCheck(UserData, unitData);
             await dbManager.SaveDataAsync(UserData, EDbType.BaseUserData, userId);
             return Result;
         }

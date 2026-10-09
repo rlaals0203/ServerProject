@@ -72,4 +72,10 @@ public class MongoHelper<T>(IMongoClient mongoClient, string databaseName, ILogg
             return EDbResult.Fail;
         }
     }
+
+    public Task<UpdateResult> UpdateAsync(string id, UpdateDefinition<T> update)
+    {
+        FilterDefinition<T> filter = GetFilter<T>(id);
+        return TypedCollection.UpdateOneAsync(filter, update);
+    }
 }

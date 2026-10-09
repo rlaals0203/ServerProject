@@ -3,6 +3,7 @@ using System.Text.Json;
 public class UnitDataDefine
 {
     public Dictionary<string, UnitStatData> UnitData = new();
+    public string StarterUnitId = "1";
 
     public Dictionary<string, UnitStatData> GetUnitData()
     {
@@ -24,8 +25,7 @@ public class UnitDataDefine
             
             JsonSerializerOptions options = new JsonSerializerOptions();
             options.IncludeFields = true;
-
-            var deserializedData = JsonSerializer.Deserialize<Dictionary<string, UnitStatData>>(jsonString, );
+            var deserializedData = JsonSerializer.Deserialize<Dictionary<string, UnitStatData>>(jsonString, options);
             
             if (deserializedData != null)
             {

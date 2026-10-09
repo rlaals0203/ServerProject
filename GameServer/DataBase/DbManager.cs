@@ -68,4 +68,15 @@ public class DbManager
 
         return await userDbData.LoadAsync(userId);
     }
+
+    public Task<UpdateResult> AddUnitAsync(string userId, string unitId, UnitData unitData)
+    {
+        UserBaseDataDbInfo userDb = (UserBaseDataDbInfo)dbList[EDbType.BaseUserData];
+        return userDb.AddUnitAsync(userId, unitId, unitData);
+    }
+    public Task<UpdateResult> SetUnitLevelAsync(string userId, string unitId, int unitLevel)
+    {
+        UserBaseDataDbInfo userDb = (UserBaseDataDbInfo)dbList[EDbType.BaseUserData];
+        return userDb.SetUnitLevelAsync(userId, unitId, unitLevel);
+    }
 }

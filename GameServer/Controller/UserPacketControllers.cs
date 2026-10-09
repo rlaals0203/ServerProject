@@ -7,7 +7,7 @@ public partial class BasePacketController : ControllerBase
     public async Task<ActionResult<UserLoginPacketResultData>> PostUserLoginRequest([FromBody]UserLoginPacketData request)
     {
         RequestLoginPacketProcess loginProcess = new RequestLoginPacketProcess();
-        await loginProcess.ProcessAsync(dbManager, request.UserId, request.Password);
+        await loginProcess.ProcessAsync(dbManager, unitDataDefine, request.UserId, request.Password);
         
         UserLoginPacketResultData resultData = new UserLoginPacketResultData(loginProcess.Result)
         {

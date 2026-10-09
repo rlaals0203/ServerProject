@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3414ad79fb821784d9437dfed62a318e, type: 3}
   m_Name: TestUnit
   m_EditorClassIdentifier: 
-  UnitId: 2
+  UnitId: 1
   UnitName: "\uD14C\uC2A4\uD2B8"
   UnitDesc: "\uD14C\uC2A4\uD2B8 \uC720\uB2DB"
   UnitIcon: {fileID: -353341965, guid: 9d9b9add09683a241a2b486c23d63ce8, type: 3}
