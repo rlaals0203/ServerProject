@@ -45,7 +45,7 @@ public class UnitAttackData
 {
     public int UnitAttackPower { get; set; }
     public float UnitAttackSpeed { get; set; }
-    public float AttackRange { get; set; }
+    public float UnitAttackRange { get; set; }
     public float UnitAttackDistance { get; set; }
     public float UnitDetectRange { get; set; }
 }

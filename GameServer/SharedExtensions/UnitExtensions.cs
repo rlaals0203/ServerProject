@@ -8,7 +8,7 @@ public class UpdateUnitData
         {
             UnitAttackPower = statData.UnitAttackData.UnitAttackPower,
             UnitAttackSpeed = statData.UnitAttackData.UnitAttackSpeed,
-            AttackRange = statData.UnitAttackData.AttackRange,
+            UnitAttackRange = statData.UnitAttackData.UnitAttackRange,
             UnitAttackDistance = statData.UnitAttackData.UnitAttackDistance,
             UnitDetectRange = statData.UnitAttackData.UnitDetectRange,
         };

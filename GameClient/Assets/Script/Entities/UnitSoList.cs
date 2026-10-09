@@ -31,7 +31,7 @@ public class UnitSOList : ScriptableObject
     public void ExportUnitDataToJson()
     {
         string fileName = "UnitData.json";
-        string path = Application.persistentDataPath + "/" + fileName;
+        string path = Path.Combine(Application.dataPath, "..", "..", "GameServer", fileName);
         Dictionary<string, UnitStatData> unitData = new();
 
         _unitCache ??= CreateUnitCache();

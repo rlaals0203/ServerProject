@@ -22,7 +22,10 @@ public class UnitDataDefine
         {
             string jsonString = File.ReadAllText(path);
             
-            var deserializedData = JsonSerializer.Deserialize<Dictionary<string, UnitStatData>>(jsonString);
+            JsonSerializerOptions options = new JsonSerializerOptions();
+            options.IncludeFields = true;
+
+            var deserializedData = JsonSerializer.Deserialize<Dictionary<string, UnitStatData>>(jsonString, );
             
             if (deserializedData != null)
             {
