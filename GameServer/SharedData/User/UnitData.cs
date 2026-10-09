@@ -12,7 +12,7 @@ public class UnitData
     public int UnitLevel { get; set; }
     public int UnitHealth { get; set; }
     public int UnitCost { get; set; }
-    public int UnitCooldown { get; set; }
+    public float UnitCooldown { get; set; }
     public float UnitMoveSpeed { get; set; }
     public int UnitHitbackCount { get; set; }
     public int UnitDropMoneyAmount { get; set; }
@@ -28,7 +28,7 @@ public class UnitStatData
     public int UpgradePrice { get; set; }
     public int UnitHealth { get; set; }
     public int UnitCost { get; set; }
-    public int UnitCooldown { get; set; }
+    public float UnitCooldown { get; set; }
     public float UnitMoveSpeed { get; set; }
     public int UnitHitbackCount { get; set; }
     public int UnitDropMoneyAmount { get; set; }

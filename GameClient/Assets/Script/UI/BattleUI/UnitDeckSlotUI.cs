@@ -17,12 +17,14 @@ public class UnitDeckSlotUI : UIBase
     private bool _canSpawn;
 
 
-    public void InitializeSlot(UnitData unitData)
+    public void InitializeSlot(UnitData unitData, UnitSOList unitSOList)
     {
         _unitData = unitData;
         _unitCooltime = unitData.UnitCooldown;
         _currentTime = 0f;
         _canSpawn = true;
+
+        unitIcon.sprite = unitSOList.GetUnitById(unitData.UnitStatData.UnitId).UnitIcon;
 
         SetLockState(false);
     }

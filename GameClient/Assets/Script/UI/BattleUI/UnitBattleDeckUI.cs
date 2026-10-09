@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class UnitBattleDeckUI  : UIBase
 {
+    [SerializeField] private UnitSOList unitList;
     [SerializeField] private UnitDeckSlotUI[] deckSlotUI;
 
     public Action<UnitData> OnSpawnUnit;
@@ -21,7 +22,7 @@ public class UnitBattleDeckUI  : UIBase
     {
         for(int i = 0; i < unitData.Length; i++)
         {
-            deckSlotUI[i].InitializeSlot(unitData[i]);
+            deckSlotUI[i].InitializeSlot(unitData[i], unitList);
         }
     }
 

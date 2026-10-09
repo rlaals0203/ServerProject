@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3414ad79fb821784d9437dfed62a318e, type: 3}
+  m_Name: 004_GrossCat
+  m_EditorClassIdentifier: 
+  UnitId: 4
+  UnitName: "\uC9D5\uAE00 \uACE0\uC591\uC774"
+  UnitDesc: 
+  UnitIcon: {fileID: 21300000, guid: 1c4716feec0fb904ab33daf8d2081719, type: 3}
+  UnlockPrice: 2400
+  UpgradePrice: 1600
+  UnitCost: 600
+  UnitType: 0200
+  UnitCooldown: 2.2
+  UnitMoveSpeed: 0.8
+  UnitHitbackCount: 3
+  UnitDropMoneyAmount: 0
+  UnitAttackPower: 100
+  UnitHealth: 400
+  UnitAttackRange: 2.5
+  UnitAttackDistance: 0.2
+  DetectRange: 2.7
+  AttackSpeed: 4.233333
+  UnitSpecialAbilityData:
+    TargetTypes: 0200
+    SpecialAbilityDatas:
+    - AbilityType: 2
+      Chance: 0
+      Duration: 0
+  isDefaultUnit: 0
+  animator: {fileID: 22100000, guid: 351da50743faa5d439945ee5f57c5894, type: 2}

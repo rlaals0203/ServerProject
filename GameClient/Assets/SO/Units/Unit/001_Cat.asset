@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3414ad79fb821784d9437dfed62a318e, type: 3}
+  m_Name: 001_Cat
+  m_EditorClassIdentifier: 
+  UnitId: 1
+  UnitName: "\uACE0\uC591\uC774"
+  UnitDesc: 
+  UnitIcon: {fileID: 21300000, guid: e2c7cfc9328b5b946878492d92172dab, type: 3}
+  UnlockPrice: 0
+  UpgradePrice: 400
+  UnitCost: 50
+  UnitType: 0200
+  UnitCooldown: 2
+  UnitMoveSpeed: 0.8
+  UnitHitbackCount: 3
+  UnitDropMoneyAmount: 0
+  UnitAttackPower: 8
+  UnitHealth: 100
+  UnitAttackRange: 1
+  UnitAttackDistance: 0.2
+  DetectRange: 1.2
+  AttackSpeed: 1.2333333
+  UnitSpecialAbilityData:
+    TargetTypes: 0200
+    SpecialAbilityDatas:
+    - AbilityType: 2
+      Chance: 0
+      Duration: 0
+  isDefaultUnit: 1
+  animator: {fileID: 22100000, guid: 1c6f7332dcba7ac44873941be96fc08a, type: 2}

@@ -329,8 +329,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   units:
-  - {fileID: 11400000, guid: d1e90603ebc499c4ead72bb201b749a8, type: 2}
-  testEnemy: {fileID: 11400000, guid: 328b5664afe6bbb4aa28c6133f8789c7, type: 2}
+  - {fileID: 11400000, guid: a10f4ca9e7d145d68f1b2c3d4e5f6001, type: 2}
+  - {fileID: 11400000, guid: a10f4ca9e7d145d68f1b2c3d4e5f6002, type: 2}
+  - {fileID: 11400000, guid: a10f4ca9e7d145d68f1b2c3d4e5f6003, type: 2}
+  - {fileID: 11400000, guid: a10f4ca9e7d145d68f1b2c3d4e5f6004, type: 2}
+  - {fileID: 11400000, guid: a10f4ca9e7d145d68f1b2c3d4e5f6005, type: 2}
+  testEnemy: {fileID: 11400000, guid: a10f4ca9e7d145d68f1b2c3d4e5f6009, type: 2}
   unitBattleDeckUI: {fileID: 1909602568}
   spawnPosition: {fileID: 441595378}
   enemyPosition: {fileID: 1855994354}
@@ -1283,6 +1287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsActive: 0
+  unitList: {fileID: 11400000, guid: 45fdbfb2cc0fc1b4eaf1f119bd6d3b35, type: 2}
   deckSlotUI:
   - {fileID: 976278565}
   - {fileID: 1666333654}

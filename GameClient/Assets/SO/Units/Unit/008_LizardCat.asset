@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3414ad79fb821784d9437dfed62a318e, type: 3}
+  m_Name: 008_LizardCat
+  m_EditorClassIdentifier: 
+  UnitId: 8
+  UnitName: "\uB3C4\uB9C8\uBC40 \uACE0\uC591\uC774"
+  UnitDesc: "\uBA40\uB9AC\uC11C \uAC15\uD55C \uD55C \uBC29\uC744 \uB0A0\uB9AC\uB294
+    \uC7A5\uAC70\uB9AC \uC720\uB2DB"
+  UnitIcon: {fileID: 0}
+  UnlockPrice: 12000
+  UpgradePrice: 7000
+  UnitCost: 1500
+  UnitCooldown: 10.2
+  UnitType: 0200
+  UnitMoveSpeed: 0.8
+  UnitHitbackCount: 3
+  UnitDropMoneyAmount: 0
+  UnitAttackPower: 350
+  UnitHealth: 800
+  UnitAttackRange: 2.85
+  UnitAttackDistance: 0.2
+  DetectRange: 3.05
+  AttackSpeed: 4.3
+  UnitSpecialAbilityData:
+    TargetTypes: 0200
+    SpecialAbilityDatas:
+    - AbilityType: 2
+      Chance: 0
+      Duration: 0
+  isDefaultUnit: 0
+  animator: {fileID: 22100000, guid: c5e3bcb006397d14cb50da0697846dfc, type: 2}

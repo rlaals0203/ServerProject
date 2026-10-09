@@ -13,5 +13,12 @@ MonoBehaviour:
   m_Name: UnitSOList
   m_EditorClassIdentifier: 
   UnitList:
-  - {fileID: 11400000, guid: d1e90603ebc499c4ead72bb201b749a8, type: 2}
-  - {fileID: 11400000, guid: 328b5664afe6bbb4aa28c6133f8789c7, type: 2}
+  - {fileID: 11400000, guid: a10f4ca9e7d145d68f1b2c3d4e5f6001, type: 2}
+  - {fileID: 11400000, guid: a10f4ca9e7d145d68f1b2c3d4e5f6002, type: 2}
+  - {fileID: 11400000, guid: a10f4ca9e7d145d68f1b2c3d4e5f6003, type: 2}
+  - {fileID: 11400000, guid: a10f4ca9e7d145d68f1b2c3d4e5f6004, type: 2}
+  - {fileID: 11400000, guid: a10f4ca9e7d145d68f1b2c3d4e5f6005, type: 2}
+  - {fileID: 11400000, guid: a10f4ca9e7d145d68f1b2c3d4e5f6006, type: 2}
+  - {fileID: 11400000, guid: a10f4ca9e7d145d68f1b2c3d4e5f6007, type: 2}
+  - {fileID: 11400000, guid: a10f4ca9e7d145d68f1b2c3d4e5f6008, type: 2}
+  - {fileID: 11400000, guid: a10f4ca9e7d145d68f1b2c3d4e5f6009, type: 2}
