@@ -32,6 +32,7 @@ public class UnitStatData
     public float UnitMoveSpeed { get; set; }
     public int UnitHitbackCount { get; set; }
     public int UnitDropMoneyAmount { get; set; }
+    public EUnitGradeType UnitGradeType { get; set; }
     public EUnitClassType UnitClassType { get; set; }
     public EUnitType[] UnitType { get; set; }
     public UnitAttackData UnitAttackData { get; set; }

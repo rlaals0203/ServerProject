@@ -5,7 +5,7 @@ namespace GameServer
         public string UnitId;
         public int UnitLevel;
 
-        public async Task<EPacketResult> ProcessAsync(UserBaseData userData, string unitId, int targetLevel)
+        public async Task<EPacketResult> ProcessAsync(UserBaseData userData, DbManager dbManager, string unitId, int targetLevel)
         {
             int availableLevel = targetLevel;
 
@@ -41,7 +41,9 @@ namespace GameServer
             unit.UnitLevel += availableLevel;
             UnitId = unitId;
             UnitLevel = unit.UnitLevel;
-
+            
+            userData.UserUnitData.OwnUnitList[unitId] = new UpdateUnitData(unit.UnitStatData, UnitLevel).UnitData;
+            await dbManager.SaveDataAsync(userData, EDbType.BaseUserData, userData.UserId);
             return Result;
         }
     }

@@ -1,6 +1,7 @@
 public static class GameDefine
 {
     public static int UnitMaxLevel = 30;
+    public static float UnitStatIncreasePerLevel = 0.2f;
     public static int PassiveMaxLevel = 20;
     public static int MaxSlotCount = 5;
 

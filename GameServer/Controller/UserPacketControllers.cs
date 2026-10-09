@@ -39,7 +39,7 @@ public partial class BasePacketController : ControllerBase
     {
         UserBaseData userBaseData = await dbManager.LoadUserAsync(request.LoginUserId);
         RequestUnitUpgradePacketProcess process = new RequestUnitUpgradePacketProcess();
-        await process.ProcessAsync(userBaseData, request.UnitId, request.TargetLevel);
+        await process.ProcessAsync(userBaseData, dbManager, request.UnitId, request.TargetLevel);
         
         UnitUpgradePacketResultData resultData = new UnitUpgradePacketResultData(process.Result)
         {

@@ -14,11 +14,13 @@ public class UpdateUnitData
 {
     public UnitData UnitData;
 
-    public UpdateUnitData(UnitStatData statData, int level, EUnitClassType classType = EUnitClassType.First)
+    public UpdateUnitData(UnitStatData statData, int unitLevel)
     {
+        float statMultiplier = GameDefine.UnitStatIncreasePerLevel * (unitLevel - 1);
+
         UnitAttackData attackData = new UnitAttackData
         {
-            UnitAttackPower = statData.UnitAttackData.UnitAttackPower,
+            UnitAttackPower = (int)(statData.UnitAttackData.UnitAttackPower * statMultiplier),
             UnitAttackSpeed = statData.UnitAttackData.UnitAttackSpeed,
             UnitAttackRange = statData.UnitAttackData.UnitAttackRange,
             UnitAttackDistance = statData.UnitAttackData.UnitAttackDistance,
@@ -28,8 +30,8 @@ public class UpdateUnitData
         UnitData unitData = new UnitData()
         {
             UnitStatData = statData,
-            UnitLevel = level,
-            UnitHealth = statData.UnitHealth,
+            UnitLevel = unitLevel,
+            UnitHealth = (int)(statData.UnitHealth * statMultiplier),
             UnitCost = statData.UnitCost,
             UnitCooldown = statData.UnitCooldown,
             UnitMoveSpeed = statData.UnitMoveSpeed,
@@ -40,11 +42,6 @@ public class UpdateUnitData
 
         UnitData = unitData;
     }
-}
-
-public struct GetUnitStat
-{
-
 }
 
 public struct GetUnitLevel
