@@ -1,7 +1,7 @@
 using UnityEngine;
 public class UnitKnockbackState : UnitState
 {
-    private const float knockbackTime = 0.6f;
+    private const float knockbackTime = 0.8f;
     private float _currentTime;
     private BoxCollider2D _unitCollider;
 

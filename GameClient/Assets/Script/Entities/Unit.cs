@@ -35,6 +35,7 @@ public class Unit : MonoBehaviour
     { 
         UnitData = unitData;
         TeamType = teamType;
+        IsFreeze = false;
 
         InitializeComponentCaches();
         AfterInitializeComponentCaches();
@@ -67,6 +68,8 @@ public class Unit : MonoBehaviour
 
     protected void InitializeComponentCaches()
     {
+        _cachedComponent.Clear();
+
         var componentCaches = GetComponentsInChildren<IComponentCache>();
         foreach(var cache in componentCaches)
         {

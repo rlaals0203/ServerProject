@@ -38,7 +38,7 @@ public class BattleFieldManager : MonoBehaviour
             enemy.Initialize(new UpdateUnitData(new MakeUnitStatData(testEnemy).UnitStatData, 1).UnitData, ETeamType.Enemy);
         }
 
-        if(Keyboard.current.tKey.wasPressedThisFrame)
+        if(Keyboard.current.tKey.wasPressedThisFrame) 
         {
             var castle = new SpawnCacheObject<Castle>("Castle", unitCastlePosition.position).Spawned;
             castle.Initialize(new UpdateUnitData(new MakeUnitStatData(castleData).UnitStatData, 1).UnitData, ETeamType.Friendly);

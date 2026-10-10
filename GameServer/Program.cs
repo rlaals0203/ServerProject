@@ -13,6 +13,7 @@ builder.Services.AddSingleton<DbManager>();
 builder.Services.AddSingleton<GameDataManager>();
 builder.Services.AddSingleton<GameRoomService>();
 builder.Services.AddSingleton<UnitDataDefine>();
+builder.Services.AddSingleton<StageDataDefine>();
 
 var app = builder.Build();
 app.MapControllerRoute(

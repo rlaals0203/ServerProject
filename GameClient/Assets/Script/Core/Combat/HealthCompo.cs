@@ -1,5 +1,4 @@
 using System;
-using ObjectPooling;
 using TMPro;
 using UnityEngine;
 
@@ -10,6 +9,8 @@ public class HealthCompo : MonoBehaviour, IComponentCache, IAfterInit, IDamageab
     private Unit _owner;
     private StatCompo _statCompo;
     private StatBase _healthStat;
+
+    public bool IsDead { get; private set; }
 
     public Action OnDead;
     public Action OnDamaged;
@@ -22,6 +23,7 @@ public class HealthCompo : MonoBehaviour, IComponentCache, IAfterInit, IDamageab
     public void InitializeComponent(Unit owner)
     {
         _owner = owner;
+        IsDead = false;
     }
 
     public void AfterInitialize()
@@ -48,14 +50,8 @@ public class HealthCompo : MonoBehaviour, IComponentCache, IAfterInit, IDamageab
 
         if (_healthStat.CurrentStat <= 0)
         {
+            IsDead = true;
             OnDead?.Invoke();
-
-            if (PoolManager.I.DespawnPool(gameObject))
-            {
-                return;
-            }
-
-            Destroy(gameObject);
         }
 
         RefreshHealthText();

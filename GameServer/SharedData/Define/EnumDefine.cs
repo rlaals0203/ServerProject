@@ -95,3 +95,9 @@ public enum ELayer
     Unit,
     Enemy
 }
+
+public enum EStageSpawnTrigger
+{
+    BattleStart,
+    EnemyCastleHit
+}

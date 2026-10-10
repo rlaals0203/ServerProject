@@ -1,4 +1,6 @@
 using DG.Tweening;
+using MINLib.Script.Core.Resource;
+using System;
 using UnityEngine;
 
 public class MovementCompo : MonoBehaviour, IComponentCache
@@ -13,11 +15,17 @@ public class MovementCompo : MonoBehaviour, IComponentCache
 
     public void InitializeComponent(Unit owner)
     {
+        if (_healthCompo != null)
+        {
+            _healthCompo.OnHitback -= PlayKnockback;
+        }
+
         _owner = owner;
         _ownerStat = owner.Get<StatCompo>();
         _healthCompo = owner.Get<HealthCompo>();
 
         _direction = _owner.TeamType == ETeamType.Friendly ? Vector3.left : Vector3.right;
+        _canMove = true;
         _healthCompo.OnHitback += PlayKnockback;
     }
 
@@ -37,8 +45,22 @@ public class MovementCompo : MonoBehaviour, IComponentCache
     public void PlayKnockback()
     {
         _owner.ChangeState(EStateType.Knockback);
-        Vector3 destination = transform.position + _direction * KnockbackPower;
-        _owner.transform.DOMove(destination, 0.8f).SetEase(Ease.OutQuart);
+
+        var unit = _owner.transform;
+        var pos = unit.position;
+
+        DOTween.Sequence()
+            .Append(unit.DOJump(pos - _direction * 0.6f, 0.5f, 1, 0.4f))
+            .Append(unit.DOJump(pos - _direction * 0.9f, 0.25f, 1, 0.25f))
+            .Append(unit.DOJump(pos - _direction * 1.05f, 0.1f, 1, 0.2f))
+
+            .OnComplete(() =>
+            {
+                if (_healthCompo.IsDead == false)
+                    return;
+
+                ResourceManager.I.DespawnPool(_owner.gameObject);
+            });
     }
 
     private void OnDestroy()
