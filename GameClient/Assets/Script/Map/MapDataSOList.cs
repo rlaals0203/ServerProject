@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "MapDataSOList", menuName = "SO/MapDataList")]
@@ -17,13 +18,12 @@ public class MapDataSOList : ScriptableObject
         {
             if (mapData == null || string.IsNullOrEmpty(mapData.MapId))
             {
-                Debug.LogWarning("StageSOList has an empty stage or StageId.");
                 continue;
             }
 
             if (stageData.ContainsKey(mapData.MapId))
             {
-                Debug.LogWarning($"Duplicate StageId: {mapData.MapId}");
+                Debug.LogWarning($"duplicate stage id: {mapData.MapId}");
                 continue;
             }
 
@@ -32,6 +32,16 @@ public class MapDataSOList : ScriptableObject
 
         string path = Path.Combine(Application.dataPath, "..", "..", "GameServer", "StageData.json");
         File.WriteAllText(path, JsonConvert.SerializeObject(stageData));
-        Debug.Log($"Stage data saved: {path}");
+        Debug.Log($"stage data saved: {path}");
+    }
+
+    public MapDataSO GetMapDataById(string mapId)
+    {
+        if(string.IsNullOrEmpty(mapId))
+        {
+            return null;
+        }
+
+        return MapDataList.Where(map => map.MapId == mapId).FirstOrDefault();
     }
 }

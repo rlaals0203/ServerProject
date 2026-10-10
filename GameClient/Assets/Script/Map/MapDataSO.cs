@@ -12,6 +12,7 @@ public enum EStageSpawnTrigger
 public class MapDataSO : ScriptableObject
 {
     public string MapId;
+    public string MapName;
     public float CastleDistance;
     public List<EnemySpawnData> EnemySpawnList = new();
 }
