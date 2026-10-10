@@ -3,25 +3,19 @@ using UnityEngine;
 
 namespace ObjectPooling
 {
-    [System.Serializable]
-    public class PoolObject
-    {
-        public GameObject Prefab;
-    }
-    
     public class Pool
     {
-        [HideInInspector] public int MaxPoolSize = 10;
-        
-        private Queue<PoolObject> _pool;
+        private Queue<GameObject> _pool = new();
+
+        public Transform Root { get; }
         public int CurrentPoolSize => _pool.Count;
 
-        public Pool()
+        public Pool(Transform parent)
         {
-            _pool = new Queue<PoolObject>();
+            Root = parent;
         }
         
-        public PoolObject Pop()
+        public GameObject Pop()
         {
             if (_pool.Count == 0)
             {
@@ -33,12 +27,13 @@ namespace ObjectPooling
             return result;
         }
 
-        public void Push(PoolObject poolObject)
+        public bool Push(GameObject poolObject)
         {
-            if (CurrentPoolSize >= MaxPoolSize)
-                return;
+            if (poolObject == null || _pool.Contains(poolObject))
+                return false;
             
             _pool.Enqueue(poolObject);
+            return true;
         }
     }
 }

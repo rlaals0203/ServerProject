@@ -16,7 +16,7 @@ public class UpdateUnitData
 
     public UpdateUnitData(UnitStatData statData, int unitLevel)
     {
-        float statMultiplier = GameDefine.UnitStatIncreasePerLevel * (unitLevel - 1);
+        float statMultiplier = 1f + GameDefine.UnitStatIncreasePerLevel * (unitLevel - 1);
 
         UnitAttackData attackData = new UnitAttackData
         {

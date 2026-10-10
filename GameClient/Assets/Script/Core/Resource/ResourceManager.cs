@@ -43,6 +43,7 @@ namespace MINLib.Script.Core.Resource
 
             foreach (var location in locationsHandle.Result)
             {
+                int spawnCount = 1;
                 string key = location.PrimaryKey;
                 var prefab = await _prefabResourceContainer.LoadAddressableResourcesAsync(key);
 
@@ -52,8 +53,13 @@ namespace MINLib.Script.Core.Resource
                     continue;
                 }
                 
+                if (prefab.TryGetComponent(out PoolSetting poolSetting))
+                {
+                    spawnCount = poolSetting.GetPrewarmCount();
+                }
+
                 _resourcePool[key] = prefab;
-                PoolManager.I.RegisterPool(key, prefab, 20);
+                PoolManager.I.RegisterPool(key, prefab, spawnCount);
             }
 
             Addressables.Release(locationsHandle);
@@ -150,6 +156,11 @@ namespace MINLib.Script.Core.Resource
                 return default;
 
             return spawned.GetComponent<T>();
+        }
+
+        public bool DespawnPool(GameObject target, Action<int> onDespawn = null)
+        {
+            return PoolManager.I.DespawnPool(target, onDespawn);
         }
 
         public bool CheckCacheResource(string key)

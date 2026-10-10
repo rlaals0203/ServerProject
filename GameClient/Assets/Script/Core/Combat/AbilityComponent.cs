@@ -12,6 +12,12 @@ public class AbilityComponent : MonoBehaviour, IComponentCache
 
     private Dictionary<ESpecialAbilityType, AbilitySchedule> _abilitySchedule = new();
 
+    private void Awake()
+    {
+        _abilitySchedule.Add(ESpecialAbilityType.Weaken, new AbilitySchedule(ESpecialAbilityType.Weaken));
+        _abilitySchedule.Add(ESpecialAbilityType.Freeze, new AbilitySchedule(ESpecialAbilityType.Freeze));
+        _abilitySchedule.Add(ESpecialAbilityType.Slow, new AbilitySchedule(ESpecialAbilityType.Slow));
+    }
 
     public void InitializeComponent(Unit owner)
     {
@@ -19,10 +25,6 @@ public class AbilityComponent : MonoBehaviour, IComponentCache
         _movementCompo = owner.Get<MovementCompo>();
         _animatorCompo = owner.Get<AnimatorCompo>();
         _statCompo = owner.Get<StatCompo>();
-
-        _abilitySchedule.Add(ESpecialAbilityType.Weaken, new AbilitySchedule(ESpecialAbilityType.Weaken));
-        _abilitySchedule.Add(ESpecialAbilityType.Freeze, new AbilitySchedule(ESpecialAbilityType.Freeze));
-        _abilitySchedule.Add(ESpecialAbilityType.Slow, new AbilitySchedule(ESpecialAbilityType.Slow));
 
         foreach(var schedule in _abilitySchedule.Values)
         {

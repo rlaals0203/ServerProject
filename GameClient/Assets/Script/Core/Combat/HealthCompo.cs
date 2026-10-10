@@ -1,4 +1,5 @@
 using System;
+using ObjectPooling;
 using TMPro;
 using UnityEngine;
 
@@ -29,6 +30,7 @@ public class HealthCompo : MonoBehaviour, IComponentCache, IAfterInit, IDamageab
         _healthStat = _statCompo.GetStat(EStatType.Health);
 
         _minHitbackHealth = (int)_healthStat.CurrentStat / _owner.UnitData.UnitHitbackCount;
+        _damageStacked = 0;
         RefreshHealthText();
     }
 
@@ -47,6 +49,12 @@ public class HealthCompo : MonoBehaviour, IComponentCache, IAfterInit, IDamageab
         if (_healthStat.CurrentStat <= 0)
         {
             OnDead?.Invoke();
+
+            if (PoolManager.I.DespawnPool(gameObject))
+            {
+                return;
+            }
+
             Destroy(gameObject);
         }
 

@@ -10,10 +10,16 @@ namespace ObjectPooling
         [SerializeField] private Transform root;
 
         private Dictionary<string, Pool> _poolList = new();
+        private Dictionary<GameObject, Pool> _pooledObjects = new();
 
         public void RegisterPool(string key, GameObject go, int count)
         {
-            if(string.IsNullOrEmpty(key))
+            if (count <= 0)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(key))
             {
                 return;
             }
@@ -23,24 +29,18 @@ namespace ObjectPooling
                 return;
             }
 
-            Pool newPool = new Pool();
             GameObject poolRoot = new GameObject($"{key}_Pool");
             poolRoot.transform.SetParent(root);
+            Pool newPool = new Pool(poolRoot.transform);
 
             _poolList[key] = newPool;
 
             for (int i = 0; i < count; i++)
             { 
-                var spawned = Instantiate(go, root);
+                var spawned = Instantiate(go, poolRoot.transform);
                 spawned.SetActive(false);
-                spawned.transform.SetParent(poolRoot.transform);
-
-                PoolObject newPoolObject = new PoolObject
-                {
-                    Prefab = spawned
-                };
-
-                newPool.Push(newPoolObject);
+                newPool.Push(spawned);
+                _pooledObjects.Add(spawned, newPool);
             }
         }
         
@@ -56,14 +56,13 @@ namespace ObjectPooling
                 return null;
             }
 
-            var spawned = pool.Pop();
+            GameObject spawned = pool.Pop();
             if(spawned == null)
             {
-                Debug.LogError($"spawned pool is null");
                 return null;
             }
 
-            return spawned.Prefab;
+            return spawned;
         }
 
         public GameObject SpawnAndInitPool(string key, Vector3 position, Transform parent, Action spawnCallback = null)
@@ -75,26 +74,34 @@ namespace ObjectPooling
             }
 
             spawned.gameObject.SetActive(true);
-            spawned.transform.SetParent(parent);
+            spawned.transform.SetParent(parent, false);
             spawned.transform.position = position;
             spawnCallback?.Invoke();
             return spawned;
         }
 
-        public void DespawnPool(string key, Action<int> onDespawn = null)
+        public bool DespawnPool(GameObject target, Action<int> onDespawn = null)
         {
-            if (string.IsNullOrEmpty(key))
+            if (target == null)
             {
-                return;
+                return false;
             }
 
-            if (_poolList.TryGetValue(key, out Pool pool) == false)
+            if (_pooledObjects.TryGetValue(target, out Pool pool) == false)
             {
-                return;
+                return false;
             }
 
-            pool.Pop();
+            if (pool.Push(target) == false)
+            {
+                return false;
+            }
+
+            target.SetActive(false);
+            target.transform.SetParent(pool.Root, false);
+
             onDespawn?.Invoke(pool.CurrentPoolSize);
+            return true;
         }
     }
 }
