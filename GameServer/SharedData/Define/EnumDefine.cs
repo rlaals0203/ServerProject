@@ -89,3 +89,9 @@ public enum ESpecialAbilityType : uint
     AntiMassiveDamage = 1 << 16,            //초데미지 무효
     AntiKnockback = 1 << 17,                //넉백 무효
 }
+
+public enum ELayer
+{
+    Unit,
+    Enemy
+}

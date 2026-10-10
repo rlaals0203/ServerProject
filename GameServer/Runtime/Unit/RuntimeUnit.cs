@@ -8,7 +8,7 @@ public class RuntimeUnit : ObjectBase
 
     private StateMachine _stateMachine;
 
-    public RuntimeUnit(UnitData unitData, bool isOpponent)
+    public RuntimeUnit(UnitData unitData, bool isOpponent, Vector3 position, ELayer layer) : base(position, layer)
     {
         IsOpponent = isOpponent;
         UnitData = unitData;

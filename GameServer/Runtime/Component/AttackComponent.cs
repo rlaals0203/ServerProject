@@ -6,12 +6,17 @@ public class AttackComponent : ComponentBase
     public AttackComponent(RuntimeUnit owner) : base(owner)
     {
         _owner = owner;
-        _damageCaster = new DamageCaster(owner);
+    }
+
+    public override void InitializeComponent()
+    {
+        base.InitializeComponent();
+        _damageCaster = new DamageCaster(_owner);
     }
 
     public bool CheckTarget()
     {
-        return _damageCaster.DetectTargets();
+        return _damageCaster.DetectTarget();
     }
 
     public void Attack()

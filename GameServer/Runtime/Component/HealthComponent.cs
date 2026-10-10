@@ -1,11 +1,12 @@
-public class HealthComponent : ComponentBase, IDamageable
+public class HealthComponent : ComponentBase
 {
-    private int _currentHealth;
+    private float _currentHealth;
     private StatComponent _statCompo;
-    public int CurrentHealth => _currentHealth;
+    public float CurrentHealth => _currentHealth;
+    public bool IsDead { get; private set; }
 
-    public event Action<int> OnDamaged;
-    public event Action<IDamageable> OnDead;
+    public event Action<float> OnDamaged;
+    public event Action<RuntimeUnit> OnDead;
 
     public HealthComponent(RuntimeUnit owner) : base(owner) { }
 
@@ -15,14 +16,15 @@ public class HealthComponent : ComponentBase, IDamageable
         _statCompo = _owner.Get<StatComponent>();
     }
 
-    public void ApplyDamage(int damage)
+    public void ApplyDamage(float damage)
     {
         _currentHealth -= damage;
         OnDamaged?.Invoke(_currentHealth);
 
         if(_currentHealth <= 0)
         {
-            OnDead?.Invoke(this);
+            IsDead = true;
+            OnDead?.Invoke(_owner);
         }
     }
 }

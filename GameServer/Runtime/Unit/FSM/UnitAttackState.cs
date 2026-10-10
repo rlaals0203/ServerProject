@@ -1,6 +1,6 @@
 public class UnitAttackState : UnitState
 {
-    protected UnitAttackState(RuntimeUnit owner) : base(owner)
+    public UnitAttackState(RuntimeUnit owner) : base(owner)
     {
     }
 }
