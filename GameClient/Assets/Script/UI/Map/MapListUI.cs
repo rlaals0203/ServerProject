@@ -9,6 +9,7 @@ public class MapListUI : SnapScrollViewBase<MapElementUI>
         {
             var spawned = new SpawnUI<MapElementUI>("MapElement", Vector3.zero, content).spawned;
             spawned.Initialize(mapData, mapDataList.GetMapDataById(mapData.MapId).MapName, onTouchPlay);
+            _elements.Add(spawned);
         }
     }
 

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class MapSelectUI : UIBase
+public class MapSelectUI : ContentUI
 {
     [SerializeField] private MapDataSOList mapDataList;
     [SerializeField] private MapListUI mapListUI;
