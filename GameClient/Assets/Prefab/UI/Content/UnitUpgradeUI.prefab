@@ -1335,10 +1335,10 @@ RectTransform:
   - {fileID: 3947604331302178867}
   - {fileID: 5523204457163593726}
   - {fileID: 5154144659762019101}
-  - {fileID: 4166772619770175659}
   - {fileID: 8699050430496854898}
   - {fileID: 2657583197025316305}
   - {fileID: 23417095235183982}
+  - {fileID: 4166772619770175659}
   - {fileID: 286008776319966030}
   - {fileID: 4269067232893226725}
   - {fileID: 8188967508349844110}
@@ -1541,8 +1541,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsActive: 0
-  _outlineYellow: {fileID: 0}
-  _outlinePink: {fileID: 0}
   targetTypes:
   - {fileID: 7419901084365919344}
   - {fileID: 3223622418349029134}
@@ -1555,10 +1553,10 @@ MonoBehaviour:
   - {fileID: 1258927332412079484}
   - {fileID: 3403308332070996281}
   - {fileID: 3386377945967572285}
-  - {fileID: 6799030465249501884}
   - {fileID: 4524012269148366062}
   - {fileID: 5152577073305701745}
   - {fileID: 2214330834856403837}
+  - {fileID: 6799030465249501884}
   - {fileID: 2577967220075455890}
   - {fileID: 8956874003375483137}
   - {fileID: 2545117431678748408}
@@ -1657,8 +1655,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsActive: 0
-  _outlineYellow: {fileID: 0}
-  _outlinePink: {fileID: 0}
   unitSOList: {fileID: 11400000, guid: 45fdbfb2cc0fc1b4eaf1f119bd6d3b35, type: 2}
   unitListUI: {fileID: 8747060377642643010}
   specialAbilityUI: {fileID: 1106030740223238713}

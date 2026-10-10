@@ -16,6 +16,7 @@ MonoBehaviour:
   UnitName: "\uD669\uC18C \uACE0\uC591\uC774"
   UnitDesc: "\uB9E4\uC6B0 \uBE60\uB978 \uC774\uB3D9\uC18D\uB3C4\uB85C \uC804\uC120\uC744
     \uD30C\uACE0\uB4DC\uB294 \uC720\uB2DB"
+  UnitGrade: 0
   UnitIcon: {fileID: 21300000, guid: 7aa9399f90b85bd43af1dac0426c0d52, type: 3}
   UnlockPrice: 4000
   UpgradePrice: 2200
@@ -32,7 +33,7 @@ MonoBehaviour:
   DetectRange: 1.2
   AttackSpeed: 0.33333334
   UnitSpecialAbilityData:
-    TargetTypes: 0200
+    TargetTypes: 
     SpecialAbilityDatas:
     - AbilityType: 2
       Chance: 0

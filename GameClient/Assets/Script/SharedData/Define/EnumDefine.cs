@@ -70,7 +70,6 @@ public enum EUnitGradeType
 [Flags]
 public enum ESpecialAbilityType : uint
 {
-    None = 0,
     SingleAttack = 1 << 1,                  //개체 공격
     AreaAttack = 1 << 2,                    //범위 공격
     LongDistance = 1 << 3,                  //원거리 공격
@@ -84,8 +83,5 @@ public enum ESpecialAbilityType : uint
     AntiWeaken = 1 << 11,                   //공격력 다운 무효
     AntiFreeze = 1 << 12,                   //멈춤 무효
     AntiSlow = 1 << 13,                     //느리게 무효
-    AntiStrongAgainst = 1 << 14,            //엄청 강하다 무효
-    AntiResistant = 1 << 15,                //맷집이 좋다 무효
-    AntiMassiveDamage = 1 << 16,            //초데미지 무효
-    AntiKnockback = 1 << 17,                //넉백 무효
+    AntiKnockback = 1 << 14,                //넉백 무효
 }

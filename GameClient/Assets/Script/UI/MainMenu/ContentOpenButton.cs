@@ -17,6 +17,7 @@ public class ContentOpenButton : UIBase
     public void Initialize()
     {
         contentUI.Initialize();
+        contentUI.gameObject.SetActive(false);
     }
 
     public async void OnTouchButton()

@@ -13,12 +13,22 @@ public class UnitSpecialAbilityUI : UIBase
 
         foreach (SpecialAbilityData abilityData in specialAbilityData.SpecialAbilityDatas)
         {
-            specialAbilities[(int)abilityData.AbilityType].SetActive(true);
+            int index = (int)Mathf.Log((uint)abilityData.AbilityType, 2) - 1;
+
+            if (index >= 0 && index < specialAbilities.Length)
+            {
+                specialAbilities[index].SetActive(true);
+            }
         }
 
         foreach (EUnitType targetType in specialAbilityData.TargetTypes)
         {
-            targetTypes[(int)targetType].color = Color.white;
+            int index = (int)Mathf.Log((int)targetType, 2) - 1;
+
+            if (index >= 0 && index < targetTypes.Length)
+            {
+                targetTypes[index].color = Color.white;
+            }
         }
 
         LayoutRebuilder.ForceRebuildLayoutImmediate(rect);
