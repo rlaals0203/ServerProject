@@ -4,12 +4,14 @@ public class ObjectBase
 {
     protected Dictionary<Type, ComponentBase> _components = new();
 
+    public RuntimeBattleField BattleField { get; set; }
     public Vector3 Position { get; set; }
     public Collider Collider { get; set; }
     public ELayer Layer { get; }
 
-    public ObjectBase(Vector3 position, ELayer layer)
+    public ObjectBase(RuntimeBattleField battleField, Vector3 position, ELayer layer)
     {
+        BattleField = battleField;
         Position = position;
         Layer = layer;
         

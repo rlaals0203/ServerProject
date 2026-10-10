@@ -2,13 +2,15 @@ using System.Numerics;
 
 public class RuntimeUnit : ObjectBase
 {
+    public bool IsDead { get; private set; }
     public bool IsFreeze { get; private set; }
     public bool IsOpponent { get; }
     public UnitData UnitData { get; }
 
     private StateMachine _stateMachine;
 
-    public RuntimeUnit(UnitData unitData, bool isOpponent, Vector3 position, ELayer layer) : base(position, layer)
+    public RuntimeUnit(UnitData unitData, bool isOpponent, RuntimeBattleField battleField, Vector3 position, ELayer layer) 
+        : base(battleField, position, layer)
     {
         IsOpponent = isOpponent;
         UnitData = unitData;
@@ -20,6 +22,7 @@ public class RuntimeUnit : ObjectBase
         AddComponent(new AttackComponent(this));
 
         _stateMachine = new StateMachine(this);
+        _stateMachine.ChangeState(EStateType.Idle);
     }
 
     public override void Init()

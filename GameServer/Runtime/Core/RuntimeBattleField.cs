@@ -16,6 +16,8 @@ public class RuntimeBattleField
     public void SpawnUnit(UnitData unitData, bool isOpponent, Vector3 position, ELayer layer)
     {
         RuntimeUnit newUnit = new RuntimeUnit(unitData, isOpponent, position, layer);
+        newUnit.Init();
+        
         _units[layer].Add(newUnit);
     }
 

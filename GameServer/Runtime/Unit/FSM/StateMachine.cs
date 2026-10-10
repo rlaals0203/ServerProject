@@ -10,12 +10,14 @@ public enum EStateType
 public class StateMachine
 {
     public UnitState CurrentState { get; private set; }
-    private Dictionary<EStateType, UnitState> _states;
+    private Dictionary<EStateType, UnitState> _states = new();
 
     public StateMachine(RuntimeUnit owner)
     {
-        _states = new Dictionary<EStateType, UnitState>();
-
+        _states.Add(EStateType.Idle, new UnitIdleState(owner));
+        _states.Add(EStateType.Move, new UnitMoveState(owner));
+        _states.Add(EStateType.Attack, new UnitAttackState(owner));
+        _states.Add(EStateType.Knockback, new UnitKnockbackState(owner));
     }
 
     public void ChangeState(EStateType newStateType, bool forced = false)

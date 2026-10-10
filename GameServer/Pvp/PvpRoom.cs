@@ -4,16 +4,16 @@ public class PvpRoom
     public string UserConnectionId { get; set; }
     public string OpponentUserId { get; set; }
     public string OpponentUserConnectionId { get; set; }
-    private PvpBattleField BattleField;
+    private RuntimeBattleField _battleField;
 
     public PvpRoom()
     {
-        BattleField = new PvpBattleField();
+        _battleField = new RuntimeBattleField();
     }
 
     public void UpdateRoom(float dt)
     {
-        BattleField.UpdateBattleField(dt);
+        _battleField.UpdateBattleField(dt);
     }
 
     public void DestroyRoom()

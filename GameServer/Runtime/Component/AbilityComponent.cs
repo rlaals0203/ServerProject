@@ -161,8 +161,10 @@ public class AbilityComponent : ComponentBase
         }
     }
 
-    private void OnDestroy()
+    public override void ReleaseComponent()
     {
+        base.ReleaseComponent();
+
         foreach (var timer in _abilitySchedule.Values)
         {
             timer.OnStatusChange -= HandleAbilityStatusChange;

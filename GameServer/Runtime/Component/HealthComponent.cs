@@ -1,11 +1,13 @@
 public class HealthComponent : ComponentBase
 {
-    private float _currentHealth;
     private StatComponent _statCompo;
-    public float CurrentHealth => _currentHealth;
-    public bool IsDead { get; private set; }
+    private StatBase _healthStat;
 
-    public event Action<float> OnDamaged;
+    private int _damageStacked;
+    private int _minHitbackHealth;
+
+    public event Action OnDamaged;
+    public event Action OnHitback;
     public event Action<RuntimeUnit> OnDead;
 
     public HealthComponent(RuntimeUnit owner) : base(owner) { }
@@ -14,17 +16,32 @@ public class HealthComponent : ComponentBase
     {
         base.InitializeComponent();
         _statCompo = _owner.Get<StatComponent>();
+
+        _healthStat = _statCompo.GetStat(EStatType.Health);
+        _minHitbackHealth = (int)_healthStat.CurrentStat / _owner.UnitData.UnitHitbackCount;
     }
 
     public void ApplyDamage(float damage)
     {
-        _currentHealth -= damage;
-        OnDamaged?.Invoke(_currentHealth);
+        _healthStat.SubstractStatValue(damage);
+        OnDamaged?.Invoke();
 
-        if(_currentHealth <= 0)
+        _damageStacked += (int)damage;
+
+        if(_damageStacked >= _minHitbackHealth)
         {
-            IsDead = true;
+           _damageStacked = 0;
+           OnHitback?.Invoke();
+        }
+
+        if (_healthStat.CurrentStat <= 0)
+        {
             OnDead?.Invoke(_owner);
         }
+    }
+
+    public float GetCurrentHealth()
+    {
+        return _healthStat.CurrentStat;
     }
 }
