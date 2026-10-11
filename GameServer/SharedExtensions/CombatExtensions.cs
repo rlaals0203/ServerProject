@@ -174,9 +174,6 @@ public struct GetOppositeAbility
             case ESpecialAbilityType.Knockback:
                 OppositeAbility = ESpecialAbilityType.AntiKnockback;
                 break;
-            default:
-                OppositeAbility = ESpecialAbilityType.None;
-                break;
         }
     }
 }
