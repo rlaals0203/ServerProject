@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SquireRelAnimatorOverride
+  m_Controller: {fileID: 9100000, guid: 9851ae5c7e5c6e3418589a40b8b39fb0, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: bc38bb47f40bf204aa04db978d9fa1e7, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 9c6348381ac204c5c671a28633926985, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 16b3682f4bae05140a1804eca7875eaf, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 184baa16d83eb8013637c991e60d9755, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: c1ab46538c0843343b9f68cf4c19e38e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ef34a2adce7f934ba0bc94bd8a7f1a21, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 2cc2125b6af924c4c91ca6ceb10bec92, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 12b47177e63ba9e1995f9b8a7fd50667, type: 2}

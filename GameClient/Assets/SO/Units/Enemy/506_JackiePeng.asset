@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3414ad79fb821784d9437dfed62a318e, type: 3}
+  m_Name: 506_JackiePeng
+  m_EditorClassIdentifier: 
+  UnitId: 506
+  UnitName: JackiePeng
+  UnitDesc: 
+  UnitGrade: 0
+  UnitIcon: {fileID: -462494009054380436, guid: a0152e45b6660aae57d4ff112d7f9373, type: 3}
+  UnlockPrice: 0
+  UpgradePrice: 0
+  UnitCost: 0
+  UnitType: 0200
+  UnitCooldown: 0
+  UnitMoveSpeed: 0.88
+  UnitHitbackCount: 3
+  UnitDropMoneyAmount: 1777
+  UnitAttackPower: 80
+  UnitHealth: 1300
+  UnitAttackRange: 1.5
+  UnitAttackDistance: 0
+  DetectRange: 1.5
+  AttackSpeed: 0.8
+  UnitSpecialAbilityData:
+    TargetTypes: 
+    SpecialAbilityDatas:
+    - AbilityType: 2
+      Chance: 0
+      Duration: 0
+  isDefaultUnit: 0
+  animator: {fileID: 22100000, guid: 5aa45c141f0f2cabb4cfa384d54e9598, type: 2}

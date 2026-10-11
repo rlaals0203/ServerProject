@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3414ad79fb821784d9437dfed62a318e, type: 3}
+  m_Name: 517_TheFace
+  m_EditorClassIdentifier: 
+  UnitId: 517
+  UnitName: TheFace
+  UnitDesc: 
+  UnitGrade: 0
+  UnitIcon: {fileID: 628175873281614772, guid: b71ca87d7902c14e119d8b0329daf0cc, type: 3}
+  UnlockPrice: 0
+  UpgradePrice: 0
+  UnitCost: 0
+  UnitType: 0400
+  UnitCooldown: 0
+  UnitMoveSpeed: 0.08
+  UnitHitbackCount: 2
+  UnitDropMoneyAmount: 15800
+  UnitAttackPower: 2000
+  UnitHealth: 99999
+  UnitAttackRange: 3.4
+  UnitAttackDistance: 0
+  DetectRange: 3.4
+  AttackSpeed: 9.1
+  UnitSpecialAbilityData:
+    TargetTypes: 
+    SpecialAbilityDatas:
+    - AbilityType: 4
+      Chance: 0
+      Duration: 0
+  isDefaultUnit: 0
+  animator: {fileID: 22100000, guid: 90a9dd2f98d52bfc25c639d95c5750db, type: 2}

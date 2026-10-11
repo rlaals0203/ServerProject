@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3414ad79fb821784d9437dfed62a318e, type: 3}
+  m_Name: 519_Mooth
+  m_EditorClassIdentifier: 
+  UnitId: 519
+  UnitName: Mooth
+  UnitDesc: 
+  UnitGrade: 0
+  UnitIcon: {fileID: 6912146941574541031, guid: 42f4cbb92a7fc540ccced886397f40ac, type: 3}
+  UnlockPrice: 0
+  UpgradePrice: 0
+  UnitCost: 0
+  UnitType: 0400
+  UnitCooldown: 0
+  UnitMoveSpeed: 1.6
+  UnitHitbackCount: 1
+  UnitDropMoneyAmount: 7110
+  UnitAttackPower: 350
+  UnitHealth: 5000
+  UnitAttackRange: 3.4
+  UnitAttackDistance: 0
+  DetectRange: 3.4
+  AttackSpeed: 3
+  UnitSpecialAbilityData:
+    TargetTypes: 
+    SpecialAbilityDatas:
+    - AbilityType: 4
+      Chance: 0
+      Duration: 0
+  isDefaultUnit: 0
+  animator: {fileID: 22100000, guid: 267b634fbe340c8d7274c305b0d17477, type: 2}

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SnacheAnimatorOverride
+  m_Controller: {fileID: 9100000, guid: 9851ae5c7e5c6e3418589a40b8b39fb0, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: bc38bb47f40bf204aa04db978d9fa1e7, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 998810c788795d4b96b0e46430fc4326, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 16b3682f4bae05140a1804eca7875eaf, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: c8182f9ad9a9a4289afaf74f109c467c, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: c1ab46538c0843343b9f68cf4c19e38e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: da4192f1a6114c6a921d0784963ff92c, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 2cc2125b6af924c4c91ca6ceb10bec92, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 9cd5205196ea0c9ff36b4383226cbd12, type: 2}

@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3414ad79fb821784d9437dfed62a318e, type: 3}
+  m_Name: 504_Hippoe
+  m_EditorClassIdentifier: 
+  UnitId: 504
+  UnitName: Hippoe
+  UnitDesc: 
+  UnitGrade: 0
+  UnitIcon: {fileID: 5962346287307802390, guid: 9c2c43ee16423bbfe7158c31147ed999, type: 3}
+  UnlockPrice: 0
+  UpgradePrice: 0
+  UnitCost: 0
+  UnitType: 0200
+  UnitCooldown: 0
+  UnitMoveSpeed: 0.32
+  UnitHitbackCount: 1
+  UnitDropMoneyAmount: 1580
+  UnitAttackPower: 100
+  UnitHealth: 1000
+  UnitAttackRange: 1.6
+  UnitAttackDistance: 0
+  DetectRange: 1.6
+  AttackSpeed: 2.24
+  UnitSpecialAbilityData:
+    TargetTypes: 
+    SpecialAbilityDatas:
+    - AbilityType: 4
+      Chance: 0
+      Duration: 0
+  isDefaultUnit: 0
+  animator: {fileID: 22100000, guid: 1adc5c23d323ae67270ab7123c816a77, type: 2}

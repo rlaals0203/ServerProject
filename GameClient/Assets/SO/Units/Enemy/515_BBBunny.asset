@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3414ad79fb821784d9437dfed62a318e, type: 3}
+  m_Name: 515_BBBunny
+  m_EditorClassIdentifier: 
+  UnitId: 515
+  UnitName: BBBunny
+  UnitDesc: 
+  UnitGrade: 0
+  UnitIcon: {fileID: 5283991556156395831, guid: 9d2ad652452557ec9fed6f4e8e3a8bb1, type: 3}
+  UnlockPrice: 0
+  UpgradePrice: 0
+  UnitCost: 0
+  UnitType: 0800
+  UnitCooldown: 0
+  UnitMoveSpeed: 1.76
+  UnitHitbackCount: 3
+  UnitDropMoneyAmount: 711
+  UnitAttackPower: 50
+  UnitHealth: 500
+  UnitAttackRange: 1.1
+  UnitAttackDistance: 0
+  DetectRange: 1.1
+  AttackSpeed: 1.37
+  UnitSpecialAbilityData:
+    TargetTypes: 
+    SpecialAbilityDatas:
+    - AbilityType: 2
+      Chance: 0
+      Duration: 0
+  isDefaultUnit: 0
+  animator: {fileID: 22100000, guid: 94eeb69a0f2b71b65e9a21ad2798bbf2, type: 2}

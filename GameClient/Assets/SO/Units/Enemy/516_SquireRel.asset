@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3414ad79fb821784d9437dfed62a318e, type: 3}
+  m_Name: 516_SquireRel
+  m_EditorClassIdentifier: 
+  UnitId: 516
+  UnitName: SquireRel
+  UnitDesc: 
+  UnitGrade: 0
+  UnitIcon: {fileID: 5402002113519282240, guid: 76bbb052a6bd817ed81635b8c3870a8c, type: 3}
+  UnlockPrice: 0
+  UpgradePrice: 0
+  UnitCost: 0
+  UnitType: 0200
+  UnitCooldown: 0
+  UnitMoveSpeed: 2.4
+  UnitHitbackCount: 3
+  UnitDropMoneyAmount: 395
+  UnitAttackPower: 30
+  UnitHealth: 80
+  UnitAttackRange: 1.1
+  UnitAttackDistance: 0
+  DetectRange: 1.1
+  AttackSpeed: 0.54
+  UnitSpecialAbilityData:
+    TargetTypes: 
+    SpecialAbilityDatas:
+    - AbilityType: 2
+      Chance: 0
+      Duration: 0
+  isDefaultUnit: 0
+  animator: {fileID: 22100000, guid: db9d691455deabe6f3dcd5679ea65f58, type: 2}

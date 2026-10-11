@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3414ad79fb821784d9437dfed62a318e, type: 3}
+  m_Name: 513_TeacherBear
+  m_EditorClassIdentifier: 
+  UnitId: 513
+  UnitName: TeacherBear
+  UnitDesc: 
+  UnitGrade: 0
+  UnitIcon: {fileID: -556317846954896610, guid: defe242be5da098f166393c1d2bc1da2, type: 3}
+  UnlockPrice: 0
+  UpgradePrice: 0
+  UnitCost: 0
+  UnitType: 0200
+  UnitCooldown: 0
+  UnitMoveSpeed: 0.32
+  UnitHitbackCount: 10
+  UnitDropMoneyAmount: 7900
+  UnitAttackPower: 1000
+  UnitHealth: 3000
+  UnitAttackRange: 3.5
+  UnitAttackDistance: 0
+  DetectRange: 3.5
+  AttackSpeed: 3.57
+  UnitSpecialAbilityData:
+    TargetTypes: 
+    SpecialAbilityDatas:
+    - AbilityType: 4
+      Chance: 0
+      Duration: 0
+  isDefaultUnit: 0
+  animator: {fileID: 22100000, guid: b653759417985e07a0b49d569c0f42a1, type: 2}
