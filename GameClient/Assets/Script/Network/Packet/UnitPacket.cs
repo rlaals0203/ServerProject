@@ -35,13 +35,13 @@ public class UnitUpgradePacketResultData : StandardPacketResultData
 public class UnitDeployPacketData : StandardPacketData
 {
     public const string ROUTE = "RequestUnitDeploy";
-    public Dictionary<int, string> DeployUnits { get; set; }
+    public Dictionary<string, string> DeployUnits { get; set; }
 }
 
 [Serializable]
 public class UnitDeployPacketResultData : StandardPacketResultData
 {
-    public Dictionary<int, string> DeployUnits { get; set; }
+    public Dictionary<string, string> DeployUnits { get; set; }
     public UnitDeployPacketResultData(EPacketResult result) : base(result) { }
 }
 

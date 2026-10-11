@@ -38,6 +38,6 @@ public class UnitDeployPacketData : StandardPacketData
 [Serializable]
 public class UnitDeployPacketResultData : StandardPacketResultData
 {
-    public Dictionary<int, string> DeployUnits { get; set; }
+    public Dictionary<string, string> DeployUnits { get; set; }
     public UnitDeployPacketResultData(EPacketResult result) : base(result) { }
 }

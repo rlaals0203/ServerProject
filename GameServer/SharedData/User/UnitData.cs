@@ -1,7 +1,7 @@
 [Serializable]
 public class UserUnitData
 {
-    public Dictionary<int, UnitData> DeployUnitList { get; set; }
+    public Dictionary<string, UnitData> DeployUnitList { get; set; }
     public Dictionary<string, UnitData> OwnUnitList { get; set; }
 }
 

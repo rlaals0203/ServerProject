@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class UnitDeckUI : UIBase
 {
     private UnitDeploySlotUI[] _deploySlots;
-    private Dictionary<int, string> _deployUnits;
+    private Dictionary<string, string> _deployUnits;
 
     protected override void Awake()
     {

@@ -5,12 +5,14 @@ public class AttackCompo : MonoBehaviour, IComponentCache
     private IDamageable _target;
     private Unit _owner;
     private StatCompo _statCompo;
+    private float _nextAttackTime;
 
     private AnimatorTriggerCompo _animatorTrigger;
 
     public virtual void InitializeComponent(Unit owner)
     {
         _owner = owner;
+        _nextAttackTime = 0;
         _animatorTrigger = owner.Get<AnimatorTriggerCompo>();
         _statCompo = owner.Get<StatCompo>();
         _animatorTrigger.OnDamageCastTrigger += Attack;
@@ -27,6 +29,13 @@ public class AttackCompo : MonoBehaviour, IComponentCache
     public bool CheckTarget()
     {
         return damageCaster.DetectTarget();
+    }
+
+    public bool CanAttack() => Time.time >= _nextAttackTime;
+
+    public void StartAttack(float attackInterval)
+    {
+        _nextAttackTime = Time.time + attackInterval;
     }
 
     public void Attack()

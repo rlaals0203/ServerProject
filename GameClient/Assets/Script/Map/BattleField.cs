@@ -1,8 +1,12 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BattleField : MonoBehaviour
 {
+    [SerializeField] private UnitBattleDeckUI unitBattleDeckUI;
+
     private MapData _mapData;
     private List<SpawnSchedule> _spawnShcedules = new();
 
@@ -16,6 +20,9 @@ public class BattleField : MonoBehaviour
             spawnSchdule.OnSpawnEnemy += HandleSpawnEnemy;
             _spawnShcedules.Add(spawnSchdule);
         }
+
+        unitBattleDeckUI.InitializeDeckUI(GameManager.I.MainUser.UserUnitData.DeployUnitList.Values.ToArray());
+        unitBattleDeckUI.OnSpawnUnit += HandleSpawnUnit;
     }
 
     private void Update()
@@ -28,10 +35,10 @@ public class BattleField : MonoBehaviour
 
     private void HandleSpawnEnemy(string enemyId)
     {
-        SpawnEnemy(enemyId);
+
     }
 
-    private void SpawnEnemy(string enemyId)
+    private void HandleSpawnUnit(UnitData data)
     {
 
     }

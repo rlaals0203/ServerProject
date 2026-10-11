@@ -55,7 +55,7 @@ public partial class BasePacketController : ControllerBase
     {
         UserBaseData userBaseData = await dbManager.LoadUserAsync(request.LoginUserId);
         RequestUnitDeployPacketProcess unitDeployProcess = new RequestUnitDeployPacketProcess();
-        await unitDeployProcess.ProcessAsync(userBaseData, request.DeployUnits);
+        await unitDeployProcess.ProcessAsync(userBaseData, dbManager, request.DeployUnits);
         
         UnitDeployPacketResultData resultData = new UnitDeployPacketResultData(unitDeployProcess.Result)
         {

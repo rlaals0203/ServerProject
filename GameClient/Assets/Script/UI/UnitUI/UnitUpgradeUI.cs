@@ -71,7 +71,7 @@ public class UnitUpgradeUI : ContentUI
             return;
         }
 
-
+        //unitListUI.UpdateCurrentSlot(unitSOList.UnitList);
     }
 
     private void OnDestroy()

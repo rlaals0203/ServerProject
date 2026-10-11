@@ -25,7 +25,7 @@ public class UserUnitDataCheck
     {
         userData.UserUnitData ??= new UserUnitData();
         userData.UserUnitData.OwnUnitList ??= new Dictionary<string, UnitData>();
-        userData.UserUnitData.DeployUnitList ??= new Dictionary<int, UnitData>();
+        userData.UserUnitData.DeployUnitList ??= new Dictionary<string, UnitData>();
 
         if(userData.UserUnitData.OwnUnitList.TryGetValue(unitData.StarterUnitId, out var _) == false)
         {

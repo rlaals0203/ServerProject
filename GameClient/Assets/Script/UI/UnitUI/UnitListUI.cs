@@ -13,7 +13,7 @@ public class UnitListUI : SnapScrollViewBase<UnitSlotUI>
         {
             var spawned = new SpawnUI<UnitSlotUI>("UnitSlotUI", Vector3.zero, content).spawned;
             UnitSO unitSO = unitSOList.GetUnitById(unitData.Value.UnitStatData.UnitId);
-            spawned.InitializeUI(unitData.Value, unitSO);
+            spawned.RefreshUI(unitData.Value, unitSO);
             _elements.Add(spawned);
         }
     }
@@ -21,7 +21,7 @@ public class UnitListUI : SnapScrollViewBase<UnitSlotUI>
     public void UpdateCurrentSlot(UnitData unitData)
     {
         UnitSO unitSO = unitSOList.GetUnitById(unitData.UnitStatData.UnitId);
-        _currentElement.InitializeUI(unitData, unitSO);
+        _currentElement.RefreshUI(unitData, unitSO);
     }
 
     protected override void ElementChanged()

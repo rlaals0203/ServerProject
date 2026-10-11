@@ -52,7 +52,7 @@ public class MakeRequestUnitDeployPacket
 {
     public UnitDeployPacketData UnitDeployPacketData;
 
-    public MakeRequestUnitDeployPacket(Dictionary<int, string> deployUnits)
+    public MakeRequestUnitDeployPacket(Dictionary<string, string> deployUnits)
     {
         UnitDeployPacketData unitDeployPacketData = new UnitDeployPacketData
         {

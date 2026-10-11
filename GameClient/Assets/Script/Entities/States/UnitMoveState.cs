@@ -8,9 +8,13 @@ public class UnitMoveState : UnitAttackableState
     {
         base.UpdateState();
 
+        if (_owner.CurrentState == EStateType.Attack)
+            return;
+
         if (_attackCompo.CheckTarget())
         {
             _owner.ChangeState(EStateType.Idle);
+            return;
         }
 
         _movementCompo.MovingUnit();

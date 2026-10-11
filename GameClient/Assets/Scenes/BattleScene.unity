@@ -334,7 +334,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a10f4ca9e7d145d68f1b2c3d4e5f6003, type: 2}
   - {fileID: 11400000, guid: a10f4ca9e7d145d68f1b2c3d4e5f6004, type: 2}
   - {fileID: 11400000, guid: a10f4ca9e7d145d68f1b2c3d4e5f6005, type: 2}
-  testEnemy: {fileID: 11400000, guid: a10f4ca9e7d145d68f1b2c3d4e5f6009, type: 2}
+  testEnemy: {fileID: 11400000, guid: f8696d91c2b8b199ccdf70578048292d, type: 2}
   unitBattleDeckUI: {fileID: 1909602568}
   spawnPosition: {fileID: 441595378}
   enemyPosition: {fileID: 1855994354}
@@ -981,7 +981,7 @@ Transform:
   m_GameObject: {fileID: 1426808244}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

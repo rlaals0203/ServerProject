@@ -8,25 +8,32 @@ public class UnitDeploySlotUI : UIBase, IPointerEnterHandler, IPointerExitHandle
     [SerializeField] private Image unitIcon;
     [SerializeField] private UIBlinkEffect blinkEffect;
 
-    private int _index;
-
     public event Action<int, bool> OnHoverSlot;
 
     public void Initialize(UnitSO unitData)
     {
+        if(unitData == null)
+        {
+            unitIcon.gameObject.SetActive(false);
+            return;
+        }
+
+
         unitIcon.sprite = unitData.UnitIcon;
-        _index = transform.GetSiblingIndex();
+        unitIcon.gameObject.SetActive(true);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        OnHoverSlot?.Invoke(_index, true);
+        OnHoverSlot?.Invoke(GetIndex(), true);
         blinkEffect.PlayBlinkEffect();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        OnHoverSlot?.Invoke(_index, false);
+        OnHoverSlot?.Invoke(GetIndex(), false);
         blinkEffect.StopBlinkEffect();
     }
+
+    public int GetIndex() => transform.GetSiblingIndex();
 }

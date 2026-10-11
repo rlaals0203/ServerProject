@@ -62,6 +62,6 @@ public class NetworkManager : MonoSingleton<NetworkManager>
     public async Task SendUnitUpgradeRequest(string unitId, int targetLevel, Action<UnitUpgradePacketResultData> callback)
         => await SendWebRequest(UnitUpgradePacketData.ROUTE, new MakeRequestUnitUpgradePacket(unitId, targetLevel).UnitUpgradePacketData, callback);
 
-    public async Task SendUnitDeployRequest(Dictionary<int, string> deplotUnits, Action<UnitDeployPacketResultData> callback)
+    public async Task SendUnitDeployRequest(Dictionary<string, string> deplotUnits, Action<UnitDeployPacketResultData> callback)
      => await SendWebRequest(UnitDeployPacketData.ROUTE, new MakeRequestUnitDeployPacket(deplotUnits).UnitDeployPacketData, callback);
 }
