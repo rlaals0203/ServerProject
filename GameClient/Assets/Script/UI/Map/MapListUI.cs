@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MapListUI : SnapScrollViewBase<MapElementUI>
 {
-    public void InitializeElement(MapDataSOList mapDataList, Action onTouchPlay)
+    public void InitializeElement(MapDataSOList mapDataList, Action<MapDataSO> onTouchPlay)
     {
         foreach(var mapData in mapDataList.MapDataList)
         {

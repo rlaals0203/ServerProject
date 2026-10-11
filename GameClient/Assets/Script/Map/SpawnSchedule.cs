@@ -8,12 +8,14 @@ public class SpawnSchedule : IDisposable
 
     public bool IsFinished { get; private set; }
 
-    public event Action<string> OnSpawnEnemy;
+    public event Action<UnitData> OnSpawnEnemy;
+    private UnitData _enemyData;
 
-    public SpawnSchedule(EnemySpawnData spawnData)
+    public SpawnSchedule(EnemySpawnData spawnData, UnitSO enemyData)
     {
         _spawnData = spawnData;
         _remainTime = _spawnData.FirstSpawnDelay;
+        _enemyData = new MakeEnemyData(new MakeUnitStatData(enemyData).UnitStatData, 1).EnemyData;
     }
 
     public void UpdateSchedule(float dt)
@@ -25,7 +27,7 @@ public class SpawnSchedule : IDisposable
 
         if (_remainTime <= 0f)
         {
-            OnSpawnEnemy?.Invoke(_spawnData.EnemyId);
+            OnSpawnEnemy?.Invoke(_enemyData);
             _remainTime = _spawnData.RepeatSpawnDelay;
             _spawnCount++;
 

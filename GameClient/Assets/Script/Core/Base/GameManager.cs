@@ -11,4 +11,5 @@ public class GameManager : MonoSingleton<GameManager>
 
     public bool IsLoggin = false;
     public UserBaseData MainUser = null;
+    public MapDataSO CurrentMap { get; set; }
 }

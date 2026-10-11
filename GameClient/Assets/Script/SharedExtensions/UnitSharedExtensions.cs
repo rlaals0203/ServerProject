@@ -44,6 +44,37 @@ public class UpdateUnitData
     }
 }
 
+public class MakeEnemyData
+{
+    public UnitData EnemyData;
+
+    public MakeEnemyData(UnitStatData statData, float multiplier)
+    {
+        UnitAttackData attackData = new UnitAttackData
+        {
+            UnitAttackPower = (int)(statData.UnitAttackData.UnitAttackPower * multiplier),
+            UnitAttackSpeed = statData.UnitAttackData.UnitAttackSpeed,
+            UnitAttackRange = statData.UnitAttackData.UnitAttackRange,
+            UnitAttackDistance = statData.UnitAttackData.UnitAttackDistance,
+            UnitDetectRange = statData.UnitAttackData.UnitDetectRange,
+        };
+
+        UnitData unitData = new UnitData()
+        {
+            UnitStatData = statData,
+            UnitHealth = (int)(statData.UnitHealth * multiplier),
+            UnitCost = statData.UnitCost,
+            UnitCooldown = statData.UnitCooldown,
+            UnitMoveSpeed = statData.UnitMoveSpeed,
+            UnitHitbackCount = statData.UnitHitbackCount,
+            UnitDropMoneyAmount = statData.UnitDropMoneyAmount,
+            UnitAttackData = attackData
+        };
+
+        EnemyData = unitData;
+    }
+}
+
 public struct GetUnitLevel
 {
     public int Level;

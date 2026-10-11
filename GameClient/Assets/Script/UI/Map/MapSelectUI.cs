@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MapSelectUI : ContentUI
 {
@@ -13,9 +14,10 @@ public class MapSelectUI : ContentUI
         mapListUI.OnElementChanged += HandleMapChanged;
     }
 
-    private void HandleTouchPlay()
+    private void HandleTouchPlay(MapDataSO mapData)
     {
-
+        GameManager.I.CurrentMap = mapData;
+        SceneManager.LoadScene("BattleScene");
     }
 
     private void HandleMapChanged(MapElementUI ui)

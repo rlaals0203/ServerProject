@@ -7,9 +7,9 @@ public class MapElementUI : UIBase
     [SerializeField] private TMP_Text stageTitle;
 
     private MapDataSO _mapData;
-    private Action _onTouchPlay;
+    private Action<MapDataSO> _onTouchPlay;
 
-    public void Initialize(MapDataSO mapData, string mapName, Action onTouchPlay)
+    public void Initialize(MapDataSO mapData, string mapName, Action<MapDataSO> onTouchPlay)
     {
         _mapData = mapData;
         _onTouchPlay = onTouchPlay;
@@ -18,7 +18,7 @@ public class MapElementUI : UIBase
 
     public void OnTouchPlay()
     {
-        _onTouchPlay?.Invoke();
+        _onTouchPlay?.Invoke(_mapData);
     }
 
     public MapDataSO GetMapData() => _mapData;
