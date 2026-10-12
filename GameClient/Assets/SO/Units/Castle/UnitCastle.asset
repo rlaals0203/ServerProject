@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3414ad79fb821784d9437dfed62a318e, type: 3}
-  m_Name: TestCastle
+  m_Name: UnitCastle
   m_EditorClassIdentifier: 
   UnitId: 2
   UnitName: "\uD14C\uC2A4\uD2B8"
@@ -26,7 +26,7 @@ MonoBehaviour:
   UnitHitbackCount: 3
   UnitDropMoneyAmount: 100
   UnitAttackPower: 50
-  UnitHealth: 1500
+  UnitHealth: 500
   UnitAttackRange: 1
   UnitAttackDistance: 0.2
   DetectRange: 1

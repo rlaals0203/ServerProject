@@ -111,14 +111,14 @@ RectTransform:
   m_GameObject: {fileID: 1263922643842025111}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1133917475501956360}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.5, y: 2}
+  m_AnchoredPosition: {x: -2.5, y: 2}
   m_SizeDelta: {x: 3, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &1616294829843264945
@@ -265,9 +265,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1133917475501956360}
   - component: {fileID: 1449024375148053493}
-  - component: {fileID: 6973579454944225119}
   - component: {fileID: 4251873929110483541}
   - component: {fileID: 8529761234567890126}
+  - component: {fileID: 898735564539545245}
   m_Layer: 7
   m_Name: Castle
   m_TagString: Untagged
@@ -307,19 +307,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   states: []
---- !u!114 &6973579454944225119
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3332916672620609788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f4ba1c33af50194caa31fd94b56a12b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthText: {fileID: 9186242599120254608}
 --- !u!61 &4251873929110483541
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -378,6 +365,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   createCount: 2
+--- !u!114 &898735564539545245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3332916672620609788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1b6fdd42dcf99c428766aa76fdc8029, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitHealthText: {fileID: 9186242599120254608}
+  enemyHealthText: {fileID: 3257632015648134165}
 --- !u!1 &6313685918948254884
 GameObject:
   m_ObjectHideFlags: 0
@@ -439,7 +440,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2759904245471833640
 RectTransform:
   m_ObjectHideFlags: 0

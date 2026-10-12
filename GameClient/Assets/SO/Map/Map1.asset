@@ -20,6 +20,12 @@ MonoBehaviour:
   - EnemyId: 501
     Level: 1
     FirstSpawnDelay: 5
-    RepeatSpawnDelay: 3
+    RepeatSpawnDelay: 10
+    MaxSpawnCount: -1
+    SpawnTrigger: 0
+  - EnemyId: 507
+    Level: 1
+    FirstSpawnDelay: 13
+    RepeatSpawnDelay: 22
     MaxSpawnCount: -1
     SpawnTrigger: 0

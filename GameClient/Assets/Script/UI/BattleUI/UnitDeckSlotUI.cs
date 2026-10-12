@@ -1,10 +1,12 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UnitDeckSlotUI : UIBase
 {
     [SerializeField] private UIBarComponent cooldownBar;
+    [SerializeField] private TMP_Text costText;
     [SerializeField] private GameObject lockObject;
     [SerializeField] private Image unitIcon;
 
@@ -31,6 +33,7 @@ public class UnitDeckSlotUI : UIBase
         _currentTime = 0f;
         _canSpawn = true;
 
+        costText.text = $"{unitData.UnitStatData.UnitCost}¿ø";
         unitIcon.sprite = unitSOList.GetUnitById(unitData.UnitStatData.UnitId).UnitIcon;
         cooldownBar.gameObject.SetActive(true);
         SetLockState(false);
@@ -69,5 +72,6 @@ public class UnitDeckSlotUI : UIBase
     {
         cooldownBar.gameObject.SetActive(isLock);
         lockObject.gameObject.SetActive(isLock);
+        costText.gameObject.SetActive(!isLock);
     }
 }

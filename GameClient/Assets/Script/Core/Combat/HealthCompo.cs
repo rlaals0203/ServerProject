@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class HealthCompo : MonoBehaviour, IComponentCache, IAfterInit, IDamageable
 {
-    [SerializeField] private TMP_Text healthText;
-
-    private Unit _owner;
+    protected Unit _owner;
+    protected StatBase _healthStat;
     private StatCompo _statCompo;
-    private StatBase _healthStat;
 
     public bool IsDead { get; private set; }
 
@@ -26,17 +24,16 @@ public class HealthCompo : MonoBehaviour, IComponentCache, IAfterInit, IDamageab
         IsDead = false;
     }
 
-    public void AfterInitialize()
+    public virtual void AfterInitialize()
     {
         _statCompo = _owner.Get<StatCompo>();
         _healthStat = _statCompo.GetStat(EStatType.Health);
 
         _minHitbackHealth = (int)_healthStat.CurrentStat / _owner.UnitData.UnitHitbackCount;
         _damageStacked = 0;
-        RefreshHealthText();
     }
 
-    public void OnHit(float damage)
+    public virtual void OnHit(float damage)
     {
         _healthStat.SubstractStatValue(damage);
         OnDamaged?.Invoke();
@@ -53,15 +50,5 @@ public class HealthCompo : MonoBehaviour, IComponentCache, IAfterInit, IDamageab
             IsDead = true;
             OnDead?.Invoke();
         }
-
-        RefreshHealthText();
-    }
-
-    private void RefreshHealthText()
-    {
-        if (healthText == null)
-            return;
-
-        healthText.text = $"{_healthStat.CurrentStat}/{_healthStat.MaxStat}";
     }
 }

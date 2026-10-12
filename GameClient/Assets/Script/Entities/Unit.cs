@@ -22,10 +22,10 @@ public enum ETeamType
 public class Unit : MonoBehaviour
 {
     public StateDataSO[] states;
-    public UnitData UnitData { get; private set; }
-    public ETeamType TeamType { get; private set; }
-    public EStateType CurrentState { get; private set; }
-    public bool IsFreeze { get; private set; }
+    public UnitData UnitData { get; protected set; }
+    public ETeamType TeamType { get; protected set; }
+    public EStateType CurrentState { get; protected set; }
+    public bool IsFreeze { get; protected set; }
     public bool IsEnemyUnit => TeamType == ETeamType.Enemy;
 
     private Dictionary<Type, IComponentCache> _cachedComponent = new();
