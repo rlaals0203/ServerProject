@@ -33,6 +33,11 @@ public class UnitSlotUI : UIBase, IBeginDragHandler, IDragHandler, IEndDragHandl
         unitUpgradeCost.text = new GetUnitUpgradePrice(unitData.UnitStatData.UpgradePrice, unitData.UnitLevel).Price.ToString();
         unitNameText.text = unitSO.UnitName;
         unitIcon.sprite = unitSO.UnitIcon;
+
+        if(unitData.UnitLevel == GameDefine.UnitMaxLevel)
+        {
+            unitUpgradeUI.SetActive(false);
+        }
     }
 
     public string GetUnitId()

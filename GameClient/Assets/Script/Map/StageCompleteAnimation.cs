@@ -1,16 +1,19 @@
 using DG.Tweening;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class StageCompleteAnimation : MonoBehaviour
 {
+    [SerializeField] private TMP_Text expDropText;
     [SerializeField] private RectTransform reward;
     [SerializeField] private RectTransform winTitle;
     [SerializeField] private RectTransform returnButton;
 
-    public void PlayAnimation()
+    public void PlayAnimation(int exp)
     {
+        expDropText.text = exp.ToString();
         StartCoroutine(ExcuteAnimation());
     }
 

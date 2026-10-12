@@ -1,3 +1,4 @@
+using MINLib.Script.Core.Resource;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,7 +35,11 @@ public class UnitUpgradeUI : ContentUI
 
     private void RefreshButtonState()
     {
-        upgradeButton.interactable = GetUnitPrice(_currentUnitId) <= GameManager.I.MainUser.UserMonetaData[EMonetaType.Exp.ToString()];
+        int currentLevel = new GetUnitLevel(_currentUnitId).Level;
+        int upgradePrice = unitSOList.GetUnitById(_currentUnitId).UpgradePrice;
+        int finalPrice = new GetUnitUpgradePrice(upgradePrice, currentLevel).Price;
+
+        upgradeButton.interactable = finalPrice <= GameManager.I.MainUser.UserMonetaData[EMonetaType.Exp.ToString()] && currentLevel < GameDefine.UnitMaxLevel;
     }
 
     public async void OnTouchUpgradeUnit()
@@ -47,13 +52,6 @@ public class UnitUpgradeUI : ContentUI
         {
             await NetworkManager.I.SendUnitUnlockRequest(_currentUnitId, HandleUnlockUnit);
         }
-    }
-
-    private int GetUnitPrice(string userId)
-    {
-        int upgradePrice = unitSOList.GetUnitById(_currentUnitId).UpgradePrice;
-        int currentLevel = new GetUnitLevel(_currentUnitId).Level;
-        return new GetUnitUpgradePrice(upgradePrice, currentLevel).Price;
     }
 
     private void HandleUnlockUnit(UnitUnlockPacketResultData data)
@@ -83,11 +81,21 @@ public class UnitUpgradeUI : ContentUI
             deployUnit.UnitLevel++;
         }
 
+        GameManager.I.MainUser.UserMonetaData[EMonetaType.Exp.ToString()] -= data.UpgradePrice;
         unitListUI.UpdateCurrentSlot(unit);
+        RefreshButtonState();
     }
 
     private void OnDestroy()
     {
         unitListUI.OnElementChanged -= RefreshUI;
+
+        foreach(var slotUI in unitListUI.GetAllElement())
+        {
+            if(slotUI != null)
+            {
+                ResourceManager.I.DespawnPool(slotUI.gameObject);
+            }
+        }
     }
 }

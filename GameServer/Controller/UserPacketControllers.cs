@@ -44,7 +44,8 @@ public partial class BasePacketController : ControllerBase
         UnitUpgradePacketResultData resultData = new UnitUpgradePacketResultData(process.Result)
         {
             UnitId = process.UnitId,
-            UnitLevel = process.UnitLevel
+            UnitLevel = process.UnitLevel,
+            UpgradePrice = process.UpgradePrice
         };
         
         return resultData;
@@ -82,7 +83,7 @@ public partial class BasePacketController : ControllerBase
     }
 
     [HttpPost(PassiveUpgradePacketData.ROUTE)]
-    public async Task<ActionResult<PassiveUpgrdePacketResultData>> PostUserMonetaChangeRequest([FromBody]PassiveUpgradePacketData request)
+    public async Task<ActionResult<PassiveUpgrdePacketResultData>> PostPassiveUpgrdeRequest([FromBody]PassiveUpgradePacketData request)
     {
         UserBaseData userBaseData = await dbManager.LoadUserAsync(request.LoginUserId);
         RequestPassiveUpgradeProcess process = new RequestPassiveUpgradeProcess();
@@ -91,7 +92,7 @@ public partial class BasePacketController : ControllerBase
         PassiveUpgrdePacketResultData resultData = new PassiveUpgrdePacketResultData(process.Result)
         {
             PassiveType = process.PassiveType,
-            Level = process.Level
+            Level = process.Level,
         };
 
         return resultData;

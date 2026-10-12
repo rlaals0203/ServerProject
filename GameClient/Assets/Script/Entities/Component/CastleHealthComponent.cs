@@ -46,6 +46,6 @@ public class CastleHealthComponent : HealthCompo
         if (_healthText == null)
             return;
 
-        _healthText.text = $"{_healthStat.CurrentStat}/{_healthStat.MaxStat}";
+        _healthText.text = $"{Mathf.Clamp(_healthStat.CurrentStat, 0, float.MaxValue)}/{_healthStat.MaxStat}";
     }
 }

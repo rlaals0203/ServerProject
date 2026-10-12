@@ -301,6 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9dde7fb218aa7b41898e975c3bbf87c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  expDropText: {fileID: 878295340}
   reward: {fileID: 563858033}
   winTitle: {fileID: 1935814514}
   returnButton: {fileID: 1445365706}

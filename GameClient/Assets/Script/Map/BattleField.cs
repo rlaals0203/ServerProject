@@ -72,15 +72,22 @@ public class BattleField : MonoBehaviour
         _enemyCastle.OnDead += HandleCastleDead;
     }
 
-    private void HandleCastleDead(bool isEnemyCastle)
+    private async void HandleCastleDead(bool isEnemyCastle)
     {
         if (_battleFinished)
             return;
 
-        CompleteBattle();
         mapCamera.FocusOn(isEnemyCastle ? _enemyCastle.GetCameraTrm() : _unitCastle.GetCameraTrm());
-        stageCompAnim.PlayAnimation();
+        stageCompAnim.PlayAnimation(_mapData.expDrop);
         _battleFinished = true;
+        CompleteBattle();
+
+        await NetworkManager.I.SendUserMonetaChangeRequest(EMonetaType.Exp, _mapData.expDrop, HandleReceiveExp);
+    }
+
+    private void HandleReceiveExp(UserMonetaChangePacketResultData data)
+    {
+        GameManager.I.MainUser.UserMonetaData[EMonetaType.Exp.ToString()] = data.Amount;
     }
 
     public int GetMoney() => (int)_money;

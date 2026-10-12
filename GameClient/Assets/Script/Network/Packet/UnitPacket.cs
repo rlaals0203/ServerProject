@@ -28,6 +28,7 @@ public class UnitUpgradePacketResultData : StandardPacketResultData
 {
     public string UnitId { get; set; }
     public int UnitLevel { get; set; }
+    public int UpgradePrice { get; set; }
     public UnitUpgradePacketResultData(EPacketResult result) : base(result) { }
 }
 

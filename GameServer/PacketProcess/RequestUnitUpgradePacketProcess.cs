@@ -4,6 +4,7 @@ namespace GameServer
     {
         public string UnitId;
         public int UnitLevel;
+        public int UpgradePrice;
 
         public async Task<EPacketResult> ProcessAsync(UserBaseData userData, DbManager dbManager, string unitId, int targetLevel)
         {
@@ -38,10 +39,20 @@ namespace GameServer
                availableLevel = GameDefine.UnitMaxLevel - unit.UnitLevel;
             }
 
+            int upgradePrice = new GetUnitUpgradePrice(unit.UnitStatData.UpgradePrice, unit.UnitLevel).Price;
+
+            if(userData.UserMonetaData[EMonetaType.Exp.ToString()] < upgradePrice)
+            {
+                Result = EPacketResult.InvalidRequest;
+                return Result;
+            }
+
             unit.UnitLevel += availableLevel;
             UnitId = unitId;
             UnitLevel = unit.UnitLevel;
+            UpgradePrice = upgradePrice;
             
+            userData.UserMonetaData[EMonetaType.Exp.ToString()] -= upgradePrice;
             userData.UserUnitData.OwnUnitList[unitId] = new UpdateUnitData(unit.UnitStatData, UnitLevel).UnitData;
             await dbManager.SaveDataAsync(userData, EDbType.BaseUserData, userData.UserId);
             return Result;

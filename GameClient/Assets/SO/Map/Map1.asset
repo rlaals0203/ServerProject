@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MapId: 1
   MapName: "\uD55C\uAD6D"
+  expDrop: 1000
   CastleDistance: 7
   CastleData: {fileID: 11400000, guid: d4b6f3147cac7f0479938ab16655bd8b, type: 2}
   EnemySpawnList:
