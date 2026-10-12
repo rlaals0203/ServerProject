@@ -1,3 +1,4 @@
+using MINLib.Script.Core.Resource;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,8 @@ public class EnemySpawner : MonoBehaviour
     public void Initialize(MapDataSO mapData, UnitSOList unitList, Vector3 enemyPosition, Action<int> onEnemyDead)
     {
         _spawnShcedules.Clear();
+        _enemyList.Clear();
+
         _onEnemyDead = onEnemyDead;
         _spawnPosition = enemyPosition;
 
@@ -58,6 +61,7 @@ public class EnemySpawner : MonoBehaviour
         foreach (var enemy in _enemyList)
         {
             enemy.OnDead -= HandleEnemyDead;
+            enemy.SetDead();
         }
     }
 }

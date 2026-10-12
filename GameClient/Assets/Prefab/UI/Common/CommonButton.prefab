@@ -203,8 +203,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uC804\uD22C\uAC1C\uC2DC!"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 26c05cc6dc507954a969f198aef59852, type: 2}
-  m_sharedMaterial: {fileID: -6184622182220784025, guid: 26c05cc6dc507954a969f198aef59852, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: da16dc0dd9a02004f8479714ebd97774, type: 2}
+  m_sharedMaterial: {fileID: 3592261771439952789, guid: da16dc0dd9a02004f8479714ebd97774, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

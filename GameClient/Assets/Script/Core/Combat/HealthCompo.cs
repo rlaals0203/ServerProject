@@ -46,8 +46,13 @@ public class HealthCompo : MonoBehaviour, IComponentCache, IAfterInit, IDamageab
 
         if (_healthStat.CurrentStat <= 0)
         {
-            IsDead = true;
-            _owner.OnDead?.Invoke(_owner);
+            SetDead();
         }
+    }
+
+    public void SetDead()
+    {
+        IsDead = true;
+        _owner.OnDead?.Invoke(_owner);
     }
 }

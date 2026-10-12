@@ -10,6 +10,7 @@ public class UnitSlotUI : UIBase, IBeginDragHandler, IDragHandler, IEndDragHandl
     [SerializeField] private TMP_Text unitLevelText;
     [SerializeField] private TMP_Text unitCostText;
     [SerializeField] private TMP_Text unitUpgradeCost;
+    [SerializeField] private TMP_Text maxLevelText;
     [SerializeField] private Image unitIcon;
     [SerializeField] private GameObject lockObject;
 
@@ -33,10 +34,12 @@ public class UnitSlotUI : UIBase, IBeginDragHandler, IDragHandler, IEndDragHandl
         unitUpgradeCost.text = new GetUnitUpgradePrice(unitData.UnitStatData.UpgradePrice, unitData.UnitLevel).Price.ToString();
         unitNameText.text = unitSO.UnitName;
         unitIcon.sprite = unitSO.UnitIcon;
+        maxLevelText.gameObject.SetActive(false);
 
-        if(unitData.UnitLevel == GameDefine.UnitMaxLevel)
+        if (unitData.UnitLevel == GameDefine.UnitMaxLevel)
         {
             unitUpgradeUI.SetActive(false);
+            maxLevelText.gameObject.SetActive(true);
         }
     }
 

@@ -65,6 +65,11 @@ public class Unit : MonoBehaviour
         IsFreeze = isFreeze;
     }
 
+    public void SetDead()
+    {
+
+    }
+
     public void ChangeState(EStateType stateType, bool forced = false)
     {
         CurrentState = stateType;

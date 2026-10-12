@@ -383,22 +383,22 @@ MonoBehaviour:
       m_Calls: []
   m_text: 0
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 26c05cc6dc507954a969f198aef59852, type: 2}
-  m_sharedMaterial: {fileID: -6184622182220784025, guid: 26c05cc6dc507954a969f198aef59852, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: da16dc0dd9a02004f8479714ebd97774, type: 2}
+  m_sharedMaterial: {fileID: 3592261771439952789, guid: da16dc0dd9a02004f8479714ebd97774, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 0
+    rgba: 4278254847
+  m_fontColor: {r: 1, g: 0.989954, b: 0, a: 1}
+  m_enableVertexGradient: 1
   m_colorMode: 3
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
     topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 0.76081014, b: 0, a: 1}
+    bottomRight: {r: 1, g: 0.7647059, b: 0, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
@@ -408,8 +408,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 52
+  m_fontSizeBase: 52
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1840,6 +1840,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6277533687782918153, guid: 8c9b4983afb38dd4b8766b73a5954e0d, type: 3}
+      propertyPath: m_text
+      value: "\uD30C\uC6CC \uC5C5"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2179,6 +2183,10 @@ PrefabInstance:
     - target: {fileID: 3467623169813487373, guid: 8c9b4983afb38dd4b8766b73a5954e0d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277533687782918153, guid: 8c9b4983afb38dd4b8766b73a5954e0d, type: 3}
+      propertyPath: m_text
+      value: "\uCE90\uB9AD\uD130 \uD3B8\uC131\n"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2960,6 +2968,10 @@ PrefabInstance:
     - target: {fileID: 3467623169813487373, guid: 8c9b4983afb38dd4b8766b73a5954e0d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277533687782918153, guid: 8c9b4983afb38dd4b8766b73a5954e0d, type: 3}
+      propertyPath: m_text
+      value: "\uC804\uD22C\uAC1C\uC2DC!!"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

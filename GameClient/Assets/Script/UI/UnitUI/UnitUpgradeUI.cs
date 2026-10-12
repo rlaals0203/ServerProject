@@ -11,6 +11,7 @@ public class UnitUpgradeUI : ContentUI
 
     [SerializeField] private TMP_Text description;
     [SerializeField] private Button upgradeButton;
+    [SerializeField] private UIBlinkEffect blinkEffect;
 
     private string _currentUnitId;
 
@@ -38,7 +39,13 @@ public class UnitUpgradeUI : ContentUI
         int currentLevel = new GetUnitLevel(_currentUnitId).Level;
         int upgradePrice = unitSOList.GetUnitById(_currentUnitId).UpgradePrice;
         int finalPrice = new GetUnitUpgradePrice(upgradePrice, currentLevel).Price;
-        upgradeButton.interactable = finalPrice <= GlobalInstance.I.MainUser.UserMonetaData[EMonetaType.Exp.ToString()] && currentLevel < GameDefine.UnitMaxLevel;
+        bool purchasable = finalPrice <= GlobalInstance.I.MainUser.UserMonetaData[EMonetaType.Exp.ToString()] && currentLevel < GameDefine.UnitMaxLevel;
+        upgradeButton.interactable = purchasable;
+
+        if (purchasable)
+            blinkEffect.PlayBlinkEffect();
+        else
+            blinkEffect.StopBlinkEffect();
     }
 
     public async void OnTouchUpgradeUnit()
