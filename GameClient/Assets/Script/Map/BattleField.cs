@@ -8,6 +8,7 @@ public class BattleField : MonoBehaviour
     [SerializeField] private UnitSpawner unitSpawner;
     [SerializeField] private EnemySpawner enemySpawner;
     [SerializeField] private MapCamera mapCamera;
+    [SerializeField] private StageCompleteAnimation stageCompAnim;
     [SerializeField] private UnitSO friendlyCastleData;
     [SerializeField] private TMP_Text moneyText;
 
@@ -20,7 +21,9 @@ public class BattleField : MonoBehaviour
 
     private float _money;
     private int _maxMoney = 6000;
-    private float _moneyMultiplier = 20f;
+    private float _moneyMultiplier = 85f;
+
+    private bool _battleFinished;
 
 
     private void Start()
@@ -71,8 +74,13 @@ public class BattleField : MonoBehaviour
 
     private void HandleCastleDead(bool isEnemyCastle)
     {
+        if (_battleFinished)
+            return;
+
         CompleteBattle();
         mapCamera.FocusOn(isEnemyCastle ? _enemyCastle.GetCameraTrm() : _unitCastle.GetCameraTrm());
+        stageCompAnim.PlayAnimation();
+        _battleFinished = true;
     }
 
     public int GetMoney() => (int)_money;

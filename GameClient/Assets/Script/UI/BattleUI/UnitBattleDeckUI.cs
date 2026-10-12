@@ -26,7 +26,7 @@ public class UnitBattleDeckUI  : UIBase
             if(i >= unitData.Length)
                 deckSlotUI[i].InitializeSlot(null, unitList, battleField);
             else
-                deckSlotUI[i].InitializeSlot(new UpdateUnitData(new MakeUnitStatData(unitList.GetUnitById(unitData[i].UnitStatData.UnitId)).UnitStatData, 1).UnitData, unitList, battleField);
+                deckSlotUI[i].InitializeSlot(new UpdateUnitData(new MakeUnitStatData(unitList.GetUnitById(unitData[i].UnitStatData.UnitId)).UnitStatData, 30).UnitData, unitList, battleField);
         }
     }
 

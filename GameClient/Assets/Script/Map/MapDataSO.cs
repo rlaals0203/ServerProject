@@ -24,6 +24,7 @@ public class MapDataSO : ScriptableObject
 {
     public string MapId;
     public string MapName;
+    public int expDrop;
     public float CastleDistance;
     public UnitSO CastleData;
     public List<EnemySpawnData> EnemySpawnList = new();
