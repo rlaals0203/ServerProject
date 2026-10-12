@@ -38,7 +38,6 @@ public class UnitUpgradeUI : ContentUI
         int currentLevel = new GetUnitLevel(_currentUnitId).Level;
         int upgradePrice = unitSOList.GetUnitById(_currentUnitId).UpgradePrice;
         int finalPrice = new GetUnitUpgradePrice(upgradePrice, currentLevel).Price;
-
         upgradeButton.interactable = finalPrice <= GlobalInstance.I.MainUser.UserMonetaData[EMonetaType.Exp.ToString()] && currentLevel < GameDefine.UnitMaxLevel;
     }
 
@@ -89,13 +88,5 @@ public class UnitUpgradeUI : ContentUI
     private void OnDestroy()
     {
         unitListUI.OnElementChanged -= RefreshUI;
-
-        foreach(var slotUI in unitListUI.GetAllElement())
-        {
-            if(slotUI != null)
-            {
-                ResourceManager.I.DespawnPool(slotUI.gameObject);
-            }
-        }
     }
 }

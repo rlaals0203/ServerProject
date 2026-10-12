@@ -4,16 +4,21 @@ public struct GetUnitUpgradePrice
 
     public GetUnitUpgradePrice(int startPrice, int currentLevel)
     {
-        int level = currentLevel % 10;
-        int unitStep = currentLevel / 10;
+        int step = currentLevel / 10;
+        int level = (currentLevel % 10) + 1;
 
-        if(currentLevel > GameDefine.UpgradeExpScale.Count || GameDefine.UpgradeExpScale.Count < 0)
+        if(step == 0)
         {
-            Price = 0;
+            level--;
+        }
+
+        if(step >= GameDefine.UpgradeExpScale.Count || GameDefine.UpgradeExpScale.Count < 0)
+        {
+            Price = int.MaxValue;
             return;
         }
 
-        Price = (int)GameDefine.UpgradeExpScale[unitStep] * level * startPrice;
+        Price = (int)(GameDefine.UpgradeExpScale[step] * level * startPrice);
     }
 }
 
