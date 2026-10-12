@@ -1,20 +1,27 @@
-using System.Collections.Generic;
-using System.Linq;
+using System;
+using TMPro;
 using UnityEngine;
 
 public class BattleField : MonoBehaviour
 {
     [SerializeField] private UnitSOList enemyList;
-    [SerializeField] private UnitBattleDeckUI unitBattleDeckUI;
+    [SerializeField] private UnitSpawner unitSpawner;
+    [SerializeField] private EnemySpawner enemySpawner;
+    [SerializeField] private MapCamera mapCamera;
     [SerializeField] private UnitSO friendlyCastleData;
+    [SerializeField] private TMP_Text moneyText;
 
     private MapDataSO _mapData;
-    private List<SpawnSchedule> _spawnShcedules = new();
 
+    private Castle _unitCastle;
+    private Castle _enemyCastle;
     private Vector3 _enemyPosition;
     private Vector3 _unitPosition;
+
     private float _money;
+    private int _maxMoney = 6000;
     private float _moneyMultiplier = 20f;
+
 
     private void Start()
     {
@@ -27,55 +34,52 @@ public class BattleField : MonoBehaviour
         _enemyPosition = new Vector3(-_mapData.CastleDistance, -1.8f, 0);
         _unitPosition = new Vector3(_mapData.CastleDistance, -1.8f, 0);
 
-        _spawnShcedules.Clear();
-
-        foreach (var spawnData in _mapData.EnemySpawnList)
-        {
-            var spawnSchdule = new SpawnSchedule(spawnData, enemyList.GetUnitById(spawnData.EnemyId));
-            spawnSchdule.OnSpawnEnemy += HandleSpawnEnemy;
-            _spawnShcedules.Add(spawnSchdule);
-        }
-
-        unitBattleDeckUI.InitializeDeckUI(GameManager.I.MainUser.UserUnitData.DeployUnitList.Values.ToArray());
-        unitBattleDeckUI.OnSpawnUnit -= HandleSpawnUnit;
-        unitBattleDeckUI.OnSpawnUnit += HandleSpawnUnit;
+        enemySpawner.Initialize(mapData, enemyList, _enemyPosition, HandleEnemyDead);
+        unitSpawner.Initialize(_unitPosition, HandleUnitSpawn);
         SpawnCastle();
     }
 
     private void Update()
     {
-        foreach(var schedule in _spawnShcedules)
-        {
-            schedule.UpdateSchedule(Time.deltaTime);
-        }
+        enemySpawner.UpdateSpawner();
 
         _money += Time.deltaTime * _moneyMultiplier;
+        _money = Mathf.Clamp(_money, 0, _maxMoney);
+        moneyText.text = $"{(int)_money}/{_maxMoney}";
+    }
+
+    private void HandleUnitSpawn(int cost)
+    {
+        _money -= cost;
+    }
+
+    private void HandleEnemyDead(int money)
+    {
+        _money += money;
     }
 
     private void SpawnCastle()
     {
-        var unitCastle = new SpawnCacheObject<Castle>("Castle", _unitPosition).Spawned;
-        unitCastle.Initialize(new UpdateUnitData(new MakeUnitStatData(friendlyCastleData).UnitStatData, 1).UnitData, ETeamType.Friendly);
+        _unitCastle = new SpawnCacheObject<Castle>("Castle", _unitPosition).Spawned;
+        _unitCastle.Initialize(new UpdateUnitData(new MakeUnitStatData(friendlyCastleData).UnitStatData, 1).UnitData, ETeamType.Friendly);
+        _unitCastle.OnDead += HandleCastleDead;
 
-        var enemyCastle = new SpawnCacheObject<Castle>("Castle", _enemyPosition).Spawned;
-        enemyCastle.Initialize(new UpdateUnitData(new MakeUnitStatData(_mapData.CastleData).UnitStatData, 1).UnitData, ETeamType.Enemy);
+        _enemyCastle = new SpawnCacheObject<Castle>("Castle", _enemyPosition).Spawned;
+        _enemyCastle.Initialize(new UpdateUnitData(new MakeUnitStatData(_mapData.CastleData).UnitStatData, 1).UnitData, ETeamType.Enemy);
+        _enemyCastle.OnDead += HandleCastleDead;
     }
 
-    private void HandleSpawnEnemy(UnitData enemyData)
+    private void HandleCastleDead(bool isEnemyCastle)
     {
-        var enemy = new SpawnCacheObject<Unit>("Unit", _enemyPosition).Spawned;
-        enemy.Initialize(enemyData, ETeamType.Enemy);
+        CompleteBattle();
+        mapCamera.FocusOn(isEnemyCastle ? _enemyCastle.GetCameraTrm() : _unitCastle.GetCameraTrm());
     }
 
-    private void HandleSpawnUnit(UnitData unitData)
-    {
-        var unit = new SpawnCacheObject<Unit>("Unit", _unitPosition).Spawned;
-        unit.Initialize(unitData, ETeamType.Friendly);
-    }
+    public int GetMoney() => (int)_money;
 
     public void CompleteBattle()
     {
-        unitBattleDeckUI.OnSpawnUnit -= HandleSpawnUnit;
+        enemySpawner.ReleaseSpawner();
     }
 
     private void OnDestroy()

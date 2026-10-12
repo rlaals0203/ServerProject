@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,16 +11,16 @@ public class UnitDeckSlotUI : UIBase
     [SerializeField] private GameObject lockObject;
     [SerializeField] private Image unitIcon;
 
-    public Action<UnitData> OnSpawnUnit;
-
+    private BattleField _battleField;
     private UnitData _unitData;
     private float _currentTime;
     private float _unitCooltime;
 
     private bool _canSpawn;
 
+    public Action<UnitData> OnSpawnUnit;
 
-    public void InitializeSlot(UnitData unitData, UnitSOList unitSOList)
+    public void InitializeSlot(UnitData unitData, UnitSOList unitSOList, BattleField battleField)
     {
         if(unitData == null)
         {
@@ -29,27 +30,28 @@ public class UnitDeckSlotUI : UIBase
         }
 
         _unitData = unitData;
+        _battleField = battleField;
         _unitCooltime = unitData.UnitCooldown;
         _currentTime = 0f;
-        _canSpawn = true;
 
         costText.text = $"{unitData.UnitStatData.UnitCost}¿ø";
         unitIcon.sprite = unitSOList.GetUnitById(unitData.UnitStatData.UnitId).UnitIcon;
-        cooldownBar.gameObject.SetActive(true);
-        SetLockState(false);
+        SetLockState(true);
     }
 
     public void OnTouchSpawnUnit()
     {
-        if(_canSpawn == false || _unitData == null)
-        {
+        if (_unitData == null)
             return;
-        }
+
+        if (_canSpawn == false)
+            return;
+
+        SetLockState(true);
+        cooldownBar.gameObject.SetActive(true);
+        costText.gameObject.SetActive(false);
 
         _currentTime = Time.time;
-        _canSpawn = false;
-        SetLockState(true);
-
         OnSpawnUnit?.Invoke(_unitData);
     }
 
@@ -58,20 +60,24 @@ public class UnitDeckSlotUI : UIBase
         if (_unitData == null)
             return;
 
-        if(_canSpawn == false && Time.time - _currentTime >= _unitCooltime)
+        if(IsEnoughCooltime())
         {
-            _canSpawn = true;
-            SetLockState(false);
-            return;
+            costText.gameObject.SetActive(true);
+            cooldownBar.gameObject.SetActive(false);
         }
 
-        cooldownBar.SetBar(Time.time - _currentTime, _unitCooltime);
+        _canSpawn = IsEnoughCooltime() && HasEnoughMoney();
+        cooldownBar.SetBar(GetCooltime(), _unitCooltime);
+        SetLockState(!IsEnoughCooltime() || !HasEnoughMoney());
     }
+
+    private bool HasEnoughMoney() => _battleField.GetMoney() >= _unitData.UnitCost;
+    private bool IsEnoughCooltime() => GetCooltime() >= _unitCooltime;
+
+    private float GetCooltime() => Time.time - _currentTime;
 
     private void SetLockState(bool isLock)
     {
-        cooldownBar.gameObject.SetActive(isLock);
         lockObject.gameObject.SetActive(isLock);
-        costText.gameObject.SetActive(!isLock);
     }
 }

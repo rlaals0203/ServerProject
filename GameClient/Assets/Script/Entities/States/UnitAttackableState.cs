@@ -10,8 +10,6 @@ public class UnitAttackableState : UnitState
     {
         base.UpdateState();
 
-        Debug.Log(_attackCompo.CheckTarget());
-
         if(_attackCompo.CanAttack() && _attackCompo.CheckTarget())
         {
             _attackCompo.StartAttack(_owner.UnitData.UnitAttackData.UnitAttackSpeed);

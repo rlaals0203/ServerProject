@@ -71,7 +71,19 @@ public class UnitUpgradeUI : ContentUI
             return;
         }
 
-        //unitListUI.UpdateCurrentSlot(unitSOList.UnitList);
+        var unitData = GameManager.I.MainUser.UserUnitData;
+
+        if (unitData.OwnUnitList.TryGetValue(data.UnitId, out var unit))
+        {
+            unit.UnitLevel = data.UnitLevel;
+        }
+
+        if (unitData.DeployUnitList.TryGetValue(data.UnitId, out var deployUnit))
+        {
+            deployUnit.UnitLevel++;
+        }
+
+        unitListUI.UpdateCurrentSlot(unit);
     }
 
     private void OnDestroy()

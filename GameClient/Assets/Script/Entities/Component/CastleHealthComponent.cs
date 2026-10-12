@@ -35,7 +35,7 @@ public class CastleHealthComponent : HealthCompo
         base.OnHit(damage);
         if(_healthStat.CurrentStat <= 0)
         {
-            _castle.OnDead?.Invoke();
+            _castle.OnDead?.Invoke(_owner.IsEnemyUnit);
         }
 
         RefreshHealthText();

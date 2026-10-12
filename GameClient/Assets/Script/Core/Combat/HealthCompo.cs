@@ -10,7 +10,6 @@ public class HealthCompo : MonoBehaviour, IComponentCache, IAfterInit, IDamageab
 
     public bool IsDead { get; private set; }
 
-    public Action OnDead;
     public Action OnDamaged;
     public Action OnHitback;
 
@@ -48,7 +47,7 @@ public class HealthCompo : MonoBehaviour, IComponentCache, IAfterInit, IDamageab
         if (_healthStat.CurrentStat <= 0)
         {
             IsDead = true;
-            OnDead?.Invoke();
+            _owner.OnDead?.Invoke(_owner);
         }
     }
 }

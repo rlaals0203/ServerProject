@@ -31,6 +31,8 @@ public class Unit : MonoBehaviour
     private Dictionary<Type, IComponentCache> _cachedComponent = new();
     private UnitStateMachine _stateMachine;
 
+    public Action<Unit> OnDead;
+
     public virtual void Initialize(UnitData unitData, ETeamType teamType)
     { 
         UnitData = unitData;

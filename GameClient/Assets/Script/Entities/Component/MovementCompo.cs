@@ -1,6 +1,5 @@
 using DG.Tweening;
 using MINLib.Script.Core.Resource;
-using System;
 using UnityEngine;
 
 public class MovementCompo : MonoBehaviour, IComponentCache
@@ -49,10 +48,11 @@ public class MovementCompo : MonoBehaviour, IComponentCache
         var unit = _owner.transform;
         var pos = unit.position;
 
+        Ease ease = Ease.OutCubic;
         DOTween.Sequence()
-            .Append(unit.DOJump(pos - _direction * 0.6f, 0.5f, 1, 0.4f))
-            .Append(unit.DOJump(pos - _direction * 0.9f, 0.25f, 1, 0.25f))
-            .Append(unit.DOJump(pos - _direction * 1.05f, 0.1f, 1, 0.2f))
+            .Append(unit.DOJump(pos - _direction * 0.7f, 0.4f, 1, 0.35f)).SetEase(ease)
+            .Append(unit.DOJump(pos - _direction * 1f, 0.25f, 1, 0.25f)).SetEase(ease)
+            .Append(unit.DOJump(pos - _direction * 1.1f, 0.1f, 1, 0.15f)).SetEase(ease)
 
             .OnComplete(() =>
             {

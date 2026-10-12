@@ -777,7 +777,7 @@ MonoBehaviour:
   unitNameText: {fileID: 8938550943159867677}
   unitLevelText: {fileID: 1323980120835212343}
   unitCostText: {fileID: 2921464640449264336}
-  unitUpgradeCost: {fileID: 0}
+  unitUpgradeCost: {fileID: 863504298422797405}
   unitIcon: {fileID: 1047847597639733345}
   lockObject: {fileID: 645443995732486788}
   unitUpgradeCostText: {fileID: 863504298422797405}

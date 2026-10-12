@@ -30,7 +30,7 @@ public class UnitSlotUI : UIBase, IBeginDragHandler, IDragHandler, IEndDragHandl
 
         unitLevelText.text = unitData.UnitLevel.ToString();
         unitCostText.text = unitData.UnitCost.ToString();
-        unitCostText.text = new GetUnitUpgradePrice(unitData.UnitStatData.UpgradePrice, unitData.UnitLevel).Price.ToString();
+        unitUpgradeCost.text = new GetUnitUpgradePrice(unitData.UnitStatData.UpgradePrice, unitData.UnitLevel).Price.ToString();
         unitNameText.text = unitSO.UnitName;
         unitIcon.sprite = unitSO.UnitIcon;
     }
