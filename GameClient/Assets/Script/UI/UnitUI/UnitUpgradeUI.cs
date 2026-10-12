@@ -1,3 +1,4 @@
+using DG.Tweening;
 using MINLib.Script.Core.Resource;
 using TMPro;
 using UnityEngine;
@@ -88,6 +89,7 @@ public class UnitUpgradeUI : ContentUI
         }
 
         GlobalInstance.I.MainUser.UserMonetaData[EMonetaType.Exp.ToString()] -= data.UpgradePrice;
+        unitListUI.GetCurrentSlot()?.PlayPurchseEffect();
         unitListUI.UpdateCurrentSlot(unit);
         RefreshButtonState();
     }

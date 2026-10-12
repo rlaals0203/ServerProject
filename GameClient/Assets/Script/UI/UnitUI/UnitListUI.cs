@@ -24,6 +24,11 @@ public class UnitListUI : SnapScrollViewBase<UnitSlotUI>
         _currentElement.RefreshUI(unitData, unitSO);
     }
 
+    public UnitSlotUI GetCurrentSlot()
+    {
+        return _currentElement;
+    }
+
     protected override void ElementChanged()
     {
         OnUnitChanged?.Invoke(_currentElement.GetUnitId());

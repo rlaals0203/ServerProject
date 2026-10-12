@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using TMPro;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class UnitSlotUI : UIBase, IBeginDragHandler, IDragHandler, IEndDragHandl
     [SerializeField] private TMP_Text unitUpgradeCost;
     [SerializeField] private TMP_Text maxLevelText;
     [SerializeField] private Image unitIcon;
+    [SerializeField] private Image purchaseEffect;
     [SerializeField] private GameObject lockObject;
 
     [SerializeField] private TMP_Text unitUpgradeCostText;
@@ -41,6 +43,16 @@ public class UnitSlotUI : UIBase, IBeginDragHandler, IDragHandler, IEndDragHandl
             unitUpgradeUI.SetActive(false);
             maxLevelText.gameObject.SetActive(true);
         }
+    }
+
+    public async void PlayPurchseEffect()
+    {
+        purchaseEffect.DOKill();
+        purchaseEffect.DOFade(1f, 0f);
+        DOVirtual.DelayedCall(0.1f, () =>
+        {
+            purchaseEffect.DOFade(0f, 0.8f);
+        });
     }
 
     public string GetUnitId()
