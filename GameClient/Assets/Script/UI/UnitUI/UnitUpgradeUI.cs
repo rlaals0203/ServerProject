@@ -78,14 +78,20 @@ public class UnitUpgradeUI : ContentUI
 
         var unitData = GlobalInstance.I.MainUser.UserUnitData;
 
-        if (unitData.OwnUnitList.TryGetValue(data.UnitId, out var unit))
-        {
-            unit.UnitLevel = data.UnitLevel;
-        }
+        if (unitData.OwnUnitList.TryGetValue(data.UnitId, out var unit) == false)
+            return;
 
-        if (unitData.DeployUnitList.TryGetValue(data.UnitId, out var deployUnit))
+        unit = new UpdateUnitData(unit.UnitStatData, data.UnitLevel).UnitData;
+        unitData.OwnUnitList[data.UnitId] = unit;
+
+        for (int i = 0; i < GameDefine.MaxSlotCount; i++)
         {
-            deployUnit.UnitLevel++;
+            string slotKey = i.ToString();
+            if (unitData.DeployUnitList.TryGetValue(slotKey, out var deployUnit)
+                && deployUnit.UnitStatData.UnitId == data.UnitId)
+            {
+                unitData.DeployUnitList[slotKey] = unit;
+            }
         }
 
         GlobalInstance.I.MainUser.UserMonetaData[EMonetaType.Exp.ToString()] -= data.UpgradePrice;

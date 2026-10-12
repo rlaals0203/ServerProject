@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using UnityEngine;
 
 [Serializable]
@@ -58,7 +59,9 @@ public class UnitAttackData
 [Serializable]
 public class UnitSpecialAbilityData
 {
+    [JsonInclude]
     public EUnitType[] TargetTypes;
+    [JsonInclude]
     public SpecialAbilityData[] SpecialAbilityDatas;
 }
 
@@ -66,10 +69,13 @@ public class UnitSpecialAbilityData
 [Serializable]
 public class SpecialAbilityData
 {
+    [JsonInclude]
     public ESpecialAbilityType AbilityType;
     [Range(0f, 1f)]
     [Tooltip("확률형 능력이 아니라면 항상 1로 적용됩니다.")]
+    [JsonInclude]
     public float Chance;
+    [JsonInclude]
     public float Duration;
 }
 

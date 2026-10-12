@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 [Serializable]
 public class UserUnitData
 {
@@ -55,7 +57,9 @@ public class UnitAttackData
 [Serializable]
 public class UnitSpecialAbilityData
 {
+    [JsonInclude]
     public EUnitType[] TargetTypes;
+    [JsonInclude]
     public SpecialAbilityData[] SpecialAbilityDatas;
 }
 
@@ -63,7 +67,10 @@ public class UnitSpecialAbilityData
 [Serializable]
 public class SpecialAbilityData
 {
+    [JsonInclude]
     public ESpecialAbilityType AbilityType;
+    [JsonInclude]
     public float Chance;
+    [JsonInclude]
     public float Duration;
 }

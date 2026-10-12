@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using UnityEngine;
 
 public class UnitSpawner : MonoBehaviour
@@ -14,7 +13,7 @@ public class UnitSpawner : MonoBehaviour
         _unitPosition = unitPosition;
         OnUnitSpawn = onUnitSpawn;
 
-        unitBattleDeckUI.InitializeDeckUI(GlobalInstance.I.MainUser.UserUnitData.DeployUnitList.Values.ToArray());
+        unitBattleDeckUI.InitializeDeckUI();
         unitBattleDeckUI.OnSpawnUnit -= HandleSpawnUnit;
         unitBattleDeckUI.OnSpawnUnit += HandleSpawnUnit;
     }

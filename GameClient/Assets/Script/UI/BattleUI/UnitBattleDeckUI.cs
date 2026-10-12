@@ -19,14 +19,16 @@ public class UnitBattleDeckUI  : UIBase
         }
     }
 
-    public void InitializeDeckUI(UnitData[] unitData)
+    public void InitializeDeckUI()
     {
-        for(int i = 0; i < GameDefine.MaxSlotCount; i++)
+        var deployUnits = GlobalInstance.I.MainUser.UserUnitData.DeployUnitList;
+
+        for(int i = 0; i < deckSlotUI.Length; i++)
         {
-            if(i >= unitData.Length)
+            if(deployUnits == null || deployUnits.TryGetValue(i.ToString(), out var unitData) == false)
                 deckSlotUI[i].InitializeSlot(null, unitList, battleField);
             else
-                deckSlotUI[i].InitializeSlot(new UpdateUnitData(new MakeUnitStatData(unitList.GetUnitById(unitData[i].UnitStatData.UnitId)).UnitStatData, 30).UnitData, unitList, battleField);
+                deckSlotUI[i].InitializeSlot(unitData, unitList, battleField);
         }
     }
 

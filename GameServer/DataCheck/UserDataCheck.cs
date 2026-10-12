@@ -32,12 +32,36 @@ public class UserUnitDataCheck
             }
         }
 
+        foreach (var owned in userData.UserUnitData.OwnUnitList)
+        {
+            UnitStatData statData = unitData.GetUnitById(owned.Key);
+            if (owned.Value == null || statData == null)
+            {
+                 continue;
+            }
+
+            UnitData updated = new UpdateUnitData(statData, owned.Value.UnitLevel).UnitData;
+            owned.Value.UnitStatData = updated.UnitStatData;
+            owned.Value.UnitHealth = updated.UnitHealth;
+            owned.Value.UnitAttackData = updated.UnitAttackData;
+        }
+
+        for (int i = 0; i < GameDefine.MaxSlotCount; i++)
+        {
+            string slotKey = i.ToString();
+            if (userData.UserUnitData.DeployUnitList.TryGetValue(slotKey, out var deployed) == false || deployed?.UnitStatData == null)
+                continue;
+
+            if (userData.UserUnitData.OwnUnitList.TryGetValue(deployed.UnitStatData.UnitId, out var owned))
+                userData.UserUnitData.DeployUnitList[slotKey] = owned;
+        }
+
         if(userData.UserUnitData.OwnUnitList.TryGetValue(unitData.StarterUnitId, out var _) == false)
         {
             // UnitData starterUnit = new UpdateUnitData(unitData.GetUnitById(unitData.StarterUnitId), 1).UnitData;
             // userData.UserUnitData.OwnUnitList.Add(unitData.StarterUnitId, starterUnit);
 
-            UnitData starterUnit1 = new UpdateUnitData(unitData.GetUnitById("1"), 1).UnitData;
+            UnitData starterUnit1 = new UpdateUnitData(unitData.GetUnitById("1"), 1).UnitData; //일단 1 - 5번 유닛 임시로 넣기
             userData.UserUnitData.OwnUnitList.Add("1", starterUnit1);
 
             UnitData starterUnit2 = new UpdateUnitData(unitData.GetUnitById("2"), 1).UnitData;

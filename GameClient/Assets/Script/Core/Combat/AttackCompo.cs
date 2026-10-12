@@ -15,6 +15,7 @@ public class AttackCompo : MonoBehaviour, IComponentCache
         _nextAttackTime = 0;
         _animatorTrigger = owner.Get<AnimatorTriggerCompo>();
         _statCompo = owner.Get<StatCompo>();
+        _animatorTrigger.OnDamageCastTrigger -= Attack;
         _animatorTrigger.OnDamageCastTrigger += Attack;
 
         damageCaster.InitCaster(owner);
