@@ -34,7 +34,7 @@ public class UnitUpgradeUI : ContentUI
 
     private void RefreshButtonState()
     {
-        upgradeButton.interactable = GetUnitPrice(_currentUnitId) <= GameManager.I.MainUser.UserMonetaData.Exp;
+        upgradeButton.interactable = GetUnitPrice(_currentUnitId) <= GameManager.I.MainUser.UserMonetaData[EMonetaType.Exp];
     }
 
     public async void OnTouchUpgradeUnit()

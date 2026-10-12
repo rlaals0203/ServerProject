@@ -62,3 +62,19 @@ public class MakeRequestUnitDeployPacket
         UnitDeployPacketData = unitDeployPacketData;
     }
 }
+
+public class MakeRequestUserMonetaChangePacket
+{
+    public UserMonetaChangePacketData UserMonetaChangePacketData;
+
+    public MakeRequestUserMonetaChangePacket(EMonetaType monetaType, int amount)
+    {
+        UserMonetaChangePacketData userMonetaChangePacketData = new UserMonetaChangePacketData
+        {
+            MonetaType = monetaType,
+            Amount = amount
+        };
+
+        UserMonetaChangePacketData = userMonetaChangePacketData;
+    }
+}

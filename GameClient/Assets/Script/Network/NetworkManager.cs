@@ -64,4 +64,7 @@ public class NetworkManager : MonoSingleton<NetworkManager>
 
     public async Task SendUnitDeployRequest(Dictionary<string, string> deplotUnits, Action<UnitDeployPacketResultData> callback)
      => await SendWebRequest(UnitDeployPacketData.ROUTE, new MakeRequestUnitDeployPacket(deplotUnits).UnitDeployPacketData, callback);
+
+    public async Task SendUserMonetaChangeRequest(EMonetaType monetaType, int amount, Action<UserMonetaChangePacketResultData> callback)
+     => await SendWebRequest(UserMonetaChangePacketData.ROUTE, new MakeRequestUserMonetaChangePacket(monetaType, amount).UserMonetaChangePacketData, callback);
 }

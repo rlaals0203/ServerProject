@@ -32,6 +32,26 @@ public enum EDbResult
     Fail
 }
 
+public enum EMonetaType
+{
+    Exp,
+    CatFood
+}
+
+public enum EPassiveType
+{
+    CannonAttackPower,
+    CannonRange,
+    CannonCharge,
+    WorkerCatRate,
+    WorkerCatWallet,
+    BaseDefense,
+    Research,
+    Accountant,
+    Study,
+    Energy
+}
+
 public enum EStatType
 {
     AttackPower,

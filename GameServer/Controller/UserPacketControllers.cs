@@ -64,4 +64,20 @@ public partial class BasePacketController : ControllerBase
         
         return resultData;
     }
+
+    [HttpPost(UserMonetaChangePacketData.ROUTE)]
+    public async Task<ActionResult<UserMonetaChangePacketResultData>> PostUserMonetaChangeRequest([FromBody]UserMonetaChangePacketData request)
+    {
+        UserBaseData userBaseData = await dbManager.LoadUserAsync(request.LoginUserId);
+        RequestUserMonetaChangeProcess process = new RequestUserMonetaChangeProcess();
+        await process.ProcessAsync(userBaseData, dbManager, request.MonetaType, request.Amount);
+
+        UserMonetaChangePacketResultData resultData = new UserMonetaChangePacketResultData(process.Result)
+        {
+            MonetaType = process.MonetaType,
+            Amount = process.Amount
+        };
+
+        return resultData;
+    }
 }
