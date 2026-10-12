@@ -1,6 +1,6 @@
 using Core;
 
-public class GameManager : MonoSingleton<GameManager>
+public class GlobalInstance : MonoSingleton<GlobalInstance>
 {
     public bool IsLoggin = false;
     public UserBaseData MainUser = null;

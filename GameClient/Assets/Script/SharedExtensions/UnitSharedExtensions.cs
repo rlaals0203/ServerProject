@@ -88,7 +88,7 @@ public struct GetUnitLevel
 
     public GetUnitLevel(string unitId)
     {
-        if (GameManager.I.MainUser.UserUnitData.OwnUnitList.TryGetValue(unitId, out var unit) == false)
+        if (GlobalInstance.I.MainUser.UserUnitData.OwnUnitList.TryGetValue(unitId, out var unit) == false)
         {
             Level = -1;
             return;

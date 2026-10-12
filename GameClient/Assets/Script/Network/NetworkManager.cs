@@ -31,9 +31,9 @@ public class NetworkManager : MonoSingleton<NetworkManager>
         where TRequest : StandardPacketData
         where TResult : StandardPacketResultData
     {
-        if(GameManager.I.IsLoggin)
+        if(GlobalInstance.I.IsLoggin)
         {
-            request.LoginUserId = GameManager.I.MainUser.UserId;
+            request.LoginUserId = GlobalInstance.I.MainUser.UserId;
         }
 
         string json = JsonSerializer.Serialize(request);

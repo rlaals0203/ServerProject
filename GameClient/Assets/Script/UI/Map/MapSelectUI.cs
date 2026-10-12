@@ -16,13 +16,13 @@ public class MapSelectUI : ContentUI
 
     private void HandleTouchPlay(MapDataSO mapData)
     {
-        GameManager.I.CurrentMap = mapData;
+        GlobalInstance.I.CurrentMap = mapData;
         SceneManager.LoadScene("BattleScene");
     }
 
     public void OnTouchPlay()
     {
-        GameManager.I.CurrentMap = mapListUI.GetCurrentMap().GetMapData();
+        GlobalInstance.I.CurrentMap = mapListUI.GetCurrentMap().GetMapData();
         SceneManager.LoadScene("BattleScene");
     }
 

@@ -20,7 +20,7 @@ public class UnitDeployUI : ContentUI
         base.Awake();
 
         _deploySlots = GetComponentsInChildren<UnitDeploySlotUI>(true);
-        unitListUI.InitializeUnitList(GameManager.I.MainUser.UserUnitData.OwnUnitList);
+        unitListUI.InitializeUnitList(GlobalInstance.I.MainUser.UserUnitData.OwnUnitList);
 
         foreach (var unitSlot in unitListUI.GetAllElement())
         {
@@ -34,7 +34,7 @@ public class UnitDeployUI : ContentUI
             deploySlot.OnHoverSlot += HandleHoverDeploySlot;
         }
 
-        var savedUnits = GameManager.I.MainUser.UserUnitData.DeployUnitList;
+        var savedUnits = GlobalInstance.I.MainUser.UserUnitData.DeployUnitList;
         if (savedUnits != null)
         {
             for (int i = 0; i < _deploySlots.Length; i++)
@@ -114,7 +114,7 @@ public class UnitDeployUI : ContentUI
             return;
         }
 
-        var userUnitData = GameManager.I.MainUser.UserUnitData;
+        var userUnitData = GlobalInstance.I.MainUser.UserUnitData;
         var ownUnits = userUnitData.OwnUnitList;
         userUnitData.DeployUnitList.Clear();
         _deployList.Clear();

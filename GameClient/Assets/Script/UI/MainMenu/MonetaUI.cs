@@ -9,14 +9,14 @@ public class MonetaUI : MonoBehaviour
 
     private void Awake()
     {
-        monetaText.text = GameManager.I.MainUser.UserMonetaData[EMonetaType.Exp.ToString()].ToString();
+        monetaText.text = GlobalInstance.I.MainUser.UserMonetaData[EMonetaType.Exp.ToString()].ToString();
     }
 
     private void Update()
     {
-        if(_prevValue != GameManager.I.MainUser.UserMonetaData[EMonetaType.Exp.ToString()])
+        if(_prevValue != GlobalInstance.I.MainUser.UserMonetaData[EMonetaType.Exp.ToString()])
         {
-            _prevValue = GameManager.I.MainUser.UserMonetaData[EMonetaType.Exp.ToString()];
+            _prevValue = GlobalInstance.I.MainUser.UserMonetaData[EMonetaType.Exp.ToString()];
             monetaText.text = _prevValue.ToString();
         }
     }

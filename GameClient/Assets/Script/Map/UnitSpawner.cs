@@ -14,7 +14,7 @@ public class UnitSpawner : MonoBehaviour
         _unitPosition = unitPosition;
         OnUnitSpawn = onUnitSpawn;
 
-        unitBattleDeckUI.InitializeDeckUI(GameManager.I.MainUser.UserUnitData.DeployUnitList.Values.ToArray());
+        unitBattleDeckUI.InitializeDeckUI(GlobalInstance.I.MainUser.UserUnitData.DeployUnitList.Values.ToArray());
         unitBattleDeckUI.OnSpawnUnit -= HandleSpawnUnit;
         unitBattleDeckUI.OnSpawnUnit += HandleSpawnUnit;
     }

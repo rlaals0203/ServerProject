@@ -28,7 +28,7 @@ public class BattleField : MonoBehaviour
 
     private void Start()
     {
-        InitializeBattleField(GameManager.I.CurrentMap);
+        InitializeBattleField(GlobalInstance.I.CurrentMap);
     }
 
     public void InitializeBattleField(MapDataSO mapData)
@@ -87,7 +87,7 @@ public class BattleField : MonoBehaviour
 
     private void HandleReceiveExp(UserMonetaChangePacketResultData data)
     {
-        GameManager.I.MainUser.UserMonetaData[EMonetaType.Exp.ToString()] = data.Amount;
+        GlobalInstance.I.MainUser.UserMonetaData[EMonetaType.Exp.ToString()] = data.Amount;
     }
 
     public int GetMoney() => (int)_money;

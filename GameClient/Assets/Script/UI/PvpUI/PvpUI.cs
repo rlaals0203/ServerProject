@@ -12,7 +12,7 @@ public class PvpUI : ContentUI
     }
     public override async void Initialize()
     {
-        await SignalRClient.I.SendMessageToServer("JoinMatch", GameManager.I.MainUser.UserId);
+        await SignalRClient.I.SendMessageToServer("JoinMatch", GlobalInstance.I.MainUser.UserId);
     }
 
     private void OnRecieveResult(MatchResultData data)
