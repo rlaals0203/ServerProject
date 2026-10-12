@@ -20,9 +20,12 @@ public class UnitBattleDeckUI  : UIBase
 
     public void InitializeDeckUI(UnitData[] unitData)
     {
-        for(int i = 0; i < unitData.Length; i++)
+        for(int i = 0; i < GameDefine.MaxSlotCount; i++)
         {
-            deckSlotUI[i].InitializeSlot(unitData[i], unitList);
+            if(i >= unitData.Length)
+                deckSlotUI[i].InitializeSlot(null, unitList);
+            else
+                deckSlotUI[i].InitializeSlot(new UpdateUnitData(new MakeUnitStatData(unitList.GetUnitById(unitData[i].UnitStatData.UnitId)).UnitStatData, 1).UnitData, unitList);
         }
     }
 

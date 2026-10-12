@@ -15,12 +15,13 @@ MonoBehaviour:
   UnitId: 2
   UnitName: "\uD14C\uC2A4\uD2B8"
   UnitDesc: "\uD14C\uC2A4\uD2B8 \uC720\uB2DB"
-  UnitIcon: {fileID: -353341965, guid: 9d9b9add09683a241a2b486c23d63ce8, type: 3}
+  UnitGrade: 0
+  UnitIcon: {fileID: 0}
   UnlockPrice: 0
   UpgradePrice: 1000
   UnitCost: 0
-  UnitCooldown: 2
   UnitType: 
+  UnitCooldown: 2
   UnitMoveSpeed: 1
   UnitHitbackCount: 3
   UnitDropMoneyAmount: 100

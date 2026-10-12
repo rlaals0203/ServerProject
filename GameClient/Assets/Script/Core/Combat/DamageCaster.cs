@@ -34,6 +34,7 @@ public class DamageCaster : MonoBehaviour
         _direction = (_owner.TeamType == ETeamType.Friendly ? -1 : 1) * Vector3.right;
         _isSingleAttack = owner.UnitData.UnitStatData.UnitSpecialAbilityData.SpecialAbilityDatas
             .Where(ability => ability.AbilityType == ESpecialAbilityType.SingleAttack).Count() > 0;
+
         contactFier.layerMask = owner.IsEnemyUnit ? LayerMask.GetMask("Unit") : LayerMask.GetMask("Enemy");
     }
 

@@ -103,8 +103,8 @@ public class UnitDeployUI : ContentUI
         }
 
         int idx = Math.Min(index, _deployList.Count);
-        var requestUnits = new Dictionary<string, string>(_deployList) { [idx.ToString()] = unitId };
-        await NetworkManager.I.SendUnitDeployRequest(requestUnits, HandleDeployUnit);
+        _deployList[idx.ToString()] = unitId;
+        await NetworkManager.I.SendUnitDeployRequest(_deployList, HandleDeployUnit);
     }
 
     private void HandleDeployUnit(UnitDeployPacketResultData data)
@@ -116,7 +116,6 @@ public class UnitDeployUI : ContentUI
 
         var userUnitData = GameManager.I.MainUser.UserUnitData;
         var ownUnits = userUnitData.OwnUnitList;
-
         userUnitData.DeployUnitList.Clear();
         _deployList.Clear();
 

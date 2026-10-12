@@ -42,7 +42,7 @@ public class UnitSOList : ScriptableObject
 
         var jsonData = JsonConvert.SerializeObject(unitData);
         File.WriteAllText(path, jsonData);
-        Debug.Log($"Json file has saved : {path}");
+        Debug.Log($"json file has saved : {path}");
     }
 
 

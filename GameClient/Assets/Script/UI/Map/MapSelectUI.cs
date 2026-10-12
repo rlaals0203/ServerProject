@@ -20,6 +20,12 @@ public class MapSelectUI : ContentUI
         SceneManager.LoadScene("BattleScene");
     }
 
+    public void OnTouchPlay()
+    {
+        GameManager.I.CurrentMap = mapListUI.GetCurrentMap().GetMapData();
+        SceneManager.LoadScene("BattleScene");
+    }
+
     private void HandleMapChanged(MapElementUI ui)
     {
         var mapData = ui.GetMapData();

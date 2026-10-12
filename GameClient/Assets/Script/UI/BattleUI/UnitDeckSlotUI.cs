@@ -19,19 +19,26 @@ public class UnitDeckSlotUI : UIBase
 
     public void InitializeSlot(UnitData unitData, UnitSOList unitSOList)
     {
+        if(unitData == null)
+        {
+            unitIcon.sprite = null;
+            cooldownBar.gameObject.SetActive(false);
+            return;
+        }
+
         _unitData = unitData;
         _unitCooltime = unitData.UnitCooldown;
         _currentTime = 0f;
         _canSpawn = true;
 
         unitIcon.sprite = unitSOList.GetUnitById(unitData.UnitStatData.UnitId).UnitIcon;
-
+        cooldownBar.gameObject.SetActive(true);
         SetLockState(false);
     }
 
     public void OnTouchSpawnUnit()
     {
-        if(_canSpawn == false)
+        if(_canSpawn == false || _unitData == null)
         {
             return;
         }
@@ -45,6 +52,9 @@ public class UnitDeckSlotUI : UIBase
 
     private void Update()
     {
+        if (_unitData == null)
+            return;
+
         if(_canSpawn == false && Time.time - _currentTime >= _unitCooltime)
         {
             _canSpawn = true;

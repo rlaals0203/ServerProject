@@ -13,8 +13,7 @@ public class MapListUI : SnapScrollViewBase<MapElementUI>
         }
     }
 
-    protected override void ElementChanged()
-    {
+    public MapElementUI GetCurrentMap() => _currentElement;
 
-    }
+    protected override void ElementChanged() { }
 }

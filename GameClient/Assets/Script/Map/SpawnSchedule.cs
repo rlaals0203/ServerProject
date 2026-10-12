@@ -31,7 +31,7 @@ public class SpawnSchedule : IDisposable
             _remainTime = _spawnData.RepeatSpawnDelay;
             _spawnCount++;
 
-            if (_spawnCount >= _spawnData.MaxSpawnCount)
+            if (_spawnCount >= _spawnData.MaxSpawnCount && _spawnData.MaxSpawnCount != -1)
             {
                 IsFinished = true;
             }

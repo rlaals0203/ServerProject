@@ -7,44 +7,25 @@ public class BattleField : MonoBehaviour
     [SerializeField] private UnitSOList enemyList;
     [SerializeField] private UnitBattleDeckUI unitBattleDeckUI;
     [SerializeField] private UnitSO friendlyCastleData;
-    [SerializeField] private Transform unitCastlePosition;
-    [SerializeField] private Transform enemyCastlePosition;
-    [SerializeField] private Transform unitSpawnPosition;
-    [SerializeField] private Transform enemySpawnPosition;
 
     private MapDataSO _mapData;
     private List<SpawnSchedule> _spawnShcedules = new();
 
     private Vector3 _enemyPosition;
     private Vector3 _unitPosition;
-    private Vector3 _enemySpawnPosition;
-    private Vector3 _unitSpawnPosition;
+    private float _money;
+    private float _moneyMultiplier = 20f;
 
     private void Start()
     {
-        if (GameManager.I.CurrentMap == null)
-        {
-            Debug.LogError("No map selected for BattleScene");
-            return;
-        }
-
         InitializeBattleField(GameManager.I.CurrentMap);
     }
 
     public void InitializeBattleField(MapDataSO mapData)
     {
         _mapData = mapData;
-        _enemyPosition = enemyCastlePosition.position;
-        _unitPosition = unitCastlePosition.position;
-        _enemySpawnPosition = enemySpawnPosition.position;
-        _unitSpawnPosition = unitSpawnPosition.position;
-        if (_mapData.CastleDistance > 0f)
-        {
-            _enemyPosition.x = -_mapData.CastleDistance;
-            _unitPosition.x = _mapData.CastleDistance;
-            _enemySpawnPosition.x += _enemyPosition.x - enemyCastlePosition.position.x;
-            _unitSpawnPosition.x += _unitPosition.x - unitCastlePosition.position.x;
-        }
+        _enemyPosition = new Vector3(-_mapData.CastleDistance, -1.8f, 0);
+        _unitPosition = new Vector3(_mapData.CastleDistance, -1.8f, 0);
 
         _spawnShcedules.Clear();
 
@@ -67,6 +48,8 @@ public class BattleField : MonoBehaviour
         {
             schedule.UpdateSchedule(Time.deltaTime);
         }
+
+        _money += Time.deltaTime * _moneyMultiplier;
     }
 
     private void SpawnCastle()
@@ -74,21 +57,19 @@ public class BattleField : MonoBehaviour
         var unitCastle = new SpawnCacheObject<Castle>("Castle", _unitPosition).Spawned;
         unitCastle.Initialize(new UpdateUnitData(new MakeUnitStatData(friendlyCastleData).UnitStatData, 1).UnitData, ETeamType.Friendly);
 
-        var enemyCastleData = _mapData.CastleData != null ? _mapData.CastleData : friendlyCastleData;
         var enemyCastle = new SpawnCacheObject<Castle>("Castle", _enemyPosition).Spawned;
-        //enemyCastle.Initialize(_mapData.CastleData, ETeamType.Enemy);
-        enemyCastle.Initialize(new UpdateUnitData(new MakeUnitStatData(enemyCastleData).UnitStatData, 1).UnitData, ETeamType.Enemy);
+        enemyCastle.Initialize(new UpdateUnitData(new MakeUnitStatData(_mapData.CastleData).UnitStatData, 1).UnitData, ETeamType.Enemy);
     }
 
     private void HandleSpawnEnemy(UnitData enemyData)
     {
-        var enemy = new SpawnCacheObject<Unit>("Unit", _enemySpawnPosition).Spawned;
+        var enemy = new SpawnCacheObject<Unit>("Unit", _enemyPosition).Spawned;
         enemy.Initialize(enemyData, ETeamType.Enemy);
     }
 
     private void HandleSpawnUnit(UnitData unitData)
     {
-        var unit = new SpawnCacheObject<Unit>("Unit", _unitSpawnPosition).Spawned;
+        var unit = new SpawnCacheObject<Unit>("Unit", _unitPosition).Spawned;
         unit.Initialize(unitData, ETeamType.Friendly);
     }
 
