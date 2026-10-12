@@ -29,7 +29,6 @@ public class LoginPopup : PopupUIBase
             return;
         }
 
-        Debug.Log(data.UserData);
         GameManager.I.MainUser = data.UserData;
         GameManager.I.IsLoggin = true;
         SucessLogin();

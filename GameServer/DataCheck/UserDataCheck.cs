@@ -10,17 +10,25 @@ public class UserUnitDataCheck
 {
     public UserUnitDataCheck(UserBaseData userData, UnitDataDefine unitData)
     {
-        userData.UserMonetaData ??= new Dictionary<EMonetaType, int>();
-        userData.UserPassiveData ??= new Dictionary<EPassiveType, int>();
+        userData.UserMonetaData ??= new Dictionary<string, int>();
+        userData.UserPassiveData ??= new Dictionary<string, int>();
         userData.UserUnitData ??= new UserUnitData();
         userData.UserUnitData.OwnUnitList ??= new Dictionary<string, UnitData>();
         userData.UserUnitData.DeployUnitList ??= new Dictionary<string, UnitData>();
+
+        if(userData.UserMonetaData.Count == 0)
+        {
+            foreach(EMonetaType monetaType in Enum.GetValues(typeof(EMonetaType)))
+            {
+                userData.UserMonetaData.Add(monetaType.ToString(), 0);
+            }
+        }
 
         if(userData.UserPassiveData.Count == 0)
         {
             foreach(EPassiveType passiveType in Enum.GetValues(typeof(EPassiveType)))
             {
-                userData.UserPassiveData.Add(passiveType, 1);
+                userData.UserPassiveData.Add(passiveType.ToString(), 1);
             }
         }
 

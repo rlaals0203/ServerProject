@@ -80,4 +80,20 @@ public partial class BasePacketController : ControllerBase
 
         return resultData;
     }
+
+    [HttpPost(PassiveUpgradePacketData.ROUTE)]
+    public async Task<ActionResult<PassiveUpgrdePacketResultData>> PostUserMonetaChangeRequest([FromBody]PassiveUpgradePacketData request)
+    {
+        UserBaseData userBaseData = await dbManager.LoadUserAsync(request.LoginUserId);
+        RequestPassiveUpgradeProcess process = new RequestPassiveUpgradeProcess();
+        await process.ProcessAsync(userBaseData, dbManager, request.PassiveType);
+
+        PassiveUpgrdePacketResultData resultData = new PassiveUpgrdePacketResultData(process.Result)
+        {
+            PassiveType = process.PassiveType,
+            Level = process.Level
+        };
+
+        return resultData;
+    }
 }

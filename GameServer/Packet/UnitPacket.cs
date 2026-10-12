@@ -41,3 +41,21 @@ public class UnitDeployPacketResultData : StandardPacketResultData
     public Dictionary<string, string> DeployUnits { get; set; }
     public UnitDeployPacketResultData(EPacketResult result) : base(result) { }
 }
+
+[Serializable]
+public class PassiveUpgradePacketData : StandardPacketData
+{
+    public const string ROUTE = "RequestPassiveUpgrade";
+    public EPassiveType PassiveType { get; set; }
+}
+
+[Serializable]
+public class PassiveUpgrdePacketResultData : StandardPacketResultData
+{
+    public EPassiveType PassiveType { get; set; }
+    public int Level { get; set; }
+
+    public PassiveUpgrdePacketResultData(EPacketResult packetResult) : base(packetResult)
+    {
+    }
+}

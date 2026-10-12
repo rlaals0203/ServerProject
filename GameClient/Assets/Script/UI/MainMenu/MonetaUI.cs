@@ -7,6 +7,6 @@ public class MonetaUI : MonoBehaviour
 
     private void Awake()
     {
-        monetaText.text = GameManager.I.MainUser.UserMonetaData[EMonetaType.Exp].ToString();
+        monetaText.text = GameManager.I.MainUser.UserMonetaData[EMonetaType.Exp.ToString()].ToString();
     }
 }

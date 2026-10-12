@@ -78,3 +78,18 @@ public class MakeRequestUserMonetaChangePacket
         UserMonetaChangePacketData = userMonetaChangePacketData;
     }
 }
+
+public class MakeRequestPassiveUpgradePacket
+{
+    public PassiveUpgradePacketData PassiveUpgradePacketData;
+
+    public MakeRequestPassiveUpgradePacket(EPassiveType passiveType)
+    {
+        PassiveUpgradePacketData passiveUpgradePacketData = new PassiveUpgradePacketData
+        {
+            PassiveType = passiveType
+        };
+
+        PassiveUpgradePacketData = passiveUpgradePacketData;
+    }
+}

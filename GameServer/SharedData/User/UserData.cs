@@ -4,9 +4,9 @@ using MongoDB.Bson.Serialization.Attributes;
 public class UserBaseData
 {
     [BsonId]
-    public string UserId { get; set;}
+    public string UserId { get; set; }
     public string Password { get; set; }
-    public Dictionary<EMonetaType, int> UserMonetaData { get; set; }
-    public Dictionary<EPassiveType, int> UserPassiveData { get; set; }
+    public Dictionary<string, int> UserMonetaData { get; set; }
+    public Dictionary<string, int> UserPassiveData { get; set; }
     public UserUnitData UserUnitData { get; set; }
 }

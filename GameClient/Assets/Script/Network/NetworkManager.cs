@@ -67,4 +67,7 @@ public class NetworkManager : MonoSingleton<NetworkManager>
 
     public async Task SendUserMonetaChangeRequest(EMonetaType monetaType, int amount, Action<UserMonetaChangePacketResultData> callback)
      => await SendWebRequest(UserMonetaChangePacketData.ROUTE, new MakeRequestUserMonetaChangePacket(monetaType, amount).UserMonetaChangePacketData, callback);
+
+    public async Task SendPassiveUpgradeRequest(EPassiveType passiveType, Action<PassiveUpgrdePacketResultData> callback)
+        => await SendWebRequest(PassiveUpgradePacketData.ROUTE, new MakeRequestPassiveUpgradePacket(passiveType).PassiveUpgradePacketData, callback);
 }
