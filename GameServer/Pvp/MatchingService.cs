@@ -39,7 +39,7 @@ public class MatchingService
             }
 
             _waitingUser = null;
-            return MakeJoinMatchResultData(EMatchResult.Matched, _waitingUser);
+            return MakeJoinMatchResultData(EMatchResult.Matched, opponentUser);
         }
         finally
         {

@@ -20,7 +20,19 @@ public class GameHub : Hub
 
         if(resultData.MatchResult == EMatchResult.Matched)
         {
+            await Groups.AddToGroupAsync(connectionId, resultData.RoomId);
+            await Groups.AddToGroupAsync(resultData.OpponentUser.ConnectionId, resultData.RoomId);
+
             await Clients.Client(resultData.OpponentUser.ConnectionId).SendAsync(JoinMatchResultData.CONNECTION, resultData);
+            await Clients.Client(connectionId).SendAsync(JoinMatchResultData.CONNECTION, resultData);
+
+            MatchingUserData matchingInfo = new MatchingUserData()
+            {
+                UserId = userId,
+                ConnectionId = connectionId
+            };
+
+            await _roomService.CreateRoom(matchingInfo, resultData.OpponentUser);
         } 
     }
 }

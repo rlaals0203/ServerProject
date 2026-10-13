@@ -1,5 +1,7 @@
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PvpUI : ContentUI
 {
@@ -23,7 +25,18 @@ public class PvpUI : ContentUI
 
     private void OnRecieveResult(JoinMatchResultData data)
     {
+        if(data.MatchResult == EMatchResult.Matched)
+        {
+            StartPVP();
+        }
+
         Title.text = data.OpponentUser == null ? "상대를 찾는 중..." : $"{data.OpponentUser.UserId}와 매칭 성공!";
         StatusText.text = data.MatchResult.ToString();
+    }
+
+    private async UniTask StartPVP()
+    {
+        await UniTask.Delay(1000);
+        await SceneManager.LoadSceneAsync(SceneDefine.PVP_SCENE);
     }
 }

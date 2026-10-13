@@ -67,7 +67,7 @@ public class MainMenuUI : MonoBehaviour
     {
         if (!IsContentOpen)
         {
-            SceneManager.LoadSceneAsync("Title");
+            SceneManager.LoadSceneAsync(SceneDefine.TITLE);
         }
 
         ToggleDoor(false, CloseContent);

@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -36,7 +33,7 @@ public class LoginPopup : PopupUIBase
 
     private void SucessLogin()
     {
-        SceneManager.LoadSceneAsync("MainMenu");
+        SceneManager.LoadSceneAsync(SceneDefine.MAIN_MENU);
     }
 
     private void OnLoginFailed(EPacketResult result)

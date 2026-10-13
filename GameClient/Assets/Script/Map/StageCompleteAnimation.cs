@@ -33,6 +33,6 @@ public class StageCompleteAnimation : MonoBehaviour
 
     public void OnTouchReturn()
     {
-        SceneManager.LoadSceneAsync("MainMenu");
+        SceneManager.LoadSceneAsync(SceneDefine.MAIN_MENU);
     }
 }
