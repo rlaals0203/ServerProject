@@ -14,14 +14,13 @@ public class GameHub : Hub
     public async Task RequestJoinMatch(string userId)
     {
         string connectionId = Context.ConnectionId;
-        PvpMatchingProcess process = new PvpMatchingProcess();
         var resultData = await _matchingService.ProcessAsync(userId, connectionId);
 
         await Clients.Caller.SendAsync(JoinMatchResultData.CONNECTION, resultData);
 
         if(resultData.MatchResult == EMatchResult.Matched)
         {
-            await Clients.Client(process.WaitingUser.ConnectionId).SendAsync(JoinMatchResultData.CONNECTION, resultData);
+            await Clients.Client(resultData.OpponentUser.ConnectionId).SendAsync(JoinMatchResultData.CONNECTION, resultData);
         } 
     }
 }

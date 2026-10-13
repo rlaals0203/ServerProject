@@ -1,50 +1,15 @@
 public class GameRoomService
 {
+    private DbManager _dbManager; 
     private Dictionary<string, PvpRoom> _rooms = new();
-    private Queue<UserConnectionInfo> _matchUserQueue = new();
-
     private const float DT = 0.16666f;
 
-    public async Task<EMatchResult> JoinMatch(string userId, string connectionId)
+    public GameRoomService(DbManager dbManager)
     {
-        if(string.IsNullOrEmpty(userId))
-        {
-            return EMatchResult.Fail;
-        }
-
-        if(string.IsNullOrEmpty(connectionId))
-        {
-            return EMatchResult.Fail;
-        }
-
-        UserConnectionInfo connectionInfo = new UserConnectionInfo()
-        {
-            UserId = userId,
-            ConnectionId = connectionId
-        };
-
-        if(connectionInfo == null)
-        {
-            return EMatchResult.Fail;
-        }
-
-        if(_matchUserQueue.Contains(connectionInfo))
-        {
-            return EMatchResult.Fail;
-        }
-
-        if(_matchUserQueue.Count == 0)
-        {
-            _matchUserQueue.Enqueue(connectionInfo);
-            return EMatchResult.Waiting;
-        }
-
-        UserConnectionInfo opponentInfo = _matchUserQueue.Peek();
-        await CreateRoom(connectionInfo, opponentInfo);
-        return EMatchResult.Matched;
+        _dbManager = dbManager;
     }
 
-    public async Task CreateRoom(UserConnectionInfo userInfo, UserConnectionInfo opponentInfo)
+    public async Task CreateRoom(MatchingUserData userInfo, MatchingUserData opponentInfo)
     {
         PvpRoom newRoom = new PvpRoom
         {

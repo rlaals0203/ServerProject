@@ -1,6 +1,6 @@
 public class MatchingService
 {
-    private WaitingUserData _waitingUser;
+    private MatchingUserData _waitingUser;
     private readonly SemaphoreSlim _matchLock = new(1, 1);
 
     public async Task<JoinMatchResultData> ProcessAsync(string userId, string connectionId)
@@ -16,7 +16,7 @@ public class MatchingService
 
             if (_waitingUser == null)
             {
-                _waitingUser = new WaitingUserData()
+                _waitingUser = new MatchingUserData()
                 {
                     UserId = userId,
                     ConnectionId = connectionId
@@ -55,7 +55,7 @@ public class MatchingService
         }
     }
 
-    private JoinMatchResultData MakeJoinMatchResultData(EMatchResult matchResult, WaitingUserData waitingUser = null)
+    private JoinMatchResultData MakeJoinMatchResultData(EMatchResult matchResult, MatchingUserData waitingUser = null)
     {
         var result = new JoinMatchResultData()
         {

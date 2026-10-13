@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.SignalR;
+
 public class PvpRoom
 {
     public string UserId { get; set; }
@@ -5,6 +7,8 @@ public class PvpRoom
     public string OpponentUserId { get; set; }
     public string OpponentUserConnectionId { get; set; }
     private RuntimeBattleField _battleField;
+    private IHubContext _hubContext;
+
 
     public PvpRoom()
     {

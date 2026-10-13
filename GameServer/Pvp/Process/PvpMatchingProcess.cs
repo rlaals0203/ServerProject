@@ -1,9 +1,9 @@
 public class PvpMatchingProcess
 {
-    public WaitingUserData WaitingUser;
+    public MatchingUserData WaitingUser;
     public string RoomId;
 
-    private WaitingUserData _waitingUser;
+    private MatchingUserData _waitingUser;
     private readonly SemaphoreSlim _matchLock = new(1, 1);
 
     public async Task<EMatchResult> ProcessAsync(string userId, string connectionId)
@@ -22,7 +22,7 @@ public class PvpMatchingProcess
                 return EMatchResult.Waiting;
             }
 
-            _waitingUser = new WaitingUserData()
+            _waitingUser = new MatchingUserData()
             {
                 UserId = userId,
                 ConnectionId = connectionId

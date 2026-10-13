@@ -11,7 +11,12 @@ public class PvpUI : ContentUI
         base.Awake();
         SignalRClient.I.ConnectToHub<JoinMatchResultData>(JoinMatchResultData.CONNECTION, OnRecieveResult);
     }
-    public override async void Initialize()
+    public override void Initialize()
+    {
+        SendMessage();
+    }
+
+    private async void SendMessage()
     {
         await SignalRClient.I.SendMessageToServer("RequestJoinMatch", GlobalInstance.I.MainUser.UserId);
     }
