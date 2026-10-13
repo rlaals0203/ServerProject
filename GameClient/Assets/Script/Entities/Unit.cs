@@ -1,4 +1,5 @@
 using Core;
+using MINLib.Script.Core.Resource;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -67,7 +68,7 @@ public class Unit : MonoBehaviour
 
     public void SetDead()
     {
-
+        ResourceManager.I.DespawnPool(gameObject);
     }
 
     public void ChangeState(EStateType stateType, bool forced = false)

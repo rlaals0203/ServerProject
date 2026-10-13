@@ -50,7 +50,7 @@ public class MovementCompo : MonoBehaviour, IComponentCache
 
         Ease ease = Ease.OutCubic;
         DOTween.Sequence()
-            .Append(unit.DOJump(pos - _direction * 0.7f, 0.4f, 1, 0.4f)).SetEase(ease)
+            .Append(unit.DOJump(pos - _direction * 0.7f, 0.4f, 1, 0.6f)).SetEase(ease)
             .Append(unit.DOJump(pos - _direction * 1f, 0.25f, 1, 0.2f)).SetEase(ease)
             .Append(unit.DOJump(pos - _direction * 1.1f, 0.1f, 1, 0.1f)).SetEase(ease)
 

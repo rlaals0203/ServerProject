@@ -45,7 +45,7 @@ public class HealthCompo : MonoBehaviour, IComponentCache, IAfterInit, IDamageab
             OnHitback?.Invoke();
         }
 
-        if (_healthStat.CurrentStat <= 0)
+        if (_healthStat.CurrentStat <= 0 && !IsDead)
         {
             SetDead();
         }
