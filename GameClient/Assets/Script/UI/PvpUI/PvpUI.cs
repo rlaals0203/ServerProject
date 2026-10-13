@@ -27,6 +27,7 @@ public class PvpUI : ContentUI
     {
         if(data.MatchResult == EMatchResult.Matched)
         {
+            GlobalInstance.I.IsPvpOpponent = data.IsOpponent;
             StartPVP();
         }
 

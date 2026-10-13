@@ -2,12 +2,14 @@ using Core;
 using Cysharp.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR.Client;
 using System;
+using System.Threading;
 using UnityEngine;
 
 public class SignalRClient : MonoSingleton<SignalRClient>
 {
     private const string HUB_URL = "http://localhost:5200/gamehub";
     private HubConnection _connection;
+    private readonly SemaphoreSlim _startLock = new(1, 1);
 
     protected override void Awake()
     {
@@ -18,9 +20,30 @@ public class SignalRClient : MonoSingleton<SignalRClient>
                     .Build();
     }
 
-    private void Start()
+    private async void Start()
     {
-        _connection.StartAsync();
+        try
+        {
+            await ConnectAsync();
+        }
+        catch(Exception ex)
+        {
+            Debug.LogError($"SignalR connection failed: {ex.Message}");
+        }
+    }
+
+    private async UniTask ConnectAsync()
+    {
+        await _startLock.WaitAsync();
+        try
+        {
+            if(_connection.State == HubConnectionState.Disconnected)
+                await _connection.StartAsync();
+        }
+        finally
+        {
+            _startLock.Release();
+        }
     }
 
     public void ConnectToHub<T1>(string methodName, Action<T1> handler)
@@ -43,23 +66,28 @@ public class SignalRClient : MonoSingleton<SignalRClient>
         _connection.On(methodName, handler);
     }
 
+    public IDisposable SubscribeToHub<T1>(string methodName, Action<T1> handler)
+    {
+        return _connection.On(methodName, handler);
+    }
+
     public async UniTask SendMessageToServer(string method, string userId)
     {
-        if (_connection != null && _connection.State == HubConnectionState.Connected)
+        try
         {
-            try
+            await ConnectAsync();
+            if(_connection.State != HubConnectionState.Connected)
             {
-                Debug.Log($"서버로 전송 {method}, {userId}");
-                await _connection.SendAsync(method, userId);
+                Debug.LogWarning("SignalR not connected.");
+                return;
             }
-            catch (Exception ex)
-            {
-                Debug.LogError($"Error sending message: {ex.Message}");
-            }
+
+            Debug.Log($"서버로 전송 {method}, {userId}");
+            await _connection.SendAsync(method, userId);
         }
-        else
+        catch(Exception ex)
         {
-            Debug.LogWarning("SignalR not connected.");
+            Debug.LogError($"Error sending message: {ex.Message}");
         }
     }
 

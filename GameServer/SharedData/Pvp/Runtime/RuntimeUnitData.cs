@@ -1,9 +1,11 @@
-using System.Numerics;
-
 public class RuntimeUnitData
 {
-    public Vector3 Position { get; set; }
+    public int RuntimeId { get; set; }
+    public string UnitId { get; set; }
+    public float PositionX { get; set; }
+    public float PositionY { get; set; }
     public bool IsOpponent { get; set; }
+    public EStateType State { get; set; }
 }
 
 public class UpdateAllUnitDataMessage : StandardMessageData

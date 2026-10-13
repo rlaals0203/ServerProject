@@ -11,6 +11,7 @@ public class UnitMoveState : UnitAttackableState
         if (_attackCompo.CheckTarget())
         {
             _owner.ChangeState(EStateType.Idle);
+            return;
         }
 
         _movementCompo.UpdateComponent(dt);

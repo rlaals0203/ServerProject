@@ -33,4 +33,17 @@ public class MoneyHandler
     {
         return isOpponent ? _opponentMoney : _userMoney;
     }
+
+    public bool TrySpendMoney(bool isOpponent, int cost)
+    {
+        if(cost < 0 || GetMoney(isOpponent) < cost)
+            return false;
+
+        if(isOpponent)
+            _opponentMoney -= cost;
+        else
+            _userMoney -= cost;
+
+        return true;
+    }
 }

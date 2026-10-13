@@ -15,6 +15,7 @@ public class UnitDeckSlotUI : UIBase
     private UnitData _unitData;
     private float _currentTime;
     private float _unitCooltime;
+    private Action<UnitData> _spawnRequest;
 
     private bool _canSpawn;
 
@@ -22,6 +23,7 @@ public class UnitDeckSlotUI : UIBase
 
     public void InitializeSlot(UnitData unitData, UnitSOList unitSOList, BattleField battleField)
     {
+        _spawnRequest = null;
         if(unitData == null)
         {
             unitIcon.sprite = null;
@@ -39,10 +41,36 @@ public class UnitDeckSlotUI : UIBase
         SetLockState(true);
     }
 
+    public void InitializeView(UnitData unitData, UnitSOList unitSOList, Action<UnitData> spawnRequest)
+    {
+        _unitData = unitData;
+        _spawnRequest = spawnRequest;
+        cooldownBar.gameObject.SetActive(false);
+
+        if(unitData == null)
+        {
+            unitIcon.sprite = null;
+            costText.gameObject.SetActive(false);
+            SetLockState(true);
+            return;
+        }
+
+        costText.text = $"{unitData.UnitStatData.UnitCost}¿ø";
+        costText.gameObject.SetActive(true);
+        unitIcon.sprite = unitSOList.GetUnitById(unitData.UnitStatData.UnitId).UnitIcon;
+        SetLockState(false);
+    }
+
     public void OnTouchSpawnUnit()
     {
         if (_unitData == null)
             return;
+
+        if (_spawnRequest != null)
+        {
+            _spawnRequest(_unitData);
+            return;
+        }
 
         if (_canSpawn == false)
             return;
@@ -57,7 +85,7 @@ public class UnitDeckSlotUI : UIBase
 
     private void Update()
     {
-        if (_unitData == null)
+        if (_unitData == null || _spawnRequest != null)
             return;
 
         if(IsEnoughCooltime())

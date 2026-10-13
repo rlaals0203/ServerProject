@@ -10,7 +10,10 @@ public class RoomUpdater : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _gameRoomService.UpdateRoom(DT);
-        await Task.Delay((int)(DT * 1000), stoppingToken);
+        while(stoppingToken.IsCancellationRequested == false)
+        {
+            await _gameRoomService.UpdateRoom(DT);
+            await Task.Delay((int)(DT * 1000), stoppingToken);
+        }
     }
 }

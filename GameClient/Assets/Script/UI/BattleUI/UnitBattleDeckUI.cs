@@ -32,6 +32,19 @@ public class UnitBattleDeckUI  : UIBase
         }
     }
 
+    public void InitializePvpDeck(Action<UnitData> spawnRequest)
+    {
+        var deployUnits = GlobalInstance.I.MainUser.UserUnitData.DeployUnitList;
+
+        for(int i = 0; i < deckSlotUI.Length; i++)
+        {
+            if(deployUnits.TryGetValue(i.ToString(), out var unitData) == false)
+                deckSlotUI[i].InitializeView(null, unitList, spawnRequest);
+            else
+                deckSlotUI[i].InitializeView(unitData, unitList, spawnRequest);
+        }
+    }
+
     private void HandleSpawnUnit(UnitData data)
     {
         if(battleField.GetMoney() < data.UnitCost)

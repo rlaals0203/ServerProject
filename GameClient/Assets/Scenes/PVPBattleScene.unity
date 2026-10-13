@@ -509,6 +509,7 @@ GameObject:
   m_Component:
   - component: {fileID: 676861465}
   - component: {fileID: 676861466}
+  - component: {fileID: 676861467}
   m_Layer: 0
   m_Name: BattleField
   m_TagString: Untagged
@@ -542,16 +543,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 676861464}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0aa5fcece94fc55409bff6e90f9d08fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyList: {fileID: 11400000, guid: 9df16aa2447061c46b14d12765156301, type: 2}
-  unitSpawner: {fileID: 841830798}
-  enemySpawner: {fileID: 1127924202}
-  mapCamera: {fileID: 1817917482}
-  stageCompAnim: {fileID: 425663107}
-  friendlyCastleData: {fileID: 11400000, guid: d4b6f3147cac7f0479938ab16655bd8b, type: 2}
-  moneyText: {fileID: 8133077247022794109}
+  m_Script: {fileID: 11500000, guid: d52445920e3604e43b4295b94ba35252, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  unitSOList: {fileID: 11400000, guid: 45fdbfb2cc0fc1b4eaf1f119bd6d3b35, type: 2}
+--- !u!114 &676861467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 676861464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ff5dc833f326db49b5eb45368d61332, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  unitBattleDeckUI: {fileID: 1504137578224340955}
 --- !u!1 &841830796
 GameObject:
   m_ObjectHideFlags: 0
@@ -1953,7 +1961,7 @@ PrefabInstance:
     - target: {fileID: 809143857852276260, guid: f04333b9a1ca0d547b47a050291c8ced, type: 3}
       propertyPath: battleField
       value: 
-      objectReference: {fileID: 676861466}
+      objectReference: {fileID: 0}
     - target: {fileID: 1203075673118550425, guid: f04333b9a1ca0d547b47a050291c8ced, type: 3}
       propertyPath: m_fontAsset
       value: 

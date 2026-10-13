@@ -15,29 +15,41 @@ public class GameHub : Hub
     {
         string connectionId = Context.ConnectionId;
         var resultData = await _matchingService.ProcessAsync(userId, connectionId);
-
-        await Clients.Caller.SendAsync(JoinMatchResultData.CONNECTION, resultData);
-
-        if(resultData.MatchResult == EMatchResult.Matched)
+        if(resultData.MatchResult != EMatchResult.Matched)
         {
-            await Groups.AddToGroupAsync(connectionId, resultData.RoomId);
-            await Groups.AddToGroupAsync(resultData.OpponentUser.ConnectionId, resultData.RoomId);
+            await Clients.Caller.SendAsync(JoinMatchResultData.CONNECTION, resultData);
+            return;
+        }
 
-            await Clients.Client(resultData.OpponentUser.ConnectionId).SendAsync(JoinMatchResultData.CONNECTION, resultData);
-            await Clients.Client(connectionId).SendAsync(JoinMatchResultData.CONNECTION, resultData);
+        MatchingUserData matchingInfo = new MatchingUserData()
+        {
+            UserId = userId,
+            ConnectionId = connectionId
+        };
 
-            MatchingUserData matchingInfo = new MatchingUserData()
-            {
-                UserId = userId,
-                ConnectionId = connectionId
-            };
+        if(await _roomService.CreateRoom(matchingInfo, resultData.OpponentUser, resultData.RoomId) == false)
+        {
+            await Clients.Caller.SendAsync(JoinMatchResultData.CONNECTION, new JoinMatchResultData() { MatchResult = EMatchResult.Fail });
+            await Clients.Client(resultData.OpponentUser.ConnectionId).SendAsync(JoinMatchResultData.CONNECTION, new JoinMatchResultData() { MatchResult = EMatchResult.Fail });
+            return;
+        }
 
-            await _roomService.CreateRoom(matchingInfo, resultData.OpponentUser, resultData.RoomId);
-        } 
+        await Groups.AddToGroupAsync(connectionId, resultData.RoomId);
+        await Groups.AddToGroupAsync(resultData.OpponentUser.ConnectionId, resultData.RoomId);
+
+        resultData.IsOpponent = false;
+        await Clients.Caller.SendAsync(JoinMatchResultData.CONNECTION, resultData);
+        await Clients.Client(resultData.OpponentUser.ConnectionId).SendAsync(JoinMatchResultData.CONNECTION, new JoinMatchResultData()
+        {
+            MatchResult = EMatchResult.Matched,
+            RoomId = resultData.RoomId,
+            OpponentUser = matchingInfo,
+            IsOpponent = true
+        });
     }
 
-    public async Task RequestSpawnUnit(string unitId, bool isOpponent)
+    public bool RequestSpawnUnit(string unitId)
     {
-        
+        return _roomService.SpawnUnit(Context.ConnectionId, unitId);
     }
 }

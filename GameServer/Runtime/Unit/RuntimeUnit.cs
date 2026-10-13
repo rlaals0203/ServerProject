@@ -2,28 +2,31 @@ using System.Numerics;
 
 public class RuntimeUnit : ObjectBase
 {
+    public int RuntimeId { get; }
     public bool IsDead { get; private set; }
     public bool IsFreeze { get; private set; }
     public bool IsOpponent { get; }
     public UnitData UnitData { get; }
+    public EStateType CurrentState { get; private set; }
     public event Action<RuntimeUnit> OnDead;
 
     private StateMachine _stateMachine;
 
-    public RuntimeUnit(UnitData unitData, bool isOpponent, RuntimeBattleField battleField, Vector3 position, ELayer layer) 
+    public RuntimeUnit(int runtimeId, UnitData unitData, bool isOpponent, RuntimeBattleField battleField, Vector3 position, ELayer layer)
         : base(battleField, position, layer)
     {
+        RuntimeId = runtimeId;
         IsOpponent = isOpponent;
         UnitData = unitData;
 
-        AddComponent(new HealthComponent(this));
         AddComponent(new StatComponent(this));
+        AddComponent(new HealthComponent(this));
         AddComponent(new MovementComponent(this));
         AddComponent(new AbilityComponent(this));
         AddComponent(new AttackComponent(this));
 
         _stateMachine = new StateMachine(this);
-        _stateMachine.ChangeState(EStateType.Idle);
+        ChangeState(EStateType.Idle);
     }
 
     public override void Init()
@@ -38,7 +41,7 @@ public class RuntimeUnit : ObjectBase
 
     public override void Update(float dt)
     {
-        base.Update(dt);
+        Get<AbilityComponent>().UpdateComponent(dt);
 
         if(IsFreeze)
         {
@@ -50,6 +53,7 @@ public class RuntimeUnit : ObjectBase
 
     public void ChangeState(EStateType stateType)
     {
+        CurrentState = stateType;
         _stateMachine?.ChangeState(stateType);
     }
 

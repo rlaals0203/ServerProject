@@ -1,10 +1,12 @@
+using System.Collections.Concurrent;
 using Microsoft.AspNetCore.SignalR;
 
 public class GameRoomService
 {
     private DbManager _dbManager;
     private IHubContext<GameHub> _hubContext;
-    private Dictionary<string, PvpRoom> _rooms = new();
+    private ConcurrentDictionary<string, PvpRoom> _rooms = new();
+    private ConcurrentDictionary<string, PvpRoom> _roomsByConnection = new();
 
     public GameRoomService(DbManager dbManager, IHubContext<GameHub> hubContext)
     {
@@ -12,10 +14,12 @@ public class GameRoomService
         _hubContext = hubContext;
     }
 
-    public async Task CreateRoom(MatchingUserData userInfo, MatchingUserData opponentInfo, string roomId)
+    public async Task<bool> CreateRoom(MatchingUserData userInfo, MatchingUserData opponentInfo, string roomId)
     {
         var userData = await _dbManager.LoadUserAsync(userInfo.UserId);
         var opponentData = await _dbManager.LoadUserAsync(opponentInfo.UserId);
+        if(userData == null || opponentData == null)
+            return false;
 
         PvpRoom newRoom = new PvpRoom(userData, opponentData)
         {
@@ -26,10 +30,34 @@ public class GameRoomService
             RoomId = roomId
         };
         
-        _rooms.Add(opponentInfo.UserId, newRoom);
+        if(_rooms.TryAdd(roomId, newRoom) == false)
+            return false;
+
+        if(_roomsByConnection.TryAdd(userInfo.ConnectionId, newRoom) == false)
+        {
+            _rooms.TryRemove(roomId, out _);
+            return false;
+        }
+
+        if(_roomsByConnection.TryAdd(opponentInfo.ConnectionId, newRoom) == false)
+        {
+            _roomsByConnection.TryRemove(userInfo.ConnectionId, out _);
+            _rooms.TryRemove(roomId, out _);
+            return false;
+        }
+
+        return true;
     }
 
-    public async void UpdateRoom(float dt)
+    public bool SpawnUnit(string connectionId, string unitId)
+    {
+        if(_roomsByConnection.TryGetValue(connectionId, out var room) == false)
+            return false;
+
+        return room.SpawnUnit(connectionId, unitId);
+    }
+
+    public async Task UpdateRoom(float dt)
     {
         foreach(var room in _rooms)
         {
@@ -44,10 +72,11 @@ public class GameRoomService
         if(_rooms.Count == 0)
             return;
 
-        if(_rooms.TryGetValue(roomId, out var room))
+        if(_rooms.TryRemove(roomId, out var room))
         {
+            _roomsByConnection.TryRemove(room.UserConnectionId, out _);
+            _roomsByConnection.TryRemove(room.OpponentUserConnectionId, out _);
             room.DestroyRoom();
-            _rooms.Remove(roomId);
         }
     }
 
@@ -55,7 +84,7 @@ public class GameRoomService
     {
         foreach(var room in _rooms.Values)
         {
-            foreach(var message in room.TakeMessageQueue())
+            while(room.TryTakeMessage(out var message))
             {
                 await _hubContext.Clients.Group(message.RoomId).SendAsync(message.Route, message);
             }
