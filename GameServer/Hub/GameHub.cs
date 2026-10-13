@@ -32,7 +32,12 @@ public class GameHub : Hub
                 ConnectionId = connectionId
             };
 
-            await _roomService.CreateRoom(matchingInfo, resultData.OpponentUser);
+            await _roomService.CreateRoom(matchingInfo, resultData.OpponentUser, resultData.RoomId);
         } 
+    }
+
+    public async Task RequestSpawnUnit(string unitId, bool isOpponent)
+    {
+        
     }
 }

@@ -36,7 +36,7 @@ public class PvpUI : ContentUI
 
     private async UniTask StartPVP()
     {
-        await UniTask.Delay(1000);
+        await UniTask.Delay(3000);
         await SceneManager.LoadSceneAsync(SceneDefine.PVP_SCENE);
     }
 }

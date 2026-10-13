@@ -6,13 +6,13 @@ public class PvpRoom
     public string UserConnectionId { get; set; }
     public string OpponentUserId { get; set; }
     public string OpponentUserConnectionId { get; set; }
+    public string RoomId { get; set; }
     private RuntimeBattleField _battleField;
-    private IHubContext _hubContext;
+    private Queue<StandardMessageData> _messageQueue = new();
 
-
-    public PvpRoom()
+    public PvpRoom(UserBaseData userData, UserBaseData opponentdata)
     {
-        _battleField = new RuntimeBattleField();
+        _battleField = new RuntimeBattleField(userData, opponentdata);
     }
 
     public void UpdateRoom(float dt)
@@ -22,6 +22,8 @@ public class PvpRoom
 
     public void DestroyRoom()
     {
-        
+        _battleField.ReleaseBattleField();
     }
+
+    public Queue<StandardMessageData> TakeMessageQueue() => _battleField.TakeMessageQueue();
 }

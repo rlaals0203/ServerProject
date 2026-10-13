@@ -6,6 +6,7 @@ public class RuntimeUnit : ObjectBase
     public bool IsFreeze { get; private set; }
     public bool IsOpponent { get; }
     public UnitData UnitData { get; }
+    public event Action<RuntimeUnit> OnDead;
 
     private StateMachine _stateMachine;
 
@@ -55,5 +56,10 @@ public class RuntimeUnit : ObjectBase
     public void SetFreeze(bool isFreeze)
     {
         IsFreeze = isFreeze;
+    }
+
+    public void SetDead()
+    {
+        OnDead?.Invoke(this);
     }
 }

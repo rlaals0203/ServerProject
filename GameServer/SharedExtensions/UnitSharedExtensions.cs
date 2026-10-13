@@ -33,6 +33,7 @@ public class UpdateUnitData
         UnitAttackData attackData = new UnitAttackData
         {
             UnitAttackPower = (int)(statData.UnitAttackData.UnitAttackPower * statMultiplier),
+            UnitCastTime = statData.UnitAttackData.UnitCastTime,
             UnitAttackSpeed = statData.UnitAttackData.UnitAttackSpeed,
             UnitAttackRange = statData.UnitAttackData.UnitAttackRange,
             UnitAttackDistance = statData.UnitAttackData.UnitAttackDistance,

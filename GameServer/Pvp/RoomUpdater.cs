@@ -1,18 +1,16 @@
-public class RoomUpdater : IHostedService
+public class RoomUpdater : BackgroundService
 {
-    private GameRoomService GameRoomService;
+    private GameRoomService _gameRoomService;
+    private const float DT = 0.166666f;
 
     public RoomUpdater(GameRoomService gameRoomService)
     {
-        GameRoomService = gameRoomService;
+        _gameRoomService = gameRoomService;
     }
 
-    public async Task StartAsync(CancellationToken cancellationToken)
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-    }
-
-    public Task StopAsync(CancellationToken cancellationToken)
-    {
-        return null;
+        _gameRoomService.UpdateRoom(DT);
+        await Task.Delay((int)(DT * 1000), stoppingToken);
     }
 }
