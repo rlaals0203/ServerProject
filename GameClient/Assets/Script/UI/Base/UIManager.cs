@@ -10,7 +10,7 @@ public class UIManager : MonoSingleton<UIManager>
     private Stack<PopupUIBase> _uiStack = new();
     
     public T OpenPopup<T>(string key, Vector3 position, Transform parent, 
-        Action spawnCallback = null, Action closeCallback = null) where T : PopupUIBase
+        Action<T> spawnCallback = null, Action closeCallback = null) where T : PopupUIBase
     {
         parent ??= popupTrm;
         T popup = ResourceManager.I.SpawnAndInitPool<T>(key, position, parent, spawnCallback);

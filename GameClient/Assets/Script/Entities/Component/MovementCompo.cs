@@ -50,14 +50,20 @@ public class MovementCompo : MonoBehaviour, IComponentCache
 
         Ease ease = Ease.OutCubic;
         DOTween.Sequence()
-            .Append(unit.DOJump(pos - _direction * 0.7f, 0.4f, 1, 0.35f)).SetEase(ease)
-            .Append(unit.DOJump(pos - _direction * 1f, 0.25f, 1, 0.25f)).SetEase(ease)
-            .Append(unit.DOJump(pos - _direction * 1.1f, 0.1f, 1, 0.15f)).SetEase(ease)
+            .Append(unit.DOJump(pos - _direction * 0.7f, 0.4f, 1, 0.4f)).SetEase(ease)
+            .Append(unit.DOJump(pos - _direction * 1f, 0.25f, 1, 0.2f)).SetEase(ease)
+            .Append(unit.DOJump(pos - _direction * 1.1f, 0.1f, 1, 0.1f)).SetEase(ease)
 
             .OnComplete(() =>
             {
                 if (_healthCompo.IsDead == false)
                     return;
+
+                new SpawnCacheObject<SpiritEffect>("SpiritEffect", _owner.transform.position, null, spawned =>
+                {
+                    Vector3 spawnPosition = _owner.transform.position + Vector3.up;
+                    spawned.PlayEffect(spawnPosition, Quaternion.identity, 5f);
+                });
 
                 ResourceManager.I.DespawnPool(_owner.gameObject);
             });

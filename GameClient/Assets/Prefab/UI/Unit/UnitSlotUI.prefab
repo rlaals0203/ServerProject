@@ -1061,15 +1061,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsActive: 0
+  purchaseEffect: {fileID: 289155654248372594}
   unitNameText: {fileID: 8938550943159867677}
   unitLevelText: {fileID: 1323980120835212343}
   unitCostText: {fileID: 2921464640449264336}
   unitUpgradeCost: {fileID: 863504298422797405}
   maxLevelText: {fileID: 3697637010452981219}
   unitIcon: {fileID: 1047847597639733345}
-  purchaseEffect: {fileID: 289155654248372594}
   lockObject: {fileID: 645443995732486788}
-  unitUpgradeCostText: {fileID: 863504298422797405}
   unitUpgradeUI: {fileID: 4561094084928736203}
 --- !u!114 &-5651839097327128887
 MonoBehaviour:

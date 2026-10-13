@@ -37,8 +37,9 @@ public class HealthCompo : MonoBehaviour, IComponentCache, IAfterInit, IDamageab
         _healthStat.SubstractStatValue(damage);
         OnDamaged?.Invoke();
         _damageStacked += (int)damage;
+        PlayHitEffect();
 
-        if(_damageStacked >= _minHitbackHealth)
+        if (_damageStacked >= _minHitbackHealth)
         {
             _damageStacked = 0;
             OnHitback?.Invoke();
@@ -48,6 +49,18 @@ public class HealthCompo : MonoBehaviour, IComponentCache, IAfterInit, IDamageab
         {
             SetDead();
         }
+    }
+
+    private void PlayHitEffect()
+    {
+        float direction = _owner.IsEnemyUnit ? 1f : -1f;
+        Vector3 ownerPos = _owner.transform.position;
+        Vector3 spawnPosition = new Vector2(ownerPos.x + direction * 0.5f, ownerPos.y + 0.5f) + (UnityEngine.Random.insideUnitCircle * 0.3f);
+
+        new SpawnCacheObject<SpriteEffect>("AttackEffect", _owner.transform.position, null, spawned =>
+        {
+            spawned.PlayEffect(spawnPosition, Quaternion.identity, 0.5f);
+        });
     }
 
     public void SetDead()

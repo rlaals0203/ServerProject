@@ -143,19 +143,21 @@ namespace MINLib.Script.Core.Resource
             return spawned;
         }
 
-        public T SpawnAndInitPool<T>(string key, Vector3 position, Transform parent, Action spawnCallback = null)
+        public T SpawnAndInitPool<T>(string key, Vector3 position, Transform parent, Action<T> spawnCallback = null)
         {
             if(CheckCacheResource(key) == false)
             {
                 return default;
             }
 
-            GameObject spawned = SpawnAndInitPool(key, position, parent, spawnCallback);
+            GameObject spawned = SpawnAndInitPool(key, position, parent);
 
             if(spawned == null)
                 return default;
 
-            return spawned.GetComponent<T>();
+            T component = spawned.GetComponent<T>();
+            spawnCallback?.Invoke(component);
+            return component;
         }
 
         public bool DespawnPool(GameObject target, Action<int> onDespawn = null)

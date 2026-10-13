@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Effect
+  m_EditorClassIdentifier: 
+  m_GroupName: Effect
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 5e228ad0a3b1a994d8b6d65aed409849
+  m_SerializeEntries:
+  - m_GUID: 2fcf3aee30fc6d84eb8b53c7fab81e62
+    m_Address: AttackEffect
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - prepooling
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4be0bc677fd8c614db66d43a8455cb03
+    m_Address: SpriteEffect
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dcd46f20ee308b344bb6fd01d84bd37b
+    m_Address: SpiritEffect
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - prepooling
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: dcbe1beaa3c60504c8bca4ca182e4988, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 212afec88a9b8cd4f87bdc4b7edc9f71, type: 2}
+    - {fileID: 11400000, guid: cc842ae0fe0a4f9498375011cbb5e3f1, type: 2}
