@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UnitSlotUI : UIBase, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class UnitSlotUI : UpgradeSlotUI, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [SerializeField] private TMP_Text unitNameText;
     [SerializeField] private TMP_Text unitLevelText;
@@ -14,10 +14,8 @@ public class UnitSlotUI : UIBase, IBeginDragHandler, IDragHandler, IEndDragHandl
     [SerializeField] private TMP_Text unitUpgradeCost;
     [SerializeField] private TMP_Text maxLevelText;
     [SerializeField] private Image unitIcon;
-    [SerializeField] private Image purchaseEffect;
     [SerializeField] private GameObject lockObject;
 
-    [SerializeField] private TMP_Text unitUpgradeCostText;
     [SerializeField] private GameObject unitUpgradeUI;
 
     public event Action<UnitSlotUI> OnUnitDragStart;
@@ -26,7 +24,7 @@ public class UnitSlotUI : UIBase, IBeginDragHandler, IDragHandler, IEndDragHandl
 
     private string _currentUnitId;
 
-    public void RefreshUI(UnitData unitData, UnitSO unitSO)
+    public virtual void RefreshUI(UnitData unitData, UnitSO unitSO)
     {
         bool isLockd = unitData.UnitLevel == 0;
         lockObject.SetActive(isLockd);
@@ -44,16 +42,6 @@ public class UnitSlotUI : UIBase, IBeginDragHandler, IDragHandler, IEndDragHandl
             unitUpgradeUI.SetActive(false);
             maxLevelText.gameObject.SetActive(true);
         }
-    }
-
-    public async void PlayPurchseEffect()
-    {
-        purchaseEffect.DOKill();
-        purchaseEffect.DOFade(1f, 0f);
-        DOVirtual.DelayedCall(0.1f, () =>
-        {
-            purchaseEffect.DOFade(0f, 0.8f);
-        });
     }
 
     public string GetUnitId()

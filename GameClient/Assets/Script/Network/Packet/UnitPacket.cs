@@ -58,6 +58,7 @@ public class PassiveUpgrdePacketResultData : StandardPacketResultData
 {
     public EPassiveType PassiveType { get; set; }
     public int Level { get; set; }
+    public int UpgradePrice { get; set; }
 
     public PassiveUpgrdePacketResultData(EPacketResult packetResult) : base(packetResult)
     {

@@ -11,6 +11,11 @@ public class UnitSpecialAbilityUI : UIBase
     {
         DisableImages();
 
+        if(specialAbilityData == null)
+        {
+            return;
+        }
+
         foreach (SpecialAbilityData abilityData in specialAbilityData.SpecialAbilityDatas)
         {
             int index = (int)Mathf.Log((uint)abilityData.AbilityType, 2) - 1;

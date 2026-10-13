@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45f0606b1e3440749af6ab534c5d0158, type: 3}
+  m_Name: PassiveSOList
+  m_EditorClassIdentifier: 
+  PassiveList:
+  - {fileID: 11400000, guid: 4640ea916856ea6478849e03da23bd56, type: 2}
+  - {fileID: 11400000, guid: 24dbab0601b4acb42a07d09449b28a81, type: 2}
+  - {fileID: 11400000, guid: f55d67d095dc27a4b9d1cea23e79e8ca, type: 2}
+  - {fileID: 11400000, guid: d967943fff4702a4a8cfbffe52e7cd90, type: 2}
+  - {fileID: 11400000, guid: 82af4dcda5b36a944815958932d7060b, type: 2}
+  - {fileID: 11400000, guid: a797b49d7a863f744af3ce008c32390b, type: 2}
+  - {fileID: 11400000, guid: 12755453c0d2614429f960f0148ce0f3, type: 2}
+  - {fileID: 11400000, guid: 036cb900e8657764f940f62f88d71106, type: 2}
+  - {fileID: 11400000, guid: 7927a762566ab954dab3b076def751b8, type: 2}
+  - {fileID: 11400000, guid: 2a425aa294a27074dbc834d28fce4679, type: 2}
