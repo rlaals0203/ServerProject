@@ -2,10 +2,13 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitListUI : SnapScrollViewBase<UnitSlotUI>
+public class UnitListUI : SnapScrollViewBase<UpgradeSlotUI>
 {
+    [SerializeField] private PassiveSOList passiveSOList;
     [SerializeField] private UnitSOList unitSOList;
+
     public event Action<string> OnUnitChanged;
+    public event Action<EPassiveType> OnpassiveChanged;
 
     public void InitializeUnitList(Dictionary<string, UnitData> unitDatas)
     {
@@ -18,19 +21,48 @@ public class UnitListUI : SnapScrollViewBase<UnitSlotUI>
         }
     }
 
-    public void UpdateCurrentSlot(UnitData unitData)
+    public void InitializePassiveList()
     {
-        UnitSO unitSO = unitSOList.GetUnitById(unitData.UnitStatData.UnitId);
-        _currentElement.RefreshUI(unitData, unitSO);
+        foreach (EPassiveType passiveType in Enum.GetValues(typeof(EPassiveType)))
+        {
+            var spawned = new SpawnUI<PassiveSlotUI>("PassiveSlotUI", Vector3.zero, content).spawned;
+            spawned.RefreshUI(passiveType, passiveSOList.GetPassiveByType(passiveType));
+            _elements.Add(spawned);
+        }
     }
 
-    public UnitSlotUI GetCurrentSlot()
+    public void UpdateCurrentSlot(UnitData unitData)
+    {
+        if (_currentElement is not UnitSlotUI unitSlot)
+            return;
+
+        UnitSO unitSO = unitSOList.GetUnitById(unitData.UnitStatData.UnitId);
+        unitSlot.RefreshUI(unitData, unitSO);
+    }
+
+    public void UpdateCurrentSlot(EPassiveType passiveType)
+    {
+        if (_currentElement is not PassiveSlotUI passiveSlot)
+            return;
+
+        var passiveSO = passiveSOList.GetPassiveByType(passiveType);
+        passiveSlot.RefreshUI(passiveType, passiveSO);
+    }
+
+    public UpgradeSlotUI GetCurrentSlot()
     {
         return _currentElement;
     }
 
     protected override void ElementChanged()
     {
-        OnUnitChanged?.Invoke(_currentElement.GetUnitId());
+        if (_currentElement is UnitSlotUI unitSlot)
+        {
+            OnUnitChanged?.Invoke(unitSlot.GetUnitId());
+        }
+        else if(_currentElement is PassiveSlotUI passiveSlot)
+        {
+            OnpassiveChanged?.Invoke(passiveSlot.GetPassiveType());
+        }
     }
 }

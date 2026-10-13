@@ -24,9 +24,12 @@ public class UnitDeployUI : ContentUI
 
         foreach (var unitSlot in unitListUI.GetAllElement())
         {
-            unitSlot.OnUnitDragStart += HandleSlotDragStart;
-            unitSlot.OnUnitDragEnd += HandleSlotDrop;
-            unitSlot.OnUnitDrag += HandleDrag;
+            if (unitSlot is not UnitSlotUI unitSlotUI)
+                continue;
+
+            unitSlotUI.OnUnitDragStart += HandleSlotDragStart;
+            unitSlotUI.OnUnitDragEnd += HandleSlotDrop;
+            unitSlotUI.OnUnitDrag += HandleDrag;
         }
 
         foreach (var deploySlot in _deploySlots)
@@ -142,9 +145,12 @@ public class UnitDeployUI : ContentUI
     {
         foreach (var unitSlot in unitListUI.GetAllElement())
         {
-            unitSlot.OnUnitDragStart -= HandleSlotDragStart;
-            unitSlot.OnUnitDragEnd -= HandleSlotDrop;
-            unitSlot.OnUnitDrag -= HandleDrag;
+            if (unitSlot is not UnitSlotUI unitSlotUI)
+                continue;
+
+            unitSlotUI.OnUnitDragStart -= HandleSlotDragStart;
+            unitSlotUI.OnUnitDragEnd -= HandleSlotDrop;
+            unitSlotUI.OnUnitDrag -= HandleDrag;
         }
 
         foreach (var deploySlot in _deploySlots)

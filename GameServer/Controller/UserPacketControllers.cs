@@ -93,6 +93,7 @@ public partial class BasePacketController : ControllerBase
         {
             PassiveType = process.PassiveType,
             Level = process.Level,
+            UpgradePrice = process.UpgradePrice
         };
 
         return resultData;

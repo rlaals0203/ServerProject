@@ -213,6 +213,7 @@ MonoBehaviour:
   IsActive: 0
   scrollRect: {fileID: 7822009135502715257}
   content: {fileID: 1444052938154205035}
+  passiveSOList: {fileID: 11400000, guid: 7a2deb312d9d56348a0ffce9d2b7d59c, type: 2}
   unitSOList: {fileID: 11400000, guid: 45fdbfb2cc0fc1b4eaf1f119bd6d3b35, type: 2}
 --- !u!1 &7864299236700270699
 GameObject:

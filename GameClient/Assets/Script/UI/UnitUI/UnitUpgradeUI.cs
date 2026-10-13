@@ -11,7 +11,6 @@ public class UnitUpgradeUI : ContentUI
     [SerializeField] private UnitSOList unitSOList;
     [SerializeField] private PassiveSOList passiveSOList;
     [SerializeField] private UnitListUI unitListUI;
-    [SerializeField] private PassiveListUI passiveListUI;
     [SerializeField] private UnitSpecialAbilityUI specialAbilityUI;
 
     [SerializeField] private TMP_Text description;
@@ -26,12 +25,22 @@ public class UnitUpgradeUI : ContentUI
         base.Initialize();
 
         unitListUI.InitializeUnitList(GlobalInstance.I.MainUser.UserUnitData.OwnUnitList);
+        unitListUI.InitializePassiveList();
+
         unitListUI.OnElementChanged -= RefreshUI;
         unitListUI.OnElementChanged += RefreshUI;
+    }
 
-        passiveListUI.InitializePassiveList();
-        passiveListUI.OnElementChanged -= RefreshUI;
-        passiveListUI.OnElementChanged += RefreshUI;
+    private void RefreshUI(UpgradeSlotUI ui)
+    {
+        if(ui is UnitSlotUI unitSlot)
+        {
+            RefreshUI(unitSlot);
+        }
+        else if(ui is PassiveSlotUI passiveSlot)
+        {
+            RefreshUI(passiveSlot);
+        }
     }
 
     private void RefreshUI(UnitSlotUI ui)
@@ -41,17 +50,26 @@ public class UnitUpgradeUI : ContentUI
         UnitSO unitSO = unitSOList.GetUnitById(_currentUnitId);
         description.text = unitSO.UnitDesc;
         specialAbilityUI.InitSpecialAbilityUI(unitSO.UnitSpecialAbilityData);
-        RefreshButtonStateByUnit();
+        RefreshButton();
     }
 
     private void RefreshUI(PassiveSlotUI passiveSlotUI)
     {
-        _currentUnitId = null;
+        _currentUnitId = string.Empty;
         _passiveType = passiveSlotUI.GetPassiveType();
 
         PassiveSO passiveSO = passiveSOList.GetPassiveByType(_passiveType);
         description.text = passiveSO.PassiveDesc;
         specialAbilityUI.InitSpecialAbilityUI(null);
+        RefreshButton();
+    }
+
+    private void RefreshButton()
+    {
+        if (string.IsNullOrEmpty(_currentUnitId))
+            RefreshButtonStateByPassive();
+        else
+            RefreshButtonStateByUnit();
     }
 
     private void RefreshButtonStateByUnit()
@@ -71,9 +89,9 @@ public class UnitUpgradeUI : ContentUI
     private void RefreshButtonStateByPassive()
     {
         int upgradePrice = GameDefine.PassiveStartPrice;
-        int currentLevel = GlobalInstance.I.MainUser.UserPassiveData[_currentUnitId.ToString()];
+        int currentLevel = GlobalInstance.I.MainUser.UserPassiveData[_passiveType.ToString()];
         int finalPrice = new GetUnitUpgradePrice(upgradePrice, currentLevel).Price;
-        bool purchasable = finalPrice <= GlobalInstance.I.MainUser.UserMonetaData[EMonetaType.Exp.ToString()] && currentLevel < GameDefine.UnitMaxLevel;
+        bool purchasable = finalPrice <= GlobalInstance.I.MainUser.UserMonetaData[EMonetaType.Exp.ToString()] && currentLevel < GameDefine.PassiveMaxLevel;
         upgradeButton.interactable = purchasable;
 
         if (purchasable)
@@ -117,9 +135,9 @@ public class UnitUpgradeUI : ContentUI
         passiveData[key] = data.Level;
         GlobalInstance.I.MainUser.UserMonetaData[EMonetaType.Exp.ToString()] -= data.UpgradePrice;
 
-        passiveListUI.GetCurrentSlot()?.PlayPurchseEffect();
-        passiveListUI.UpdateCurrentSlot(data.PassiveType);
-        RefreshButtonStateByPassive();
+        unitListUI.GetCurrentSlot()?.PlayPurchseEffect();
+        unitListUI.UpdateCurrentSlot(data.PassiveType);
+        RefreshButton();
     }
 
     private async void SendUnitUpgradePacket()
@@ -170,12 +188,11 @@ public class UnitUpgradeUI : ContentUI
         GlobalInstance.I.MainUser.UserMonetaData[EMonetaType.Exp.ToString()] -= data.UpgradePrice;
         unitListUI.GetCurrentSlot()?.PlayPurchseEffect();
         unitListUI.UpdateCurrentSlot(unit);
-        RefreshButtonStateByUnit();
+        RefreshButton();
     }
 
     private void OnDestroy()
     {
         unitListUI.OnElementChanged -= RefreshUI;
-        passiveListUI.OnElementChanged -= RefreshUI;
     }
 }
