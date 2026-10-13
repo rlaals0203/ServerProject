@@ -2,24 +2,26 @@ using Microsoft.AspNetCore.SignalR;
 
 public class GameHub : Hub
 {
-    private GameRoomService RoomService;
+    private GameRoomService _roomService;
+    private MatchingService _matchingService;
 
-    public GameHub(GameRoomService roomService)
+    public GameHub(MatchingService matchingService, GameRoomService roomService)
     {
-        RoomService = roomService;
+        _roomService = roomService;
+        _matchingService = matchingService;
     }
 
     public async Task RequestJoinMatch(string userId)
     {
         string connectionId = Context.ConnectionId;
-        EMatchResult result = await RoomService.JoinMatch(userId, connectionId);
-        JoinMatchResultData joinMatchResultData = new JoinMatchResultData()
-        {
-            MatchResult = result,
-            UserId = userId,
-        };
+        PvpMatchingProcess process = new PvpMatchingProcess();
+        var resultData = await _matchingService.ProcessAsync(userId, connectionId);
 
-        await Clients.Caller.SendAsync("JoinMatchResult", joinMatchResultData);
-        return;
+        await Clients.Caller.SendAsync(JoinMatchResultData.CONNECTION, resultData);
+
+        if(resultData.MatchResult == EMatchResult.Matched)
+        {
+            await Clients.Client(process.WaitingUser.ConnectionId).SendAsync(JoinMatchResultData.CONNECTION, resultData);
+        } 
     }
 }

@@ -3,6 +3,8 @@ public class GameRoomService
     private Dictionary<string, PvpRoom> _rooms = new();
     private Queue<UserConnectionInfo> _matchUserQueue = new();
 
+    private const float DT = 0.16666f;
+
     public async Task<EMatchResult> JoinMatch(string userId, string connectionId)
     {
         if(string.IsNullOrEmpty(userId))
@@ -73,7 +75,7 @@ public class GameRoomService
     {
         foreach(var room in _rooms)
         {
-            //room.Value?.UpdateRoom();
+            room.Value.UpdateRoom(DT);
         }
     }
 }

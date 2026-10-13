@@ -14,6 +14,7 @@ builder.Services.AddSingleton<GameDataManager>();
 builder.Services.AddSingleton<GameRoomService>();
 builder.Services.AddSingleton<UnitDataDefine>();
 builder.Services.AddSingleton<StageDataDefine>();
+builder.Services.AddSingleton<MatchingService>();
 
 var app = builder.Build();
 app.MapControllerRoute(

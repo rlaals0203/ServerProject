@@ -45,8 +45,8 @@ public class MainMenuUI : MonoBehaviour
     {
         ToggleDoor(true);
         _openedContents.Push(ui);
-        ui.gameObject.SetActive(true);
         ui.Initialize();
+        ui.gameObject.SetActive(true);
 
         RefreshContentSiblingIndex();
     }

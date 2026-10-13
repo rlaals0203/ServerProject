@@ -18,6 +18,11 @@ public class SignalRClient : MonoSingleton<SignalRClient>
                     .Build();
     }
 
+    private void Start()
+    {
+        _connection.StartAsync();
+    }
+
     public void ConnectToHub<T1>(string methodName, Action<T1> handler)
     {
         _connection.On(methodName, handler);
@@ -40,7 +45,6 @@ public class SignalRClient : MonoSingleton<SignalRClient>
 
     public async UniTask SendMessageToServer(string method, string userId)
     {
-        Debug.Log(_connection.State);
         if (_connection != null && _connection.State == HubConnectionState.Connected)
         {
             try
@@ -52,6 +56,10 @@ public class SignalRClient : MonoSingleton<SignalRClient>
             {
                 Debug.LogError($"Error sending message: {ex.Message}");
             }
+        }
+        else
+        {
+            Debug.LogWarning("SignalR not connected.");
         }
     }
 

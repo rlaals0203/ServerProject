@@ -1,8 +1,7 @@
 public class JoinMatchResultData
 {
+    public const string CONNECTION = "JoinMatchResult";
     public EMatchResult MatchResult { get; set; }
-    public string UserId { get; set; }
-    public string UserConnectionId { get; set; }
-    public string OpponentUserId { get; set; }
-    public string OpponentUserConnectionId { get; set; }
+    public string RoomId { get; set; }
+    public WaitingUserData OpponentUser { get; set; }
 }

@@ -10,6 +10,7 @@ public class StageCompleteAnimation : MonoBehaviour
     [SerializeField] private RectTransform reward;
     [SerializeField] private RectTransform winTitle;
     [SerializeField] private RectTransform returnButton;
+    [SerializeField] private RectTransform bottomUI;
 
     public void PlayAnimation(int exp)
     {
@@ -19,6 +20,7 @@ public class StageCompleteAnimation : MonoBehaviour
 
     private IEnumerator ExcuteAnimation()
     {
+        bottomUI.DOAnchorPosY(-400, 1f);
         yield return new WaitForSeconds(0.8f);
         winTitle.DOAnchorPosX(0, 0.25f).SetEase(Ease.OutQuint);
         yield return new WaitForSeconds(0.8f);
