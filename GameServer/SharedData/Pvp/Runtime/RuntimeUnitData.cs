@@ -39,7 +39,8 @@ public class UpdateCastleDataMessage : StandardMessageData
 [Serializable]
 public class CastleData
 {
-    public float CastleHealth { get; set; }
+    public float CurrentHealth { get; set; }
+    public float MaxHealth { get; set; }
     public float PositionX { get; set; }
     public float PositionY { get; set; }
 }

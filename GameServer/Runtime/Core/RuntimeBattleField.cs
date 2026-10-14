@@ -12,9 +12,11 @@ public class RuntimeBattleField
     private Castle _opponentCastle;
 
     private int _runtimeId = 2;
+    private float _maxUnitCastleHealth;
+    private float _maxOpponentCastleHealth;
 
-    private const float SpawnX = 7f;
-    private const float SpawnY = -1.8f;
+    private const float SpawnX = 6.8f;
+    private const float SpawnY = -2f;
 
 
     public RuntimeBattleField(UserBaseData userData, UserBaseData opponentData)
@@ -26,11 +28,17 @@ public class RuntimeBattleField
 
         _moneyHandler = new MoneyHandler(userData, opponentData);
         _unitSpawnHandler = new UnitSpawnHandler(userData.UserUnitData, opponentData.UserUnitData);
+        InitailizeCastle(userData, opponentData);
+    }
 
+    private void InitailizeCastle(UserBaseData userData, UserBaseData opponentData)
+    {
+        _maxUnitCastleHealth = userData.UserPassiveData[EPassiveType.BaseDefense.ToString()] * 500;
+        _maxOpponentCastleHealth = opponentData.UserPassiveData[EPassiveType.BaseDefense.ToString()] * 500;
         _unitCastle = new Castle("0", false, this, GetSpawnPos(false), ELayer.Unit);
-        _unitCastle.InitCastle(userData.UserPassiveData[EPassiveType.BaseDefense.ToString()] * 500);
+        _unitCastle.InitCastle(_maxUnitCastleHealth);
         _opponentCastle = new Castle("1", true, this, GetSpawnPos(true), ELayer.Enemy);
-        _opponentCastle.InitCastle(opponentData.UserPassiveData[EPassiveType.BaseDefense.ToString()] * 500);
+        _opponentCastle.InitCastle(_maxOpponentCastleHealth);
 
         _units[ELayer.Unit].Add("0", _unitCastle);
         _units[ELayer.Enemy].Add("1", _opponentCastle);
@@ -79,6 +87,7 @@ public class RuntimeBattleField
         }
 
         AddMessage(PVPBattleInfoDataMessage.ROUTE, CreatePVPBattleFieldInfoDataMessage());
+        AddMessage(UpdateCastleDataMessage.ROUTE, CreateCastleDataMessage());
 
         while(_deadUnitQueue.Count != 0)
         {
@@ -89,6 +98,27 @@ public class RuntimeBattleField
                 _units[layer].Remove(deadUnitId);
             }
         }
+    }
+
+    private UpdateCastleDataMessage CreateCastleDataMessage()
+    {
+        return new UpdateCastleDataMessage()
+        {
+            UnitCastleData = new CastleData()
+            {
+                CurrentHealth = _unitCastle.Get<HealthComponent>().GetCurrentHealth(),
+                MaxHealth = _maxUnitCastleHealth,
+                PositionX = _unitCastle.Position.X,
+                PositionY = _unitCastle.Position.Y
+            },
+            OpponentCastleData = new CastleData()
+            {
+                CurrentHealth = _opponentCastle.Get<HealthComponent>().GetCurrentHealth(),
+                MaxHealth = _maxOpponentCastleHealth,
+                PositionX = _opponentCastle.Position.X,
+                PositionY = _opponentCastle.Position.Y
+            }
+        };
     }
 
     private Vector3 GetSpawnPos(bool isOpponent)

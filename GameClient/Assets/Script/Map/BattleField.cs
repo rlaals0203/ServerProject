@@ -78,7 +78,7 @@ public class BattleField : MonoBehaviour
             return;
 
         mapCamera.FocusOn(isEnemyCastle ? _enemyCastle.GetCameraTrm() : _unitCastle.GetCameraTrm());
-        stageCompAnim.PlayAnimation(_mapData.expDrop);
+        stageCompAnim.PlayWinAnimation(_mapData.expDrop);
         _battleFinished = true;
         CompleteBattle();
 

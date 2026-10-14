@@ -1,5 +1,6 @@
 public class UnitAttackState : UnitState
 {
+    private bool _isAttacked;
     private float _castTime;
     private float _attackAnimTime;
 
@@ -13,6 +14,7 @@ public class UnitAttackState : UnitState
         base.EnterState();
         _castTime = _owner.UnitData.UnitAttackData.UnitCastTime;
         _attackAnimTime = _owner.UnitData.UnitAttackData.UnitAttackAnimTime;
+        _isAttacked = false;
     }
 
     public override void UpdateState(float dt)
@@ -21,9 +23,10 @@ public class UnitAttackState : UnitState
         _castTime -= dt;
         _attackAnimTime -= dt;
         
-        if(_castTime <= 0)
+        if(_castTime <= 0 && _isAttacked == false)
         {
             _attackCompo.Attack();
+            _isAttacked = true;
         }
 
         if(_attackAnimTime <= 0)
