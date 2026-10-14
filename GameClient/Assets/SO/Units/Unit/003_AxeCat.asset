@@ -34,7 +34,7 @@ MonoBehaviour:
   DetectRange: 1.3
   AttackSpeed: 0.9
   UnitSpecialAbilityData:
-    TargetTypes: 0800
+    TargetTypes: 08000200
     SpecialAbilityDatas:
     - AbilityType: 2
       Chance: 0
@@ -42,5 +42,8 @@ MonoBehaviour:
     - AbilityType: 128
       Chance: 0
       Duration: 0
+    - AbilityType: 32
+      Chance: 1
+      Duration: 1
   isDefaultUnit: 0
   animator: {fileID: 22100000, guid: 8cd42fece154f2a4e8be8a3050c6f7c6, type: 2}

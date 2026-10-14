@@ -8,14 +8,12 @@ public class FreezeUI: MonoBehaviour
 
     private Sequence _freezeSeq;
 
-    private void Awake()
-    {
-        _freezeSeq = DOTween.Sequence();
-    }
-
     public void PlayAnim()
     {
         _freezeSeq?.Kill();
+        hour.transform.localRotation = Quaternion.identity;
+        minute.transform.localRotation = Quaternion.identity;
+        _freezeSeq = DOTween.Sequence();
         _freezeSeq
             .Append(hour.transform.DORotate(new Vector3(0, 0, 360), 1.2f, RotateMode.FastBeyond360))
             .SetEase(Ease.OutExpo)

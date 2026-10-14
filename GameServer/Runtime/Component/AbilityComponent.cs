@@ -1,5 +1,8 @@
 public class AbilityComponent : ComponentBase
 {
+    public ESpecialAbilityType AbilityStatus { get; private set; }
+    public int FreezeApplyCount { get; private set; }
+
     private MovementComponent _movementCompo;
     private StatComponent _statCompo;
     private RuntimeUnit _owner;
@@ -29,6 +32,11 @@ public class AbilityComponent : ComponentBase
 
     private void HandleAbilityStatusChange(ESpecialAbilityType abilityType, bool status)
     {
+        if(status)
+            AbilityStatus |= abilityType;
+        else
+            AbilityStatus &= ~abilityType;
+
         if((abilityType & ESpecialAbilityType.Weaken) != 0)
         {
             ChangeWeakenStatus(status);
@@ -153,6 +161,7 @@ public class AbilityComponent : ComponentBase
         if ((abilityData.AbilityType & ESpecialAbilityType.Freeze) != 0)
         {
             _abilitySchedule[ESpecialAbilityType.Freeze].ModifyTime(abilityData.Duration);
+            FreezeApplyCount++;
         }
         if ((abilityData.AbilityType & ESpecialAbilityType.Slow) != 0)
         {

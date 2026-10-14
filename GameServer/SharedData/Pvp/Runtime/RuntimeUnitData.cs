@@ -18,6 +18,8 @@ public class RuntimeUnitData
     public bool IsOpponent { get; set; }
     public bool IsDead { get; set; }
     public EStateType State { get; set; }
+    public ESpecialAbilityType AbilityStatus { get; set; }
+    public int FreezeApplyCount { get; set; }
 }
 
 

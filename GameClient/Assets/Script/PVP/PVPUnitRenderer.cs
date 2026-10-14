@@ -29,6 +29,7 @@ public class PVPUnitRenderer
             if (_units.TryGetValue(unitData.RuntimeId, out var unit))
             {
                 unit.UpdateState(unitData.State);
+                unit.UpdateAbilityStatus(unitData.AbilityStatus, unitData.FreezeApplyCount);
                 unit.UpdateUnit(unitData.PositionX, unitData.PositionY);
                 continue;
             }

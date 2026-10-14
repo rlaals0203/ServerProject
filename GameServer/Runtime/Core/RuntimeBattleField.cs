@@ -165,6 +165,7 @@ public class RuntimeBattleField
                 if(unit.RuntimeId == "0" || unit.RuntimeId == "1") //성이면 스킵
                     continue;
 
+                AbilityComponent abilityCompo = unit.Get<AbilityComponent>();
                 RuntimeUnitData unitData = new RuntimeUnitData()
                 {
                     RuntimeId = unit.RuntimeId,
@@ -173,7 +174,9 @@ public class RuntimeBattleField
                     PositionY = unit.Position.Y,
                     IsOpponent = unit.IsOpponent,
                     IsDead = unit.IsDead,
-                    State = unit.CurrentState
+                    State = unit.CurrentState,
+                    AbilityStatus = abilityCompo.AbilityStatus,
+                    FreezeApplyCount = abilityCompo.FreezeApplyCount
                 };
 
                 allUnitData.Add(unitData);
