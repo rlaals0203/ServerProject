@@ -1,3 +1,4 @@
+using System;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -6,11 +7,12 @@ using UnityEngine.SceneManagement;
 public class PvpUI : ContentUI
 {
     [SerializeField] private TMP_Text Title;
+    private IDisposable _subscription;
 
     protected override void Awake()
     {
         base.Awake();
-        SignalRClient.I.ConnectToHub<JoinMatchResultData>(JoinMatchResultData.CONNECTION, OnRecieveResult);
+        _subscription = SignalRClient.I.SubscribeToHub<JoinMatchResultData>(JoinMatchResultData.CONNECTION, OnRecieveResult);
     }
     public override void Initialize()
     {
@@ -37,5 +39,10 @@ public class PvpUI : ContentUI
     {
         await UniTask.Delay(3000);
         await SceneManager.LoadSceneAsync(SceneDefine.PVP_SCENE);
+    }
+
+    private void OnDestroy()
+    {
+        _subscription.Dispose();
     }
 }

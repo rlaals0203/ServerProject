@@ -2,32 +2,23 @@ public class UnitSpawnHandler
 {
     private Dictionary<string, float> _spawnSchedule = new();
     private Dictionary<string, float> _opponentSpawnSchedule = new();
-    private Dictionary<string, UnitData> _unitDatas = new();
 
     public UnitSpawnHandler(UserUnitData userUnitData, UserUnitData opponentUnitData)
     {
-        foreach(var data in userUnitData.DeployUnitList)
+        foreach(var data in userUnitData.DeployUnitList.Values)
         {
-            if(string.IsNullOrEmpty(data.Key))
+            if(data == null)
                 continue;
 
-            if(data.Value == null)
-                continue;
-
-            _spawnSchedule[data.Key] = 0f;
-            _unitDatas.TryAdd(data.Key, data.Value);
+            _spawnSchedule[data.UnitStatData.UnitId] = 0f;
         }
 
-        foreach(var data in opponentUnitData.DeployUnitList)
+        foreach(var data in opponentUnitData.DeployUnitList.Values)
         {
-            if(string.IsNullOrEmpty(data.Key))
+            if(data == null)
                 continue;
 
-            if(data.Value == null)
-                continue;
-
-            _opponentSpawnSchedule[data.Key] = 0f;
-            _unitDatas.TryAdd(data.Key, data.Value);
+            _opponentSpawnSchedule[data.UnitStatData.UnitId] = 0f;
         }
     }
 
@@ -35,46 +26,27 @@ public class UnitSpawnHandler
     {
         foreach(var kvp in _spawnSchedule)
         {
-            _spawnSchedule[kvp.Key] -= dt;
+            _spawnSchedule[kvp.Key] = MathF.Max(0f, kvp.Value - dt);
         }
 
-        foreach(var kvp in _spawnSchedule)
+        foreach(var kvp in _opponentSpawnSchedule)
         {
-            _opponentSpawnSchedule[kvp.Key] -= dt;
+            _opponentSpawnSchedule[kvp.Key] = MathF.Max(0f, kvp.Value - dt);
         }
     }
 
-    public void SetSpawnStatus(string unitId, bool isOpponent)
+    public void SetSpawnStatus(string unitId, float cooldown, bool isOpponent)
     {
-        if(_unitDatas.TryGetValue(unitId, out var unitData) == false)
-            return;
-
         if(isOpponent)
-            _opponentSpawnSchedule[unitId] = unitData.UnitCooldown;
+            _opponentSpawnSchedule[unitId] = cooldown;
         else
-            _spawnSchedule[unitId] = unitData.UnitCooldown;
+            _spawnSchedule[unitId] = cooldown;
     }
 
     public bool CheckCanSpawn(string unitId, bool isOpponent)
     {
-        if(isOpponent)
-        {
-            if(_opponentSpawnSchedule.TryGetValue(unitId, out var remainTime))
-            {
-                if(remainTime <= 0f)
-                    return true;
-            }
-        }
-        else
-        {
-            if(_spawnSchedule.TryGetValue(unitId, out var remainTime))
-            {
-                if(remainTime <= 0f)
-                    return true;
-            }
-        }
-
-        return false;
+        var schedule = isOpponent ? _opponentSpawnSchedule : _spawnSchedule;
+        return schedule.TryGetValue(unitId, out var remainTime) && remainTime <= 0f;
     }
 
     public Dictionary<string, float> GetRemainCooldown(bool isOpponent)

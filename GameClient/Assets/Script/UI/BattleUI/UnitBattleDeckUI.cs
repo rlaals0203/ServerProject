@@ -45,6 +45,16 @@ public class UnitBattleDeckUI  : UIBase
         }
     }
 
+    public void UpdatePvpDeck(UpdateUnitCooldownData data, float money, bool isOpponent)
+    {
+        var cooldowns = isOpponent ? data.OpponentUnitCooldowns : data.UnitCooldowns;
+
+        foreach(var deckUI in deckSlotUI)
+        {
+            deckUI.UpdatePvpView(cooldowns, money);
+        }
+    }
+
     private void HandleSpawnUnit(UnitData data)
     {
         if(battleField.GetMoney() < data.UnitCost)

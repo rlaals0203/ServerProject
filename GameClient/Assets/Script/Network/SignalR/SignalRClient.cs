@@ -10,10 +10,12 @@ public class SignalRClient : MonoSingleton<SignalRClient>
     private const string HUB_URL = "http://localhost:5200/gamehub";
     private HubConnection _connection;
     private readonly SemaphoreSlim _lock = new(1, 1);
+    private SynchronizationContext _unityContext;
 
     protected override void Awake()
     {
         base.Awake();
+        _unityContext = SynchronizationContext.Current;
         _connection = new HubConnectionBuilder()
                     .WithUrl(HUB_URL)
                     .WithAutomaticReconnect()
@@ -68,7 +70,7 @@ public class SignalRClient : MonoSingleton<SignalRClient>
 
     public IDisposable SubscribeToHub<T1>(string methodName, Action<T1> handler)
     {
-        return _connection.On(methodName, handler);
+        return _connection.On<T1>(methodName, data => _unityContext.Post(_ => handler(data), null));
     }
 
     public async UniTask SendMessageToServer(string method, string userId)

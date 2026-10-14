@@ -75,7 +75,7 @@ public class RuntimeBattleField
         newUnit.Init();
 
         _units[layer].Add(newUnit.RuntimeId, newUnit);
-        _unitSpawnHandler.SetSpawnStatus(unitId, isOpponent);
+        _unitSpawnHandler.SetSpawnStatus(unitId, unitData.UnitCooldown, isOpponent);
         return true;
     }
 

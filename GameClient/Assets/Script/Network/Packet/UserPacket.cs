@@ -30,7 +30,7 @@ public class UserMonetaChangePacketResultData : StandardPacketResultData
     public EMonetaType MonetaType { get; set; }
     public int Amount { get; set; }
 
-    public UserMonetaChangePacketResultData(EPacketResult packetResult) : base(packetResult)
+    public UserMonetaChangePacketResultData(EPacketResult result) : base(result)
     {
     }
 }

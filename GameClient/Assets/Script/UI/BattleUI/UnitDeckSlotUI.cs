@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
@@ -45,6 +46,7 @@ public class UnitDeckSlotUI : UIBase
     {
         _unitData = unitData;
         _spawnRequest = spawnRequest;
+        _canSpawn = false;
         cooldownBar.gameObject.SetActive(false);
 
         if(unitData == null)
@@ -55,10 +57,34 @@ public class UnitDeckSlotUI : UIBase
             return;
         }
 
+        _unitCooltime = unitData.UnitCooldown;
         costText.text = $"{unitData.UnitStatData.UnitCost}¿ø";
         costText.gameObject.SetActive(true);
         unitIcon.sprite = unitSOList.GetUnitById(unitData.UnitStatData.UnitId).UnitIcon;
-        SetLockState(false);
+        SetLockState(true);
+    }
+
+    public void UpdatePvpView(Dictionary<string, float> cooldowns, float money)
+    {
+        if(_unitData == null)
+            return;
+
+        if(cooldowns.TryGetValue(_unitData.UnitStatData.UnitId, out var remainCooldown) == false)
+        {
+            _canSpawn = false;
+            SetLockState(true);
+            return;
+        }
+
+        remainCooldown = Mathf.Clamp(remainCooldown, 0f, _unitCooltime);
+        _canSpawn = remainCooldown <= 0f && money >= _unitData.UnitCost;
+        cooldownBar.gameObject.SetActive(remainCooldown > 0f);
+        costText.gameObject.SetActive(remainCooldown <= 0f);
+
+        if(remainCooldown > 0f)
+            cooldownBar.SetBar(_unitCooltime - remainCooldown, _unitCooltime);
+
+        SetLockState(_canSpawn == false);
     }
 
     public void OnTouchSpawnUnit()
@@ -68,6 +94,11 @@ public class UnitDeckSlotUI : UIBase
 
         if (_spawnRequest != null)
         {
+            if (_canSpawn == false)
+                return;
+
+            _canSpawn = false;
+            SetLockState(true);
             _spawnRequest(_unitData);
             return;
         }

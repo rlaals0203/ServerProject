@@ -1,4 +1,4 @@
-using System.ComponentModel;
+using MINLib.Script.Core.Resource;
 using UnityEngine;
 
 public class PVPUnit : MonoBehaviour
@@ -9,18 +9,25 @@ public class PVPUnit : MonoBehaviour
     private EStateType _currentState;
     private bool _isOpponent;
 
-    public void InitializePVPUnit(RuntimeUnitData unitData, UnitSO unitSO, Transform parent, bool isOpponent)
+    public void InitializePVPUnit(RuntimeUnitData unitData, UnitSO unitSO, bool isOpponent)
     {
         transform.localScale = new Vector3(unitData.IsOpponent != isOpponent ? -1f : 1f, 1f, 1f);
-        transform.position = new Vector3(isOpponent ? -unitData.PositionX : unitData.PositionX, unitData.PositionY, 0f);
+        _targetPosition = new Vector3(isOpponent ? -unitData.PositionX : unitData.PositionX, unitData.PositionY, 0f);
+        transform.position = _targetPosition;
         animator.runtimeAnimatorController = unitSO.animator;
         _isOpponent = isOpponent;
+        _currentState = (EStateType)(-1);
+        UpdateState(unitData.State);
     }
 
-    public void UpdateUnit(float dt, float posX, float posY)
+    public void UpdateUnit(float posX, float posY)
     {
         _targetPosition = new Vector3(_isOpponent ? -posX : posX, posY, 0f);
-        transform.position = Vector3.Lerp(transform.position, _targetPosition, Mathf.Min(1f, dt * 12f));
+    }
+
+    private void Update()
+    {
+        transform.position = Vector3.Lerp(transform.position, _targetPosition, Mathf.Min(1f, Time.deltaTime * 12f));
     }
 
     public void UpdateState(EStateType newState)
@@ -43,6 +50,6 @@ public class PVPUnit : MonoBehaviour
 
     public void Release()
     {
-
+        ResourceManager.I.DespawnPool(gameObject);
     }
 }

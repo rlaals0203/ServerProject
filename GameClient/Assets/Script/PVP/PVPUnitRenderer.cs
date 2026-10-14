@@ -18,22 +18,18 @@ public class PVPUnitRenderer
         if (allUnitData == null)
             return;
 
-        bool isOpponent = GlobalInstance.I.IsPvpOpponent;
-
         foreach (var unitData in allUnitData)
         {
             if(unitData.IsDead)
             {
                 _removeQueue.Enqueue(unitData.RuntimeId);
+                continue;
             }
 
             if (_units.TryGetValue(unitData.RuntimeId, out var unit))
             {
-                if (unit == null)
-                    continue;
-
                 unit.UpdateState(unitData.State);
-                unit.UpdateUnit(Time.deltaTime, unitData.PositionX, unitData.PositionY);
+                unit.UpdateUnit(unitData.PositionX, unitData.PositionY);
                 continue;
             }
 
@@ -43,8 +39,11 @@ public class PVPUnitRenderer
 
             unit = ResourceManager.I.SpawnAndInitPool<PVPUnit>("PVPUnit", Vector3.zero, null, spawned =>
             {
-                spawned.InitializePVPUnit(unitData, unitSO, null, GlobalInstance.I.IsPvpOpponent);
+                spawned.InitializePVPUnit(unitData, unitSO, GlobalInstance.I.IsPvpOpponent);
             });
+
+            if(unit == null)
+                continue;
 
             _units.Add(unitData.RuntimeId, unit);
         }
@@ -54,7 +53,7 @@ public class PVPUnitRenderer
             string removeId = _removeQueue.Dequeue();
 
             if (_units.TryGetValue(removeId, out var pvpUnit) == false)
-                return;
+                continue;
 
             new SpawnCacheObject<SpiritEffect>("SpiritEffect", pvpUnit.transform.position, null, spawned =>
             {
@@ -62,7 +61,8 @@ public class PVPUnitRenderer
                 spawned.PlayEffect(spawnPosition, Quaternion.identity, 5f);
             });
 
-            ResourceManager.I.DespawnPool(pvpUnit.gameObject);
+            pvpUnit.Release();
+            _units.Remove(removeId);
         }
     }
 
@@ -72,5 +72,7 @@ public class PVPUnitRenderer
         {
             unit.Release();
         }
+
+        _units.Clear();
     }
 }

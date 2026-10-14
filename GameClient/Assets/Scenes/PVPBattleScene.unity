@@ -375,6 +375,7 @@ MonoBehaviour:
   unitSOList: {fileID: 11400000, guid: 45fdbfb2cc0fc1b4eaf1f119bd6d3b35, type: 2}
   moneyText: {fileID: 8213107782490696169}
   pvpCastleHandler: {fileID: 49916410}
+  unitBattleDeckUI: {fileID: 1504137578224340955}
 --- !u!4 &348356296
 Transform:
   m_ObjectHideFlags: 0
