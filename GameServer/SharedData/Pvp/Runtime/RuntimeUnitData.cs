@@ -1,4 +1,14 @@
 [Serializable]
+public class PVPBattleInfoDataMessage : StandardMessageData
+{
+    public const string ROUTE = "UpdateBattleFieldData";
+    public List<RuntimeUnitData> AllUnitDatas { get; set; }
+    public UpdateUnitCooldownData UnitCooldownData { get; set; }
+    public float CurrentMoney { get; set; }
+    public float OpponentCurrentMoney { get; set; }
+}
+
+[Serializable]
 public class RuntimeUnitData
 {
     public string RuntimeId { get; set; }
@@ -10,9 +20,26 @@ public class RuntimeUnitData
     public EStateType State { get; set; }
 }
 
+
 [Serializable]
-public class UpdateAllUnitDataMessage : StandardMessageData
+public class UpdateUnitCooldownData
 {
-    public const string ROUTE = "UpdateAllUnitData";
-    public List<RuntimeUnitData> AllUnitDatas { get; set; }
+    public Dictionary<string, float>  UnitCooldowns { get; set; }
+    public Dictionary<string, float>  OpponentUnitCooldowns { get; set; }
+}
+
+[Serializable]
+public class UpdateCastleDataMessage : StandardMessageData
+{
+    public const string ROUTE = "UpdateCastleData";
+    public CastleData UnitCastleData { get; set; }
+    public CastleData OpponentCastleData { get; set; }
+}
+
+[Serializable]
+public class CastleData
+{
+    public float CastleHealth { get; set; }
+    public float PositionX { get; set; }
+    public float PositionY { get; set; }
 }

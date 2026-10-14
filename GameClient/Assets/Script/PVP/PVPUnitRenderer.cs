@@ -13,14 +13,14 @@ public class PVPUnitRenderer
         _unitSOList = unitSOList;
     }
 
-    public void UpdateRenderer(UpdateAllUnitDataMessage data)
+    public void UpdateRenderer(List<RuntimeUnitData> allUnitData)
     {
-        if (data == null)
+        if (allUnitData == null)
             return;
 
         bool isOpponent = GlobalInstance.I.IsPvpOpponent;
 
-        foreach (var unitData in data.AllUnitDatas)
+        foreach (var unitData in allUnitData)
         {
             if(unitData.IsDead)
             {

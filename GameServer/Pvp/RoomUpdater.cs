@@ -1,7 +1,7 @@
 public class RoomUpdater : BackgroundService
 {
     private GameRoomService _gameRoomService;
-    private const float DT = 0.166666f;
+    private const float DT = 0.033333f;
 
     public RoomUpdater(GameRoomService gameRoomService)
     {

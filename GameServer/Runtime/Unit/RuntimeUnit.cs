@@ -9,6 +9,7 @@ public class RuntimeUnit : ObjectBase
     public UnitData UnitData { get; }
     public EStateType CurrentState { get; private set; }
     public event Action<RuntimeUnit> OnDead;
+    public event Action<RuntimeUnit> OnHit;
 
     private StateMachine _stateMachine;
 
@@ -41,11 +42,8 @@ public class RuntimeUnit : ObjectBase
 
     public override void Update(float dt)
     {
-        foreach(var component in _components.Values)
-        {
-            component.UpdateComponent(dt);
-        }
-
+        base.Update(dt);
+        
         if(IsFreeze)
         {
             return;
@@ -63,6 +61,11 @@ public class RuntimeUnit : ObjectBase
     public void SetFreeze(bool isFreeze)
     {
         IsFreeze = isFreeze;
+    }
+
+    public void SetHit()
+    {
+        OnHit?.Invoke(this);
     }
 
     public void SetDead()

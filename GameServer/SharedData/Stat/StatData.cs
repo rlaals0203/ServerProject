@@ -91,6 +91,11 @@ public class StatData
         _statDatas[EStatType.MoveSpeed].InitStat(unitData.UnitMoveSpeed);
     }
 
+    public void InitializeStat(float health)
+    {
+        _statDatas[EStatType.Health].InitStat(health);
+    }
+
     public StatBase GetStat(EStatType statType)
     {
         return _statDatas.GetValueOrDefault(statType);

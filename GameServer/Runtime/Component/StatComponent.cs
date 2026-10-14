@@ -24,6 +24,11 @@ public class StatComponent : ComponentBase
         _statData.InitializeStat(unit.UnitData);
     }
 
+    public void InitializeHealthStat(float health)
+    {
+        _statData.InitializeStat(health);
+    }
+
     public StatBase GetStat(EStatType statType)
     {
         return _statData.GetStat(statType);

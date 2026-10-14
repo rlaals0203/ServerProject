@@ -86,6 +86,9 @@ public class AbilityComponent : ComponentBase
 
     public float CheckAndApplySpecialAbilities(RuntimeUnit target, float finalDamage)
     {
+        if(target.UnitData == null)
+            return finalDamage;
+
         UnitStatData ownerStat = _owner.UnitData.UnitStatData;
         UnitStatData targetStat = target.UnitData.UnitStatData;
         UnitSpecialAbilityData ownerAbilityStat = ownerStat.UnitSpecialAbilityData;

@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Visual
       objectReference: {fileID: 0}
+    - target: {fileID: 1696797110464212943, guid: 4be0bc677fd8c614db66d43a8455cb03, type: 3}
+      propertyPath: createCount
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 3334807992895791446, guid: 4be0bc677fd8c614db66d43a8455cb03, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

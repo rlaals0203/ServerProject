@@ -5,12 +5,13 @@ public class RuntimeBattleField
     private Dictionary<ELayer, Dictionary<string, RuntimeUnit>> _units = new();
     private Queue<string> _deadUnitQueue = new();
     private Queue<StandardMessageData> _messageQueue = new();
-    private Dictionary<string, float> _userSpawnTimes = new();
-    private Dictionary<string, float> _opponentSpawnTimes = new();
     private MoneyHandler _moneyHandler;
+    private UnitSpawnHandler _unitSpawnHandler;
 
-    private float _currentTime;
-    private int _runtimeId;
+    private Castle _unitCastle;
+    private Castle _opponentCastle;
+
+    private int _runtimeId = 2;
 
     private const float SpawnX = 7f;
     private const float SpawnY = -1.8f;
@@ -24,20 +25,29 @@ public class RuntimeBattleField
         }
 
         _moneyHandler = new MoneyHandler(userData, opponentData);
+        _unitSpawnHandler = new UnitSpawnHandler(userData.UserUnitData, opponentData.UserUnitData);
+
+        _unitCastle = new Castle("0", false, this, GetSpawnPos(false), ELayer.Unit);
+        _unitCastle.InitCastle(userData.UserPassiveData[EPassiveType.BaseDefense.ToString()] * 500);
+        _opponentCastle = new Castle("1", true, this, GetSpawnPos(true), ELayer.Enemy);
+        _opponentCastle.InitCastle(opponentData.UserPassiveData[EPassiveType.BaseDefense.ToString()] * 500);
+
+        _units[ELayer.Unit].Add("0", _unitCastle);
+        _units[ELayer.Enemy].Add("1", _opponentCastle);
     }
 
     public bool SpawnUnit(UnitData unitData, bool isOpponent)
     {
         string unitId = unitData.UnitStatData.UnitId;
-        var spawnTimes = isOpponent ? _opponentSpawnTimes : _userSpawnTimes;
-        if(spawnTimes.TryGetValue(unitId, out var nextSpawnTime) && _currentTime < nextSpawnTime)
+
+        if(_unitSpawnHandler.CheckCanSpawn(unitId, isOpponent) == false)
             return false;
 
         if(_moneyHandler.TrySpendMoney(isOpponent, unitData.UnitCost) == false)
             return false;
 
         ELayer layer = isOpponent ? ELayer.Enemy : ELayer.Unit;
-        Vector3 position = new Vector3(isOpponent ? -SpawnX : SpawnX, SpawnY, 0f);
+        Vector3 position = GetSpawnPos(isOpponent);
         RuntimeUnit newUnit = new RuntimeUnit(_runtimeId.ToString(), unitData, isOpponent, this, position, layer);
         _runtimeId++;
 
@@ -45,7 +55,7 @@ public class RuntimeBattleField
         newUnit.Init();
 
         _units[layer].Add(newUnit.RuntimeId, newUnit);
-        spawnTimes[unitId] = _currentTime + unitData.UnitCooldown;
+        _unitSpawnHandler.SetSpawnStatus(unitId, isOpponent);
         return true;
     }
 
@@ -57,8 +67,8 @@ public class RuntimeBattleField
 
     public void UpdateBattleField(float dt)
     {
-        _currentTime += dt;
         _moneyHandler.Update(dt);
+        _unitSpawnHandler.Update(dt);
 
         foreach(var unitList in _units.Values)
         {
@@ -68,7 +78,7 @@ public class RuntimeBattleField
             }
         }
 
-        AddMessage(UpdateAllUnitDataMessage.ROUTE, CreateUpdateAllUnitDataMessgae());
+        AddMessage(PVPBattleInfoDataMessage.ROUTE, CreatePVPBattleFieldInfoDataMessage());
 
         while(_deadUnitQueue.Count != 0)
         {
@@ -81,12 +91,17 @@ public class RuntimeBattleField
         }
     }
 
+    private Vector3 GetSpawnPos(bool isOpponent)
+    {
+        return new Vector3(isOpponent ? -SpawnX : SpawnX, SpawnY, 0f);
+    }
+
     public Dictionary<string, RuntimeUnit> GetAllUnit(ELayer layer)
     {
         return _units[layer];
     }
 
-    private UpdateAllUnitDataMessage CreateUpdateAllUnitDataMessgae()
+    private List<RuntimeUnitData> GetAllUnitData()
     {
         List<RuntimeUnitData> allUnitData = new();
 
@@ -94,6 +109,9 @@ public class RuntimeBattleField
         {
             foreach(var unit in _units[layer].Values)
             {
+                if(unit.RuntimeId == "0" || unit.RuntimeId == "1") //성이면 스킵
+                    continue;
+
                 RuntimeUnitData unitData = new RuntimeUnitData()
                 {
                     RuntimeId = unit.RuntimeId,
@@ -108,11 +126,27 @@ public class RuntimeBattleField
                 allUnitData.Add(unitData);
             }
         }
-        
-        return new UpdateAllUnitDataMessage()
+
+        return allUnitData;
+    }
+
+    private PVPBattleInfoDataMessage CreatePVPBattleFieldInfoDataMessage()
+    {
+        UpdateUnitCooldownData cooldownMessage = new()
         {
-            AllUnitDatas = allUnitData
+            UnitCooldowns = _unitSpawnHandler.GetRemainCooldown(false),
+            OpponentUnitCooldowns = _unitSpawnHandler.GetRemainCooldown(true)
         };
+
+        PVPBattleInfoDataMessage pvpBattleInfoData = new PVPBattleInfoDataMessage()
+        {
+            AllUnitDatas = GetAllUnitData(),
+            UnitCooldownData = cooldownMessage,
+            CurrentMoney = _moneyHandler.GetMoney(false),
+            OpponentCurrentMoney = _moneyHandler.GetMoney(true)
+        };
+
+        return pvpBattleInfoData;
     }
 
     public void AddMessage<TMessage>(string route, TMessage message)

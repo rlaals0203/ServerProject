@@ -18,7 +18,9 @@ public class HealthComponent : ComponentBase
         _statCompo = _owner.Get<StatComponent>();
 
         _healthStat = _statCompo.GetStat(EStatType.Health);
-        _minHitbackHealth = (int)_healthStat.CurrentStat / _owner.UnitData.UnitHitbackCount;
+
+        if(_owner.UnitData != null)
+            _minHitbackHealth = (int)_healthStat.CurrentStat / _owner.UnitData.UnitHitbackCount;
     }
 
     public void ApplyDamage(float damage)
