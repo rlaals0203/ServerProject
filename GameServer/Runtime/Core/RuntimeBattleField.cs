@@ -2,13 +2,15 @@ using System.Numerics;
 
 public class RuntimeBattleField
 {
-    private Dictionary<ELayer, List<RuntimeUnit>> _units = new();
-    private MoneyHandler _moneyHandler;
+    private Dictionary<ELayer, Dictionary<string, RuntimeUnit>> _units = new();
+    private Queue<string> _deadUnitQueue = new();
     private Queue<StandardMessageData> _messageQueue = new();
     private Dictionary<string, float> _userSpawnTimes = new();
     private Dictionary<string, float> _opponentSpawnTimes = new();
+    private MoneyHandler _moneyHandler;
+
     private float _currentTime;
-    private int _nextRuntimeId;
+    private int _runtimeId;
 
     private const float SpawnX = 7f;
     private const float SpawnY = -1.8f;
@@ -18,7 +20,7 @@ public class RuntimeBattleField
     {
         foreach (ELayer layer in Enum.GetValues<ELayer>())
         {
-            _units[layer] = new List<RuntimeUnit>();
+            _units[layer] = new Dictionary<string, RuntimeUnit>();
         }
 
         _moneyHandler = new MoneyHandler(userData, opponentData);
@@ -36,12 +38,13 @@ public class RuntimeBattleField
 
         ELayer layer = isOpponent ? ELayer.Enemy : ELayer.Unit;
         Vector3 position = new Vector3(isOpponent ? -SpawnX : SpawnX, SpawnY, 0f);
-        RuntimeUnit newUnit = new RuntimeUnit(++_nextRuntimeId, unitData, isOpponent, this, position, layer);
-        
+        RuntimeUnit newUnit = new RuntimeUnit(_runtimeId.ToString(), unitData, isOpponent, this, position, layer);
+        _runtimeId++;
+
         newUnit.OnDead += HandleUnitDead;
         newUnit.Init();
 
-        _units[layer].Add(newUnit);
+        _units[layer].Add(newUnit.RuntimeId, newUnit);
         spawnTimes[unitId] = _currentTime + unitData.UnitCooldown;
         return true;
     }
@@ -49,7 +52,7 @@ public class RuntimeBattleField
     private void HandleUnitDead(RuntimeUnit unit)
     {
         unit.OnDead -= HandleUnitDead;
-        _units[unit.Layer].Remove(unit);
+        _deadUnitQueue.Enqueue(unit.RuntimeId);
     }
 
     public void UpdateBattleField(float dt)
@@ -59,7 +62,7 @@ public class RuntimeBattleField
 
         foreach(var unitList in _units.Values)
         {
-            foreach(var unit in unitList)
+            foreach(var unit in unitList.Values)
             {
                 unit?.Update(dt);
             }
@@ -67,9 +70,18 @@ public class RuntimeBattleField
 
         AddMessage(UpdateAllUnitDataMessage.ROUTE, CreateUpdateAllUnitDataMessgae());
 
+        while(_deadUnitQueue.Count != 0)
+        {
+            var deadUnitId = _deadUnitQueue.Dequeue();
+            
+            foreach(var layer in _units.Keys)
+            {
+                _units[layer].Remove(deadUnitId);
+            }
+        }
     }
 
-    public List<RuntimeUnit> GetAllUnit(ELayer layer)
+    public Dictionary<string, RuntimeUnit> GetAllUnit(ELayer layer)
     {
         return _units[layer];
     }
@@ -80,7 +92,7 @@ public class RuntimeBattleField
 
         foreach(var layer in _units.Keys)
         {
-            foreach(var unit in _units[layer])
+            foreach(var unit in _units[layer].Values)
             {
                 RuntimeUnitData unitData = new RuntimeUnitData()
                 {
@@ -89,6 +101,7 @@ public class RuntimeBattleField
                     PositionX = unit.Position.X,
                     PositionY = unit.Position.Y,
                     IsOpponent = unit.IsOpponent,
+                    IsDead = unit.IsDead,
                     State = unit.CurrentState
                 };
 
@@ -118,9 +131,9 @@ public class RuntimeBattleField
     {
         foreach(var unitList in _units.Values)
         {
-            while(unitList.Count > 0)
+            foreach(var unit in unitList.Values)
             {
-                unitList[unitList.Count - 1].SetDead();
+                unit.SetDead();
             }
         }
     }

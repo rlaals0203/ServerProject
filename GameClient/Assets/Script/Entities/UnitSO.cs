@@ -24,6 +24,7 @@ public class UnitSO : ScriptableObject
     public int UnitAttackPower;
     public int UnitHealth;
     public float UnitCastTime;
+    public float UnitAttackAnimTime;
     public float UnitAttackRange;
     public float UnitAttackDistance;
     public float DetectRange;

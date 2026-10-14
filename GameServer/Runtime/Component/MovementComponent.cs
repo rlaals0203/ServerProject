@@ -27,10 +27,8 @@ public class MovementComponent : ComponentBase
         _movementStat = _statCompo.GetStat(EStatType.MoveSpeed);
     }
 
-    public override void UpdateComponent(float dt)
+    public void MoveUnit(float dt)
     {
-        base.UpdateComponent(dt);
-
         if (_canMove == false)
             return;
 

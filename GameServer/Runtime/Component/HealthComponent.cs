@@ -34,9 +34,10 @@ public class HealthComponent : ComponentBase
            OnHitback?.Invoke();
         }
 
-        if (_healthStat.CurrentStat <= 0)
+        if (_healthStat.CurrentStat <= 0 && _owner.IsDead == false)
         {
             OnDead?.Invoke(_owner);
+            _owner.SetDead();
         }
     }
 

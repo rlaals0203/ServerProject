@@ -1,16 +1,18 @@
 public class UnitAttackableState : UnitState
 {
-    private float _lastAttackTime;
-    private float _attackInterval;
-
     public UnitAttackableState(RuntimeUnit owner) : base(owner)
     {
-        _attackInterval = owner.UnitData.UnitAttackData.UnitAttackSpeed;
     }
 
     public override void UpdateState(float dt)
     {
         base.UpdateState(dt);
+
+        if(_attackCompo.CheckTarget() && _attackCompo.CanAttack())
+        {
+            _attackCompo.StartAttack();
+            _owner.ChangeState(EStateType.Attack);
+        }
     }
 
     public override void ExitState()

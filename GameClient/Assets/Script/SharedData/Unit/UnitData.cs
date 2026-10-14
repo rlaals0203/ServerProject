@@ -49,8 +49,9 @@ public class UnitStatData
 public class UnitAttackData
 {
     public int UnitAttackPower { get; set; }
-    public float UnitAttackSpeed { get; set; }
     public float UnitCastTime { get; set; }
+    public float UnitAttackAnimTime { get; set; }
+    public float UnitAttackSpeed { get; set; }
     public float UnitAttackRange { get; set; }
     public float UnitAttackDistance { get; set; }
     public float UnitDetectRange { get; set; }
@@ -106,11 +107,14 @@ public class MakeUnitStatData
         UnitStatData.UnitAttackData = new UnitAttackData()
         {
             UnitAttackPower = unitData.UnitAttackPower,
+            UnitCastTime = unitData.UnitCastTime,
+            UnitAttackAnimTime = unitData.UnitAttackAnimTime,
             UnitAttackSpeed = unitData.AttackSpeed,
             UnitAttackRange = unitData.UnitAttackRange,
             UnitAttackDistance = unitData.UnitAttackDistance,
             UnitDetectRange = unitData.DetectRange
         };
+
 
         UnitStatData.UnitSpecialAbilityData = new UnitSpecialAbilityData()
         {

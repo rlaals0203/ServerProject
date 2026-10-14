@@ -28,10 +28,16 @@ public class DamageCaster
 
     public void CastDamage()
     {
-        var targets = _battleField.GetAllUnit(_targetLayer);
+        Dictionary<string, RuntimeUnit> targets = _battleField.GetAllUnit(_targetLayer);
 
-        foreach(var target in targets)
+        if(targets == null)
+            return;
+
+        foreach(var target in targets.Values)
         {
+            if(target == null)
+                continue;
+
             if (!IsInRange(target, false))
             {
                 continue;
@@ -48,11 +54,11 @@ public class DamageCaster
 
     public bool DetectTarget()
     {
-        List<RuntimeUnit> targets = _battleField.GetAllUnit(_targetLayer);
+        Dictionary<string, RuntimeUnit> targets = _battleField.GetAllUnit(_targetLayer);
 
-        for (int i = 0; i < targets.Count; i++)
+        foreach(var target in targets.Values)
         {
-            if (IsInRange(targets[i], true))
+            if (IsInRange(target, true))
             {
                 return true;
             }

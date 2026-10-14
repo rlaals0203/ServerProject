@@ -1,52 +1,71 @@
+using MINLib.Script.Core.Resource;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PVPUnitRenderer
 {
-    public int LastSnapshotId { get; set; }
-    private GameObject _visual;
-    private Animator _animator;
-    private Vector3 _targetPosition;
-    private EStateType _currentState;
+    private UnitSOList _unitSOList;
+    private Dictionary<string, PVPUnit> _units = new();
+    private Queue<string> _removeQueue = new();
 
-    public PVPUnitRenderer(RuntimeUnitData unitData, UnitSO unitSO, Transform parent, bool isOpponent)
+    public PVPUnitRenderer(UnitSOList unitSOList)
     {
-        _visual = new GameObject(unitSO.UnitName);
-        _visual.transform.SetParent(parent, false);
-        _visual.transform.localScale = new Vector3(unitData.IsOpponent != isOpponent ? -1f : 1f, 1f, 1f);
-
-        var spriteRenderer = _visual.AddComponent<SpriteRenderer>();
-        spriteRenderer.sortingLayerName = "Unit";
-        spriteRenderer.sprite = unitSO.UnitIcon;
-
-        _animator = _visual.AddComponent<Animator>();
-        _animator.runtimeAnimatorController = unitSO.animator;
-        _animator.fireEvents = false;
-        _currentState = (EStateType)(-1);
-        UpdateUnit(unitData, isOpponent);
-        _visual.transform.position = _targetPosition;
+        _unitSOList = unitSOList;
     }
 
-    public void UpdateUnit(RuntimeUnitData unitData, bool isOpponent)
+    public void UpdateRenderer(UpdateAllUnitDataMessage data)
     {
-        _targetPosition = new Vector3(isOpponent ? -unitData.PositionX : unitData.PositionX, unitData.PositionY, 0f);
-
-        if(_currentState == unitData.State)
+        if (data == null)
             return;
 
-        _currentState = unitData.State;
-        _animator.SetBool("IDLE", _currentState == EStateType.Idle);
-        _animator.SetBool("MOVE", _currentState == EStateType.Move);
-        _animator.SetBool("ATTACK", _currentState == EStateType.Attack);
-        _animator.SetBool("KNOCKBACK", _currentState == EStateType.Knockback || _currentState == EStateType.Hitback);
+        bool isOpponent = GlobalInstance.I.IsPvpOpponent;
+
+        foreach (var unitData in data.AllUnitDatas)
+        {
+            if(unitData.IsDead)
+            {
+                _removeQueue.Enqueue(unitData.RuntimeId);
+            }
+
+            if (_units.TryGetValue(unitData.RuntimeId, out var unit))
+            {
+                if (unit == null)
+                    continue;
+
+                unit.UpdateState(unitData.State);
+                unit.UpdateUnit(Time.deltaTime, unitData.PositionX, unitData.PositionY);
+                continue;
+            }
+
+            UnitSO unitSO = _unitSOList.GetUnitById(unitData.UnitId);
+            if (unitSO == null)
+                continue;
+
+            unit = ResourceManager.I.SpawnAndInitPool<PVPUnit>("PVPUnit", Vector3.zero, null, spawned =>
+            {
+                spawned.InitializePVPUnit(unitData, unitSO, null, GlobalInstance.I.IsPvpOpponent);
+            });
+
+            _units.Add(unitData.RuntimeId, unit);
+        }
+
+        foreach (var removeUnit in _removeQueue)
+        {
+            if (_units.TryGetValue(removeUnit, out var unit) == false)
+                continue;
+
+            _units.Remove(removeUnit);
+            ResourceManager.I.DespawnPool(unit.gameObject);
+        }
+
+        _removeQueue.Clear();
     }
 
-    public void Update(float dt)
+    public void ReleaseRenderer()
     {
-        _visual.transform.position = Vector3.Lerp(_visual.transform.position, _targetPosition, Mathf.Min(1f, dt * 12f));
-    }
-
-    public void Release()
-    {
-        Object.Destroy(_visual);
+        foreach (var unit in _units.Values)
+        {
+            unit.Release();
+        }
     }
 }

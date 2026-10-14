@@ -23,6 +23,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - prepooling
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8163e3504cdeab242bfb144016000ef2
+    m_Address: PVPUnit
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - prepooling
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c52334f25dfe82c47a2fb7746fbe6a3a
     m_Address: Castle
     m_ReadOnly: 0

@@ -27,10 +27,12 @@ MonoBehaviour:
   UnitDropMoneyAmount: 0
   UnitAttackPower: 8
   UnitHealth: 100
+  UnitCastTime: 0.266
+  UnitAttackAnimTime: 0.533
   UnitAttackRange: 1
   UnitAttackDistance: 0.2
   DetectRange: 1.2
-  AttackSpeed: 1.2333333
+  AttackSpeed: 2.3333
   UnitSpecialAbilityData:
     TargetTypes: 
     SpecialAbilityDatas:

@@ -2,7 +2,7 @@ using System.Numerics;
 
 public class RuntimeUnit : ObjectBase
 {
-    public int RuntimeId { get; }
+    public string RuntimeId { get; }
     public bool IsDead { get; private set; }
     public bool IsFreeze { get; private set; }
     public bool IsOpponent { get; }
@@ -12,7 +12,7 @@ public class RuntimeUnit : ObjectBase
 
     private StateMachine _stateMachine;
 
-    public RuntimeUnit(int runtimeId, UnitData unitData, bool isOpponent, RuntimeBattleField battleField, Vector3 position, ELayer layer)
+    public RuntimeUnit(string runtimeId, UnitData unitData, bool isOpponent, RuntimeBattleField battleField, Vector3 position, ELayer layer)
         : base(battleField, position, layer)
     {
         RuntimeId = runtimeId;
@@ -41,7 +41,10 @@ public class RuntimeUnit : ObjectBase
 
     public override void Update(float dt)
     {
-        Get<AbilityComponent>().UpdateComponent(dt);
+        foreach(var component in _components.Values)
+        {
+            component.UpdateComponent(dt);
+        }
 
         if(IsFreeze)
         {
@@ -64,6 +67,7 @@ public class RuntimeUnit : ObjectBase
 
     public void SetDead()
     {
+        IsDead = true;
         OnDead?.Invoke(this);
     }
 }

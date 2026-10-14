@@ -18,6 +18,7 @@ public class GameRoomService
     {
         var userData = await _dbManager.LoadUserAsync(userInfo.UserId);
         var opponentData = await _dbManager.LoadUserAsync(opponentInfo.UserId);
+        
         if(userData == null || opponentData == null)
             return false;
 
@@ -52,7 +53,9 @@ public class GameRoomService
     public bool SpawnUnit(string connectionId, string unitId)
     {
         if(_roomsByConnection.TryGetValue(connectionId, out var room) == false)
+        {
             return false;
+        }
 
         return room.SpawnUnit(connectionId, unitId);
     }

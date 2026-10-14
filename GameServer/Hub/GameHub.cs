@@ -50,6 +50,9 @@ public class GameHub : Hub
 
     public bool RequestSpawnUnit(string unitId)
     {
+        if(string.IsNullOrEmpty(unitId))
+         return false;
+
         return _roomService.SpawnUnit(Context.ConnectionId, unitId);
     }
 }

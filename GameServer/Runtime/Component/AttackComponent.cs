@@ -1,7 +1,7 @@
 public class AttackComponent : ComponentBase
 {
-    private RuntimeUnit _owner;
     private DamageCaster _damageCaster;
+    private float _nextAttackTime;
 
     public AttackComponent(RuntimeUnit owner) : base(owner)
     {
@@ -12,6 +12,13 @@ public class AttackComponent : ComponentBase
     {
         base.InitializeComponent();
         _damageCaster = new DamageCaster(_owner);
+        _nextAttackTime = 0f;
+    }
+
+    public override void UpdateComponent(float dt)
+    {
+        base.UpdateComponent(dt);
+        _nextAttackTime -= dt;
     }
 
     public bool CheckTarget()
@@ -19,8 +26,18 @@ public class AttackComponent : ComponentBase
         return _damageCaster.DetectTarget();
     }
 
+    public bool CanAttack() => _nextAttackTime <= 0f;
+
+    public void StartAttack()
+    {
+        _nextAttackTime = _owner.UnitData.UnitAttackData.UnitAttackSpeed;
+    }
+
     public void Attack()
     {
+        if(_owner.IsDead)
+            return;
+
         _damageCaster.CastDamage();
     }
 }

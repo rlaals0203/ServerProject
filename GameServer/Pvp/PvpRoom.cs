@@ -21,10 +21,8 @@ public class PvpRoom
 
     public bool SpawnUnit(string connectionId, string unitId)
     {
-        if(string.IsNullOrEmpty(unitId))
-            return false;
-
         bool isOpponent = connectionId == OpponentUserConnectionId;
+        
         if(isOpponent == false && connectionId != UserConnectionId)
             return false;
 
