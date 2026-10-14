@@ -1,6 +1,8 @@
 using MINLib.Script.Core.Resource;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.UI.CanvasScaler;
+using static UnityEngine.UI.GridLayoutGroup;
 
 public class PVPUnitRenderer
 {
@@ -49,16 +51,21 @@ public class PVPUnitRenderer
             _units.Add(unitData.RuntimeId, unit);
         }
 
-        foreach (var removeUnit in _removeQueue)
+        while(_removeQueue.Count > 0)
         {
-            if (_units.TryGetValue(removeUnit, out var unit) == false)
-                continue;
+            string removeId = _removeQueue.Dequeue();
 
-            _units.Remove(removeUnit);
-            ResourceManager.I.DespawnPool(unit.gameObject);
+            if (_units.TryGetValue(removeId, out var pvpUnit) == false)
+                return;
+
+            new SpawnCacheObject<SpiritEffect>("SpiritEffect", pvpUnit.transform.position, null, spawned =>
+            {
+                Vector3 spawnPosition = pvpUnit.transform.position + Vector3.up;
+                spawned.PlayEffect(spawnPosition, Quaternion.identity, 5f);
+            });
+
+            ResourceManager.I.DespawnPool(pvpUnit.gameObject);
         }
-
-        _removeQueue.Clear();
     }
 
     public void ReleaseRenderer()

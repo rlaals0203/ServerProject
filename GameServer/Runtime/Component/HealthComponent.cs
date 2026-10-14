@@ -27,6 +27,7 @@ public class HealthComponent : ComponentBase
     {
         _healthStat.SubstractStatValue(damage);
         OnDamaged?.Invoke();
+        _owner.SetHit();
 
         _damageStacked += (int)damage;
 

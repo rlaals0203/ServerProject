@@ -16,7 +16,7 @@ public class CastleHealthComponent : HealthCompo
         enemyHealthText.gameObject.SetActive(false);
 
         _castle = _owner as Castle;
-        if (_owner.IsEnemyUnit)
+        if (_owner.IsOpponent)
         {
             enemyHealthText.gameObject.SetActive(true);
             _healthText = enemyHealthText;
@@ -35,7 +35,7 @@ public class CastleHealthComponent : HealthCompo
         base.OnHit(damage);
         if(_healthStat.CurrentStat <= 0)
         {
-            _castle.OnDead?.Invoke(_owner.IsEnemyUnit);
+            _castle.OnDead?.Invoke(_owner.IsOpponent);
         }
 
         RefreshHealthText();

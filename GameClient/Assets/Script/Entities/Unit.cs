@@ -27,7 +27,7 @@ public class Unit : MonoBehaviour
     public ETeamType TeamType { get; protected set; }
     public EStateType CurrentState { get; protected set; }
     public bool IsFreeze { get; protected set; }
-    public bool IsEnemyUnit => TeamType == ETeamType.Enemy;
+    public bool IsOpponent => TeamType == ETeamType.Enemy;
 
     private Dictionary<Type, IComponentCache> _cachedComponent = new();
     private UnitStateMachine _stateMachine;
@@ -43,8 +43,8 @@ public class Unit : MonoBehaviour
         InitializeComponentCaches();
         AfterInitializeComponentCaches();
 
-        transform.localScale = new Vector3(IsEnemyUnit ? -1 : 1, 1, 1);
-        gameObject.SetLayer(IsEnemyUnit ? GameDefine.EnemyLayer : GameDefine.UnitLayer);
+        transform.localScale = new Vector3(IsOpponent ? -1 : 1, 1, 1);
+        gameObject.SetLayer(IsOpponent ? GameDefine.EnemyLayer : GameDefine.UnitLayer);
 
         if (states.Length > 0)
         {

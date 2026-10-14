@@ -43,7 +43,7 @@ public class RuntimeUnit : ObjectBase
     public override void Update(float dt)
     {
         base.Update(dt);
-        
+
         if(IsFreeze)
         {
             return;
@@ -72,5 +72,8 @@ public class RuntimeUnit : ObjectBase
     {
         IsDead = true;
         OnDead?.Invoke(this);
+
+        OnDead = null;
+        OnHit = null;
     }
 }

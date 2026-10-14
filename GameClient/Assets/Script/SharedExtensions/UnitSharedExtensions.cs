@@ -1,3 +1,6 @@
+using UnityEngine;
+using static UnityEngine.UI.GridLayoutGroup;
+
 public struct GetUnitUpgradePrice
 {
     public int Price;
@@ -102,5 +105,19 @@ public struct GetUnitLevel
         }
 
         Level = unit.UnitLevel;
+    }
+}
+
+public struct PlayHitEffect
+{
+    public PlayHitEffect(Vector3 targetPos, bool isOpponent)
+    {
+        float direction = isOpponent ? 1f : -1f;
+        Vector3 spawnPosition = new Vector2(targetPos.x + direction * 0.5f, targetPos.y + 0.5f) + (UnityEngine.Random.insideUnitCircle * 0.3f);
+
+        new SpawnCacheObject<SpriteEffect>("AttackEffect", targetPos, null, spawned =>
+        {
+            spawned.PlayEffect(spawnPosition, Quaternion.identity, 0.5f);
+        });
     }
 }

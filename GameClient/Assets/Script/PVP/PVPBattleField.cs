@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using static UnityEngine.UI.GridLayoutGroup;
 
 public class PVPBattleField : MonoBehaviour
 {
@@ -19,8 +20,15 @@ public class PVPBattleField : MonoBehaviour
     {
         _subscription = SignalRClient.I.SubscribeToHub<PVPBattleInfoDataMessage>(PVPBattleInfoDataMessage.ROUTE, HandleUpdateUnits);
         _subscription = SignalRClient.I.SubscribeToHub<UpdateCastleDataMessage>(UpdateCastleDataMessage.ROUTE, HandleUpdateCastle);
+        _subscription = SignalRClient.I.SubscribeToHub<PlayHitEffectDataMessage>(PlayHitEffectDataMessage.ROUTE, HandlePlayHitEffect);
         _unitRenderer = new PVPUnitRenderer(unitSOList);
         _isOpponent = GlobalInstance.I.IsPvpOpponent;
+    }
+
+    private void HandlePlayHitEffect(PlayHitEffectDataMessage message)
+    {
+        Vector3 targetPos = new Vector3(message.PosX, message.PosY);
+        new PlayHitEffect(targetPos, message.IsOpponent);
     }
 
     private void HandleUpdateCastle(UpdateCastleDataMessage message)

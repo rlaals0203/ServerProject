@@ -53,14 +53,7 @@ public class HealthCompo : MonoBehaviour, IComponentCache, IAfterInit, IDamageab
 
     private void PlayHitEffect()
     {
-        float direction = _owner.IsEnemyUnit ? 1f : -1f;
-        Vector3 ownerPos = _owner.transform.position;
-        Vector3 spawnPosition = new Vector2(ownerPos.x + direction * 0.5f, ownerPos.y + 0.5f) + (UnityEngine.Random.insideUnitCircle * 0.3f);
-
-        new SpawnCacheObject<SpriteEffect>("AttackEffect", _owner.transform.position, null, spawned =>
-        {
-            spawned.PlayEffect(spawnPosition, Quaternion.identity, 0.5f);
-        });
+        new PlayHitEffect(_owner.transform.position, _owner.IsOpponent);
     }
 
     public void SetDead()

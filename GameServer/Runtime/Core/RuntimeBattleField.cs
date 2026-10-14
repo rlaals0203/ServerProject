@@ -42,6 +42,17 @@ public class RuntimeBattleField
 
         _units[ELayer.Unit].Add("0", _unitCastle);
         _units[ELayer.Enemy].Add("1", _opponentCastle);
+
+        _unitCastle.OnHit += HandleCastleHit;
+        _opponentCastle.OnHit += HandleCastleHit;
+    }
+
+    private void HandleCastleHit(RuntimeUnit unit)
+    {
+        if(unit is not Castle)
+            return;
+
+        AddMessage(UpdateCastleDataMessage.ROUTE, CreateCastleDataMessage());
     }
 
     public bool SpawnUnit(UnitData unitData, bool isOpponent)
@@ -60,11 +71,24 @@ public class RuntimeBattleField
         _runtimeId++;
 
         newUnit.OnDead += HandleUnitDead;
+        newUnit.OnHit += HandleUnitHit;
         newUnit.Init();
 
         _units[layer].Add(newUnit.RuntimeId, newUnit);
         _unitSpawnHandler.SetSpawnStatus(unitId, isOpponent);
         return true;
+    }
+
+    private void HandleUnitHit(RuntimeUnit unit)
+    {
+        PlayHitEffectDataMessage message = new()
+        {
+            IsOpponent = unit.IsOpponent,
+            PosX = unit.Position.X,
+            PosY = unit.Position.Y
+        };
+
+        AddMessage(PlayHitEffectDataMessage.ROUTE, message);
     }
 
     private void HandleUnitDead(RuntimeUnit unit)
@@ -87,7 +111,6 @@ public class RuntimeBattleField
         }
 
         AddMessage(PVPBattleInfoDataMessage.ROUTE, CreatePVPBattleFieldInfoDataMessage());
-        AddMessage(UpdateCastleDataMessage.ROUTE, CreateCastleDataMessage());
 
         while(_deadUnitQueue.Count != 0)
         {

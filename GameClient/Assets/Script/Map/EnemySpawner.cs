@@ -45,7 +45,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void HandleEnemyDead(Unit unit)
     {
-        if (unit.IsEnemyUnit == false)
+        if (unit.IsOpponent == false)
             return;
 
         _onEnemyDead?.Invoke(unit.UnitData.UnitStatData.UnitDropMoneyAmount);

@@ -35,7 +35,7 @@ public class DamageCaster : MonoBehaviour
         _isSingleAttack = owner.UnitData.UnitStatData.UnitSpecialAbilityData.SpecialAbilityDatas
             .Where(ability => ability.AbilityType == ESpecialAbilityType.SingleAttack).Count() > 0;
 
-        contactFier.layerMask = owner.IsEnemyUnit ? LayerMask.GetMask("Unit") : LayerMask.GetMask("Enemy");
+        contactFier.layerMask = owner.IsOpponent ? LayerMask.GetMask("Unit") : LayerMask.GetMask("Enemy");
     }
 
     public bool CastDamage()

@@ -44,3 +44,12 @@ public class CastleData
     public float PositionX { get; set; }
     public float PositionY { get; set; }
 }
+
+[Serializable]
+public class PlayHitEffectDataMessage : StandardMessageData
+{
+    public const string ROUTE = "PlayHitEffectData";
+    public bool IsOpponent { get; set; }
+    public float PosX { get; set; }
+    public float PosY { get; set; }
+}
