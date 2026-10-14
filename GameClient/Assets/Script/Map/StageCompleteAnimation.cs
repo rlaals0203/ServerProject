@@ -35,7 +35,7 @@ public class StageCompleteAnimation : MonoBehaviour
         winTitle.DOAnchorPosX(0, 0.25f).SetEase(Ease.OutQuint);
         yield return new WaitForSeconds(0.8f);
         reward.DOAnchorPosX(0, 0.25f).SetEase(Ease.OutQuint);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.6f);
         returnButton.gameObject.SetActive(true);
     }
 
@@ -43,10 +43,10 @@ public class StageCompleteAnimation : MonoBehaviour
     {
         bottomUI.DOAnchorPosY(-200, 1f);
         topUI.DOAnchorPosY(200, 1f);
-        loseTitle.DOAnchorPosY(0f, 1f).SetEase(Ease.OutBounce);
+        loseTitle.DOAnchorPosY(0f, 2.5f).SetEase(Ease.OutBounce);
         yield return new WaitForSeconds(0.8f);
         fadeImage.DOFade(1f, 3f);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(4.5f);
         returnButton.gameObject.SetActive(true);
     }
 

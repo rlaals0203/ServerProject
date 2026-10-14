@@ -9,7 +9,7 @@ public class SignalRClient : MonoSingleton<SignalRClient>
 {
     private const string HUB_URL = "http://localhost:5200/gamehub";
     private HubConnection _connection;
-    private readonly SemaphoreSlim _startLock = new(1, 1);
+    private readonly SemaphoreSlim _lock = new(1, 1);
 
     protected override void Awake()
     {
@@ -34,7 +34,7 @@ public class SignalRClient : MonoSingleton<SignalRClient>
 
     private async UniTask ConnectAsync()
     {
-        await _startLock.WaitAsync();
+        await _lock.WaitAsync();
         try
         {
             if(_connection.State == HubConnectionState.Disconnected)
@@ -42,7 +42,7 @@ public class SignalRClient : MonoSingleton<SignalRClient>
         }
         finally
         {
-            _startLock.Release();
+            _lock.Release();
         }
     }
 

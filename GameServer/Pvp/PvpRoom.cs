@@ -27,25 +27,24 @@ public class PvpRoom
             return false;
 
         UserBaseData userData = isOpponent ? _opponentData : _userData;
+        UnitData targetUnit = null;
 
         foreach(var unit in userData.UserUnitData.DeployUnitList.Values)
         {
-            if(unit == null || unit.UnitStatData.UnitId != unitId)
-                continue;
-
-            if(userData.UserUnitData.OwnUnitList.TryGetValue(unitId, out var ownedUnit) == false)
-                return false;
-
-            if(ownedUnit == null)
-                return false;
-
-            lock(_lock)
+            if(unit.UnitStatData.UnitId == unitId)
             {
-                return _battleField.SpawnUnit(ownedUnit, isOpponent);
+                targetUnit = unit;
+                break;
             }
         }
+        
+        if(targetUnit == null)
+            return false;
 
-        return false;
+        lock(_lock)
+        {
+            return _battleField.SpawnUnit(targetUnit, isOpponent);
+        }
     }
 
     public void UpdateRoom(float dt)

@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class PvpUI : ContentUI
 {
     [SerializeField] private TMP_Text Title;
-    [SerializeField] private TMP_Text StatusText;
 
     protected override void Awake()
     {
@@ -32,7 +31,6 @@ public class PvpUI : ContentUI
         }
 
         Title.text = data.OpponentUser == null ? "상대를 찾는 중..." : $"{data.OpponentUser.UserId}와 매칭 성공!";
-        StatusText.text = data.MatchResult.ToString();
     }
 
     private async UniTask StartPVP()

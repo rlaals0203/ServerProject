@@ -61,7 +61,7 @@ public class UserUnitDataCheck
             // UnitData starterUnit = new UpdateUnitData(unitData.GetUnitById(unitData.StarterUnitId), 1).UnitData;
             // userData.UserUnitData.OwnUnitList.Add(unitData.StarterUnitId, starterUnit);
 
-            UnitData starterUnit1 = new UpdateUnitData(unitData.GetUnitById("1"), 1).UnitData; //일단 1 - 5번 유닛 임시로 넣기
+            UnitData starterUnit1 = new UpdateUnitData(unitData.GetUnitById("1"), 1).UnitData; //일단 기본유닛 임시로 넣기
             userData.UserUnitData.OwnUnitList.Add("1", starterUnit1);
 
             UnitData starterUnit2 = new UpdateUnitData(unitData.GetUnitById("2"), 1).UnitData;
@@ -75,6 +75,18 @@ public class UserUnitDataCheck
 
             UnitData starterUnit5 = new UpdateUnitData(unitData.GetUnitById("5"), 1).UnitData;
             userData.UserUnitData.OwnUnitList.Add("5", starterUnit5);
+
+            UnitData starterUnit6 = new UpdateUnitData(unitData.GetUnitById("6"), 1).UnitData;
+            userData.UserUnitData.OwnUnitList.Add("6", starterUnit6);
+
+            UnitData starterUnit7 = new UpdateUnitData(unitData.GetUnitById("7"), 1).UnitData;
+            userData.UserUnitData.OwnUnitList.Add("7", starterUnit7);
+
+            UnitData starterUnit8 = new UpdateUnitData(unitData.GetUnitById("8"), 1).UnitData;
+            userData.UserUnitData.OwnUnitList.Add("8", starterUnit8);
+
+            UnitData starterUnit9 = new UpdateUnitData(unitData.GetUnitById("9"), 1).UnitData;
+            userData.UserUnitData.OwnUnitList.Add("9", starterUnit9);
         }
     }
 }

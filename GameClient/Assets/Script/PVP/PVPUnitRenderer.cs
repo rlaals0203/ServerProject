@@ -1,8 +1,6 @@
 using MINLib.Script.Core.Resource;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.UI.CanvasScaler;
-using static UnityEngine.UI.GridLayoutGroup;
 
 public class PVPUnitRenderer
 {
