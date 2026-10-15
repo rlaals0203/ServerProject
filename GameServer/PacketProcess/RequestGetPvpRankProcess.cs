@@ -5,8 +5,9 @@ namespace GameServer
     {
         public PvpRankingData RankingData;
 
-        public async Task<EPacketResult> ProcessAsync()
+        public async Task<EPacketResult> ProcessAsync(PvpRankingService rankingService)
         {
+            RankingData = await rankingService.GetRankingData();
             return Result;
         }
     }

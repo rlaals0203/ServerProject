@@ -119,7 +119,7 @@ public partial class BasePacketController : ControllerBase
     {
         UserBaseData userBaseData = await dbManager.LoadUserAsync(request.LoginUserId);
         RequestGetPvpRankProcess process = new RequestGetPvpRankProcess();
-        await process.ProcessAsync();
+        await process.ProcessAsync(pvpRankingService);
 
         GetPvpRankPacketResultData resultData = new GetPvpRankPacketResultData(process.Result)
         {

@@ -8,7 +8,7 @@ public partial class BasePacketController(ILogger<StandardPacketData> logger, Db
     private readonly ILogger<StandardPacketData> logger = logger;
     protected readonly DbManager dbManager = dbManager;
     protected readonly GameDataManager gameDataManager = gameDataManager;
-    protected readonly PvpRankingService _pvpRankingService = pvpRankingService;
+    protected readonly PvpRankingService pvpRankingService = pvpRankingService;
     protected readonly UnitDataDefine unitDataDefine = unitDataDefine;
     protected readonly ILoggerFactory loggerFactory = loggerFactory;
 }

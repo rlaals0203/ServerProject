@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: 7b00c339c55bb6a43825c9167abf9b93
   m_SerializeEntries:
   - m_GUID: 06f47b8f89267b141890389d9ab2aa81
-    m_Address: RankingElement
+    m_Address: PvpRankUIElement
     m_ReadOnly: 0
     m_SerializedLabels:
     - prepooling

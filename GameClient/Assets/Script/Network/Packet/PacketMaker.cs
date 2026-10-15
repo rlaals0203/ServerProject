@@ -104,5 +104,7 @@ public class MakeUpdatePvpRankPacket
         {
             Point = point
         };
+
+        UpdatePvpRankPacketData = updatePvpRankPacketData;
     }
 }

@@ -8,8 +8,15 @@ public class PvpRankingService
         _dbManager = dbManager;
     }
 
+    private async Task<PvpRankingData> GetRankingDataFromDb()
+    {
+        return await _dbManager.LoadDataAsync<PvpRankingData>(EDbType.PvpRankingData, "PvpRanking") ?? new PvpRankingData() { Ranks = new()};
+    }
+
     public async Task<UserPvpRankData> UpdateRanking(string userId, int point)
     {
+        _cachedRanking ??= await GetRankingDataFromDb();
+
         if(_cachedRanking.Ranks.TryGetValue(userId, out var rankData))
         {
             rankData.Point += point;
@@ -23,11 +30,13 @@ public class PvpRankingService
         };
 
         _cachedRanking.Ranks.Add(userId, rankData);
+        await _dbManager.SaveDataAsync(_cachedRanking, EDbType.PvpRankingData, "PvpRanking");
         return rankData;
     }
 
     public async Task<PvpRankingData> GetRankingData()
     {
+        _cachedRanking ??= await GetRankingDataFromDb();
         return _cachedRanking;
     }
 }
