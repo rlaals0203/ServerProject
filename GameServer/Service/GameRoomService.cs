@@ -87,7 +87,7 @@ public class GameRoomService
     {
         foreach(var room in _rooms.Values)
         {
-            while(room.TryTakeMessage(out var message))
+            while(room.TryGetMessage(out var message))
             {
                 await _hubContext.Clients.Group(message.RoomId).SendAsync(message.Route, message);
             }

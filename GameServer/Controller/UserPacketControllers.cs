@@ -98,4 +98,34 @@ public partial class BasePacketController : ControllerBase
 
         return resultData;
     }
+
+    [HttpPost(UpdatePvpRankPacketData.ROUTE)]
+    public async Task<ActionResult<UpdatePvpRankPacketResultData>> PostUpdatePvpRankRequest([FromBody]UpdatePvpRankPacketData request)
+    {
+        UserBaseData userBaseData = await dbManager.LoadUserAsync(request.LoginUserId);
+        RequestUpdatePvpRankProcess process = new RequestUpdatePvpRankProcess();
+        await process.ProcessAsync(userBaseData, pvpRankingService, request.Point);
+
+        UpdatePvpRankPacketResultData resultData = new UpdatePvpRankPacketResultData(process.Result)
+        {
+            Point = process.Point
+        };
+
+        return resultData;
+    }
+
+    [HttpPost(GetPvpRankPacketData.ROUTE)]
+    public async Task<ActionResult<GetPvpRankPacketResultData>> PostGetPvpRankRequest([FromBody]PassiveUpgradePacketData request)
+    {
+        UserBaseData userBaseData = await dbManager.LoadUserAsync(request.LoginUserId);
+        RequestGetPvpRankProcess process = new RequestGetPvpRankProcess();
+        await process.ProcessAsync();
+
+        GetPvpRankPacketResultData resultData = new GetPvpRankPacketResultData(process.Result)
+        {
+            RankingData = process.RankingData
+        };
+
+        return resultData;
+    }
 }

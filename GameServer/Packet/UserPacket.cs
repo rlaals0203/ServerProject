@@ -32,3 +32,30 @@ public class UserMonetaChangePacketResultData : StandardPacketResultData
     {
     }
 }
+
+[Serializable]
+public class UpdatePvpRankPacketData : StandardPacketData
+{
+    public const string ROUTE = "RequestPvpRankUpdate";
+    public int Point { get; set; }
+}
+
+[Serializable]
+public class UpdatePvpRankPacketResultData : StandardPacketResultData
+{
+    public int Point { get; set; }
+    public UpdatePvpRankPacketResultData(EPacketResult result) : base(result) { }
+}
+
+[Serializable]
+public class GetPvpRankPacketData : StandardPacketData
+{
+    public const string ROUTE = "RequestGetPvpRank";
+}
+
+[Serializable]
+public class GetPvpRankPacketResultData : StandardPacketResultData
+{
+    public PvpRankingData RankingData { get; set; }
+    public GetPvpRankPacketResultData(EPacketResult result) : base(result) { }
+}

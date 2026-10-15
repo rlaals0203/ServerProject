@@ -72,7 +72,11 @@ public class RuntimeUnit : ObjectBase
     {
         IsDead = true;
         OnDead?.Invoke(this);
+        Release();
+    }
 
+    public override void Release()
+    {
         OnDead = null;
         OnHit = null;
     }

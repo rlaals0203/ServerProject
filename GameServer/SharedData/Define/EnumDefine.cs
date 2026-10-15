@@ -22,8 +22,7 @@ public enum EMatchResult
 public enum EDbType
 {
     BaseUserData,
-    UserUnitData,
-    UserMonetaData
+    PvpRankingData
 }
 
 public enum EDbResult

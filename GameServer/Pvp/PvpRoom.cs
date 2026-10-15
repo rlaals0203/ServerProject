@@ -63,11 +63,11 @@ public class PvpRoom
         }
     }
 
-    public bool TryTakeMessage(out StandardMessageData message)
+    public bool TryGetMessage(out StandardMessageData message)
     {
         lock(_lock)
         {
-            if(_battleField.TryTakeMessage(out message) == false)
+            if(_battleField.TryGetMessage(out message) == false)
                 return false;
 
             message.RoomId = RoomId;

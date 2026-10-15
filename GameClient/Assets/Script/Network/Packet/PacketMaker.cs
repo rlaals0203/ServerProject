@@ -93,3 +93,16 @@ public class MakeRequestPassiveUpgradePacket
         PassiveUpgradePacketData = passiveUpgradePacketData;
     }
 }
+
+public class MakeUpdatePvpRankPacket
+{
+    public UpdatePvpRankPacketData UpdatePvpRankPacketData;
+
+    public MakeUpdatePvpRankPacket(int point)
+    {
+        UpdatePvpRankPacketData updatePvpRankPacketData = new UpdatePvpRankPacketData()
+        {
+            Point = point
+        };
+    }
+}

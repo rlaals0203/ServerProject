@@ -63,11 +63,17 @@ public class NetworkManager : MonoSingleton<NetworkManager>
         => await SendWebRequest(UnitUpgradePacketData.ROUTE, new MakeRequestUnitUpgradePacket(unitId, targetLevel).UnitUpgradePacketData, callback);
 
     public async Task SendUnitDeployRequest(Dictionary<string, string> deplotUnits, Action<UnitDeployPacketResultData> callback)
-     => await SendWebRequest(UnitDeployPacketData.ROUTE, new MakeRequestUnitDeployPacket(deplotUnits).UnitDeployPacketData, callback);
+        => await SendWebRequest(UnitDeployPacketData.ROUTE, new MakeRequestUnitDeployPacket(deplotUnits).UnitDeployPacketData, callback);
 
     public async Task SendUserMonetaChangeRequest(EMonetaType monetaType, int amount, Action<UserMonetaChangePacketResultData> callback)
-     => await SendWebRequest(UserMonetaChangePacketData.ROUTE, new MakeRequestUserMonetaChangePacket(monetaType, amount).UserMonetaChangePacketData, callback);
+        => await SendWebRequest(UserMonetaChangePacketData.ROUTE, new MakeRequestUserMonetaChangePacket(monetaType, amount).UserMonetaChangePacketData, callback);
 
     public async Task SendPassiveUpgradeRequest(EPassiveType passiveType, Action<PassiveUpgrdePacketResultData> callback)
         => await SendWebRequest(PassiveUpgradePacketData.ROUTE, new MakeRequestPassiveUpgradePacket(passiveType).PassiveUpgradePacketData, callback);
+
+    public async Task SendUpdateRankDataRequest(int point, Action<UpdatePvpRankPacketResultData> callback)
+        => await SendWebRequest(UpdatePvpRankPacketData.ROUTE, new MakeUpdatePvpRankPacket(point).UpdatePvpRankPacketData, callback);
+
+    public async Task SendGetRankDataRequest(Action<GetPvpRankPacketResultData> callback)
+        => await SendWebRequest(GetPvpRankPacketData.ROUTE, new GetPvpRankPacketData(), callback);
 }

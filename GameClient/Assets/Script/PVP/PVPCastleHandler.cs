@@ -44,10 +44,13 @@ public class PVPCastleHandler : MonoBehaviour
         }
     }
 
-    private void WinCastle()
+    private async void WinCastle()
     {
         mapCamera.FocusOn(opponentCastleCameraTrm);
-        stageCompAnim.PlayWinAnimation(1000);
+
+        int point = Random.Range(5, 12);
+        await NetworkManager.I.SendUpdateRankDataRequest(point, null);
+        stageCompAnim.PlayWinAnimation(point);
     }
 
     private void LoseCastle()

@@ -16,7 +16,7 @@ public class PVPBattleField : MonoBehaviour
     private IDisposable _hitEffectSubscription;
     private bool _isOpponent;
 
-    private void Start()
+    private void Awake()
     {
         _battleSubscription = SignalRClient.I.SubscribeToHub<PVPBattleInfoDataMessage>(PVPBattleInfoDataMessage.ROUTE, HandleUpdateUnits);
         _castleSubscription = SignalRClient.I.SubscribeToHub<UpdateCastleDataMessage>(UpdateCastleDataMessage.ROUTE, HandleUpdateCastle);

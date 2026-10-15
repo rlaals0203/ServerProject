@@ -29,6 +29,7 @@ public class RuntimeBattleField
         _moneyHandler = new MoneyHandler(userData, opponentData);
         _unitSpawnHandler = new UnitSpawnHandler(userData.UserUnitData, opponentData.UserUnitData);
         InitailizeCastle(userData, opponentData);
+        AddMessage(UpdateCastleDataMessage.ROUTE, CreateCastleDataMessage());
     }
 
     private void InitailizeCastle(UserBaseData userData, UserBaseData opponentData)
@@ -214,7 +215,7 @@ public class RuntimeBattleField
         _messageQueue.Enqueue(message);
     }
 
-    public bool TryTakeMessage(out StandardMessageData message)
+    public bool TryGetMessage(out StandardMessageData message)
     {
         return _messageQueue.TryDequeue(out message);
     }
@@ -226,6 +227,7 @@ public class RuntimeBattleField
             foreach(var unit in unitList.Values)
             {
                 unit.SetDead();
+                unit.Release();
             }
         }
     }

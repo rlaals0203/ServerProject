@@ -12,6 +12,7 @@ builder.Services.AddSingleton<IMongoClient>(new MongoClient(mongoDbSettings.Conn
 builder.Services.AddSingleton<DbManager>();
 builder.Services.AddSingleton<GameDataManager>();
 builder.Services.AddSingleton<GameRoomService>();
+builder.Services.AddSingleton<PvpRankingService>();
 builder.Services.AddSingleton<UnitDataDefine>();
 builder.Services.AddSingleton<StageDataDefine>();
 builder.Services.AddSingleton<MatchingService>();

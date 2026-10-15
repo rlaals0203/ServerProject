@@ -27,6 +27,8 @@ public class ObjectBase
         }
     }
 
+    public virtual void Release() { }
+
     public void AddComponent<T>(T component) where T : ComponentBase
     {
         _components.Add(component.GetType(), component);
