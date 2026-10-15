@@ -1,8 +1,5 @@
 public class UnitKnockbackState : UnitState
 {
-    private const float knockbackTime = 0.6f;
-    private float _currentTime;
-
     public UnitKnockbackState(RuntimeUnit owner) : base(owner)
     {
     }
@@ -10,7 +7,6 @@ public class UnitKnockbackState : UnitState
     public override void EnterState()
     {
         base.EnterState();
-        _currentTime = knockbackTime;
         _owner.Collider.Enabled = false;
     }
 
@@ -18,8 +14,7 @@ public class UnitKnockbackState : UnitState
     {
         base.UpdateState(dt);
 
-        _currentTime -= dt;
-        if(_currentTime <= 0f)
+        if(_movementCompo.UpdateKnockback(dt))
         {
             _owner.ChangeState(EStateType.Idle);
         }

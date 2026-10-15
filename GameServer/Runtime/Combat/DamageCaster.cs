@@ -69,6 +69,9 @@ public class DamageCaster
 
     private bool IsInRange(RuntimeUnit target, bool isDetect)
     {
+        if (target.Collider.Enabled == false)
+            return false;
+
         float forward = _owner.IsOpponent ? 1f : -1f;
         float distance = (target.Position.X - _owner.Position.X) * forward;
 

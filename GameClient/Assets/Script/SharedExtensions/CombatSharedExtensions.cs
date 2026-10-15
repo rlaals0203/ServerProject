@@ -51,3 +51,11 @@ public static class RandomUtility
         return _random.Next(min, max);
     }
 }
+
+public static class BounceUtility
+{
+    public static float GetHeight(float progress, float height)
+    {
+        return 4f * height * progress * (1f - progress);
+    }
+}

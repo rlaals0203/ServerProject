@@ -17,6 +17,7 @@ public class StateMachine
         _states.Add(EStateType.Idle, new UnitIdleState(owner));
         _states.Add(EStateType.Move, new UnitMoveState(owner));
         _states.Add(EStateType.Attack, new UnitAttackState(owner));
+        _states.Add(EStateType.Hitback, new UnitKnockbackState(owner));
         _states.Add(EStateType.Knockback, new UnitKnockbackState(owner));
     }
 

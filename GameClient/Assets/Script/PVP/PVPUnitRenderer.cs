@@ -6,7 +6,6 @@ public class PVPUnitRenderer
 {
     private UnitSOList _unitSOList;
     private Dictionary<string, PVPUnit> _units = new();
-    private Queue<string> _removeQueue = new();
 
     public PVPUnitRenderer(UnitSOList unitSOList)
     {
@@ -22,7 +21,12 @@ public class PVPUnitRenderer
         {
             if(unitData.IsDead)
             {
-                _removeQueue.Enqueue(unitData.RuntimeId);
+                if (_units.TryGetValue(unitData.RuntimeId, out var deadUnit))
+                {
+                    deadUnit.UpdateState(unitData.State);
+                    deadUnit.UpdateUnit(unitData.PositionX, unitData.PositionY);
+                    deadUnit.PlayDeath(HandleUnitDead);
+                }
                 continue;
             }
 
@@ -30,6 +34,7 @@ public class PVPUnitRenderer
             {
                 unit.UpdateState(unitData.State);
                 unit.UpdateAbilityStatus(unitData.AbilityStatus, unitData.FreezeApplyCount);
+                unit.UpdateHitback(unitData.HitbackCount);
                 unit.UpdateUnit(unitData.PositionX, unitData.PositionY);
                 continue;
             }
@@ -48,23 +53,18 @@ public class PVPUnitRenderer
 
             _units.Add(unitData.RuntimeId, unit);
         }
+    }
 
-        while(_removeQueue.Count > 0)
+    private void HandleUnitDead(PVPUnit unit)
+    {
+        new SpawnCacheObject<SpiritEffect>("SpiritEffect", unit.transform.position, null, spawned =>
         {
-            string removeId = _removeQueue.Dequeue();
+            Vector3 spawnPosition = unit.transform.position + Vector3.up;
+            spawned.PlayEffect(spawnPosition, Quaternion.identity, 5f);
+        });
 
-            if (_units.TryGetValue(removeId, out var pvpUnit) == false)
-                continue;
-
-            new SpawnCacheObject<SpiritEffect>("SpiritEffect", pvpUnit.transform.position, null, spawned =>
-            {
-                Vector3 spawnPosition = pvpUnit.transform.position + Vector3.up;
-                spawned.PlayEffect(spawnPosition, Quaternion.identity, 5f);
-            });
-
-            pvpUnit.Release();
-            _units.Remove(removeId);
-        }
+        _units.Remove(unit.RuntimeId);
+        unit.Release();
     }
 
     public void ReleaseRenderer()

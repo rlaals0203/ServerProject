@@ -166,6 +166,7 @@ public class RuntimeBattleField
                     continue;
 
                 AbilityComponent abilityCompo = unit.Get<AbilityComponent>();
+                MovementComponent movementCompo = unit.Get<MovementComponent>();
                 RuntimeUnitData unitData = new RuntimeUnitData()
                 {
                     RuntimeId = unit.RuntimeId,
@@ -176,7 +177,8 @@ public class RuntimeBattleField
                     IsDead = unit.IsDead,
                     State = unit.CurrentState,
                     AbilityStatus = abilityCompo.AbilityStatus,
-                    FreezeApplyCount = abilityCompo.FreezeApplyCount
+                    FreezeApplyCount = abilityCompo.FreezeApplyCount,
+                    HitbackCount = movementCompo.HitbackCount
                 };
 
                 allUnitData.Add(unitData);

@@ -23,6 +23,7 @@ public class RuntimeUnitData
     public EStateType State { get; set; }
     public ESpecialAbilityType AbilityStatus { get; set; }
     public int FreezeApplyCount { get; set; }
+    public int HitbackCount { get; set; }
 }
 
 
