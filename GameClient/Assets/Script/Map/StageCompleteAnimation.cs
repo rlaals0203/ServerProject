@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -16,14 +17,18 @@ public class StageCompleteAnimation : MonoBehaviour
     [SerializeField] private RectTransform topUI;
     [SerializeField] private Image fadeImage;
 
-    public void PlayWinAnimation(int exp)
+    private Action _onTouchReturn;
+
+    public void PlayWinAnimation(int exp, Action onTouchReturn = null)
     {
+        _onTouchReturn = onTouchReturn;
         expDropText.text = exp.ToString();
         StartCoroutine(ExcuteWinAnimation());
     }
 
-    public void PlayLoseAnimation()
+    public void PlayLoseAnimation(Action onTouchReturn = null)
     {
+        _onTouchReturn = onTouchReturn;
         StartCoroutine(ExcuteLoseAnimation());
     }
 
@@ -52,6 +57,8 @@ public class StageCompleteAnimation : MonoBehaviour
 
     public void OnTouchReturn()
     {
+        _onTouchReturn?.Invoke();
+        _onTouchReturn = null;
         SceneManager.LoadSceneAsync(SceneDefine.MAIN_MENU);
     }
 }

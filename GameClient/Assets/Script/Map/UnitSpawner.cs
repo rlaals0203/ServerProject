@@ -1,4 +1,6 @@
+using MINLib.Script.Core.Resource;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitSpawner : MonoBehaviour
@@ -7,6 +9,7 @@ public class UnitSpawner : MonoBehaviour
 
     private Vector3 _unitPosition;
     private Action<int> OnUnitSpawn;
+    private List<Unit> _unitList = new();
 
     public void Initialize(Vector3 unitPosition, Action<int> onUnitSpawn)
     {
@@ -23,10 +26,19 @@ public class UnitSpawner : MonoBehaviour
         var unit = new SpawnCacheObject<Unit>("Unit", _unitPosition).Spawned;
         unit.Initialize(data, ETeamType.Friendly);
         OnUnitSpawn?.Invoke(data.UnitCost);
+        _unitList.Add(unit);
     }
 
-    public void ReleaseSpaner()
+    public void ReleaseSpawner()
     {
+        foreach(var unit in _unitList)
+        {
+            if (unit == null || unit.isActiveAndEnabled == false)
+                continue;
+
+            ResourceManager.I.DespawnPool(unit.gameObject);
+        }
+
         unitBattleDeckUI.OnSpawnUnit -= HandleSpawnUnit;
     }
 }

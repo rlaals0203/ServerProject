@@ -1,3 +1,4 @@
+using MINLib.Script.Core.Resource;
 using System;
 using TMPro;
 using UnityEngine;
@@ -78,9 +79,8 @@ public class BattleField : MonoBehaviour
             return;
 
         mapCamera.FocusOn(isEnemyCastle ? _enemyCastle.GetCameraTrm() : _unitCastle.GetCameraTrm());
-        stageCompAnim.PlayWinAnimation(_mapData.expDrop);
+        stageCompAnim.PlayWinAnimation(_mapData.expDrop, CompleteBattle);
         _battleFinished = true;
-        CompleteBattle();
 
         await NetworkManager.I.SendUserMonetaChangeRequest(EMonetaType.Exp, _mapData.expDrop, HandleReceiveExp);
     }
@@ -95,6 +95,10 @@ public class BattleField : MonoBehaviour
     public void CompleteBattle()
     {
         enemySpawner.ReleaseSpawner();
+        unitSpawner.ReleaseSpawner();
+
+        ResourceManager.I.DespawnPool(_unitCastle.gameObject);
+        ResourceManager.I.DespawnPool(_enemyCastle.gameObject);
     }
 
     private void OnDestroy()

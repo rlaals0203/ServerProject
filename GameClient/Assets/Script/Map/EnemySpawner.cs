@@ -60,6 +60,9 @@ public class EnemySpawner : MonoBehaviour
 
         foreach (var enemy in _enemyList)
         {
+            if (enemy == null || enemy.isActiveAndEnabled == false)
+                continue;
+
             enemy.OnDead -= HandleEnemyDead;
             enemy.SetDead();
         }

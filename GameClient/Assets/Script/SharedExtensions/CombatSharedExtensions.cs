@@ -38,6 +38,7 @@ public struct GetOppositeAbility
             ESpecialAbilityType.Freeze => ESpecialAbilityType.AntiFreeze,
             ESpecialAbilityType.Slow => ESpecialAbilityType.AntiSlow,
             ESpecialAbilityType.Knockback => ESpecialAbilityType.AntiKnockback,
+            _ => ESpecialAbilityType.Knockback
         };
     }
 }
