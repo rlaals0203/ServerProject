@@ -20,16 +20,18 @@ public class PvpRankingService
         if(_cachedRanking.Ranks.TryGetValue(userId, out var rankData))
         {
             rankData.Point += point;
-            return rankData;
+        }
+        else
+        {
+            rankData = new UserPvpRankData()
+            {
+                UserId = userId,
+                Point = point
+            };
+
+            _cachedRanking.Ranks.Add(userId, rankData);
         }
 
-        rankData = new UserPvpRankData()
-        {
-            UserId = userId,
-            Point = point
-        };
-
-        _cachedRanking.Ranks.Add(userId, rankData);
         await _dbManager.SaveDataAsync(_cachedRanking, EDbType.PvpRankingData, "PvpRanking");
         return rankData;
     }

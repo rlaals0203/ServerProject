@@ -6,16 +6,16 @@ public class MapMovement : MonoBehaviour
 {
     [SerializeField] private GameObject target;
     [SerializeField] private GameObject targetUnit;
-    [SerializeField] private GameObject[] redDots;
-
+    [SerializeField] private Transform redDotParent;
     [SerializeField] private float moveSpeed = 50f;
-
+    
+    [SerializeField] private GameObject[] redDots;
     private Queue<Vector3> _destinationQueue = new();
     private Coroutine _moveCoroutine;
 
     public void ChangeStage(int stageId)
     {
-        if (stageId < 0 || stageId >= redDots.Length)
+        if (stageId < 0 || stageId > redDots.Length)
             return;
 
         Vector3 destination = redDots[stageId].transform.position;

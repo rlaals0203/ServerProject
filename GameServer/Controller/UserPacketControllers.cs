@@ -128,4 +128,19 @@ public partial class BasePacketController : ControllerBase
 
         return resultData;
     }
+
+    [HttpPost(UserCompleteStagePacketData.ROUTE)]
+    public async Task<ActionResult<UserCompleteStagePacketResultData>> PostGetPvpRankRequest([FromBody]UserCompleteStagePacketData request)
+    {
+        UserBaseData userBaseData = await dbManager.LoadUserAsync(request.LoginUserId);
+        RequestUserCompleteStageProcess process = new RequestUserCompleteStageProcess();
+        await process.ProcessAsync(userBaseData, dbManager, request.StageNumber);
+
+        UserCompleteStagePacketResultData resultData = new UserCompleteStagePacketResultData(process.Result)
+        {
+            StageNumber = process.StageNumber
+        };
+
+        return resultData;
+    }
 }

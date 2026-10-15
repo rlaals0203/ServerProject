@@ -59,3 +59,17 @@ public class GetPvpRankPacketResultData : StandardPacketResultData
     public PvpRankingData RankingData { get; set; }
     public GetPvpRankPacketResultData(EPacketResult result) : base(result) { }
 }
+
+public class UserCompleteStagePacketData : StandardPacketData
+{
+    public const string ROUTE = "RequestUserCompleteStage";
+    public int StageNumber { get; set; }
+}
+
+public class UserCompleteStagePacketResultData : StandardPacketResultData
+{
+    public int StageNumber { get; set; }
+    public UserCompleteStagePacketResultData(EPacketResult packetResult) : base(packetResult)
+    {
+    }
+}

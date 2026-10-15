@@ -13,6 +13,32 @@ MonoBehaviour:
   m_Name: Map4
   m_EditorClassIdentifier: 
   MapId: 4
-  MapName: "\uBABD\uACE8"
-  CastleDistance: 0
-  EnemySpawnList: []
+  MapName: "\uC77C\uBCF8"
+  expDrop: 1500
+  CastleDistance: 7
+  CastleData: {fileID: 11400000, guid: d4b6f3147cac7f0479938ab16655bd8b, type: 2}
+  EnemySpawnList:
+  - EnemyId: 501
+    Level: 1
+    FirstSpawnDelay: 5
+    RepeatSpawnDelay: 8
+    MaxSpawnCount: -1
+    SpawnTrigger: 0
+  - EnemyId: 502
+    Level: 1
+    FirstSpawnDelay: 12
+    RepeatSpawnDelay: 10
+    MaxSpawnCount: -1
+    SpawnTrigger: 0
+  - EnemyId: 503
+    Level: 1
+    FirstSpawnDelay: 8
+    RepeatSpawnDelay: 14
+    MaxSpawnCount: -1
+    SpawnTrigger: 0
+  - EnemyId: 504
+    Level: 1
+    FirstSpawnDelay: 30
+    RepeatSpawnDelay: 0
+    MaxSpawnCount: 1
+    SpawnTrigger: 0

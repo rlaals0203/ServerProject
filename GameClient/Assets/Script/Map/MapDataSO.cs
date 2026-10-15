@@ -12,7 +12,7 @@ public enum EStageSpawnTrigger
 public class EnemySpawnData
 {
     public string EnemyId;
-    public float Level;
+    [Min(1)] public float Level;
     public float FirstSpawnDelay;
     public float RepeatSpawnDelay;
     public int MaxSpawnCount = 1;

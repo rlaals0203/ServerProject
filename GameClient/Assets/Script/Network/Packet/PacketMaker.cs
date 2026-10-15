@@ -108,3 +108,18 @@ public class MakeUpdatePvpRankPacket
         UpdatePvpRankPacketData = updatePvpRankPacketData;
     }
 }
+
+public class MakeUserStageCompletePacket
+{
+    public UserCompleteStagePacketData UserCompleteStagePacketData;
+
+    public MakeUserStageCompletePacket(int stageNumber)
+    {
+        UserCompleteStagePacketData userCompleteStagePacketData = new()
+        {
+            StageNumber = stageNumber
+        };
+
+        UserCompleteStagePacketData = userCompleteStagePacketData;
+    }
+}

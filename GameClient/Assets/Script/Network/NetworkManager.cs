@@ -76,4 +76,7 @@ public class NetworkManager : MonoSingleton<NetworkManager>
 
     public async Task SendGetRankDataRequest(Action<GetPvpRankPacketResultData> callback)
         => await SendWebRequest(GetPvpRankPacketData.ROUTE, new GetPvpRankPacketData(), callback);
+
+    public async Task SendUserCompleteStageRequest(int stageNumber, Action<UserCompleteStagePacketResultData> callback)
+        => await SendWebRequest(UserCompleteStagePacketData.ROUTE, new MakeUserStageCompletePacket(stageNumber).UserCompleteStagePacketData, callback);
 }
