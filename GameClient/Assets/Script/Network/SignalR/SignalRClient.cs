@@ -73,7 +73,7 @@ public class SignalRClient : MonoSingleton<SignalRClient>
         return _connection.On<T1>(methodName, data => _unityContext.Post(_ => handler(data), null));
     }
 
-    public async UniTask SendMessageToServer(string method, string userId)
+    public async UniTask SendMessageToServer(string method, string userId = null)
     {
         try
         {
@@ -85,7 +85,10 @@ public class SignalRClient : MonoSingleton<SignalRClient>
             }
 
             Debug.Log($"서버로 전송 {method}, {userId}");
-            await _connection.SendAsync(method, userId);
+            if(userId == null)
+                await _connection.SendAsync(method);
+            else
+                await _connection.SendAsync(method, userId);
         }
         catch(Exception ex)
         {

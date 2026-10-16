@@ -37,6 +37,7 @@ public class UpdateCastleDataMessage : StandardMessageData
     public const string ROUTE = "UpdateCastleData";
     public CastleData UnitCastleData { get; set; }
     public CastleData OpponentCastleData { get; set; }
+    public int Point { get; set; }
 }
 
 [Serializable]

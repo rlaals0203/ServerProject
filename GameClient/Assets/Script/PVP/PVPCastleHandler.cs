@@ -33,29 +33,31 @@ public class PVPCastleHandler : MonoBehaviour
             if (isOpponent)
                 LoseCastle();
             else
-                WinCastle();
+                WinCastle(message.Point);
         }
         else if (message.UnitCastleData.CurrentHealth <= 0)
         {
             if (isOpponent)
-                WinCastle();
+                WinCastle(message.Point);
             else
                 LoseCastle();
         }
     }
 
-    private async void WinCastle()
+    private void WinCastle(int point)
     {
         mapCamera.FocusOn(opponentCastleCameraTrm);
-
-        int point = Random.Range(5, 12);
-        await NetworkManager.I.SendUpdateRankDataRequest(point, null);
-        stageCompAnim.PlayWinAnimation(point);
+        stageCompAnim.PlayWinAnimation(point, HandleReturn);
     }
 
     private void LoseCastle()
     {
         mapCamera.FocusOn(unitCastleCameraTrm);
-        stageCompAnim.PlayLoseAnimation();
+        stageCompAnim.PlayLoseAnimation(HandleReturn);
+    }
+
+    private async void HandleReturn()
+    {
+        await SignalRClient.I.SendMessageToServer("RequestLeaveRoom");
     }
 }

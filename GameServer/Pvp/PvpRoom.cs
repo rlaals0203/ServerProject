@@ -7,6 +7,10 @@ public class PvpRoom
     public string OpponentUserId { get; set; }
     public string OpponentUserConnectionId { get; set; }
     public string RoomId { get; set; }
+    public bool IsComplete => _battleField.IsComplete;
+    public bool IsOpponentWinner => _battleField.IsOpponentWinner;
+    public int Point => _battleField.Point;
+    public bool IsRankProcessed { get; set; }
     private RuntimeBattleField _battleField;
     private UserBaseData _userData;
     private UserBaseData _opponentData;
@@ -60,6 +64,14 @@ public class PvpRoom
         lock(_lock)
         {
             _battleField.ReleaseBattleField();
+        }
+    }
+
+    public UpdateCastleDataMessage GetCastleData()
+    {
+        lock(_lock)
+        {
+            return _battleField.CreateCastleDataMessage();
         }
     }
 

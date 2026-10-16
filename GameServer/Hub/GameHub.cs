@@ -55,4 +55,21 @@ public class GameHub : Hub
 
         return _roomService.SpawnUnit(Context.ConnectionId, unitId);
     }
+
+    public async Task RequestCastleData()
+    {
+        await _roomService.SendCastleData(Context.ConnectionId);
+    }
+
+    public async Task RequestLeaveRoom()
+    {
+        await _roomService.LeaveRoom(Context.ConnectionId);
+    }
+
+    public override async Task OnDisconnectedAsync(Exception? exception)
+    {
+        _matchingService.CancelMatch(Context.ConnectionId);
+        await _roomService.LeaveRoom(Context.ConnectionId);
+        await base.OnDisconnectedAsync(exception);
+    }
 }

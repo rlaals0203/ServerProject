@@ -5,13 +5,15 @@ public class GameRoomService
 {
     private DbManager _dbManager;
     private IHubContext<GameHub> _hubContext;
+    private PvpRankingService _rankingService;
     private ConcurrentDictionary<string, PvpRoom> _rooms = new();
     private ConcurrentDictionary<string, PvpRoom> _roomsByConnection = new();
 
-    public GameRoomService(DbManager dbManager, IHubContext<GameHub> hubContext)
+    public GameRoomService(DbManager dbManager, IHubContext<GameHub> hubContext, PvpRankingService rankingService)
     {
         _dbManager = dbManager;
         _hubContext = hubContext;
+        _rankingService = rankingService;
     }
 
     public async Task<bool> CreateRoom(MatchingUserData userInfo, MatchingUserData opponentInfo, string roomId)
@@ -60,6 +62,14 @@ public class GameRoomService
         return room.SpawnUnit(connectionId, unitId);
     }
 
+    public async Task SendCastleData(string connectionId)
+    {
+        if(_roomsByConnection.TryGetValue(connectionId, out var room) == false)
+            return;
+
+        await _hubContext.Clients.Client(connectionId).SendAsync(UpdateCastleDataMessage.ROUTE, room.GetCastleData());
+    }
+
     public async Task UpdateRoom(float dt)
     {
         foreach(var room in _rooms)
@@ -70,23 +80,40 @@ public class GameRoomService
         await SendMessageToClient();
     }
 
-    public async Task DestroyRoom(string roomId)
+    public void DestroyRoom(string roomId)
     {
         if(_rooms.Count == 0)
             return;
 
         if(_rooms.TryRemove(roomId, out var room))
         {
-            _roomsByConnection.TryRemove(room.UserConnectionId, out _);
-            _roomsByConnection.TryRemove(room.OpponentUserConnectionId, out _);
             room.DestroyRoom();
         }
+    }
+
+    public async Task LeaveRoom(string connectionId)
+    {
+        if(_roomsByConnection.TryRemove(connectionId, out var room) == false)
+            return;
+
+        await _hubContext.Groups.RemoveFromGroupAsync(connectionId, room.RoomId);
+
+        if(_roomsByConnection.TryGetValue(connectionId == room.UserConnectionId ? room.OpponentUserConnectionId : room.UserConnectionId, out var otherRoom) && otherRoom == room)
+            return;
+
+        DestroyRoom(room.RoomId);
     }
 
     private async Task SendMessageToClient()
     {
         foreach(var room in _rooms.Values)
         {
+            if(room.IsComplete && room.IsRankProcessed == false)
+            {
+                room.IsRankProcessed = true;
+                _ = _rankingService.UpdateRanking(room.IsOpponentWinner ? room.OpponentUserId : room.UserId, room.Point);
+            }
+
             while(room.TryGetMessage(out var message))
             {
                 await _hubContext.Clients.Group(message.RoomId).SendAsync(message.Route, message);

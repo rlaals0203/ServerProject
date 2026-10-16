@@ -25,6 +25,11 @@ public class PVPBattleField : MonoBehaviour
         _isOpponent = GlobalInstance.I.IsPvpOpponent;
     }
 
+    private async void Start()
+    {
+        await SignalRClient.I.SendMessageToServer("RequestCastleData");
+    }
+
     private void HandlePlayHitEffect(PlayHitEffectDataMessage message)
     {
         float x = _isOpponent ? -message.PosX : message.PosX;

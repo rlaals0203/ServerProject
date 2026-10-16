@@ -14,6 +14,9 @@ public class RuntimeBattleField
     private int _runtimeId = 2;
     private float _maxUnitCastleHealth;
     private float _maxOpponentCastleHealth;
+    public bool IsComplete { get; private set; }
+    public bool IsOpponentWinner { get; private set; }
+    public int Point { get; private set; }
 
     private const float SpawnX = 6.8f;
     private const float SpawnY = -2f;
@@ -29,7 +32,6 @@ public class RuntimeBattleField
         _moneyHandler = new MoneyHandler(userData, opponentData);
         _unitSpawnHandler = new UnitSpawnHandler(userData.UserUnitData, opponentData.UserUnitData);
         InitailizeCastle(userData, opponentData);
-        AddMessage(UpdateCastleDataMessage.ROUTE, CreateCastleDataMessage());
     }
 
     private void InitailizeCastle(UserBaseData userData, UserBaseData opponentData)
@@ -52,6 +54,18 @@ public class RuntimeBattleField
     {
         if(unit is not Castle)
             return;
+
+        HandleUnitHit(unit);
+
+        if(IsComplete)
+            return;
+
+        if(unit.Get<HealthComponent>().GetCurrentHealth() <= 0)
+        {
+            IsComplete = true;
+            IsOpponentWinner = unit.IsOpponent == false;
+            Point = Random.Shared.Next(5, 12);
+        }
 
         AddMessage(UpdateCastleDataMessage.ROUTE, CreateCastleDataMessage());
     }
@@ -124,7 +138,7 @@ public class RuntimeBattleField
         }
     }
 
-    private UpdateCastleDataMessage CreateCastleDataMessage()
+    public UpdateCastleDataMessage CreateCastleDataMessage()
     {
         return new UpdateCastleDataMessage()
         {
@@ -141,7 +155,8 @@ public class RuntimeBattleField
                 MaxHealth = _maxOpponentCastleHealth,
                 PositionX = _opponentCastle.Position.X,
                 PositionY = _opponentCastle.Position.Y
-            }
+            },
+            Point = Point
         };
     }
 

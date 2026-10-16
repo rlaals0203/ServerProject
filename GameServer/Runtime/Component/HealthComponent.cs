@@ -37,7 +37,7 @@ public class HealthComponent : ComponentBase
            OnHitback?.Invoke();
         }
 
-        if (_healthStat.CurrentStat <= 0 && _owner.IsDead == false)
+        if (_healthStat.CurrentStat <= 0 && _owner.IsDead == false && _owner is not Castle)
         {
             OnDead?.Invoke(_owner);
             _owner.SetDead();
