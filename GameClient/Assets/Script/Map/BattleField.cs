@@ -23,6 +23,7 @@ public class BattleField : MonoBehaviour
     private float _money;
     private int _maxMoney = 6000;
     private float _moneyMultiplier = 85f;
+    private int _stageNumber;
 
     private bool _battleFinished;
 
@@ -38,6 +39,7 @@ public class BattleField : MonoBehaviour
         _enemyPosition = new Vector3(-_mapData.CastleDistance, -1.8f, 0);
         _unitPosition = new Vector3(_mapData.CastleDistance, -1.8f, 0);
 
+        _stageNumber = Convert.ToInt32(_mapData.MapId);
         enemySpawner.Initialize(mapData, enemyList, _enemyPosition, HandleEnemyDead);
         unitSpawner.Initialize(_unitPosition, HandleUnitSpawn);
         SpawnCastle();
@@ -83,7 +85,17 @@ public class BattleField : MonoBehaviour
         stageCompAnim.PlayWinAnimation(_mapData.expDrop, CompleteBattle);
         _battleFinished = true;
 
+        if(GlobalInstance.I.MainUser.UserStageData <= _stageNumber)
+        {
+            await NetworkManager.I.SendUserCompleteStageRequest(_stageNumber, HandleCompleteStage);
+        }
+
         await NetworkManager.I.SendUserMonetaChangeRequest(EMonetaType.Exp, _mapData.expDrop, HandleReceiveExp);
+    }
+
+    private void HandleCompleteStage(UserCompleteStagePacketResultData data)
+    {
+        GlobalInstance.I.MainUser.UserStageData = data.StageNumber;
     }
 
     private void HandleReceiveExp(UserMonetaChangePacketResultData data)

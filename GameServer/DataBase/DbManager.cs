@@ -10,7 +10,7 @@ public class DbManager
         dbList.Add(EDbType.PvpRankingData, new PvpRankingDataDbInfo(mongoClient, loggerFactory));
     }
 
-    public async Task<EDbResult> SaveDataAsync<DbType>(DbType data, EDbType dbType, string dbKey) where DbType : class
+    public async Task<EDbResult> SaveDataAsync<DbType>(EDbType dbType, DbType data, string dbKey) where DbType : class
     {
         if(dbList.TryGetValue(dbType, out var dbData) == false)
         {

@@ -31,7 +31,7 @@ namespace GameServer
 
                 IsNewUser = true;
                 new UserDataCheck(UserData, unitData);
-                await dbManager.SaveDataAsync(UserData, EDbType.BaseUserData, userId);
+                await dbManager.SaveDataAsync(EDbType.BaseUserData, UserData, userId);
                 return Result;
             }
 
@@ -43,7 +43,7 @@ namespace GameServer
                 
             IsNewUser = false;
             new UserDataCheck(UserData, unitData);
-            await dbManager.SaveDataAsync(UserData, EDbType.BaseUserData, userId);
+            await dbManager.SaveDataAsync(EDbType.BaseUserData, UserData, userId);
             return Result;
         }
     }

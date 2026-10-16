@@ -30,7 +30,7 @@ public partial class BasePacketController : ControllerBase
             UnitId = process.UnitId
         };
 
-        await dbManager.SaveDataAsync(userBaseData, EDbType.BaseUserData, request.LoginUserId);
+        await dbManager.SaveDataAsync(EDbType.BaseUserData, userBaseData, request.LoginUserId);
         return resultData;
     }
 

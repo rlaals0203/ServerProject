@@ -77,7 +77,12 @@ public class GameRoomService
             room.Value.UpdateRoom(dt);
         }
 
-        await SendMessageToClient();
+        SendMessageToClient();
+    }
+
+    public async void SendMessageToClient()
+    {
+        await SendMessageToClientAsync();
     }
 
     public void DestroyRoom(string roomId)
@@ -104,14 +109,14 @@ public class GameRoomService
         DestroyRoom(room.RoomId);
     }
 
-    private async Task SendMessageToClient()
+    private async Task SendMessageToClientAsync()
     {
         foreach(var room in _rooms.Values)
         {
             if(room.IsComplete && room.IsRankProcessed == false)
             {
                 room.IsRankProcessed = true;
-                _ = _rankingService.UpdateRanking(room.IsOpponentWinner ? room.OpponentUserId : room.UserId, room.Point);
+                UpdateRanking(room.IsOpponentWinner ? room.OpponentUserId : room.UserId, room.Point);
             }
 
             while(room.TryGetMessage(out var message))
@@ -119,5 +124,10 @@ public class GameRoomService
                 await _hubContext.Clients.Group(message.RoomId).SendAsync(message.Route, message);
             }
         }
+    }
+
+    private async void UpdateRanking(string userId, int point)
+    {
+        await _rankingService.UpdateRanking(userId, point);
     }
 }

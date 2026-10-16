@@ -21,7 +21,7 @@ public class RequestUserMonetaChangeProcess : BasePacketProcess
         Amount = moneta + amount;
         MonetaType = monetaType;
 
-        await dbManager.SaveDataAsync(userBaseData, EDbType.BaseUserData, userBaseData.UserId);
+        await dbManager.SaveDataAsync(EDbType.BaseUserData, userBaseData, userBaseData.UserId);
         return Result;
     }
 }

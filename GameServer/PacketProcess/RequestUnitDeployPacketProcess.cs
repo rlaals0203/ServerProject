@@ -64,7 +64,7 @@ namespace GameServer
                 userUnitData.DeployUnitList[deployed.Key] = userUnitData.OwnUnitList[deployed.Value];
             }
             
-            var dbResult = await dbManager.SaveDataAsync(userData, EDbType.BaseUserData, userData.UserId);
+            var dbResult = await dbManager.SaveDataAsync(EDbType.BaseUserData, userData, userData.UserId);
 
             if(dbResult == EDbResult.Fail)
             {

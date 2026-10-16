@@ -32,7 +32,7 @@ public class PvpRankingService
             _cachedRanking.Ranks.Add(userId, rankData);
         }
 
-        await _dbManager.SaveDataAsync(_cachedRanking, EDbType.PvpRankingData, "PvpRanking");
+        await _dbManager.SaveDataAsync(EDbType.PvpRankingData, _cachedRanking, "PvpRanking");
         return rankData;
     }
 

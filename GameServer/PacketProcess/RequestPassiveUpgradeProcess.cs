@@ -39,7 +39,7 @@ public class RequestPassiveUpgradeProcess : BasePacketProcess
         Level = passiveLevel + 1;
         UpgradePrice = upgradePrice;
 
-        await dbManager.SaveDataAsync(userBaseData, EDbType.BaseUserData, userBaseData.UserId);
+        await dbManager.SaveDataAsync(EDbType.BaseUserData, userBaseData, userBaseData.UserId);
         return Result;
     }
 }

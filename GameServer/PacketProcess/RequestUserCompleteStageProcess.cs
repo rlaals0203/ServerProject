@@ -10,8 +10,14 @@ public class RequestUserCompleteStageProcess : BasePacketProcess
             return Result;
         }
 
-        userBaseData.UserStageData = stageNumber++;
-        await dbManager.SaveDataAsync(userBaseData, EDbType.BaseUserData, userBaseData.UserId);
+        if(stageNumber == -1)
+        {
+            Result = EPacketResult.InvalidRequest;
+            return Result;
+        }
+
+        userBaseData.UserStageData = stageNumber + 1;
+        await dbManager.SaveDataAsync(EDbType.BaseUserData, userBaseData, userBaseData.UserId);
         
         StageNumber = userBaseData.UserStageData;
         return Result;

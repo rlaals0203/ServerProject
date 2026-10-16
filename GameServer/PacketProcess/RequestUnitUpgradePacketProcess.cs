@@ -54,7 +54,7 @@ namespace GameServer
             
             userData.UserMonetaData[EMonetaType.Exp.ToString()] -= upgradePrice;
             userData.UserUnitData.OwnUnitList[unitId] = new UpdateUnitData(unit.UnitStatData, UnitLevel).UnitData;
-            await dbManager.SaveDataAsync(userData, EDbType.BaseUserData, userData.UserId);
+            await dbManager.SaveDataAsync(EDbType.BaseUserData, userData, userData.UserId);
             return Result;
         }
     }
