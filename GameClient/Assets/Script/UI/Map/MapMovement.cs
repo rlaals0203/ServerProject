@@ -7,7 +7,7 @@ public class MapMovement : MonoBehaviour
     [SerializeField] private GameObject target;
     [SerializeField] private GameObject targetUnit;
     [SerializeField] private Transform redDotParent;
-    [SerializeField] private float moveSpeed = 50f;
+    [SerializeField] private float moveSpeed = 75f;
     
     [SerializeField] private GameObject[] redDots;
     private Queue<Vector3> _destinationQueue = new();

@@ -21,8 +21,8 @@ public class PVPBattleField : MonoBehaviour
         _battleSubscription = SignalRClient.I.SubscribeToHub<PVPBattleInfoDataMessage>(PVPBattleInfoDataMessage.ROUTE, HandleUpdateUnits);
         _castleSubscription = SignalRClient.I.SubscribeToHub<UpdateCastleDataMessage>(UpdateCastleDataMessage.ROUTE, HandleUpdateCastle);
         _hitEffectSubscription = SignalRClient.I.SubscribeToHub<PlayHitEffectDataMessage>(PlayHitEffectDataMessage.ROUTE, HandlePlayHitEffect);
-        _unitRenderer = new PVPUnitRenderer(unitSOList);
         _isOpponent = GlobalInstance.I.IsPvpOpponent;
+        _unitRenderer = new PVPUnitRenderer(unitSOList);
     }
 
     private async void Start()

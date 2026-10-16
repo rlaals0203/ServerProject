@@ -8,8 +8,8 @@ using UnityEngine;
 public class SignalRClient : MonoSingleton<SignalRClient>
 {
     private const string HUB_URL = "http://localhost:5200/gamehub";
-    private HubConnection _connection;
     private readonly SemaphoreSlim _lock = new(1, 1);
+    private HubConnection _connection;
     private SynchronizationContext _unityContext;
 
     protected override void Awake()

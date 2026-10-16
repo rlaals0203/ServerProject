@@ -49,7 +49,7 @@ public class BattleField : MonoBehaviour
 
         _money += Time.deltaTime * _moneyMultiplier;
         _money = Mathf.Clamp(_money, 0, _maxMoney);
-        moneyText.text = $"{(int)_money}/{_maxMoney}";
+        moneyText.text = $"{(int)_money}¿ø";
     }
 
     private void HandleUnitSpawn(int cost)

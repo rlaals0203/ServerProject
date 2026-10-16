@@ -1270,9 +1270,53 @@ PrefabInstance:
       propertyPath: bottomUI
       value: 
       objectReference: {fileID: 1504137578224340956}
+    - target: {fileID: 3334869537346434769, guid: 504bad3cd829cae4fa6f396b86644b0d, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.9719347
+      objectReference: {fileID: 0}
+    - target: {fileID: 3334869537346434769, guid: 504bad3cd829cae4fa6f396b86644b0d, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3334869537346434769, guid: 504bad3cd829cae4fa6f396b86644b0d, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.6839622
+      objectReference: {fileID: 0}
+    - target: {fileID: 3334869537346434769, guid: 504bad3cd829cae4fa6f396b86644b0d, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294508462
+      objectReference: {fileID: 0}
+    - target: {fileID: 3334869537346434769, guid: 504bad3cd829cae4fa6f396b86644b0d, type: 3}
+      propertyPath: m_fontColorGradient.bottomLeft.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3334869537346434769, guid: 504bad3cd829cae4fa6f396b86644b0d, type: 3}
+      propertyPath: m_fontColorGradient.bottomLeft.g
+      value: 0.5551176
+      objectReference: {fileID: 0}
+    - target: {fileID: 3334869537346434769, guid: 504bad3cd829cae4fa6f396b86644b0d, type: 3}
+      propertyPath: m_fontColorGradient.bottomLeft.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3334869537346434769, guid: 504bad3cd829cae4fa6f396b86644b0d, type: 3}
+      propertyPath: m_fontColorGradient.bottomRight.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3334869537346434769, guid: 504bad3cd829cae4fa6f396b86644b0d, type: 3}
+      propertyPath: m_fontColorGradient.bottomRight.g
+      value: 0.5568628
+      objectReference: {fileID: 0}
+    - target: {fileID: 3334869537346434769, guid: 504bad3cd829cae4fa6f396b86644b0d, type: 3}
+      propertyPath: m_fontColorGradient.bottomRight.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4256451212816939667, guid: 504bad3cd829cae4fa6f396b86644b0d, type: 3}
       propertyPath: m_Name
       value: StageCompleteAnimatino
+      objectReference: {fileID: 0}
+    - target: {fileID: 5649557398269692297, guid: 504bad3cd829cae4fa6f396b86644b0d, type: 3}
+      propertyPath: m_text
+      value: "\uD3EC\uC778\uD2B8"
       objectReference: {fileID: 0}
     - target: {fileID: 6252736358973611762, guid: 504bad3cd829cae4fa6f396b86644b0d, type: 3}
       propertyPath: m_Pivot.x
@@ -1435,30 +1479,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2096909219593682994, guid: f24801dcd64e71e4f90b5cf593a033b6, type: 3}
-      propertyPath: m_enableVertexGradient
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2096909219593682994, guid: f24801dcd64e71e4f90b5cf593a033b6, type: 3}
-      propertyPath: m_fontColorGradient.bottomLeft.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2096909219593682994, guid: f24801dcd64e71e4f90b5cf593a033b6, type: 3}
-      propertyPath: m_fontColorGradient.bottomLeft.g
-      value: 0.64280605
-      objectReference: {fileID: 0}
-    - target: {fileID: 2096909219593682994, guid: f24801dcd64e71e4f90b5cf593a033b6, type: 3}
-      propertyPath: m_fontColorGradient.bottomLeft.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2096909219593682994, guid: f24801dcd64e71e4f90b5cf593a033b6, type: 3}
-      propertyPath: m_fontColorGradient.bottomRight.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2096909219593682994, guid: f24801dcd64e71e4f90b5cf593a033b6, type: 3}
-      propertyPath: m_fontColorGradient.bottomRight.g
-      value: 0.6431373
-      objectReference: {fileID: 0}
     - target: {fileID: 3616982145451946078, guid: f24801dcd64e71e4f90b5cf593a033b6, type: 3}
       propertyPath: m_Pivot.x
       value: 0

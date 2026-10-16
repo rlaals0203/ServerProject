@@ -123,7 +123,7 @@ MonoBehaviour:
   target: {fileID: 4079980587414637212}
   targetUnit: {fileID: 3682493330008958713}
   redDotParent: {fileID: 7331439676501212712}
-  moveSpeed: 50
+  moveSpeed: 75
   redDots:
   - {fileID: 3817166530440318030}
   - {fileID: 8316689637464888695}
@@ -322,8 +322,8 @@ MonoBehaviour:
   m_DeadZoneHeight: 0
   m_DeadZoneDepth: 0
   m_UnlimitedSoftZone: 0
-  m_SoftZoneWidth: 0.8
-  m_SoftZoneHeight: 0.8
+  m_SoftZoneWidth: 2
+  m_SoftZoneHeight: 2
   m_BiasX: 0
   m_BiasY: 0
   m_CenterOnActivate: 1

@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitId: 5
   UnitName: "\uD669\uC18C \uACE0\uC591\uC774"
-  UnitDesc: "\uB9E4\uC6B0 \uBE60\uB978 \uC774\uB3D9\uC18D\uB3C4\uB85C \uC804\uC120\uC744
-    \uD30C\uACE0\uB4DC\uB294 \uC720\uB2DB"
+  UnitDesc: "\uBBFC\uCCA9\uD55C \uC6C0\uC9C1\uC784\uC73C\uB85C \uC774\uB3D9\uB825\uC774
+    \uB6F0\uC5B4\uB09C \uCE90\uB9AD\uD130 \uACF5\uACA9\uD69F\uC218\uB3C4 \uC7A5\uB09C\uC774
+    \uC544\uB2C8\uB2E4"
   UnitGrade: 0
   UnitIcon: {fileID: 21300000, guid: 7aa9399f90b85bd43af1dac0426c0d52, type: 3}
   UnlockPrice: 4000

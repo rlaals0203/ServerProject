@@ -76,17 +76,17 @@ public class UserUnitDataCheck
             UnitData starterUnit5 = new UpdateUnitData(unitData.GetUnitById("5"), 1).UnitData;
             userData.UserUnitData.OwnUnitList.Add("5", starterUnit5);
 
-            UnitData starterUnit6 = new UpdateUnitData(unitData.GetUnitById("6"), 1).UnitData;
-            userData.UserUnitData.OwnUnitList.Add("6", starterUnit6);
+            // UnitData starterUnit6 = new UpdateUnitData(unitData.GetUnitById("6"), 1).UnitData;
+            // userData.UserUnitData.OwnUnitList.Add("6", starterUnit6);
 
-            UnitData starterUnit7 = new UpdateUnitData(unitData.GetUnitById("7"), 1).UnitData;
-            userData.UserUnitData.OwnUnitList.Add("7", starterUnit7);
+            // UnitData starterUnit7 = new UpdateUnitData(unitData.GetUnitById("7"), 1).UnitData;
+            // userData.UserUnitData.OwnUnitList.Add("7", starterUnit7);
 
-            UnitData starterUnit8 = new UpdateUnitData(unitData.GetUnitById("8"), 1).UnitData;
-            userData.UserUnitData.OwnUnitList.Add("8", starterUnit8);
+            // UnitData starterUnit8 = new UpdateUnitData(unitData.GetUnitById("8"), 1).UnitData;
+            // userData.UserUnitData.OwnUnitList.Add("8", starterUnit8);
 
-            UnitData starterUnit9 = new UpdateUnitData(unitData.GetUnitById("9"), 1).UnitData;
-            userData.UserUnitData.OwnUnitList.Add("9", starterUnit9);
+            // UnitData starterUnit9 = new UpdateUnitData(unitData.GetUnitById("9"), 1).UnitData;
+            // userData.UserUnitData.OwnUnitList.Add("9", starterUnit9);
         }
     }
 }

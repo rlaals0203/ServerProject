@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitId: 3
   UnitName: "\uBC30\uD2C0 \uACE0\uC591\uC774"
-  UnitDesc: 
+  UnitDesc: "\uC804\uD22C\uC6A9 \uCE90\uB9AD\uD130 \uBE68\uAC04 \uC801\uC5D0 \uC5C4\uCCAD
+    \uAC15\uD558\uB2E4"
   UnitGrade: 0
   UnitIcon: {fileID: 21300000, guid: d27ce0a9fbbec134897d2a23d9bca505, type: 3}
   UnlockPrice: 1600
@@ -43,7 +44,7 @@ MonoBehaviour:
       Chance: 0
       Duration: 0
     - AbilityType: 32
-      Chance: 1
+      Chance: 0.4
       Duration: 1
   isDefaultUnit: 0
   animator: {fileID: 22100000, guid: 8cd42fece154f2a4e8be8a3050c6f7c6, type: 2}

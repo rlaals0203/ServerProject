@@ -74,7 +74,7 @@ public class RuntimeUnit : ObjectBase
         OnDead?.Invoke(this);
         Release();
     }
-
+  
     public override void Release()
     {
         OnDead = null;

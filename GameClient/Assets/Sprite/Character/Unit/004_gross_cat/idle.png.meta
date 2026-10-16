@@ -126,12 +126,12 @@ TextureImporter:
       name: idle_00
       rect:
         serializedVersion: 2
-        x: 109
+        x: 0
         y: 0
-        width: 265
+        width: 374
         height: 448
       alignment: 9
-      pivot: {x: 0.5, y: 0}
+      pivot: {x: 0.7, y: 0.08}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

@@ -2,19 +2,20 @@ using Microsoft.AspNetCore.SignalR;
 
 public class PvpRoom
 {
+    public int Point => _battleField.Point;
+    private RuntimeBattleField _battleField;
+    private UserBaseData _userData;
+    private UserBaseData _opponentData;
+    private readonly object _lock = new();
+
     public string UserId { get; set; }
     public string UserConnectionId { get; set; }
     public string OpponentUserId { get; set; }
     public string OpponentUserConnectionId { get; set; }
     public string RoomId { get; set; }
+    public bool IsRankProcessed { get; set; }
     public bool IsComplete => _battleField.IsComplete;
     public bool IsOpponentWinner => _battleField.IsOpponentWinner;
-    public int Point => _battleField.Point;
-    public bool IsRankProcessed { get; set; }
-    private RuntimeBattleField _battleField;
-    private UserBaseData _userData;
-    private UserBaseData _opponentData;
-    private readonly object _lock = new();
 
     public PvpRoom(UserBaseData userData, UserBaseData opponentdata)
     {

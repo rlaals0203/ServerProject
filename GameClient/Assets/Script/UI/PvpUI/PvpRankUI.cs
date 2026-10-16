@@ -16,7 +16,7 @@ public class PvpRankUI : ContentUI
 
     private void HandleLoadRanking(GetPvpRankPacketResultData data)
     {
-        var rankList = data.RankingData.Ranks.Values.OrderBy(rank => rank.Point);
+        var rankList = data.RankingData.Ranks.Values.OrderByDescending(rank => rank.Point);
         Queue<PvpRankUIElement> elementQueue = new();
         int count = 1;
 
