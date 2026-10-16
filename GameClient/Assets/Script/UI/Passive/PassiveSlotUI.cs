@@ -11,6 +11,8 @@ public class PassiveSlotUI : UpgradeSlotUI
     [SerializeField] protected Image unitIcon;
     [SerializeField] protected GameObject unitUpgradeUI;
 
+    [SerializeField] private Sprite[] passiveIcons;
+
     private EPassiveType _passiveType;
 
     public void RefreshUI(EPassiveType passiveType, PassiveSO passiveSO)
@@ -24,6 +26,7 @@ public class PassiveSlotUI : UpgradeSlotUI
         unitUpgradeCost.text = new GetUnitUpgradePrice(GameDefine.PassiveStartPrice, currentLevel).Price.ToString();
         unitNameText.text = passiveSO.PassiveName;
         maxLevelText.gameObject.SetActive(false);
+        unitIcon.sprite = passiveIcons[(int)passiveType];
 
         if (currentLevel == GameDefine.PassiveMaxLevel)
         {

@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PassiveType: 5
   PassiveIcon: {fileID: 0}
-  PassiveName: "\uAE30\uBCF8 \uC131 \uCCB4\uB825"
-  PassiveDesc: 
+  PassiveName: "\uC131 \uCCB4\uB825"
+  PassiveDesc: "\uB0E5\uCF54 \uC131\uC758 \uCCB4\uB825\uC774 \uC0C1\uC2B9\uD569\uB2C8\uB2E4"

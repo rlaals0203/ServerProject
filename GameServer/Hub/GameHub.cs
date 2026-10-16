@@ -48,6 +48,12 @@ public class GameHub : Hub
         });
     }
 
+    public async Task RequestLeaveMatch()
+    {
+        string connectionId = Context.ConnectionId;
+        _matchingService.CancelMatch(connectionId);
+    }
+
     public bool RequestSpawnUnit(string unitId)
     {
         if(string.IsNullOrEmpty(unitId))

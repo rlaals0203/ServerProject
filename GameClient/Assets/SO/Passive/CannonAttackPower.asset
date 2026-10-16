@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PassiveType: 0
   PassiveIcon: {fileID: 0}
-  PassiveName: "\uB300\uD3EC \uACF5\uACA9\uB825"
-  PassiveDesc: 
+  PassiveName: "\uB0E5\uCF54 \uB300\uD3EC \uACF5\uACA9\uB825"
+  PassiveDesc: "\uACF5\uACA9\uB825\uC774 \uC0C1\uC2B9\uD569\uB2C8\uB2E4 \uB2E8, \uCDA9\uC804\uC2DC\uAC04\uC774
+    \uC57D\uAC04 \uB298\uC5B4\uB0A9\uB2C8\uB2E4"

@@ -78,6 +78,7 @@ public class BattleField : MonoBehaviour
         if (_battleFinished)
             return;
 
+        enemySpawner.ReleaseSpawner();
         mapCamera.FocusOn(isEnemyCastle ? _enemyCastle.GetCameraTrm() : _unitCastle.GetCameraTrm());
         stageCompAnim.PlayWinAnimation(_mapData.expDrop, CompleteBattle);
         _battleFinished = true;
@@ -94,7 +95,6 @@ public class BattleField : MonoBehaviour
 
     public void CompleteBattle()
     {
-        enemySpawner.ReleaseSpawner();
         unitSpawner.ReleaseSpawner();
 
         ResourceManager.I.DespawnPool(_unitCastle.gameObject);

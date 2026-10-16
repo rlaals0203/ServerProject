@@ -7,6 +7,8 @@ public class EnemySpawner : MonoBehaviour
 {
     private List<SpawnSchedule> _spawnShcedules = new();
 
+    private bool _isStopped;
+
     private Vector3 _spawnPosition;
     private List<Unit> _enemyList = new();
     private Action<int> _onEnemyDead;
@@ -29,6 +31,9 @@ public class EnemySpawner : MonoBehaviour
 
     public void UpdateSpawner()
     {
+        if (_isStopped)
+            return;
+
         foreach (var schedule in _spawnShcedules)
         {
             schedule.UpdateSchedule(Time.deltaTime);
@@ -53,6 +58,8 @@ public class EnemySpawner : MonoBehaviour
 
     public void ReleaseSpawner()
     {
+        _isStopped = true;
+
         foreach (var schedule in _spawnShcedules)
         {
             schedule.OnSpawnEnemy -= HandleSpawnEnemy;

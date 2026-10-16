@@ -14,14 +14,14 @@ public class PvpUI : ContentUI
         base.Awake();
         _subscription = SignalRClient.I.SubscribeToHub<JoinMatchResultData>(JoinMatchResultData.CONNECTION, OnRecieveResult);
     }
-    public override void Initialize()
-    {
-        SendMessage();
-    }
-
-    private async void SendMessage()
+    public override async void Initialize()
     {
         await SignalRClient.I.SendMessageToServer("RequestJoinMatch", GlobalInstance.I.MainUser.UserId);
+    }
+
+    public override async void OnTouchGoBack()
+    {
+        await SignalRClient.I.SendMessageToServer("RequestLeaveMatch", GlobalInstance.I.MainUser.UserId);
     }
 
     private void OnRecieveResult(JoinMatchResultData data)

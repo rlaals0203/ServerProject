@@ -60,6 +60,7 @@ public class MainMenuUI : MonoBehaviour
 
         ContentUI ui = _openedContents.Pop();
         ui.gameObject?.SetActive(false);
+        ui.OnTouchGoBack();
         RefreshContentSiblingIndex();
     }
 

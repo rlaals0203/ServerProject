@@ -9,7 +9,7 @@ public class ContentUI : UIBase
         base.Awake();
     }
 
-    public virtual void Initialize()
-    {
-    }
+    public virtual void Initialize() { }
+
+    public virtual void OnTouchGoBack() { }
 }

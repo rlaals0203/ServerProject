@@ -78,7 +78,7 @@ public class UnitDeckSlotUI : UIBase
 
         remainCooldown = Mathf.Clamp(remainCooldown, 0f, _unitCooltime);
         _canSpawn = remainCooldown <= 0f && money >= _unitData.UnitCost;
-        cooldownBar.gameObject.SetActive(remainCooldown > 0f);
+        cooldownBar?.gameObject.SetActive(remainCooldown > 0f);
         costText.gameObject.SetActive(remainCooldown <= 0f);
 
         if(remainCooldown > 0f)
