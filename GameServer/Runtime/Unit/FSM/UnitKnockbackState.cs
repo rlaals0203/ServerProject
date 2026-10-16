@@ -7,7 +7,7 @@ public class UnitKnockbackState : UnitState
     public override void EnterState()
     {
         base.EnterState();
-        _owner.Collider.Enabled = false;
+        _owner.Collider.Enabled = _owner.IsFreeze;
     }
 
     public override void UpdateState(float dt)

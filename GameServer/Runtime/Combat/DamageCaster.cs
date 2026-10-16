@@ -5,6 +5,7 @@ public class DamageCaster
     private AbilityComponent _abilityCompo;
     private StatComponent _statCompo;
     private ELayer _targetLayer;
+    private bool _isSingleAttack;
 
     private StatBase _attackPowerStat;
     private StatBase _attackRangeStat;
@@ -24,6 +25,7 @@ public class DamageCaster
         _detectRangeStat = _statCompo.GetStat(EStatType.DetectRange);
 
         _targetLayer = _owner.IsOpponent ? ELayer.Unit : ELayer.Enemy;
+        _isSingleAttack = owner.UnitData.UnitStatData.UnitSpecialAbilityData.SpecialAbilityDatas.Any(ability => ability.AbilityType == ESpecialAbilityType.SingleAttack);
     }
 
     public void CastDamage()
@@ -49,6 +51,9 @@ public class DamageCaster
             {
                 healthCompo.ApplyDamage(finalDamage);
             }
+
+            if(_isSingleAttack)
+                return;
         }
     }
 
