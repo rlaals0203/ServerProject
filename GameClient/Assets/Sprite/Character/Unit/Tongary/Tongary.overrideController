@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Tongary
+  m_Controller: {fileID: 9100000, guid: 9851ae5c7e5c6e3418589a40b8b39fb0, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: c1ab46538c0843343b9f68cf4c19e38e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: a1718e98f07ea6b43b806c81f7174a9f, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: bc38bb47f40bf204aa04db978d9fa1e7, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 44335994cd8cd804090a7f8f7c1921c8, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 2cc2125b6af924c4c91ca6ceb10bec92, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 2d26950f80423db4d89e4117ab0fbfef, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 16b3682f4bae05140a1804eca7875eaf, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: b25c817c20416924691c4595b44876bc, type: 2}

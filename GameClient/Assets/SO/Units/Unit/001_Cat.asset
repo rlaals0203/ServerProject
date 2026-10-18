@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3414ad79fb821784d9437dfed62a318e, type: 3}
   m_Name: 001_Cat
   m_EditorClassIdentifier: 
-  UnitId: 1
+  UnitId: 5
   UnitName: "\uACE0\uC591\uC774"
   UnitDesc: "\uC800\uAC00\uC0DD\uC0B0 \uAC00\uB2A5\uD55C \uAE30\uBCF8 \uCE90\uB9AD\uD130"
   UnitGrade: 0

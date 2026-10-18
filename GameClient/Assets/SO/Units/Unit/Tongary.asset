@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3414ad79fb821784d9437dfed62a318e, type: 3}
+  m_Name: Tongary
+  m_EditorClassIdentifier: 
+  UnitId: 1
+  UnitName: "\uD1A4\uAC00\uB9AC"
+  UnitDesc: "\uC800\uAC00\uC0DD\uC0B0 \uAC00\uB2A5\uD55C \uAE30\uBCF8 \uCE90\uB9AD\uD130"
+  UnitGrade: 0
+  UnitIcon: {fileID: -1361808172, guid: d79b3ac8755465f4fa6ee0e1c350173e, type: 3}
+  UnlockPrice: 0
+  UpgradePrice: 400
+  UnitCost: 50
+  UnitType: 0200
+  UnitCooldown: 2
+  UnitMoveSpeed: 0.8
+  UnitHitbackCount: 3
+  UnitDropMoneyAmount: 0
+  UnitAttackPower: 8
+  UnitHealth: 100
+  UnitCastTime: 0.266
+  UnitAttackAnimTime: 0.533
+  UnitAttackRange: 1
+  UnitAttackDistance: 0.2
+  DetectRange: 1.2
+  AttackSpeed: 2.3333
+  UnitSpecialAbilityData:
+    TargetTypes: 
+    SpecialAbilityDatas:
+    - AbilityType: 2
+      Chance: 0
+      Duration: 0
+  isDefaultUnit: 1
+  animator: {fileID: 22100000, guid: 86a6388dbc3e44b4e85b951cd67cc0cc, type: 2}
